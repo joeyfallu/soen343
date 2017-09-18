@@ -8,6 +8,21 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+
+//mySQL
+var mysql = require('mysql');
+var db = mysql.createConnection({
+  host: "localhost",
+  user: "admin",
+  password: "admin"
+});
+db.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
+
+
+
 var app = express();
 
 // view engine setup
