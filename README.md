@@ -17,4 +17,4 @@ http://343electronics.com
 
 ## How to Setup the Server
 
-Please read [How to Setup the Server](https://github.com/joeyfallu/soen343/wiki/How-to-Setup-the-Server)
+Please read [How to Setup the Server](https://github.com/joeyfallu/soen343/wiki/1.-How-to-Setup-the-Server)
