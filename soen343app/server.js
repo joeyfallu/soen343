@@ -60,6 +60,14 @@ app.get('/get/name',function(req, res){
    })
 });
 
+// route for user logout
+app.get('/get/logout', (req, res) => {
+    if (req.session.user && req.cookies.user_sid) {
+        res.clearCookie('user_sid');
+        res.redirect('/');
+    }
+});
+
 // Handles all GET request paths except those handled above
 app.get('/get/*',function(req, res){
    res.send("GET request received - server");
@@ -75,6 +83,33 @@ app.post('/post/name', function (req, res){
       console.log("1 record inserted");
       res.send(results);
   });
+});
+
+
+//Login route (needs email and password as parameters in the req.body)
+app.post('/post/login',function (req, res){
+   var sql = "SELECT "+ * + " FROM Clients WHERE e-mail='" + req.body.email + "'";
+	db.query(sql, function (error, results, fields){
+     if (error)
+		res.send(error.code);
+	 if(results){
+		//email found
+      if(results.password == req.body.password ){
+         //Login Successful
+         //create a session (+ cookie)
+         //Redirect
+
+      }
+      else {
+         //Login Failed - Wrong password
+
+      }
+
+	 }
+	 else {
+		//Login Failed - Username not found
+
+	 }
 });
 
 //Handles all POST request paths except those handled above
