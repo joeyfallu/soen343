@@ -88,7 +88,7 @@ app.post('/post/name', function (req, res){
 
 //Login route (needs email and password as parameters in the req.body)
 app.post('/post/login',function (req, res){
-   var sql = "SELECT "+ * + " FROM Clients WHERE e-mail='" + req.body.email + "'";
+   var sql = "SELECT * FROM Clients WHERE e-mail='" + req.body.email + "'";
 	db.query(sql, function (error, results, fields){
      if (error)
 		res.send(error.code);
@@ -98,18 +98,15 @@ app.post('/post/login',function (req, res){
          //Login Successful
          //create a session (+ cookie)
          //Redirect
-
       }
       else {
          //Login Failed - Wrong password
-
       }
-
 	 }
 	 else {
 		//Login Failed - Username not found
-
 	 }
+   });
 });
 
 //Handles all POST request paths except those handled above
