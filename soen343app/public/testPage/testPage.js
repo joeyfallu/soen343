@@ -20,7 +20,7 @@ The data from the controller is sent to the model (html page) which will be disp
    //Instance Variables Declaration
    $scope.data = "";
    $scope.dataPost = "";
-   $scope.dataLogin = "";
+   $scope.dataLoginResponse = "";
 
    /*
    Adds an entry to the database by
@@ -64,7 +64,7 @@ The data from the controller is sent to the model (html page) which will be disp
       }
       $http.post(url,data)
       .then((res) => {
-         $scope.dataLogin = res.data;
+         $scope.dataLoginResponse = res.data;
       });
    }
 

@@ -112,11 +112,13 @@ app.post('/post/login',function (req, res){
       else {
          //Login Failed - Wrong password
          console.log("Wrong Password");
+         res.send("Wrong Password");
       }
 	 }
 	 else {
 		//Login Failed - Email not found
       console.log("Email not found")
+      res.send("Email not found");
 	 }
    });
 });
