@@ -117,7 +117,7 @@ app.post('/post/login',function (req, res){
 	 }
 	 else {
 		//Login Failed - Email not found
-      console.log("Email not found")
+      console.log("Email not found");
       res.send("Email not found");
 	 }
    });
