@@ -61,12 +61,15 @@ app.get('/get/name',function(req, res){
 });
 
 // route for user logout
+/*
 app.get('/get/logout', (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
         res.clearCookie('user_sid');
         res.redirect('/');
     }
 });
+*/
+
 
 // Handles all GET request paths except those handled above
 app.get('/get/*',function(req, res){
@@ -88,23 +91,32 @@ app.post('/post/name', function (req, res){
 
 //Login route (needs email and password as parameters in the req.body)
 app.post('/post/login',function (req, res){
-   var sql = "SELECT * FROM Clients WHERE e-mail='" + req.body.email + "'";
+   var sql = "SELECT * FROM Users WHERE Email='" + req.body.email + "'";
+   console.log("Query: " + sql);
 	db.query(sql, function (error, results, fields){
      if (error)
 		res.send(error.code);
-	 if(results){
+
+   //The query should return one result (email should be unique)
+   //result will hold one entry: result[0]
+   //result[0] has result[0].Email and result[0].Password (or equivalent values in DB)
+	 if(results[0] != undefined){
 		//email found
-      if(results.password == req.body.password ){
+      console.log(results[0].Email);
+      if(results[0].Password == req.body.password ){
          //Login Successful
          //create a session (+ cookie)
          //Redirect
+         console.log("Successful login");
       }
       else {
          //Login Failed - Wrong password
+         console.log("Wrong Password");
       }
 	 }
 	 else {
-		//Login Failed - Username not found
+		//Login Failed - Email not found
+      console.log("Email not found")
 	 }
    });
 });

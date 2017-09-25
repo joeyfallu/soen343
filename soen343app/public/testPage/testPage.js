@@ -20,6 +20,7 @@ The data from the controller is sent to the model (html page) which will be disp
    //Instance Variables Declaration
    $scope.data = "";
    $scope.dataPost = "";
+   $scope.dataLogin = "";
 
    /*
    Adds an entry to the database by
@@ -50,6 +51,21 @@ The data from the controller is sent to the model (html page) which will be disp
        $scope.data = res.data
 
      });
+   }
+
+   /*
+   Handles the login form
+   */
+   $scope.login = function(){
+      var url = "/post/login";
+      var data = {
+         email : $scope.email,
+         password : $scope.password
+      }
+      $http.post(url,data)
+      .then((res) => {
+         $scope.dataLogin = res.data;
+      });
    }
 
 }]);
