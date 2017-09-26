@@ -9,11 +9,15 @@ var bodyParser = require('body-parser');
 var app = express();
 
 //==================================================================
-// Importing Packages
+/*
+Importing Packages
+*/
 var mysql = require('mysql');
 
 //=====================================================================
-//Our modules
+/*
+Our Modules
+*/
 var store = require('./modules/store');
 
 //======================================================================
