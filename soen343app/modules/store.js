@@ -59,4 +59,15 @@ module.exports = {
       });
    },
 
+   /*
+   Registration function to register a new user
+   */
+   register : function(req, res){
+
+   },
+
+   one : function(){
+      return 1;
+   }
+
 };
