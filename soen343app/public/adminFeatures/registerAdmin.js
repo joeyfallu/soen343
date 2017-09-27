@@ -1,13 +1,13 @@
 'use strict';
 
 
-angular.module('myApp.testPage', ['ngRoute'])
+angular.module('myApp.registerAdmin', ['ngRoute'])
 
 //configure the routing  and connect the component to the specified controller (MainPageCtrl)
     .config(['$routeProvider', function($routeProvider){
-        $routeProvider.when('/test', {
-            templateUrl: 'testPage/testPage.html',
-            controller: 'TestPageCtrl'
+        $routeProvider.when('/registerAdmin', {
+            templateUrl: 'adminFeatures/registerAdmin.html',
+            controller: 'RegisterAdminCtrl'
         })
     }])
 
@@ -15,7 +15,7 @@ angular.module('myApp.testPage', ['ngRoute'])
     Controller is the JavaScript function that makes/changes/removes/controls the data.
     The data from the controller is sent to the model (html page) which will be displayed in the view
     */
-    .controller('TestPageCtrl', ["$scope", "$http", function($scope, $http) {
+    .controller('RegisterAdminCtrl', ["$scope", "$http", function($scope, $http) {
 
         //Instance Variables Declaration
         $scope.data = "";
