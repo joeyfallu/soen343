@@ -1,15 +1,19 @@
 'use strict';
 
-// Declare app level module which depends on views, and components
-angular.module("myApp", [
-  "ngRoute",
-  'myApp.testPage',
-])
-.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  $locationProvider.html5Mode({
+var app = angular.module('myApp', [
+    'ngRoute',
+    'myApp.testPage'
+]);
+
+app.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+    $locationProvider.html5Mode({
         enabled: true,
         requireBase: true
-     });
+    });
 
-  $routeProvider.otherwise({redirectTo: '/'});
+    $routeProvider
+        .when('/login', { templateUrl: 'login/login.html' })
+        .when('/test', { templateUrl: 'testPage/testPage.html'});
+
+    $routeProvider.otherwise({redirectTo: '/'});
 }]);
