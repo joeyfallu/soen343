@@ -13,6 +13,7 @@ var app = express();
 Importing Packages
 */
 var mysql = require('mysql');
+var session = require('client-sessions');
 
 //=====================================================================
 /*
@@ -44,6 +45,17 @@ db.connect(function(err) {
   if (err) throw err;
   console.log("Connected to the database!");
 });
+
+//====================================================================
+/*
+Sessions
+*/
+app.use(session({
+  cookieName: 'session',
+  secret: 'random_string_goes_here123',
+  duration: 60 * 60 * 1000,
+  activeDuration: 30 * 60 * 1000,
+}));
 
 
 // uncomment after placing your favicon in /public

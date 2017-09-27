@@ -43,6 +43,8 @@ module.exports = {
                //create a session (+ cookie)
                //Redirect
                console.log("Successful login");
+               req.session.user = results[0];
+               delete req.session.user.password;
                res.send("Successful login");
             }
             else {
