@@ -81,14 +81,14 @@ app.get('/get/name',function(req, res){
 });
 
 // route for user logout
-/*
+
 app.get('/get/logout', (req, res) => {
-    if (req.session.user && req.cookies.user_sid) {
-        res.clearCookie('user_sid');
+    if (req.session.user) {
+        res.session.reset();
         res.redirect('/');
     }
 });
-*/
+
 
 
 // Handles all GET request paths except those handled above

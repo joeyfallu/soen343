@@ -62,12 +62,26 @@ module.exports = {
    },
 
    /*
+   Verifies if the user is logged in
+   */
+   requireLogin : function(req, res, next){
+      if (!req.session.user) {
+         res.redirect('/login');       //redirect to login page
+      } else {
+         next();
+      }
+   },
+
+   /*
    Registration function to register a new user
    */
    register : function(req, res){
 
    },
 
+   /*
+   Function to test if unit tests are working.. DELETE THIS LATER
+   */
    one : function(){
       return 1;
    }
