@@ -4,6 +4,8 @@
 angular.module("myApp", [
   "ngRoute",
   'myApp.testPage',
+  'myApp.userActions',
+  'myApp.registerAdmin'
 ])
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.html5Mode({

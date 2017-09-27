@@ -5,6 +5,7 @@
 </head>
 <body>
 <div class="well well-lg" ng-controller="RegisterAdminCtrl">
+  <a href="/account" class="btn" role="button">Back</a><br>
   <h1>Administrator Registration</h1>
     <form ng-submit="register()">
       <div>
@@ -19,7 +20,7 @@
         <h4>Email: </h3>
         <input type="email" class="form-control" ng-model="email" /><br>
         <h4>Password: </h3>
-        <input type="password"  class="form-control" ng-model="password" /><br><br>
+        <input type="password" class="form-control" ng-model="password" /><br><br>
         <input class="btn" type="submit" /><br><br>
       <div class="alert alert-success">
         <strong>You have successfully registered as administrator</strong>
