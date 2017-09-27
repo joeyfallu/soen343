@@ -17,3 +17,9 @@ app.config(['$locationProvider', '$routeProvider', function($locationProvider, $
 
     $routeProvider.otherwise({redirectTo: '/'});
 }]);
+
+app.controller("appController", function appController($scope) {
+    $scope.style = {
+        "background-color" : "white"
+    }
+});
