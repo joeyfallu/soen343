@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('myApp.testPage', ['ngRoute'])
+angular.module('myApp.testPage', ['ngRoute','ngCookies'])
 
 //configure the routing  and connect the component to the specified controller (MainPageCtrl)
 .config(['$routeProvider', function($routeProvider){
@@ -15,13 +15,13 @@ angular.module('myApp.testPage', ['ngRoute'])
 Controller is the JavaScript function that makes/changes/removes/controls the data.
 The data from the controller is sent to the model (html page) which will be displayed in the view
 */
-.controller('TestPageCtrl', ["$scope", "$http", function($scope, $http) {
+.controller('TestPageCtrl', ["$scope", "$http", "$cookies", "$cookieStore", function($scope, $http, $cookies, $cookieStore) {
 
    //Instance Variables Declaration
    $scope.data = "";
    $scope.dataPost = "";
    $scope.dataLoginResponse = "";
-
+   $scope.userInfo = "";
    /*
    Adds an entry to the database by
    Making a post request to the server
@@ -65,6 +65,7 @@ The data from the controller is sent to the model (html page) which will be disp
       $http.post(url,data)
       .then((res) => {
          $scope.dataLoginResponse = res.data;
+         $scope.userInfo = $cookies.get('session');
       });
    }
 
