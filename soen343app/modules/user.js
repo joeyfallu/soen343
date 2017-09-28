@@ -9,3 +9,5 @@ function user(firstName, lastName, address, phoneNumber, email, password, isAdmi
     this.password = password;
     this.isAdmin = isAdmin;
 };
+
+module.exports =user;

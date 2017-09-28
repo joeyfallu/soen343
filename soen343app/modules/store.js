@@ -1,7 +1,7 @@
 
 'use strict'
 var mysql = require('mysql');
-
+var user = require('./user')
 //For the amazon server mysql connection
 var db = mysql.createConnection({
    host: "soen343-mysql.cutkgxnrwyh2.us-east-1.rds.amazonaws.com",
@@ -73,9 +73,12 @@ module.exports = {
          //result will hold one entry: result[0]
          //result[0] has result[0].Email and result[0].Password (or equivalent values in DB)
         if(results[0] == undefined){
+			
+			
+			var account = new user(req.body.firstName,req.body.lastName,req.body.address,req.body.phoneNumber,req.body.email,req.body.password,isAdmin)
             //email is unique
-          var sql = "INSERT INTO user (firstName, lastName, address, phoneNumber, email, password, isAdmin) VALUES ('" + req.body.firstName + "', '" + req.body.lastName + "', '"
-          + req.body.address + "','" + req.body.phoneNumber + "','" + req.body.email + "', '" + req.body.password + "', '" + isAdmin + "')";
+          var sql = "INSERT INTO user (firstName, lastName, address, phoneNumber, email, password, isAdmin) VALUES ('" + account.firstName + "', '" + account.lastName + "', '"
+          + account.address + "','" + account.phoneNumber + "','" + account.email + "', '" + account.password + "', '" + account.isAdmin + "')";
 
           res.send(successMessage);
 
