@@ -1,3 +1,4 @@
+
 function user(firstName, lastName, address, phoneNumber, email, password, isAdmin)
 {
    this.firstName = firstName;
