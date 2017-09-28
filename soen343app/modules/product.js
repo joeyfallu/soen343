@@ -15,19 +15,19 @@ function Product(id,model,weight,price,brand)
 };
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-function television(id,model,weight,price,brand,dimensions)
+var television = function(id,model,weight,price,brand,dimensions)
 {
     television.super_.call(this,id,model,weight,price,brand);
     this.dimensions = dimensions;
     this.toString = function(){
-      
+
         console.log("id: "+this.id+" model: "+this.model+" weight: "+this.weight+" price: "+this.price+" brand: "+this.brand+" dimensions: "+this.dimensions);
     }
 };
 
 util.inherits(television,Product);
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-function monitor(id,model,weight,price,brand,size)
+var monitor = function(id,model,weight,price,brand,size)
 {
     monitor.super_.call(this,id,model,weight,price,brand);
     this.size = size;
@@ -38,7 +38,7 @@ function monitor(id,model,weight,price,brand,size)
 
 util.inherits(monitor,Product);
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-function computer(id,model,weight,price,brand,processorType,cpuCores,ram,hardDriveSize)
+var computer = function(id,model,weight,price,brand,processorType,cpuCores,ram,hardDriveSize)
 {
     computer.super_.call(this,id,model,weight,price,brand);
     this.processorType = processorType;
@@ -53,7 +53,7 @@ function computer(id,model,weight,price,brand,processorType,cpuCores,ram,hardDri
 
 util.inherits(computer,Product);
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-function desktop(id,model,weight,price,brand,processorType,cpuCores,ram,hardDriveSize,dimensions)
+var desktop = function(id,model,weight,price,brand,processorType,cpuCores,ram,hardDriveSize,dimensions)
 {
     desktop.super_.call(this,id,model,weight,price,brand,processorType,cpuCores,ram,hardDriveSize);
     this.dimensions = dimensions;
@@ -65,7 +65,7 @@ function desktop(id,model,weight,price,brand,processorType,cpuCores,ram,hardDriv
 
 util.inherits(desktop,computer);
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-function tablet(id,model,weight,price,brand,processorType,cpuCores,ram,hardDriveSize,dimensions,batteryInfo,operatingSystem,cameraInfo)
+var tablet = function(id,model,weight,price,brand,processorType,cpuCores,ram,hardDriveSize,dimensions,batteryInfo,operatingSystem,cameraInfo)
 {
     tablet.super_.call(this,id,model,weight,price,brand,processorType,cpuCores,ram,hardDriveSize);
     this.dimensions = dimensions;
@@ -81,7 +81,7 @@ function tablet(id,model,weight,price,brand,processorType,cpuCores,ram,hardDrive
 
 util.inherits(tablet,computer);
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-function laptop(id,model,weight,price,brand,processorType,cpuCores,ram,hardDriveSize,size,batteryInfo,operatingSystem,camera,touchScreen)
+var laptop = function(id,model,weight,price,brand,processorType,cpuCores,ram,hardDriveSize,size,batteryInfo,operatingSystem,camera,touchScreen)
 {
     tablet.super_.call(this,id,model,weight,price,brand,processorType,cpuCores,ram,hardDriveSize);
     this.size = size;
@@ -96,7 +96,9 @@ function laptop(id,model,weight,price,brand,processorType,cpuCores,ram,hardDrive
     }
 };
 
-util.inherits(latop,computer);
+util.inherits(laptop,computer);
+
+module.exports = television, monitor, computer, desktop, tablet, laptop;
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 var a = new television(1, "sonyViera", 40, 100, "sony","40x30");
@@ -107,5 +109,5 @@ a.toString();
 b.toString();
 c.toString();
 d.toString();
-console.log(d.dimensions);
 
+console.log(d.dimensions);
