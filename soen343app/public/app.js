@@ -2,6 +2,7 @@
 
 var app = angular.module('myApp', [
     'ngRoute',
+    'ngCookies',
     'myApp.testPage',
     'myApp.login',
     'myApp.adminAddItem',
@@ -47,4 +48,30 @@ app.factory('Authentication', function() {
    };
 
    return service;
+});
+/*
+Custom service to check Authentication and Authorization
+returns true or false
+*/
+app.service('$auth343', function($cookies){
+   this.requireLogin = function(){
+      var user = $cookies.getObject('userInfo');
+      var session = $cookies.get('session');
+      if(user == undefined){
+         return false;
+      } else {
+         if(user != undefined) return true;
+      }
+   }
+   this.requireAdmin = function(){
+      var user = $cookies.getObject('userInfo');
+      var session = $cookies.get('session');
+      if((user != undefined) && (session != undefined)) {
+         if(user.isAdmin == 1){
+            return true;
+         } else {
+            return false;
+         }
+      }
+   }
 });
