@@ -3,13 +3,13 @@
 
 angular.module('myApp.testPage', ['ngRoute','ngCookies'])
 
-//configure the routing  and connect the component to the specified controller (MainPageCtrl)
-.config(['$routeProvider', function($routeProvider){
-  $routeProvider.when('/test', {
-    templateUrl: 'testPage/testPage.html',
-    controller: 'TestPageCtrl'
-  })
-}])
+// //configure the routing  and connect the component to the specified controller (MainPageCtrl)
+// .config(['$routeProvider', function($routeProvider){
+//   $routeProvider.when('/test', {
+//     templateUrl: 'testPage/testPage.html',
+//     controller: 'TestPageCtrl'
+//   })
+// }])
 
 /*
 Controller is the JavaScript function that makes/changes/removes/controls the data.
