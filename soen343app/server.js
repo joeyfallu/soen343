@@ -56,7 +56,7 @@ app.use(session({
   duration: 60 * 60 * 1000,
   activeDuration: 30 * 60 * 1000,
   cookie: {
-    maxAge: 60000, // duration of the cookie in milliseconds, defaults to duration above
+    maxAge: 60000*30, // duration of the cookie in milliseconds, defaults to duration above
     ephemeral: false, // when true, cookie expires when the browser closes
     httpOnly: false, // when true, cookie is not accessible from javascript
     secure: false // when true, cookie will only be sent over SSL. use key 'secureProxy' instead if you handle SSL not in your node process

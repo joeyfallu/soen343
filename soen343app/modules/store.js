@@ -16,16 +16,16 @@ db.connect(function(err) {
 
 
 /*
-   Store module exports
+Store module exports
 */
 module.exports = {
 
    /*
-      Login function authenticates the user
-      Params:
-         -req.body.email
-         -req.body.password
-      (the parameters email and password should be passed in the post request body)
+   Login function authenticates the user
+   Params:
+   -req.body.email
+   -req.body.password
+   (the parameters email and password should be passed in the post request body)
    */
    login : function (req, res){
       var sql = "SELECT * FROM user WHERE email='" + req.body.email + "'";
@@ -41,15 +41,17 @@ module.exports = {
             //email found
             console.log(results[0].email);
             if(results[0].password == req.body.password ){
-              //get timestamp
-              var timeStamp = Math.floor(Date.now() / 1000);
-              //set the id variable for tracking active users
-              let id = results[0].id;
-              //write to file the info of the active user
-              fs.writeFile('active.txt', timeStamp, id ,(err) => {
-                if (err) throw err;
-              console.log('Active user saved!');
-              });
+
+               // Logging throws error, commented out for now.
+               //   //get timestamp
+               //   var timeStamp = Math.floor(Date.now() / 1000);
+               //   //set the id variable for tracking active users
+               //   let id = results[0].id;
+               //   //write to file the info of the active user
+               //   fs.writeFile('active.txt', timeStamp, id ,(err) => {
+               //     if (err) throw err;
+               //   console.log('Active user saved!');
+               //   });
                //Login Successful
                //create a session (+ cookie)
                //Redirect

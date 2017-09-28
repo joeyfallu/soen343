@@ -22,7 +22,7 @@ html, body {
     border-style: dashed;
 }
 
-input#username, #password {
+input#email, #password {
     border: 0;
     border-bottom: 1px solid;
     border-radius: 0;
