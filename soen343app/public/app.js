@@ -2,7 +2,8 @@
 
 var app = angular.module('myApp', [
     'ngRoute',
-    'myApp.testPage'
+    'myApp.testPage',
+    'myApp.login'
 ]);
 
 app.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
@@ -12,14 +13,34 @@ app.config(['$locationProvider', '$routeProvider', function($locationProvider, $
     });
 
     $routeProvider
-        .when('/login', { templateUrl: 'login/login.html' })
-        .when('/test', { templateUrl: 'testPage/testPage.html'});
+        .when('/login', { templateUrl: 'login/login.html', controller: 'LoginController' })
+        .when('/test', { templateUrl: 'testPage/testPage.html', controller: 'TestPageCtrl'});
 
-    $routeProvider.otherwise({redirectTo: '/'});
+    $routeProvider.otherwise({ redirectTo: '/' });
 }]);
 
-app.controller("appController", function appController($scope) {
+app.controller("AppController", function appController($scope) {
     $scope.style = {
         "background-color" : "white"
     }
+});
+
+app.factory('Authentication', function() {
+   var service = {};
+
+   service.login = function(username, password, callback) {
+        console.log(username);
+        console.log(password);
+        callback();
+   };
+
+   service.setCredentials = function(username, password) {
+
+   };
+
+   service.clearCredentials = function() {
+
+   };
+
+   return service;
 });

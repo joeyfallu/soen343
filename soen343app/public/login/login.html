@@ -1,15 +1,15 @@
-<div ng-controller="loginController">
-    <form name="loginForm">
-        <div>
-            <label>Username</label>
-            <input type="text"/>
+<div ng-controller="LoginController" class="col-md-4 col-md-offset-4">
+    <form name="loginForm" ng-submit="login()">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" ng-model="username" required/>
         </div>
-        <div>
-            <label>Password</label>
-            <input type="password"/>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" ng-model="password" required/>
         </div>
-        <div>
-            <button type="submit">Login</button>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">Login</button>
         </div>
     </form>
 </div>
