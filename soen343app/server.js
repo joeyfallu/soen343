@@ -13,6 +13,13 @@ var app = express();
 Importing Packages
 */
 var mysql = require('mysql');
+var session = require('client-sessions');
+
+//=====================================================================
+/*
+Our Modules
+*/
+var store = require('./modules/store');
 
 //=====================================================================
 /*
@@ -26,10 +33,10 @@ var store = require('./modules/store');
 //For the amazon server mysql connection
 
 var db = mysql.createConnection({
-    host: "soen343-mysql.cutkgxnrwyh2.us-east-1.rds.amazonaws.com",
-    user: "soen343team",
-    password: "spiderman",
-    database: "electronics"
+  host: "soen343-mysql.cutkgxnrwyh2.us-east-1.rds.amazonaws.com",
+  user: "soen343team",
+  password: "spiderman",
+  database: "electronics"
 });
 
 
@@ -44,6 +51,23 @@ db.connect(function(err) {
     if (err) throw err;
     console.log("Connected to the database!");
 });
+
+//====================================================================
+/*
+Sessions
+*/
+app.use(session({
+  cookieName: 'session',
+  secret: 'random_string_goes_here123',
+  duration: 60 * 60 * 1000,
+  activeDuration: 30 * 60 * 1000,
+  cookie: {
+    maxAge: 60000*30, // duration of the cookie in milliseconds, defaults to duration above
+    ephemeral: false, // when true, cookie expires when the browser closes
+    httpOnly: false, // when true, cookie is not accessible from javascript
+    secure: false // when true, cookie will only be sent over SSL. use key 'secureProxy' instead if you handle SSL not in your node process
+  }
+}));
 
 
 // uncomment after placing your favicon in /public
@@ -69,14 +93,14 @@ app.get('/get/name',function(req, res){
 });
 
 // route for user logout
-/*
+
 app.get('/get/logout', (req, res) => {
-    if (req.session.user && req.cookies.user_sid) {
-        res.clearCookie('user_sid');
+    if (req.session.user) {
+        res.session.reset();
         res.redirect('/');
     }
 });
-*/
+
 
 
 // Handles all GET request paths except those handled above

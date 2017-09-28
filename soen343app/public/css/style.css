@@ -1,6 +1,40 @@
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
 .navbar {
-  margin-bottom: 50px;
-  border-radius: 0;
+    margin-bottom: 50px;
+    border-radius: 0;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.center-vertically {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.debug {
+    border-style: dashed;
+}
+
+input#email, #password {
+    border: 0;
+    border-bottom: 1px solid;
+    border-radius: 0;
+    box-shadow: none;
+    margin-bottom: 16px;
+}
+
+button#login-btn {
+    border-radius: 30px;
+    background: #333;
+    color: white;
+    margin-top: 30px;
 }
 
 /*.well-lg {

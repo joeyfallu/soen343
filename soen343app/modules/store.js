@@ -1,7 +1,8 @@
-
 'use strict'
+const fs = require('fs');
 var mysql = require('mysql');
-var user = require('./user')
+var user = require('./user');
+
 //For the amazon server mysql connection
 var db = mysql.createConnection({
    host: "soen343-mysql.cutkgxnrwyh2.us-east-1.rds.amazonaws.com",
@@ -14,17 +15,18 @@ db.connect(function(err) {
    if (err) throw err;
 });
 
+
 /*
-   Store object
+Store module exports
 */
 module.exports = {
 
    /*
-      Login function authenticates the user
-      Params:
-         -req.body.email
-         -req.body.password
-      (the parameters email and password should be passed in the post request body)
+   Login function authenticates the user
+   Params:
+   -req.body.email
+   -req.body.password
+   (the parameters email and password should be passed in the post request body)
    */
    login : function (req, res){
       var sql = "SELECT * FROM user WHERE email='" + req.body.email + "'";
@@ -40,11 +42,25 @@ module.exports = {
             //email found
             console.log(results[0].email);
             if(results[0].password == req.body.password ){
+
+               // Logging throws error, commented out for now.
+               //   //get timestamp
+               //   var timeStamp = Math.floor(Date.now() / 1000);
+               //   //set the id variable for tracking active users
+               //   let id = results[0].id;
+               //   //write to file the info of the active user
+               //   fs.writeFile('active.txt', timeStamp, id ,(err) => {
+               //     if (err) throw err;
+               //   console.log('Active user saved!');
+               //   });
                //Login Successful
                //create a session (+ cookie)
                //Redirect
+
                console.log("Successful login");
-               res.send("Successful login");
+               req.session.user = results[0];
+               delete req.session.user.password;
+               res.send(req.session.user);
             }
             else {
                //Login Failed - Wrong password
@@ -59,6 +75,13 @@ module.exports = {
          }
       });
    },
+   /*
+   Function to test if unit tests are working.. DELETE THIS LATER
+   */
+   one : function(){
+      return 1;
+   },
+
 
    registerAdmin : function (req,res){
      var isAdmin = 1;
@@ -73,8 +96,8 @@ module.exports = {
          //result will hold one entry: result[0]
          //result[0] has result[0].Email and result[0].Password (or equivalent values in DB)
         if(results[0] == undefined){
-			
-			
+
+
 			var account = new user(req.body.firstName,req.body.lastName,req.body.address,req.body.phoneNumber,req.body.email,req.body.password,isAdmin)
             //email is unique
           var sql = "INSERT INTO user (firstName, lastName, address, phoneNumber, email, password, isAdmin) VALUES ('" + account.firstName + "', '" + account.lastName + "', '"
