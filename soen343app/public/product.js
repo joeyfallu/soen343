@@ -96,7 +96,7 @@ function laptop(id,model,weight,price,brand,processorType,cpuCores,ram,hardDrive
     }
 };
 
-util.inherits(tablet,computer);
+util.inherits(latop,computer);
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 var a = new television(1, "sonyViera", 40, 100, "sony","40x30");
