@@ -29,8 +29,6 @@ app.factory('Authentication', function() {
    var service = {};
 
    service.login = function(username, password, callback) {
-        console.log(username);
-        console.log(password);
         callback();
    };
 
