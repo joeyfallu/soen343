@@ -9,8 +9,17 @@ var bodyParser = require('body-parser');
 var app = express();
 
 //==================================================================
-// Importing Packages
+/*
+Importing Packages
+*/
 var mysql = require('mysql');
+var session = require('client-sessions');
+
+//=====================================================================
+/*
+Our Modules
+*/
+var store = require('./modules/store');
 
 //======================================================================
 //Mysql Initial connection
@@ -37,6 +46,23 @@ db.connect(function(err) {
   console.log("Connected to the database!");
 });
 
+//====================================================================
+/*
+Sessions
+*/
+app.use(session({
+  cookieName: 'session',
+  secret: 'random_string_goes_here123',
+  duration: 60 * 60 * 1000,
+  activeDuration: 30 * 60 * 1000,
+  cookie: {
+    maxAge: 60000*30, // duration of the cookie in milliseconds, defaults to duration above
+    ephemeral: false, // when true, cookie expires when the browser closes
+    httpOnly: false, // when true, cookie is not accessible from javascript
+    secure: false // when true, cookie will only be sent over SSL. use key 'secureProxy' instead if you handle SSL not in your node process
+  }
+}));
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -60,6 +86,17 @@ app.get('/get/name',function(req, res){
    })
 });
 
+// route for user logout
+
+app.get('/get/logout', (req, res) => {
+    if (req.session.user) {
+        res.session.reset();
+        res.redirect('/');
+    }
+});
+
+
+
 // Handles all GET request paths except those handled above
 app.get('/get/*',function(req, res){
    res.send("GET request received - server");
@@ -76,6 +113,10 @@ app.post('/post/name', function (req, res){
       res.send(results);
   });
 });
+
+
+//Login route (needs email and password as parameters in the req.body)
+app.post('/post/login', store.login);
 
 //Handles all POST request paths except those handled above
 app.post('/post/*', function (req, res){
