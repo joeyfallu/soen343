@@ -27,14 +27,6 @@
   <div ng-switch-when="Television">
      <h1>Add a Television</h1>
      <form>
-     	Select a type of Television to add to the inventory:</br>
-     	<input type="radio" ng-model="Television" value="HD" required>HD Television<br />
-  		<input type="radio" ng-model="Television" value="LED" required>LED Television<br />
-  		<input type="radio" ng-model="Television" value="Smart" required>Smart Television<br />
-  		<input type="radio" ng-model="Television" value="3D" required>3D Television<br /><br />
-
-  		<h2>Television Information</h2>
-
   		Detailed Dimensions (in centimeters): <input type="number" ng-model="Size" min="0" required>cm<br />
   		Weight (in kilograms): <input type="number" ng-model="Weight" min="0" required>kg<br />
   		Model Number: <input type="text" ng-model="Model" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
