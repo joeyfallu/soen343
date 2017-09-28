@@ -13,6 +13,7 @@ db.connect(function(err) {
    if (err) throw err;
 });
 
+
 /*
    Store module exports
 */
@@ -42,10 +43,11 @@ module.exports = {
                //Login Successful
                //create a session (+ cookie)
                //Redirect
+
                console.log("Successful login");
                req.session.user = results[0];
                delete req.session.user.password;
-               res.send("Successful login");
+               res.send(req.session.user);
             }
             else {
                //Login Failed - Wrong password
@@ -72,12 +74,6 @@ module.exports = {
       }
    },
 
-   /*
-   Registration function to register a new user
-   */
-   register : function(req, res){
-
-   },
 
    /*
    Function to test if unit tests are working.. DELETE THIS LATER

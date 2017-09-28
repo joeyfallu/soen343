@@ -64,8 +64,8 @@ The data from the controller is sent to the model (html page) which will be disp
       }
       $http.post(url,data)
       .then((res) => {
-         $scope.dataLoginResponse = res.data;
-         $scope.userInfo = $cookies.get('session');
+         $scope.userInfo = res.data;
+         $cookies.putObject('userInfo', $scope.userInfo);
       });
    }
 

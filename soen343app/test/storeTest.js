@@ -26,7 +26,7 @@ describe("Store Class", function () {
          };
          request.post(options)
          .then((body) => {
-            expect(body).to.equal("Successful login");
+            expect(body.email).to.equal("test@c");
          })
          .then(done,done)
          .catch((err) => {
