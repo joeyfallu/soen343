@@ -5,6 +5,8 @@ var app = angular.module('myApp', [
     'myApp.testPage',
     'myApp.login',
     'myApp.adminAddItem',
+    'myApp.userActions',
+    'myApp.registerAdmin'
 ]);
 
 app.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
