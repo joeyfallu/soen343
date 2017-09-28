@@ -21,7 +21,7 @@ var db = mysql.createConnection({
   host: "soen343-mysql.cutkgxnrwyh2.us-east-1.rds.amazonaws.com",
   user: "soen343team",
   password: "spiderman",
-  database: "Test"
+  database: "electronics"
 });
 
 
