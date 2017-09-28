@@ -4,32 +4,26 @@
   <title>Register Admin Account</title>
 </head>
 <body>
-<div class="well well-lg" ng-controller="RegisterAdminCtrl">
+<div class="well well-lg" ng-controller="RegisterAdminCtrl" style="height: 800px; width: 500px; margin: auto;">
   <a href="/account" class="btn" role="button">Back</a><br>
   <h1>Administrator Registration</h1>
     <form ng-submit="register()">
       <div>
         <h4>First Name: </h3>
-        <input type="firstName" class="form-control" ng-model="firstName" /><br>
+        <input type="firstName" class="form-control" ng-model="firstName" required/><br>
         <h4>Last Name: </h3>
-        <input type="lastName" class="form-control" ng-model="lastName" /><br>
+        <input type="lastName" class="form-control" ng-model="lastName" required/><br>
         <h4>Address: </h3>
-        <input type="address" class="form-control" ng-model="address" /><br>
+        <input type="address" class="form-control" ng-model="address" required/><br>
         <h4>Phone Number: </h3>
-        <input type="phoneNumber" class="form-control" ng-model="phoneNumber" /><br>
+        <input type="phoneNumber" class="form-control" ng-model="phoneNumber" required/><br>
         <h4>Email: </h3>
-        <input type="email" class="form-control" ng-model="email" /><br>
+        <input type="email" class="form-control" ng-model="email" required/><br>
         <h4>Password: </h3>
-        <input type="password" class="form-control" ng-model="password" /><br><br>
+        <input type="password" class="form-control" ng-model="password" required/><br><br>
         <input class="btn" type="submit" /><br><br>
-      <div class="alert alert-success">
-        <strong>You have successfully registered as administrator</strong>
-      </div>
-      <div class="alert alert-danger">
-        <strong>The email is already in use</strong>
-      </div>
+        <p>{{dataRegisterResponse}}</p>
       <br>
     </form>
   </div>
-    {{dataRegisterResponse}}
 </body>
