@@ -3,7 +3,9 @@
 var app = angular.module('myApp', [
     'ngRoute',
     'myApp.testPage',
-    'myApp.login'
+    'myApp.login',
+    'myApp.userActions',
+    'myApp.registerAdmin'
 ]);
 
 app.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
