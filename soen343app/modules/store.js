@@ -1,4 +1,5 @@
 'use strict'
+const fs = require('fs');
 var mysql = require('mysql');
 
 //For the amazon server mysql connection
@@ -39,6 +40,15 @@ module.exports = {
             //email found
             console.log(results[0].email);
             if(results[0].password == req.body.password ){
+              //get timestamp
+              var timeStamp = Math.floor(Date.now() / 1000);
+              //set the id variable for tracking active users
+              let id = results[0].id;
+              //write to file the info of the active user
+              fs.writeFile('active.txt', timeStamp, id ,(err) => {
+                if (err) throw err;
+              console.log('Active user saved!');
+              });
                //Login Successful
                //create a session (+ cookie)
                //Redirect
