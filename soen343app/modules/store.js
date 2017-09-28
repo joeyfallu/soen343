@@ -59,11 +59,8 @@ module.exports = {
          }
       });
    },
-   
+
    registerAdmin : function (req,res){
-	   var email = req.body.email;
-	   var pass = req.body.pass;
-	   
 	   var sql = "SELECT * FROM user WHERE email='" + req.body.email + "'";
 	   console.log("Query: " + sql);
 	   db.query(sql, function (error, results, fields){
@@ -75,7 +72,7 @@ module.exports = {
          //result[0] has result[0].Email and result[0].Password (or equivalent values in DB)
          if(results[0] == undefined){
             //email is unique
-            var sql = "INSERT INTO user (email, password) VALUES ('" + req.body.email + "', '" + req.body.password + "')";
+            var sql = "INSERT INTO user (firstName, lastName, address, email, password) VALUES ('" + req.body.firstName + "', '" + req.body.lastName + "', '" + req.bosy.address + "','" + req.body.phoneNumber + "','" + req.body.email + "', '" + req.body.password + "')";
 			db.query(sql,function(error, result){
                 if (error)
                     res.send(error.code);
