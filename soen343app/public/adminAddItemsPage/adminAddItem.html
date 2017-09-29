@@ -9,21 +9,17 @@
          <option value="Monitor">Monitor Display
       </select>
    </form>
-   <div ng-switch="Category">
-      <div ng-switch-when="Television">
-         <h1>Add a Television</h1>
-         <form ng-submit="addTV()">
+   TELEVISION
+   <form ng-submit="addTV()">
             Detailed Dimensions (in centimeters): <input type="number" ng-model="dimensions" min="0" required>cm<br />
             Weight (in kilograms):                <input type="number" ng-model="weight" min="0" required>kg<br />
             Model Number:                         <input type="text" ng-model="modelNumber" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
             Brand Name:                           <input type="text" ng-model="brand" required><br />
             Price:                                <input type="number" ng-model="price" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br /><br>
                                                   <input class="btn" type="submit" /><br><br>
-         </form>
-      </div>
-      <div ng-switch-when="Monitor">
-         <h1>Add a Monitor Display</h1>
-         <form ng-submit="addMonitor()">
+   </form>
+   MONITOR
+   <form ng-submit="addMonitor()">
             Size (in inches):                    <input type="number" ng-model="size" min="0" required>in<br />
             Weight (in kilograms):               <input type="number" ng-model="weight" min="0" required>kg<br />
             Brand Name:                          <input type="text" ng-model="brand" required><br />
@@ -31,22 +27,8 @@
             Price:                               <input type="number" ng-model="price" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br /><br>
                                                  <input class="btn" type="submit" /><br><br>
          </form>
-      </div>
-      <div ng-switch-when="Computer">
-         <h1>Add a Computer</h1>
-         <form>
-            Select a type of Computer add to the inventory:<br />
-            <select ng-model="Computer">
-               <option value="">Please Select an Option
-                  <option value="Desktop">Desktop Computer
-                  <option value="Laptop">Laptop Computer
-                  <option value="Tablet">Tablet Computer
-            </select>
-         </form>
-      <div ng-switch="Computer">
-         <div ng-switch-when="Desktop">
-            <h1>Add a Desktop Computer</h1>
-            <form ng-submit="addDesktop()">
+	DESKTOP
+	<form ng-submit="addDesktop()">
                Detailed Dimensions (in centimeters): <input type="number" ng-model="dimensions" min="0" required>cm<br />
                Processor Type:                       <input type="text" ng-model="processor" required><br />
                Weight (in kilograms):                <input type="number" ng-model="weight" min="0" required>kg<br />
@@ -57,10 +39,8 @@
                Price:                                <input type="number" ng-model="price" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br /><br>
                                                      <input class="btn" type="submit" /><br><br>
             </form>
-         </div>
-         <div ng-switch-when="Laptop">
-            <h1>Add a Laptop Computer</h1>
-            <form ng-submit="addLaptop()">
+	LAPTOP
+	<form ng-submit="addLaptop()">
                Display Size (in inches):            <input type="number" ng-model="size" min="0" required>in<br />
                Processor Type:                      <input type="text" ng-model="processor" required><br />
                Weight (in kilograms):               <input type="number" ng-model="weight" min="0" required>kg<br />
@@ -73,17 +53,14 @@
                Operating System:                    <input type="text" ng-model="operatingSystem" required><br />
                Price:                               <input type="number" ng-model="price" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br />
                Does it have a camera?</br>
-                                                    <input type="radio" ng-model="camera" value="Yes" required>Yes<br />
-                                                    <input type="radio" ng-model="camera" value="No" required>No<br />
+													<input type="text" ng-model="camera" required><br />
+                                                    <input type="text" ng-model="touchScreen" required><br />
                Does it have a touch screen?</br>
-                                                    <input type="radio" ng-model="touchScreen" value="Yes" required>Yes<br />
-                                                    <input type="radio" ng-model="touchScreen" value="No" required>No<br /><br>
+                                                    
                                                     <input class="btn" type="submit" /><br><br>
             </form>
-         </div>
-         <div ng-switch-when="Tablet">
-            <h1>Add a Tablet Computer</h1>
-            <form ng-submit="addTablet()">
+	TABLET
+	 <form ng-submit="addTablet()">
                Display Size (in inches):            <input type="number" ng-model="size" min="0" required>in<br />
                Detailed Dimensions (in centimeters):<input type="number" ng-model="dimensions" min="0" required>cm<br />
                Weight (in kilograms):               <input type="number" ng-model="weight" min="0" required>kg<br />
@@ -100,6 +77,38 @@
                                                   
                                                     <input class="btn" type="submit" /><br><br>
             </form>
+   <div ng-switch="Category">
+      <div ng-switch-when="Television">
+         <h1>Add a Television</h1>
+         
+      </div>
+      <div ng-switch-when="Monitor">
+         <h1>Add a Monitor Display</h1>
+        
+      </div>
+      <div ng-switch-when="Computer">
+         <h1>Add a Computer</h1>
+         <form>
+            Select a type of Computer add to the inventory:<br />
+            <select ng-model="Computer">
+               <option value="">Please Select an Option
+                  <option value="Desktop">Desktop Computer
+                  <option value="Laptop">Laptop Computer
+                  <option value="Tablet">Tablet Computer
+            </select>
+         </form>
+      <div ng-switch="Computer">
+         <div ng-switch-when="Desktop">
+            <h1>Add a Desktop Computer</h1>
+            
+         </div>
+         <div ng-switch-when="Laptop">
+            <h1>Add a Laptop Computer</h1>
+            
+         </div>
+         <div ng-switch-when="Tablet">
+            <h1>Add a Tablet Computer</h1>
+           
          </div>
       </div>
    </div>
