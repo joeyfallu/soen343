@@ -48,6 +48,7 @@ var app = angular.module('myApp', [
     'myApp.adminAddItem',
     'myApp.userActions',
     'myApp.registerAdmin',
+    'myApp.viewItems',
     'Auth343',
 ]);
 
