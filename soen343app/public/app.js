@@ -19,7 +19,7 @@ app.config(['$locationProvider', '$routeProvider', function($locationProvider, $
     $routeProvider
         .when('/login', { templateUrl: 'login/login.html', controller: 'LoginController' })
         .when('/test', { templateUrl: 'testPage/testPage.html', controller: 'TestPageCtrl'})
-        .when('/admin', { templateUrl: 'adminAddItemsPage/adminAddItem.html', controller: 'adminAddItemController'})
+        .when('/addItems', { templateUrl: 'adminAddItemsPage/adminAddItem.html', controller: 'adminAddItemController'})
         .when('/logout', { templateUrl: 'login/logout.html', controller: 'logoutController'});
     $routeProvider.otherwise({ redirectTo: '/' });
 }]);
