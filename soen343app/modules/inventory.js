@@ -67,9 +67,44 @@ function Inventory(){
       })
     })
   }
-     this.addProduct=function(a){
+     this.addProduct=function(item){
       
-		addaddToDb(a);
+		
+		switch(item[0]){
+			case 'desktop':
+                var d1 = new desktop(item[1] , item[2] , item[3], item[4], item[5], item[6], item[7], item[8], item[9], item[10]);
+				var dataArray = ["desktop", d1.model, d1.weight, d1.price, d1.brand, d1.processorType, d1.cpuCores, d1.ram, d1.hardDriveSize, d1.dimensions];
+				addToDb(dataArray);
+                break;
+            case 'monitor':
+                var d1 = new monitor(item[1] , item[2] , item[3], item[4], item[5], item[6]);
+				var dataArray = ["monitor", d1.model, d1.weight, d1.price, d1.brand, d1.size];
+				addToDb(dataArray);
+                break;
+            case 'television':
+				var d1 = new television(item[1] , item[2] , item[3], item[4], item[5], item[6]);
+				var dataArray = ["television", d1.model, d1.weight, d1.price, d1.brand, d1.dimensions];
+				addToDb(dataArray);
+                break;
+            case 'tablet':
+                var d1 = new tablet(item[1] , item[2] , item[3], item[4], item[5], item[6],item[7] , item[8] , item[9], item[10], item[11], item[12],item[13]);
+				var dataArray = ["tablet", d1.model, d1.weight, d1.price, d1.brand, d1.processorType, d1.cpuCores, d1.ram, d1.hardDriveSize, d1.dimensions, d1.batteryInfo, d1.operatingSystem, d1.cameraInfo];
+				addToDb(dataArray);
+                break;
+            case 'laptop':
+                var d1 = new laptop(item[1] , item[2] , item[3], item[4], item[5], item[6],item[7] , item[8] , item[9], item[10], item[11], item[12],item[13],item[14]);
+				var dataArray = ["laptop", d1.model, d1.weight, d1.price, d1.brand, d1.processorType, d1.cpuCores, d1.ram, d1.hardDriveSize, d1.size, d1.batteryInfo, d1.operatingSystem, d1.camera, d1.touchScreen];
+				addToDb(dataArray);
+                break;
+            default:
+                return 'error';	
+			
+			
+		}
+		
+		
+		
+		
        function addToDb(a){
    
         console.log("Connected!");
