@@ -67,33 +67,9 @@ function Inventory(){
       })
     })
   }
-     this.addProduct=function(req,res){
-      if(req.body.type == "desktop"){
-          var d1 = new desktop(req.body.id , req.body.model , req.body.weight, req.body.price, req.body.brand, req.body.processorType, req.body.cpuCores, req.body.ram, req.body.hardDriveSize, req.body.dimensions);
-          var dataArray = ["desktop", d1.model, d1.weight, d1.price, d1.brand, d1.processorType, d1.cpuCores, d1.ram, d1.hardDriveSize, d1.dimensions];
-          addToDb(dataArray);
-      }
-      else if(req.body.type == "television"){
-        var d1 = new television(req.body.id , req.body.model , req.body.weight, req.body.price, req.body.brand, req.body.dimensions);
-        var dataArray = ["television", d1.model, d1.weight, d1.price, d1.brand, d1.dimensions];
-        addToDb(dataArray);
-      }
-      else if(req.body.type == "monitor"){
-        var d1 = new monitor(req.body.id , req.body.model , req.body.weight, req.body.price, req.body.brand, req.body.size);
-        var dataArray = ["monitor", d1.model, d1.weight, d1.price, d1.brand, d1.size];
-        addToDb(dataArray);
-      }
-      else if(req.body.type == "tablet"){
-        var d1 = new tablet(req.body.id , req.body.model , req.body.weight, req.body.price, req.body.brand, req.body.processorType, req.body.cpuCores, req.body.ram, req.body.hardDriveSize, req.body.dimensions, req.body.batteryInfo, req.body.operatingSystem, req.body.cameraInfo);
-        var dataArray = ["tablet", d1.model, d1.weight, d1.price, d1.brand, d1.processorType, d1.cpuCores, d1.ram, d1.hardDriveSize, d1.dimensions, d1.batteryInfo, d1.operatingSystem, d1.cameraInfo];
-        addToDb(dataArray);
-      }
-      else if(req.body.type == "laptop"){
-        var d1 = new laptop(req.body.id , req.body.model , req.body.weight, req.body.price, req.body.brand, req.body.processorType, req.body.cpuCores, req.body.ram, req.body.hardDriveSize, req.body.size, req.body.batteryInfo, req.body.operatingSystem, req.body.camera, req.body.touchScreen);
-        var dataArray = ["laptop", d1.model, d1.weight, d1.price, d1.brand, d1.processorType, d1.cpuCores, d1.ram, d1.hardDriveSize, d1.size, d1.batteryInfo, d1.operatingSystem, d1.camera, d1.touchScreen];
-        addToDb(dataArray);
-      }
-     
+     this.addProduct=function(a){
+      
+		addaddToDb(a);
        function addToDb(a){
    
         console.log("Connected!");
