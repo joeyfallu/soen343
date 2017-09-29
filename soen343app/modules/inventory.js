@@ -47,7 +47,7 @@ function Inventory(){
               break;
  
             case 'tablet':
-              var tabletItem = new tablet(results[0].id,results[0].model,results[0].weight,results[0].price,results[0].brand,results[0].processorType,results[0].cpuCores,results[0].ram,results[0].hardDriveSize,results[0].dimensions,results[0].batteryInfo,results[0].operatingSystem,results[0].camera);
+              var tabletItem = new tablet(results[0].id,results[0].model,results[0].weight,results[0].price,results[0].brand,results[0].processorType,results[0].cpuCores,results[0].ram,results[0].hardDriveSize,results[0].dimensions,results[0].batteryInfo,results[0].operatingSystem,results[0].cameraInfo);
               items.push(tabletItem);
               break;
  
