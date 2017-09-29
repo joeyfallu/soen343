@@ -22,12 +22,6 @@ Our Modules
 var store = require('./modules/store');
 
 //=====================================================================
-/*
-Our Modules
-*/
-var store = require('./modules/store');
-
-//======================================================================
 //Mysql Initial connection
 
 //For the amazon server mysql connection
