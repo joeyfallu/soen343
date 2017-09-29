@@ -49,12 +49,10 @@ module.exports = {
               //set the id variable for tracking active users
               let id = results[0].id;
               //write to file the info of the active user
-              fs.appendFile('active-users.txt' ,timeStamp+" ",(err) => {
+              fs.appendFile('logs/active-users.log' ,timeStamp+" ",(err) => {
               if (err) throw err;
-              console.log('Timestamp saved!');
-              fs.appendFile('active-users.txt' ,id+" Logged in\n",(err) => {
+              fs.appendFile('logs/active-users.log' ,id+" Logged in\r\n",(err) => {
               if (err) throw err;
-              console.log('Email saved!');
               });
               });
 
