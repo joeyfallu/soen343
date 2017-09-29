@@ -16,6 +16,36 @@ angular.module('myApp.adminAddItem', ['ngCookies'])
          $location.path('/');
          return;
       }
+      $scope.addMonitor = function(){
+            var url = "/post/addItem";
+            var data = {
+              type : "monitor",
+              model : $scope.modelNumber,
+              weight : $scope.weight,
+              price : $scope.price,
+              brand : $scope.brand,
+              size : $scope.size
+            }
+            $http.post(url,data)
+            .then((res) => {
+               });
+      }
+
+      $scope.addTV = function(){
+            var url = "/post/addItem";
+            var data = {
+              type : "television",
+              model : $scope.modelNumber,
+              weight : $scope.weight,
+              price : $scope.price,
+              brand : $scope.brand,
+              dimensions : $scope.dimensions
+            }
+            $http.post(url,data)
+            .then((res) => {
+               });
+      }
+
       $scope.addTablet = function(){
             var url = "/post/addItem";
             var data = {
@@ -49,7 +79,7 @@ angular.module('myApp.adminAddItem', ['ngCookies'])
               cpuCores : $scope.cpuCores, 
               ram : $scope.ram,
               hardDriveSize : $scope.hardDriveSize,
-              dimension : $scope.dimensions,
+              dimension : $scope.dimensions
             }
             $http.post(url,data)
             .then((res) => {
