@@ -69,4 +69,26 @@ The data from the controller is sent to the model (html page) which will be disp
       });
    }
 
+   $scope.addProduct = function(){
+    var url = "/post/addProduct";
+    var data = {
+      type : "tablet",
+      model : "27",
+      weight : "8",
+      price : "1337",
+      brand : "lenovo",
+      processorType : "i7",
+      cpuCores : "4", 
+      ram : "8gb",
+      hardDriveSize : "1",
+      dimension : "21X14",
+      batteryInfo : "8hours",
+      operatingSystem : "ubuntu",
+      cameraInfo : "good"
+    }
+    $http.post(url,data)
+    .then((res) => {
+       });
+ }
+
 }]);
