@@ -62,7 +62,8 @@ app.config(['$locationProvider', '$routeProvider', function($locationProvider, $
         .when('/login', { templateUrl: 'login/login.html', controller: 'LoginController' })
         .when('/test', { templateUrl: 'testPage/testPage.html', controller: 'TestPageCtrl'})
         .when('/addItems', { templateUrl: 'adminAddItemsPage/adminAddItem.html', controller: 'adminAddItemController'})
-        .when('/logout', { templateUrl: 'login/logout.html', controller: 'logoutController'});
+        .when('/logout', { templateUrl: 'login/logout.html', controller: 'logoutController'})
+        .when('/home', { templateUrl: 'home/home.html', controller: 'homeController'});
     $routeProvider.otherwise({ redirectTo: '/' });
 }]);
 
