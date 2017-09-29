@@ -135,7 +135,7 @@ app.post('/post/name', function (req, res){
 
 //Login route (needs email and password as parameters in the req.body)
 app.post('/post/login', store.login);
-
+app.post('/post/addItem', store.addItem);
 //Login route (needs email and password as parameters in the req.body)
 app.post('/post/register', store.registerAdmin);
 

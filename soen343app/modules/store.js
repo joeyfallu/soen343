@@ -3,7 +3,8 @@ const fs = require('fs');
 var mysql = require('mysql');
 var dateFormat = require('dateformat');
 var user = require('./user');
-
+var inventory = require('./inventory');
+var inv = new inventory();
 
 //For the amazon server mysql connection
 var db = mysql.createConnection({
@@ -52,9 +53,9 @@ module.exports = {
               let id = results[0].id;
               //write to file the info of the active user
               fs.appendFile('logs/active-users.log' ,timeStamp+" ",(err) => {
-              if (err) throw err;
+              if (err);
               fs.appendFile('logs/active-users.log' ,id+" Logged in\r\n",(err) => {
-              if (err) throw err;
+              if (err);
               });
               });
 
@@ -124,4 +125,40 @@ module.exports = {
          }
       });
    },
+   
+   
+   addItem : function (req,res){
+	   
+	   if(req.body.type == "desktop"){
+		  var dataArray = ["desktop",req.body.id, req.body.model , req.body.weight, req.body.price, req.body.brand, req.body.processorType, req.body.cpuCores, req.body.ram, req.body.hardDriveSize, req.body.dimensions];
+          inv.addProduct(dataArray);
+      }
+      else if(req.body.type == "television"){
+		  var dataArray = ["television",req.body.id , req.body.model , req.body.weight, req.body.price, req.body.brand, req.body.dimensions];
+       // var d1 = new television(req.body.id , req.body.model , req.body.weight, req.body.price, req.body.brand, req.body.dimensions);
+       // var dataArray = ["television", d1.model, d1.weight, d1.price, d1.brand, d1.dimensions];
+		  inv.addProduct(dataArray);
+      }
+      else if(req.body.type == "monitor"){
+		  var dataArray = ["monitor",req.body.id , req.body.model , req.body.weight, req.body.price, req.body.brand, req.body.size];
+       // var d1 = new monitor(req.body.id , req.body.model , req.body.weight, req.body.price, req.body.brand, req.body.size);
+       // var dataArray = ["monitor", d1.model, d1.weight, d1.price, d1.brand, d1.size];
+		  inv.addProduct(dataArray);
+      }
+      else if(req.body.type == "tablet"){
+		  var dataArray = ["tablet",req.body.id , req.body.model , req.body.weight, req.body.price, req.body.brand, req.body.processorType, req.body.cpuCores, req.body.ram, req.body.hardDriveSize, req.body.dimensions, req.body.batteryInfo, req.body.operatingSystem, req.body.cameraInfo];
+       // var d1 = new tablet(req.body.id , req.body.model , req.body.weight, req.body.price, req.body.brand, req.body.processorType, req.body.cpuCores, req.body.ram, req.body.hardDriveSize, req.body.dimensions, req.body.batteryInfo, req.body.operatingSystem, req.body.cameraInfo);
+       // var dataArray = ["tablet", d1.model, d1.weight, d1.price, d1.brand, d1.processorType, d1.cpuCores, d1.ram, d1.hardDriveSize, d1.dimensions, d1.batteryInfo, d1.operatingSystem, d1.cameraInfo];
+          inv.addProduct(dataArray);
+      }
+      else if(req.body.type == "laptop"){
+		  var dataArray = ["laptop",req.body.id , req.body.model , req.body.weight, req.body.price, req.body.brand, req.body.processorType, req.body.cpuCores, req.body.ram, req.body.hardDriveSize, req.body.size, req.body.batteryInfo, req.body.operatingSystem, req.body.camera, req.body.touchScreen];
+        //var d1 = new laptop(req.body.id , req.body.model , req.body.weight, req.body.price, req.body.brand, req.body.processorType, req.body.cpuCores, req.body.ram, req.body.hardDriveSize, req.body.size, req.body.batteryInfo, req.body.operatingSystem, req.body.camera, req.body.touchScreen);
+        //var dataArray = ["laptop", d1.model, d1.weight, d1.price, d1.brand, d1.processorType, d1.cpuCores, d1.ram, d1.hardDriveSize, d1.size, d1.batteryInfo, d1.operatingSystem, d1.camera, d1.touchScreen];
+        inv.addProduct(dataArray);
+      }
+   }
+   
+   
+   
 };
