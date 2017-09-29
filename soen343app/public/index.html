@@ -28,16 +28,14 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">Deals</a></li>
-                <li><a href="#">Stores</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="/AdminAddItem">Add Item</a></li>
+                <li><a href="#">Catalog</a></li>
+                <li ng-if="loggedIn && isAdmin"><a href="/addItems">Add Item</a></li>
                 <li><a href="/test">TEST</a></li>
-                <li><a href="/login">Login</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+                <li ng-if="loggedIn"><a href="/logout">Logout</a></li>
+                <li ng-if="loggedIn"><a href="/account"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+                <li ng-if="!loggedIn"><a href="/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
             </ul>
         </div>
@@ -53,10 +51,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
 
-<!-- Angular Scripts-->
+<!-- Angular Scripts -->
 <script src="app.js"></script>
 <script src="testPage/testPage.js"></script>
 <script src="login/login.js"></script>
-
+<script src="adminAddItemsPage/adminAddItem.js"></script>
+<script src="adminFeatures/registerAdmin.js"></script>
+<script src="userActions/userActions.js"></script>
+-
 </body>
 </html>

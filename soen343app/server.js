@@ -21,6 +21,12 @@ Our Modules
 */
 var store = require('./modules/store');
 
+//=====================================================================
+/*
+Our Modules
+*/
+var store = require('./modules/store');
+
 //======================================================================
 //Mysql Initial connection
 
@@ -42,8 +48,8 @@ var db = mysql.createConnection({
 //   password: "root",
 // });
 db.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected to the database!");
+    if (err) throw err;
+    console.log("Connected to the database!");
 });
 
 //====================================================================
@@ -79,11 +85,11 @@ Get Requests
 */
 //Returns all the entries from TestEntry Table in Database
 app.get('/get/name',function(req, res){
-   var sql = "SELECT * from TestEntry";
-   db.query(sql, function (error, results, fields){
-     if (error) res.send(error.code);
-     res.send(results);
-   })
+    var sql = "SELECT * from TestEntry";
+    db.query(sql, function (error, results, fields){
+        if (error) res.send(error.code);
+        res.send(results);
+    })
 });
 
 // route for user logout
@@ -99,34 +105,37 @@ app.get('/get/logout', (req, res) => {
 
 // Handles all GET request paths except those handled above
 app.get('/get/*',function(req, res){
-   res.send("GET request received - server");
+    res.send("GET request received - server");
 });
 
 /*
 Post Requests
 */
 app.post('/post/name', function (req, res){
-   var sql = "INSERT INTO TestEntry (Name) Values('" + req.body.name + "')";
-   db.query(sql, function (error, results, fields) {
-      if (error) res.send(error.code);
-      console.log("1 record inserted");
-      res.send(results);
-  });
+    var sql = "INSERT INTO TestEntry (Name) Values('" + req.body.name + "')";
+    db.query(sql, function (error, results, fields) {
+        if (error) res.send(error.code);
+        console.log("1 record inserted");
+        res.send(results);
+    });
 });
 
 
 //Login route (needs email and password as parameters in the req.body)
 app.post('/post/login', store.login);
 
+//Login route (needs email and password as parameters in the req.body)
+app.post('/post/register', store.registerAdmin);
+
 //Handles all POST request paths except those handled above
 app.post('/post/*', function (req, res){
-   res.send(req.body);
+    res.send(req.body);
 });
 
 
 // Routing to main page, Angular JS will handle the rest.
 app.get('*', function(req, res) {
-   res.sendFile(__dirname + '/public/index.html');  // load the single view file (angular will handle the page changes on the front-end)
+    res.sendFile(__dirname + '/public/index.html');  // load the single view file (angular will handle the page changes on the front-end)
 });
 
 //=====================================================================================
