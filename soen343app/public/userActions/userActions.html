@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang ="en">
-<head>
-  <title>Admin Control Panel</title>
-</head>
-<body>
 <div id="controlPanel "class="well well-lg" ng-controller="UserActionsCtrl">
-  <h1>Administrator Control Panel</h1>
-    <a href="/registerAdmin" class="btn" role="button">Register Admin Account</button><br>
+   <div ng-if="!isAdmin">
+      <h1>User Control Panel</h1>
+   </div>
+   <div ng-if="isAdmin">
+      <h1>Administrator Control Panel</h1>
+      <a href="/registerAdmin" class="btn" role="button">Register Admin Account</button><br>
+      <a href="/addItems" class="btn" role="button">Add New Item to Inventory</button><br>
+   <div>
 </div>
-</body>

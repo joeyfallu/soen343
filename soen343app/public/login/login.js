@@ -1,7 +1,7 @@
 var loginModule = angular.module('myApp.login', ['ngCookies']);
 
-loginModule.controller('LoginController', ['$scope', '$location', 'Authentication', "$http", "$cookies",
-function loginController($scope, $location, Authentication, $http, $cookies) {
+loginModule.controller('LoginController', ['$scope', '$location', 'Authentication', "$http", "$cookies", "$window", "$auth343",
+function loginController($scope, $location, Authentication, $http, $cookies, $window, $auth343) {
    $scope.errorMsg = "";
 
    $scope.login = function() {
@@ -24,6 +24,7 @@ function loginController($scope, $location, Authentication, $http, $cookies) {
                $scope.userInfo = res.data;
                $cookies.putObject('userInfo', $scope.userInfo);
                console.log("Successful login for: ",$scope.userInfo.email);
+               $auth343.updateValues();
                $location.path('/');
                return;
             }
@@ -32,8 +33,8 @@ function loginController($scope, $location, Authentication, $http, $cookies) {
    };
 }]);
 
-loginModule.controller('logoutController', ['$scope', '$location', "$http", "$cookies",
-function logoutController($scope, $location, $http, $cookies) {
+loginModule.controller('logoutController', ['$scope', '$location', "$http", "$cookies", "$window", "$auth343",
+function logoutController($scope, $location, $http, $cookies, $window, $auth343) {
    var user = $cookies.getObject('userInfo');
    var session = $cookies.get('session');
    if(user != undefined){
@@ -41,12 +42,14 @@ function logoutController($scope, $location, $http, $cookies) {
       if(session != undefined){
          $cookies.remove('session');
          console.log(user.email, " has been logged out");
+         $auth343.updateValues();
          $location.path('/');
          return;
       }
    } else {
       //not logged in
       console.log("not logged in");
+      $auth343.updateValues();
       $location.path('/');
       return;
    }
