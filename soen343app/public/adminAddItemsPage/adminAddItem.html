@@ -11,80 +11,80 @@
    </form>
    TELEVISION
    <form ng-submit="addTV()">
-            Detailed Dimensions (in centimeters): <input type="number" ng-model="dimensions" min="0" required>cm<br />
-            Weight (in kilograms):                <input type="number" ng-model="weight" min="0" required>kg<br />
-            Model Number:                         <input type="text" ng-model="modelNumber" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
-            Brand Name:                           <input type="text" ng-model="brand" required><br />
-            Price:                                <input type="number" ng-model="price" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br /><br>
+            Detailed Dimensions (in centimeters): <input type="number" ng-model="tvDimensions" min="0" required>cm<br />
+            Weight (in kilograms):                <input type="number" ng-model="tvWeight" min="0" required>kg<br />
+            Model Number:                         <input type="text" ng-model="tvModelNumber" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
+            Brand Name:                           <input type="text" ng-model="tvBrand" required><br />
+            Price:                                <input type="number" ng-model="tvPrice" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br /><br>
                                                   <input class="btn" type="submit" /><br><br>
    </form>
    MONITOR
    <form ng-submit="addMonitor()">
-            Size (in inches):                    <input type="number" ng-model="size" min="0" required>in<br />
-            Weight (in kilograms):               <input type="number" ng-model="weight" min="0" required>kg<br />
-            Brand Name:                          <input type="text" ng-model="brand" required><br />
-            Model Number:                        <input type="text" ng-model="modelNumber" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
-            Price:                               <input type="number" ng-model="price" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br /><br>
+            Size (in inches):                    <input type="number" ng-model="monitorSize" min="0" required>in<br />
+            Weight (in kilograms):               <input type="number" ng-model="monitorWeight" min="0" required>kg<br />
+            Brand Name:                          <input type="text" ng-model="monitorbrand" required><br />
+            Model Number:                        <input type="text" ng-model="monitorModelNumber" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
+            Price:                               <input type="number" ng-model="monitorPrice" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br /><br>
                                                  <input class="btn" type="submit" /><br><br>
          </form>
 	DESKTOP
 	<form ng-submit="addDesktop()">
-               Detailed Dimensions (in centimeters): <input type="number" ng-model="dimensions" min="0" required>cm<br />
-               Processor Type:                       <input type="text" ng-model="processor" required><br />
-               Weight (in kilograms):                <input type="number" ng-model="weight" min="0" required>kg<br />
-               Number of CPU Cores:                  <input type="number" ng-model="cpuCores" min="0" required><br />
-               Hard Drive Size (in Gigabytes):       <input type="number" ng-model="hardDriveSize" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
-               Brand Name:                           <input type="text" ng-model="brand" required><br />
-               Model Number:                         <input type="text" ng-model="modelNumber" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
-               Price:                                <input type="number" ng-model="price" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br /><br>
+               Detailed Dimensions (in centimeters): <input type="number" ng-model="desktopDimensions" min="0" required>cm<br />
+               Processor Type:                       <input type="text" ng-model="desktopProcessor" required><br />
+               Weight (in kilograms):                <input type="number" ng-model="desktopWeight" min="0" required>kg<br />
+               Number of CPU Cores:                  <input type="number" ng-model="desktopCpuCores" min="0" required><br />
+               Hard Drive Size (in Gigabytes):       <input type="number" ng-model="desktopHardDriveSize" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
+               Brand Name:                           <input type="text" ng-model="desktopBrand" required><br />
+               Model Number:                         <input type="text" ng-model="desktopModelNumber" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
+               Price:                                <input type="number" ng-model="desktopPrice" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br /><br>
                                                      <input class="btn" type="submit" /><br><br>
             </form>
 	LAPTOP
 	<form ng-submit="addLaptop()">
-               Display Size (in inches):            <input type="number" ng-model="size" min="0" required>in<br />
-               Processor Type:                      <input type="text" ng-model="processor" required><br />
-               Weight (in kilograms):               <input type="number" ng-model="weight" min="0" required>kg<br />
-               RAM Size (in Gigabytes):             <input type="number" ng-model="ram" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
-               Number of CPU Cores:                 <input type="number" ng-model="cors" min="0" required><br />
-               Hard Drive Size (in Gigabytes):      <input type="number" ng-model="hardDriveSize" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
-               Battery Information:                 <input type="text" ng-model="battery" required><br />
-               Brand Name:                          <input type="text" ng-model="brand" required><br />
-               Model Number:                        <input type="text" ng-model="model" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
-               Operating System:                    <input type="text" ng-model="operatingSystem" required><br />
-               Price:                               <input type="number" ng-model="price" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br />
+               Display Size (in inches):            <input type="number" ng-model="laptopSize" min="0" required>in<br />
+               Processor Type:                      <input type="text" ng-model="laptopProcessor" required><br />
+               Weight (in kilograms):               <input type="number" ng-model="laptopWeight" min="0" required>kg<br />
+               RAM Size (in Gigabytes):             <input type="number" ng-model="laptopRam" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
+               Number of CPU Cores:                 <input type="number" ng-model="laptopCores" min="0" required><br />
+               Hard Drive Size (in Gigabytes):      <input type="number" ng-model="laptopHardDriveSize" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
+               Battery Information:                 <input type="text" ng-model="laptopBattery" required><br />
+               Brand Name:                          <input type="text" ng-model="laptopBrand" required><br />
+               Model Number:                        <input type="text" ng-model="laptopModel" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
+               Operating System:                    <input type="text" ng-model="laptopOperatingSystem" required><br />
+               Price:                               <input type="number" ng-model="laptopPrice" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br />
                Does it have a camera?</br>
-													<input type="text" ng-model="camera" required><br />
-                                                    <input type="text" ng-model="touchScreen" required><br />
+													                          <input type="text" ng-model="laptopCamera" required><br />
+                                                    <input type="text" ng-model="laptopTouchScreen" required><br />
                Does it have a touch screen?</br>
-                                                    
+
                                                     <input class="btn" type="submit" /><br><br>
             </form>
 	TABLET
 	 <form ng-submit="addTablet()">
-               Display Size (in inches):            <input type="number" ng-model="size" min="0" required>in<br />
-               Detailed Dimensions (in centimeters):<input type="number" ng-model="dimensions" min="0" required>cm<br />
-               Weight (in kilograms):               <input type="number" ng-model="weight" min="0" required>kg<br />
-               Processor Type:                      <input type="text" ng-model="processor" required><br />
-               RAM Size (in Gigabytes):             <input type="number" ng-model="ram" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
-               Number of CPU Cores:                 <input type="number" ng-model="cores" min="0" required><br />
-               Hard Drive Size (in Gigabytes):      <input type="number" ng-model="hardDriveSize" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
-               Battery Information:                 <input type="text" ng-model="battery" required><br />
-               Brand Name:                          <input type="text" ng-model="brand" required><br />
-               Model Number:                        <input type="text" ng-model="modelNumber" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
-               Operating System:                    <input type="text" ng-model="operatingSystem" required><br />
-               Price:                               <input type="number" ng-model="price" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br />
-               Does it have a camera?:              <input type="text" ng-model="camera" required><br />
-                                                  
+               Display Size (in inches):            <input type="number" ng-model="tabletSize" min="0" required>in<br />
+               Detailed Dimensions (in centimeters):<input type="number" ng-model="tabletDimensions" min="0" required>cm<br />
+               Weight (in kilograms):               <input type="number" ng-model="tabletWeight" min="0" required>kg<br />
+               Processor Type:                      <input type="text" ng-model="tabletProcessor" required><br />
+               RAM Size (in Gigabytes):             <input type="number" ng-model="tabletRam" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
+               Number of CPU Cores:                 <input type="number" ng-model="tabletCores" min="0" required><br />
+               Hard Drive Size (in Gigabytes):      <input type="number" ng-model="tabletHardDriveSize" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
+               Battery Information:                 <input type="text" ng-model="tableBattery" required><br />
+               Brand Name:                          <input type="text" ng-model="tabletBrand" required><br />
+               Model Number:                        <input type="text" ng-model="tabletModelNumber" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
+               Operating System:                    <input type="text" ng-model="tabletOperatingSystem" required><br />
+               Price:                               <input type="number" ng-model="tabletPrice" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br />
+               Does it have a camera?:              <input type="text" ng-model="tabletCamera" required><br />
+
                                                     <input class="btn" type="submit" /><br><br>
             </form>
    <div ng-switch="Category">
       <div ng-switch-when="Television">
          <h1>Add a Television</h1>
-         
+
       </div>
       <div ng-switch-when="Monitor">
          <h1>Add a Monitor Display</h1>
-        
+
       </div>
       <div ng-switch-when="Computer">
          <h1>Add a Computer</h1>
@@ -100,15 +100,15 @@
       <div ng-switch="Computer">
          <div ng-switch-when="Desktop">
             <h1>Add a Desktop Computer</h1>
-            
+
          </div>
          <div ng-switch-when="Laptop">
             <h1>Add a Laptop Computer</h1>
-            
+
          </div>
          <div ng-switch-when="Tablet">
             <h1>Add a Tablet Computer</h1>
-           
+
          </div>
       </div>
    </div>
