@@ -70,7 +70,7 @@ The data from the controller is sent to the model (html page) which will be disp
    }
 
    $scope.addProduct = function(){
-    var url = "/post/addProduct";
+    var url = "/post/addItem";
     var data = {
       type : "tablet",
       model : "27",
