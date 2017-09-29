@@ -3,6 +3,7 @@ const fs = require('fs');
 var mysql = require('mysql');
 var dateFormat = require('dateformat');
 var user = require('./user');
+var Iventory = require('./inventory');
 
 
 //For the amazon server mysql connection
