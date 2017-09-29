@@ -1,6 +1,7 @@
 'use strict'
 const fs = require('fs');
 var mysql = require('mysql');
+var dateFormat = require('dateformat');
 
 //For the amazon server mysql connection
 var db = mysql.createConnection({
@@ -43,15 +44,20 @@ module.exports = {
             if(results[0].password == req.body.password ){
 
                // Logging throws error, commented out for now.
-               //   //get timestamp
-               //   var timeStamp = Math.floor(Date.now() / 1000);
-               //   //set the id variable for tracking active users
-               //   let id = results[0].id;
-               //   //write to file the info of the active user
-               //   fs.writeFile('active.txt', timeStamp, id ,(err) => {
-               //     if (err) throw err;
-               //   console.log('Active user saved!');
-               //   });
+               //get timestamp
+              var timeStamp=new Date(2015,1,3,15,30).toLocaleString();
+              //set the id variable for tracking active users
+              let id = results[0].id;
+              //write to file the info of the active user
+              fs.appendFile('active-users.txt' ,timeStamp+" ",(err) => {
+              if (err) throw err;
+              console.log('Timestamp saved!');
+              fs.appendFile('active-users.txt' ,id+" Logged in\n",(err) => {
+              if (err) throw err;
+              console.log('Email saved!');
+              });
+              });
+
                //Login Successful
                //create a session (+ cookie)
                //Redirect
