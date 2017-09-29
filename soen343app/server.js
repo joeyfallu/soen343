@@ -86,6 +86,23 @@ app.get('/get/name',function(req, res){
     })
 });
 
+//returns the products
+app.get('/get/products', function(req,res){
+  var products = [];
+  var inventory = new Inventory(products);
+  var sql = "SELECT model,type From inventory";
+  db.query(sql, function (error, results, fields){
+    if (error) res.send(error.code);
+    for(var i = 0; i < results.length; i++){
+
+      products.push(results[i]);
+    }
+
+    inventory.viewProducts(products, req, res).then(function(items){
+      res.send(items)
+    });
+  });
+});
 // route for user logout
 
 app.get('/get/logout', (req, res) => {
