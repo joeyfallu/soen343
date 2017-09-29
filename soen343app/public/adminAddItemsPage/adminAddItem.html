@@ -12,7 +12,7 @@
    <div ng-switch="Category">
       <div ng-switch-when="Television">
          <h1>Add a Television</h1>
-         <form>
+         <form ng-submit="addTV()">
             Detailed Dimensions (in centimeters): <input type="number" ng-model="dimensions" min="0" required>cm<br />
             Weight (in kilograms):                <input type="number" ng-model="weight" min="0" required>kg<br />
             Model Number:                         <input type="text" ng-model="modelNumber" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
@@ -23,7 +23,7 @@
       </div>
       <div ng-switch-when="Monitor">
          <h1>Add a Monitor Display</h1>
-         <form>
+         <form ng-submit="addMonitor()">
             Size (in inches):                    <input type="number" ng-model="size" min="0" required>in<br />
             Weight (in kilograms):               <input type="number" ng-model="weight" min="0" required>kg<br />
             Brand Name:                          <input type="text" ng-model="brand" required><br />
@@ -46,7 +46,7 @@
       <div ng-switch="Computer">
          <div ng-switch-when="Desktop">
             <h1>Add a Desktop Computer</h1>
-            <form>
+            <form ng-submit="addDesktop()">
                Detailed Dimensions (in centimeters): <input type="number" ng-model="dimensions" min="0" required>cm<br />
                Processor Type:                       <input type="text" ng-model="processor" required><br />
                Weight (in kilograms):                <input type="number" ng-model="weight" min="0" required>kg<br />
@@ -60,9 +60,10 @@
          </div>
          <div ng-switch-when="Laptop">
             <h1>Add a Laptop Computer</h1>
-            <form>
+            <form ng-submit="addLaptop()">
                Display Size (in inches):            <input type="number" ng-model="size" min="0" required>in<br />
                Processor Type:                      <input type="text" ng-model="processor" required><br />
+               Weight (in kilograms):               <input type="number" ng-model="weight" min="0" required>kg<br />
                RAM Size (in Gigabytes):             <input type="number" ng-model="ram" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
                Number of CPU Cores:                 <input type="number" ng-model="cors" min="0" required><br />
                Hard Drive Size (in Gigabytes):      <input type="number" ng-model="hardDriveSize" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
@@ -82,7 +83,7 @@
          </div>
          <div ng-switch-when="Tablet">
             <h1>Add a Tablet Computer</h1>
-            <form>
+            <form ng-submit="addTablet()">
                Display Size (in inches):            <input type="number" ng-model="size" min="0" required>in<br />
                Detailed Dimensions (in centimeters):<input type="number" ng-model="dimensions" min="0" required>cm<br />
                Weight (in kilograms):               <input type="number" ng-model="weight" min="0" required>kg<br />
