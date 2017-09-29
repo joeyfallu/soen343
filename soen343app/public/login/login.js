@@ -1,7 +1,7 @@
 var loginModule = angular.module('myApp.login', ['ngCookies']);
 
-loginModule.controller('LoginController', ['$scope', '$location', 'Authentication', "$http", "$cookies", "$window",
-function loginController($scope, $location, Authentication, $http, $cookies, $window) {
+loginModule.controller('LoginController', ['$scope', '$location', 'Authentication', "$http", "$cookies", "$window", "$auth343",
+function loginController($scope, $location, Authentication, $http, $cookies, $window, $auth343) {
    $scope.errorMsg = "";
 
    $scope.login = function() {
@@ -24,7 +24,7 @@ function loginController($scope, $location, Authentication, $http, $cookies, $wi
                $scope.userInfo = res.data;
                $cookies.putObject('userInfo', $scope.userInfo);
                console.log("Successful login for: ",$scope.userInfo.email);
-               $window.location.reload();
+               $auth343.updateValues();
                $location.path('/');
                return;
             }
@@ -33,8 +33,8 @@ function loginController($scope, $location, Authentication, $http, $cookies, $wi
    };
 }]);
 
-loginModule.controller('logoutController', ['$scope', '$location', "$http", "$cookies", "$window",
-function logoutController($scope, $location, $http, $cookies, $window) {
+loginModule.controller('logoutController', ['$scope', '$location', "$http", "$cookies", "$window", "$auth343",
+function logoutController($scope, $location, $http, $cookies, $window, $auth343) {
    var user = $cookies.getObject('userInfo');
    var session = $cookies.get('session');
    if(user != undefined){
@@ -42,14 +42,14 @@ function logoutController($scope, $location, $http, $cookies, $window) {
       if(session != undefined){
          $cookies.remove('session');
          console.log(user.email, " has been logged out");
-         $window.location.reload();
+         $auth343.updateValues();
          $location.path('/');
          return;
       }
    } else {
       //not logged in
       console.log("not logged in");
-      $window.location.reload();
+      $auth343.updateValues();
       $location.path('/');
       return;
    }

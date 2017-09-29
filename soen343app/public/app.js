@@ -24,17 +24,11 @@ app.config(['$locationProvider', '$routeProvider', function($locationProvider, $
     $routeProvider.otherwise({ redirectTo: '/' });
 }]);
 
-app.controller("AppController", function appController($scope, $auth343) {
+app.controller("AppController", function appController($scope) {
     $scope.style = {
         "background-color" : "white"
     }
-    if($auth343.requireLogin() == true){
-      $scope.loggedIn = true;
-    }
-    //check admin priviliges
-    if($auth343.requireAdmin() == true){
-      $scope.isAdmin = true;
-    }
+
 });
 
 app.factory('Authentication', function() {
@@ -58,8 +52,8 @@ app.factory('Authentication', function() {
 Custom service to check Authentication and Authorization
 returns true or false
 */
-app.service('$auth343', function($cookies){
-   this.requireLogin = function(){
+app.service('$auth343', function($cookies, $rootScope){
+   this.isLogged = function(){
       var user = $cookies.getObject('userInfo');
       var session = $cookies.get('session');
       if(user == undefined){
@@ -68,7 +62,7 @@ app.service('$auth343', function($cookies){
          if(user != undefined) return true;
       }
    }
-   this.requireAdmin = function(){
+   this.isAdmin = function(){
       var user = $cookies.getObject('userInfo');
       var session = $cookies.get('session');
       if((user != undefined) && (session != undefined)) {
@@ -78,5 +72,15 @@ app.service('$auth343', function($cookies){
             return false;
          }
       }
+   }
+   this.requireLogin = function(){
+      if(!this.isLogged()){
+         $location.path("/login");
+         return;
+      }
+   }
+   this.updateValues = function(){
+      $rootScope.loggedIn = this.isLogged();
+      $rootScope.isAdmin = this.isAdmin();
    }
 });

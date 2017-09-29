@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <div id="controlPanel "class="well well-lg" ng-controller="UserActionsCtrl">
-   <h1>User Control Panel</h1>
+   <div ng-if="!isAdmin">
+      <h1>User Control Panel</h1>
+   </div>
    <div ng-if="isAdmin">
       <h1>Administrator Control Panel</h1>
       <a href="/registerAdmin" class="btn" role="button">Register Admin Account</button><br>

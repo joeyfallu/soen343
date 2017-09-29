@@ -17,8 +17,5 @@ angular.module('myApp.userActions', ['ngRoute'])
     */
     .controller('UserActionsCtrl', ["$scope", "$http","$auth343","$location", function($scope, $http, $auth343, $location) {
       //check login
-      if(!$auth343.requireLogin()){
-         $location.path("/login");
-         return;
-      }
+      $auth343.requireLogin();
     }]);
