@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "node soen343app/server.js",
+    "dev": "nodemon soen343app/server.js",
     "test": "./node_modules/.bin/mocha"
   },
   "dependencies": {
