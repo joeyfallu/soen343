@@ -96,9 +96,8 @@
                Model Number:                        <input type="text" ng-model="modelNumber" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
                Operating System:                    <input type="text" ng-model="operatingSystem" required><br />
                Price:                               <input type="number" ng-model="price" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br />
-               Does it have a camera?</br>
-                                                    <input type="radio" ng-model="camera" value="Yes" required>Yes<br />
-                                                    <input type="radio" ng-model="camera" value="No" required>No<br /><br>
+               Does it have a camera?:              <input type="text" ng-model="camera" required><br />
+                                                  
                                                     <input class="btn" type="submit" /><br><br>
             </form>
          </div>
