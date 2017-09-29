@@ -28,9 +28,9 @@ function Inventory(){
  
     return new Promise(function(resolve, reject) {
       products.forEach(function(product, i){
-        var sql = "SELECT * from " + product.type + " WHERE model =" + product.model;
+        var sql = "SELECT * from " + product.type + " WHERE model ='" + product.model + "'";
         db.query(sql, function(error, results, fields){
-          if(error) return error.code;
+          if(error){ console.log(error); return "nope"};
           switch (product.type) {
             case 'television':
               var televisionItem = new television(results[0].id,results[0].model,results.weight,results[0].price,results[0].brand,results[0].dimensions);
