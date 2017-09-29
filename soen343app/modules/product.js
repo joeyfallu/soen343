@@ -1,4 +1,5 @@
 
+
 var util = require('util');
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -98,16 +99,8 @@ var laptop = function(id,model,weight,price,brand,processorType,cpuCores,ram,har
 
 util.inherits(laptop,computer);
 
-module.exports = television, monitor, computer, desktop, tablet, laptop;
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-var a = new television(1, "sonyViera", 40, 100, "sony","40x30");
-var b = new monitor(2,"benqX9k", 10, 120, "benq", 27);
-var c = new computer(3,"seymore",20,130,"sonyf", "ryzen", 8, 16, 2)
-var d = new desktop(4,"razerrr",20,130,"sonyf", "ryzen", 8, 16, 2,"40x40x90")
-a.toString();
-b.toString();
-c.toString();
-d.toString();
-
-console.log(d.dimensions);
+module.exports.television = television;
+module.exports.monitor = monitor;
+module.exports.desktop = desktop;
+module.exports.tablet = tablet;
+module.exports.laptop = laptop;
