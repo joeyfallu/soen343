@@ -24,12 +24,17 @@ app.config(['$locationProvider', '$routeProvider', function($locationProvider, $
     $routeProvider.otherwise({ redirectTo: '/' });
 }]);
 
-app.controller("AppController", function appController($scope) {
+app.controller("AppController", function appController($scope, $auth343) {
     $scope.style = {
         "background-color" : "white"
     }
-
-
+    if($auth343.requireLogin() == true){
+      $scope.loggedIn = true;
+    }
+    //check admin priviliges
+    if($auth343.requireAdmin() == true){
+      $scope.isAdmin = true;
+    }
 });
 
 app.factory('Authentication', function() {
