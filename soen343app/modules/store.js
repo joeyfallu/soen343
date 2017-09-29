@@ -53,9 +53,9 @@ module.exports = {
               let id = results[0].id;
               //write to file the info of the active user
               fs.appendFile('logs/active-users.log' ,timeStamp+" ",(err) => {
-              if (err) throw err;
+              if (err);
               fs.appendFile('logs/active-users.log' ,id+" Logged in\r\n",(err) => {
-              if (err) throw err;
+              if (err);
               });
               });
 
