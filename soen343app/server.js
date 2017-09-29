@@ -6,6 +6,7 @@ var favicon = require('serve-favicon');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var Inventory = require('./modules/inventory')
 var app = express();
 
 //==================================================================
