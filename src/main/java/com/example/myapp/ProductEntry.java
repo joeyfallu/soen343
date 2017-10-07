@@ -11,7 +11,7 @@ public class ProductEntry extends Transaction {
 
     }
 
-    void deleteProduct(Product.getId id){
+    void deleteProduct(Product.getId() id){
 
     }
 
