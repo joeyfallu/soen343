@@ -6,13 +6,19 @@ public class Transaction {
     public void setComplete(boolean complete) {
         isComplete = complete;
     }
-
-    void becomeComplete(){
-
+    public boolean getIsComplete(){
+        return isComplete;
     }
 
     public Transaction(boolean isComplete) {
         this.isComplete = isComplete;
+    }
+
+
+
+
+    void becomeComplete(){
+
     }
 
     boolean isComplete(){
