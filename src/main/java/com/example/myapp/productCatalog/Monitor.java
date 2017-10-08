@@ -1,6 +1,6 @@
-package com.example.myapp;
+package com.example.myapp.productCatalog;
 
-public class Monitor extends Product.Product {
+public class Monitor extends Product {
     private int size;
 
     public Monitor(int id, String model, double weight, double price, String brand, int size){
@@ -15,7 +15,7 @@ public class Monitor extends Product.Product {
 
     public String toString(){
         String x;
-        x = "id = " + getID() + " model = " + getModel() + " weight = " + getModel() + " price = " + getPrice() + " brand = " + getBrand() + " dimensions = " + getSize();
+        x = "id = " + getID() + " model = " + getModel() + " weight = " + getWeight() + " price = " + getPrice() + " brand = " + getBrand() + " dimensions = " + getSize();
         return x;
     }
 

@@ -1,4 +1,4 @@
-package com.example.myapp;
+package com.example.myapp.userCatalog;
 
 public class User {
 
@@ -36,7 +36,7 @@ public class User {
         return x;
     }
 
-    public boolean equals(User.User e){
+    public boolean equals(User e){
         return (this.getFirstName().equals(e.getFirstName()) && this.getLastName().equals(e.getLastName()) && this.getId() == e.getId() && this.getAddress().equals(e.getAddress()) && this.getPhoneNumber().equals(e.getPhoneNumber()) && this.getIsAdmin() == e.getIsAdmin()  );
     }
 

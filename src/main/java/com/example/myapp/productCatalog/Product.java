@@ -1,4 +1,4 @@
-package com.example.myapp;
+package com.example.myapp.productCatalog;
 
 public class Product {
     private int id;
@@ -25,7 +25,7 @@ public class Product {
 
     public String toString(){
         String x;
-        x = "id = " + getID() + " model = " + getModel() + " weight = " + getModel() + " price = " + getPrice() + " brand = " + getBrand();
+        x = "id = " + getID() + " model = " + getModel() + " weight = " + getWeight() + " price = " + getPrice() + " brand = " + getBrand();
         return x;
     }
 
