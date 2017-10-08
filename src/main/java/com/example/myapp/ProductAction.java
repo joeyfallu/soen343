@@ -7,7 +7,7 @@ public class ProductAction extends Action {
         super(isComplete);
     }
 
-    void addNewProduct(Product p){
+    void addNewProduct(String discriminator, String [] values){
 
     }
 
@@ -15,7 +15,7 @@ public class ProductAction extends Action {
 
     }
 
-    void modifyProduct (Product p, ProductId id){
+    void modifyProduct (String [] values,Product.getId() id){
 
     }
 }
