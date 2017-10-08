@@ -9,7 +9,7 @@ public class Laptop extends Computer {
     private boolean touchScreen;
 
 
-    public Laptop(int id, String model, double weight, double price, String brand, String processorType, int cpuCores, int ram, int hardDriveSize, boolean touchScreen, String batteryInfo, String operatingSystem, boolean camera, double size){
+    public Laptop(int id, String model, double weight, double price, String brand, String processorType, int cpuCores, int ram, int hardDriveSize, double size, String batteryInfo, String operatingSystem, boolean camera, boolean touchScreen){
         super(id, model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize);
         this.camera = camera;
         this.batteryInfo = batteryInfo;
