@@ -7,15 +7,15 @@ public class ProductAction extends Action {
         super(isComplete);
     }
 
-    void addNewProduct(String discriminator, String [] values){
+    public void addNewProduct(String discriminator, String [] values){
 
     }
 
-    void deleteProduct(Product.getId() id){
+    public void deleteProduct(){
 
     }
 
-    void modifyProduct (String [] values,Product.getId() id){
+    public void modifyProduct (){
 
     }
 }

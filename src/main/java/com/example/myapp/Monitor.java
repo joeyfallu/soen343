@@ -1,6 +1,6 @@
 package com.example.myapp;
 
-public class Monitor extends Product.Product {
+public class Monitor extends Product {
     private int size;
 
     public Monitor(int id, String model, double weight, double price, String brand, int size){
