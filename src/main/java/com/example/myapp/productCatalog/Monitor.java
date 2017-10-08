@@ -15,7 +15,7 @@ public class Monitor extends Product {
 
     public String toString(){
         String x;
-        x = "id = " + getID() + " model = " + getModel() + " weight = " + getModel() + " price = " + getPrice() + " brand = " + getBrand() + " dimensions = " + getSize();
+        x = "id = " + getID() + " model = " + getModel() + " weight = " + getWeight() + " price = " + getPrice() + " brand = " + getBrand() + " dimensions = " + getSize();
         return x;
     }
 

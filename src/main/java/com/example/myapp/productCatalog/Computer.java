@@ -25,7 +25,7 @@ public class Computer extends Product {
 
     public String toString(){
         String x;
-        x = "id = " + getID() + " model = " + getModel() + " weight = " + getModel() + " price = " + getPrice() + " brand = " + getBrand() + " processorType = " + getProcessorType() + " CpuCores = " + getCpuCores() + " ram = " + getRam() + " hardDriveSize = " + getHardDriveSize();
+        x = "id = " + getID() + " model = " + getModel() + " weight = " + getWeight() + " price = " + getPrice() + " brand = " + getBrand() + " processorType = " + getProcessorType() + " CpuCores = " + getCpuCores() + " ram = " + getRam() + " hardDriveSize = " + getHardDriveSize();
         return x;
     }
 

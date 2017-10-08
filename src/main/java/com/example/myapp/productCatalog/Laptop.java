@@ -31,7 +31,7 @@ public class Laptop extends Computer {
 
     public String toString(){
         String x;
-        x = "id = " + getID() + "\n model = " + getModel() + "\n weight = " + getModel() + "\n price = " + getPrice() + "\n brand = " + getBrand() +
+        x = "id = " + getID() + "\n model = " + getModel() + "\n weight = " + getWeight() + "\n price = " + getPrice() + "\n brand = " + getBrand() +
                 "\n processorType = " + getProcessorType() + "\n CpuCores = " + getCpuCores() + "\n ram = " + getRam() + "\n hardDriveSize = " + getHardDriveSize() +
                 "\n TouchScreen = " + getTouchScreen() + "\n batteryInfo = " +getBatteryInfo() + "\n operatingSystem = " + getOperatingSystem() + "\n camera = " + getCamera() + "\n size = " + getSize();
         return x;

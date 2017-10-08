@@ -15,7 +15,7 @@ public class Tv extends Product {
 
     public String toString(){
         String x;
-        x = "id = " + getID() + " model = " + getModel() + " weight = " + getModel() + " price = " + getPrice() + " brand = " + getBrand() + " dimensions = " + getDimensions();
+        x = "id = " + getID() + " model = " + getModel() + " weight = " + getWeight() + " price = " + getPrice() + " brand = " + getBrand() + " dimensions = " + getDimensions();
         return x;
     }
 
