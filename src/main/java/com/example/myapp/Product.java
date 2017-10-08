@@ -1,13 +1,13 @@
-package Product;
+package com.example.myapp;
 
-public class product {
+public class Product {
     private int id;
     private String model;
     private double weight;
     private double price;
     private String brand;
 
-    public product(){
+    public Product(){
         this.id = 0;
         this.model = null;
         this.weight = 0;
@@ -15,7 +15,7 @@ public class product {
         this.brand = null;
     }
 
-    protected product(int id, String model, double weight, double price, String brand){
+    protected Product(int id, String model, double weight, double price, String brand){
         this.id = id;
         this.model = model;
         this.weight = weight;
@@ -29,7 +29,7 @@ public class product {
         return x;
     }
 
-    public boolean equals(product p){
+    public boolean equals(Product p){
         return (id == p.getID() && model.equals(p.getModel()) && weight == p.getWeight() && price == p.getPrice() && brand.equals(p.getBrand()));
 
     }

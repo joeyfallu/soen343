@@ -1,14 +1,14 @@
-package Product;
+package com.example.myapp;
 
-public class monitor extends product{
+public class Monitor extends Product.Product {
     private int size;
 
-    public monitor(int id, String model, double weight, double price, String brand, int size){
+    public Monitor(int id, String model, double weight, double price, String brand, int size){
         super(id, model, weight, price, brand);
         this.size = size;
     }
 
-    public monitor(){
+    public Monitor(){
         super();
         this.size = 0;
     }
@@ -19,7 +19,7 @@ public class monitor extends product{
         return x;
     }
 
-    public boolean equals(monitor p){
+    public boolean equals(Monitor p){
         return (this.getID() == p.getID() && this.getModel().equals(p.getModel()) && this.getWeight() == p.getWeight() && this.getPrice() == p.getPrice() && this.getBrand().equals(p.getBrand()) && this.getSize() == (p.getSize()));
 
     }

@@ -1,6 +1,6 @@
-package Product;
+package com.example.myapp;
 
-public class Desktop extends computer{
+public class Desktop extends Computer {
     private String dimensions;
     private String batteryInfo;
     private String operatingSystem;
@@ -30,7 +30,7 @@ public class Desktop extends computer{
         return x;
     }
 
-    public boolean equals(tablet p){
+    public boolean equals(Product.Tablet p){
         return (this.getID() == p.getID() && this.getModel().equals(p.getModel()) && this.getWeight() == p.getWeight() && this.getPrice() == p.getPrice() && this.getBrand().equals(p.getBrand()) &&
                 this.getProcessorType().equals(p.getProcessorType()) && this.getCpuCores() == p.getCpuCores() && this.getRam() == p.getRam() && this.getHardDriveSize() == p.getHardDriveSize()) &&
                 this.dimensions.equals(p.getDimensions());

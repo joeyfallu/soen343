@@ -1,6 +1,6 @@
-package User;
+package com.example.myapp;
 
-public class user {
+public class User {
 
     private int id;
     private String firstName;
@@ -10,7 +10,7 @@ public class user {
     private String phoneNumber;
     private boolean isAdmin;
 
-    public user(){
+    public User(){
         this.firstName = null;
         this.lastName = null;
         this.address = null;
@@ -20,7 +20,7 @@ public class user {
         this.isAdmin = false;
     }
 
-    public user(String fn, String ln, String a, String e, String PN, int id, boolean ad){
+    public User(String fn, String ln, String a, String e, String PN, int id, boolean ad){
         this.firstName = fn;
         this.lastName = ln;
         this.address = a;
@@ -36,7 +36,7 @@ public class user {
         return x;
     }
 
-    public boolean equals(user e){
+    public boolean equals(User.User e){
         return (this.getFirstName().equals(e.getFirstName()) && this.getLastName().equals(e.getLastName()) && this.getId() == e.getId() && this.getAddress().equals(e.getAddress()) && this.getPhoneNumber().equals(e.getPhoneNumber()) && this.getIsAdmin() == e.getIsAdmin()  );
     }
 

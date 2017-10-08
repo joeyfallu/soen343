@@ -1,13 +1,13 @@
-package Product;
+package com.example.myapp;
 
-public class computer extends product{
+public class Computer extends Product {
     private String processorType;
     private int cpuCores;
     private int ram;
     private int hardDriveSize;
 
 
-    public computer(int id, String model, double weight, double price, String brand, String processorType, int cpuCores, int ram, int hardDriveSize){
+    public Computer(int id, String model, double weight, double price, String brand, String processorType, int cpuCores, int ram, int hardDriveSize){
         super(id, model, weight, price, brand);
         this.processorType = processorType;
         this.cpuCores = cpuCores;
@@ -15,7 +15,7 @@ public class computer extends product{
         this.hardDriveSize = hardDriveSize;
     }
 
-    public computer(){
+    public Computer(){
         super();
         this.processorType = null;
         this.cpuCores = 0;
@@ -29,7 +29,7 @@ public class computer extends product{
         return x;
     }
 
-    public boolean equals(computer p){
+    public boolean equals(Computer p){
         return (this.getID() == p.getID() && this.getModel().equals(p.getModel()) && this.getWeight() == p.getWeight() && this.getPrice() == p.getPrice() && this.getBrand().equals(p.getBrand()) && this.getProcessorType().equals(p.getProcessorType()) && this.getCpuCores() == p.getCpuCores() && this.getRam() == p.getRam() && this.getHardDriveSize() == p.getHardDriveSize());
 
     }
@@ -50,6 +50,8 @@ public class computer extends product{
         return hardDriveSize;
     }
 
+
+
     public void setProcessorType(String newProcessorType){
         this.processorType = newProcessorType;
     }
@@ -65,6 +67,9 @@ public class computer extends product{
     public void setHardDriveSize(int newHDS){
         this.hardDriveSize = newHDS;
     }
+
+
+
 
 
 

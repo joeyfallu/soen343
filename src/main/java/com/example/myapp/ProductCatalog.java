@@ -1,12 +1,12 @@
-package Product;
+package com.example.myapp;
 
 import java.util.Map;
 
-public class productCatalog {
+public class ProductCatalog {
 
-    private Map<product, Integer > products;
+    private Map<Product, Integer > products;
 
-    public productCatalog(){
+    public ProductCatalog(){
 
     }
 

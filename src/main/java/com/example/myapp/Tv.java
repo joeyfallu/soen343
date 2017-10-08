@@ -1,14 +1,16 @@
-package Product;
+package com.example.myapp;
 
-public class tv extends product{
+import com.example.myapp.Product;
+
+public class Tv extends Product.Product {
     private int dimensions;
 
-    public tv(int id, String model, double weight, double price, String brand, int dimensions){
+    public Tv(int id, String model, double weight, double price, String brand, int dimensions){
         super(id, model, weight, price, brand);
         this.dimensions = dimensions;
     }
 
-    public tv(){
+    public Tv(){
         super();
         this.dimensions = 0;
     }
@@ -19,7 +21,7 @@ public class tv extends product{
         return x;
     }
 
-    public boolean equals(tv p){
+    public boolean equals(Product.Tv p){
         return (this.getID() == p.getID() && this.getModel().equals(p.getModel()) && this.getWeight() == p.getWeight() && this.getPrice() == p.getPrice() && this.getBrand().equals(p.getBrand()) && this.getDimensions() ==(p.getDimensions()));
 
     }
