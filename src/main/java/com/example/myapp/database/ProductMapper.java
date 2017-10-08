@@ -6,11 +6,11 @@ import com.example.myapp.productCatalog.ProductCatalog;
 public class ProductMapper {
 
     private ProductIdentityMap productIdentityMap;
-    private ProductTDG productTDG;
+    private ProductTdg productTdg;
     private ProductCatalog productCatalog;
 
     public ProductMapper(ProductCatalog productCatalog) {
-        this.productTDG = new ProductTDG();
+        this.productTdg = new ProductTdg();
         this.productCatalog = productCatalog;
         this.productIdentityMap = new ProductIdentityMap();
     }
@@ -18,7 +18,7 @@ public class ProductMapper {
     public int insert(Product product){
         int id = 0;
         try {
-           id = productTDG.dbInsert(product);
+           id = productTdg.dbInsert(product);
         }
         catch(Exception e){
             //do nothing
@@ -43,7 +43,7 @@ public class ProductMapper {
 
         if(product == null){
             try {
-                product = productTDG.dbGet(id);
+                product = productTdg.dbGet(id);
                 productIdentityMap.insertProductById(id, product);
             }
             catch (Exception e){

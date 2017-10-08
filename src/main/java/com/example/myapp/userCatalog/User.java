@@ -8,7 +8,8 @@ public class User {
     private String address;
     private String email;
     private String phoneNumber;
-    private boolean isAdmin;
+    private String password;
+    private int isAdmin;
 
     public User(){
         this.firstName = null;
@@ -17,10 +18,10 @@ public class User {
         this.email = null;
         this.phoneNumber = null;
         this.id = 0;
-        this.isAdmin = false;
+        this.isAdmin = 0;
     }
 
-    public User(String fn, String ln, String a, String e, String PN, int id, boolean ad){
+    public User(int id,String fn, String ln, String a, String PN, String e, String pw, int ad){
         this.firstName = fn;
         this.lastName = ln;
         this.address = a;
@@ -28,6 +29,7 @@ public class User {
         this.phoneNumber = PN;
         this.id = id;
         this.isAdmin = ad;
+        this.password= pw;
     }
 
     public String toString(){
@@ -56,13 +58,17 @@ public class User {
         return phoneNumber;
     }
 
-    public int getId(){
-        return id;
-    }
+    public int getId(){ return id; }
 
-    public boolean getIsAdmin(){
+    public String getPassword(){return password;}
+
+    public int getIsAdmin(){
         return isAdmin;
     }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) {this.email = email; }
 
     public void setFirstName(String fn){
         this.firstName = fn;
@@ -84,7 +90,9 @@ public class User {
         this.id = id;
     }
 
-    public void setIsAdmin(boolean isAdmin){
+    public void setPassword(String password){this.password = password;}
+
+    public void setIsAdmin(int isAdmin){
         this.isAdmin = isAdmin;
     }
 
