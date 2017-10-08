@@ -14,6 +14,8 @@ public class DemoApplication {
     @RequestMapping("/")
     @ResponseBody
     String home() {
+        //Test code
+        Store store = new Store();
         Tv t1 = new Tv(12,"wj123",40,99,"sony","40x40");
         ProductTDG test = new ProductTDG();
         int k =990;

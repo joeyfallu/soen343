@@ -8,23 +8,14 @@ public class Tablet extends Computer {
     private double size;
 
 
-    public Tablet(int id, String model, double weight, double price, String brand,String dimensions, String processorType, int cpuCores, int ram, int hardDriveSize, double size, String batteryInfo, String operatingSystem, String cameraInfo){
+    public Tablet(int id, String model, double weight, double price, String brand,String dimensions, String processorType, int cpuCores, int ram, int hardDriveSize,
+                  double size, String batteryInfo, String operatingSystem, String cameraInfo){
         super(id, model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize);
         this.dimensions = dimensions;
         this.batteryInfo = batteryInfo;
         this.operatingSystem = operatingSystem;
         this.cameraInfo = cameraInfo;
         this.size = size;
-
-    }
-
-    public Tablet(){
-        super();
-        this.dimensions = null;
-        this.batteryInfo = null;
-        this.operatingSystem = null;
-        this.cameraInfo = null;
-        this.size = 0;
 
     }
 

@@ -1,13 +1,17 @@
 package com.example.myapp.actionHandlers;
 
+import com.example.myapp.productCatalog.ProductCatalog;
+
 public class ProductAction extends Action {
 
+    private ProductCatalog productCatalog;
 
-    public ProductAction(boolean isComplete) {
-        super(isComplete);
+    public ProductAction(ProductCatalog productCatalog) {
+        super(false);
+        this.productCatalog = productCatalog;
     }
 
-    public void addNewProduct(String discriminator, String [] values){
+    public void addNewProduct(int discrimintor, String [] values){
 
     }
 

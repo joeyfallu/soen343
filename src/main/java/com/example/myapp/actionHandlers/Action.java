@@ -1,29 +1,22 @@
 package com.example.myapp.actionHandlers;
 
 public class Action {
-    boolean isComplete;
 
-    public void setComplete(boolean complete) {
-        isComplete = complete;
-    }
-    public boolean getIsComplete(){
-        return isComplete;
-    }
+    private boolean isComplete;
 
-    public Action(boolean isComplete) {
+    Action(boolean isComplete) {
         this.isComplete = isComplete;
     }
 
-
-
-
-    void becomeComplete(){
-
+    public boolean isComplete() {
+        return isComplete;
     }
 
-    boolean isComplete(){
-        boolean complete = false;
-
-        return complete;
+    public void becomeComplete() {
+        isComplete = true;
     }
 }
+
+
+
+

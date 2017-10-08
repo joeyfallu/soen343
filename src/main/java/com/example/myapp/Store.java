@@ -10,9 +10,16 @@ public class Store {
     private ProductCatalog productCatalog = new ProductCatalog();
     private UserCatalog userCatalog = new UserCatalog();
 
-
     public void newProductAction(){
+        this.productAction = new ProductAction(productCatalog);
+    }
 
+    public void endAction() {
+        this.productAction.becomeComplete();
+    }
+
+    public void addNewProduct(int discriminator, String[] values){
+        this.productCatalog.addProduct(discriminator,values);
     }
 
 

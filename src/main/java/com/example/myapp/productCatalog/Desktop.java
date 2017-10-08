@@ -2,22 +2,10 @@ package com.example.myapp.productCatalog;
 
 public class Desktop extends Computer {
     private String dimensions;
-    private String batteryInfo;
-    private String operatingSystem;
-    private String cameraInfo;
-    private double size;
-
 
     public Desktop(int id, String model, double weight, double price, String brand, String dimensions, String processorType, int cpuCores, int ram, int hardDriveSize){
         super(id, model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize);
         this.dimensions = dimensions;
-
-
-    }
-
-    public Desktop(){
-        super();
-        this.dimensions = null;
 
 
     }
