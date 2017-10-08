@@ -1,6 +1,6 @@
 package com.example.myapp;
 
-public class Transaction {
+public class Action {
     boolean isComplete;
 
     public void setComplete(boolean complete) {
@@ -10,7 +10,7 @@ public class Transaction {
         return isComplete;
     }
 
-    public Transaction(boolean isComplete) {
+    public Action(boolean isComplete) {
         this.isComplete = isComplete;
     }
 

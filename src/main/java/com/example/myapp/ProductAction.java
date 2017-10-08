@@ -1,9 +1,9 @@
 package com.example.myapp;
 
-public class ProductEntry extends Transaction {
+public class ProductAction extends Action {
 
 
-    public ProductEntry(boolean isComplete) {
+    public ProductAction(boolean isComplete) {
         super(isComplete);
     }
 
