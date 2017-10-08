@@ -1,4 +1,6 @@
-package com.example.myapp;
+package com.example.myapp.productCatalog;
+
+import com.example.myapp.productCatalog.Product;
 
 import java.util.Map;
 

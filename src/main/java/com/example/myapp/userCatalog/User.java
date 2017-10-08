@@ -1,4 +1,4 @@
-package com.example.myapp;
+package com.example.myapp.userCatalog;
 
 public class User {
 

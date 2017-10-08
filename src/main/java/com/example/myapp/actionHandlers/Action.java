@@ -1,4 +1,4 @@
-package com.example.myapp;
+package com.example.myapp.actionHandlers;
 
 public class Action {
     boolean isComplete;

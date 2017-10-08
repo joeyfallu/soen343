@@ -1,4 +1,6 @@
-package com.example.myapp;
+package com.example.myapp.userCatalog;
+import com.example.myapp.userCatalog.User;
+
 import java.util.Map;
 public class UserCatalog {
 

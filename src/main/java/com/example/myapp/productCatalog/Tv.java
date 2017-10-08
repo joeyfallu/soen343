@@ -1,6 +1,4 @@
-package com.example.myapp;
-
-import com.example.myapp.Product;
+package com.example.myapp.productCatalog;
 
 public class Tv extends Product {
     private String dimensions;

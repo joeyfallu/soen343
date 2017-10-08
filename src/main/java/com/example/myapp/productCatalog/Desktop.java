@@ -1,4 +1,4 @@
-package com.example.myapp;
+package com.example.myapp.productCatalog;
 
 public class Desktop extends Computer {
     private String dimensions;

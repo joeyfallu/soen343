@@ -1,5 +1,7 @@
 package com.example.myapp;
 
+import com.example.myapp.database.ProductTDG;
+import com.example.myapp.productCatalog.Tv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;

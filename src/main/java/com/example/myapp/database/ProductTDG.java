@@ -1,5 +1,7 @@
-package com.example.myapp;
+package com.example.myapp.database;
 
+
+import com.example.myapp.productCatalog.*;
 
 import java.sql.*;
 
@@ -32,7 +34,7 @@ public class ProductTDG {
             "','"+tb.getWeight()+"',"+tb.getPrice()+"',"+tb.getBrand()+"',"+tb.getProcessorType()+"',"+tb.getCpuCores()+"',"+tb.getRam()+"',"+tb.getHardDriveSize()+"',"+tb.getDimensions()+"',"+
             tb.getBatteryInfo()+"',"+tb.getOperatingSystem()+"',"+tb.getCameraInfo()+"',"+tb.getSize()+"','3')";
         }
-        if(pro instanceof  Desktop){
+        if(pro instanceof Desktop){
             Desktop dt = (Desktop)pro;
             sql="INSERT INTO Products (model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,dimensions,discriminator) VALUES ('"+dt.getModel()+
                     "','"+dt.getWeight()+"',"+dt.getPrice()+"',"+dt.getBrand()+"',"+dt.getProcessorType()+"',"+dt.getCpuCores()+"',"+dt.getRam()+"',"+dt.getHardDriveSize()+"',"+dt.getDimensions()+"','4')";

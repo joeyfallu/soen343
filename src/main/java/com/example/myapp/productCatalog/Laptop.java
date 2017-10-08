@@ -1,29 +1,30 @@
-package com.example.myapp;
+package com.example.myapp.productCatalog;
 
-public class Tablet extends Computer {
-    private String dimensions;
+
+public class Laptop extends Computer {
     private String batteryInfo;
     private String operatingSystem;
-    private String cameraInfo;
+    private boolean camera;
     private double size;
+    private boolean touchScreen;
 
 
-    public Tablet(int id, String model, double weight, double price, String brand, String processorType, int cpuCores, int ram, int hardDriveSize, String dimensions, String batteryInfo, String operatingSystem, String cameraInfo, double size){
+    public Laptop(int id, String model, double weight, double price, String brand, String processorType, int cpuCores, int ram, int hardDriveSize, boolean touchScreen, String batteryInfo, String operatingSystem, boolean camera, double size){
         super(id, model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize);
-        this.dimensions = dimensions;
+        this.camera = camera;
         this.batteryInfo = batteryInfo;
         this.operatingSystem = operatingSystem;
-        this.cameraInfo = cameraInfo;
+        this.touchScreen = touchScreen;
         this.size = size;
 
     }
 
-    public Tablet(){
+    public Laptop(){
         super();
-        this.dimensions = null;
+        this.camera = false;
         this.batteryInfo = null;
         this.operatingSystem = null;
-        this.cameraInfo = null;
+        this.touchScreen = false;
         this.size = 0;
 
     }
@@ -32,19 +33,19 @@ public class Tablet extends Computer {
         String x;
         x = "id = " + getID() + "\n model = " + getModel() + "\n weight = " + getModel() + "\n price = " + getPrice() + "\n brand = " + getBrand() +
                 "\n processorType = " + getProcessorType() + "\n CpuCores = " + getCpuCores() + "\n ram = " + getRam() + "\n hardDriveSize = " + getHardDriveSize() +
-                "\n dimensions = " + getDimensions() + "\n batteryInfo = " +getBatteryInfo() + "\n operatingSystem = " + getOperatingSystem() + "\n cameraInfo = " + getCameraInfo() + "\n size = " + getSize();
+                "\n TouchScreen = " + getTouchScreen() + "\n batteryInfo = " +getBatteryInfo() + "\n operatingSystem = " + getOperatingSystem() + "\n camera = " + getCamera() + "\n size = " + getSize();
         return x;
     }
 
-    public boolean equals(Tablet p){
+    public boolean equals(Laptop p){
         return (this.getID() == p.getID() && this.getModel().equals(p.getModel()) && this.getWeight() == p.getWeight() && this.getPrice() == p.getPrice() && this.getBrand().equals(p.getBrand()) &&
                 this.getProcessorType().equals(p.getProcessorType()) && this.getCpuCores() == p.getCpuCores() && this.getRam() == p.getRam() && this.getHardDriveSize() == p.getHardDriveSize()) &&
-                this.dimensions.equals(p.getDimensions()) && this.getBatteryInfo().equals(p.getBatteryInfo()) && this.getOperatingSystem().equals(p.getOperatingSystem()) && this.getCameraInfo().equals(p.getCameraInfo()) && this.size == p.getSize();
+                this.getTouchScreen() == (p.getTouchScreen()) && this.getBatteryInfo().equals(p.getBatteryInfo()) && this.getOperatingSystem().equals(p.getOperatingSystem()) && this.getCamera() == (p.getCamera()) && this.size == p.getSize();
 
     }
 
-    public String getDimensions(){
-        return dimensions;
+    public boolean getTouchScreen(){
+        return touchScreen;
     }
 
     public String getBatteryInfo(){
@@ -55,16 +56,16 @@ public class Tablet extends Computer {
         return operatingSystem;
     }
 
-    public String getCameraInfo(){
-        return cameraInfo;
+    public boolean getCamera(){
+        return camera;
     }
 
     public double getSize(){
         return size;
     }
 
-    public void setDimensions(String newDimensions){
-        this.dimensions = newDimensions;
+    public void setTouchScreen(boolean touchScreen){
+        this.touchScreen = touchScreen;
     }
 
     public void setBatteryInfo(String newBI){
@@ -75,8 +76,8 @@ public class Tablet extends Computer {
         this.operatingSystem = newOS;
     }
 
-    public void setCameraInfo(String newCI){
-        this.cameraInfo = newCI;
+    public void setCamera(boolean newC){
+        this.camera = newC;
     }
 
     public void setSize(double newSize){
@@ -87,3 +88,4 @@ public class Tablet extends Computer {
 
 
 }
+
