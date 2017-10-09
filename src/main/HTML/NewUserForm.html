@@ -1,0 +1,37 @@
+<html>
+
+  <head>
+    <title> User Registration </title>
+  </head>
+
+  <body>
+    <h1>Add New User Form</h1>
+    <form name=registration method="post" action="registrationServlert">
+      First name:<br>
+      <input type="text" name="firstname" required>
+      <br><br>
+      Last name:<br>
+      <input type="text" name="lastname" required>
+      <br><br>
+      Address:<br>
+      <input type="text" name="address" required>
+      <br><br>
+      E-mail:<br>
+      <input type="email" name="email" required>
+      <br><br>
+      Password:<br>
+      <input type="password" name="password" required>
+      <br><br>
+      Phone number:<br>
+      <input type="number" name="phonenumber" required>
+      <br><br>
+      Admin status:<br>
+      <input type="radio" name="Admin status" value="Admin" required> Admin<br>
+      <input type="radio" name="Admin status" value="User" required> User<br>
+      <br><br>
+      <input type="submit" value="Submit">
+      <input type="reset" value="Clear">
+    </form>
+  </body>
+
+</html>
