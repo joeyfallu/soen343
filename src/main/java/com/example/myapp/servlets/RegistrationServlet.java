@@ -1,6 +1,6 @@
 /*
 This file reads the new user form and constructs an array of values, 
-that gets passed to the addNewUser method in the Store class,
+that gets passed to the registerUser method in the UserCatalog class,
 for the purpose of adding the user info to the database, generating a user ID
 and adding the user/id pair to the HashMap of the system users. 
 */
