@@ -22,9 +22,5 @@ public class Store {
         this.productCatalog.addProduct(discriminator,values);
     }
 
-    public void addNewUser(String[] values){
-        this.userCatalog.registerUser(values);
-    }
-
 
 }
