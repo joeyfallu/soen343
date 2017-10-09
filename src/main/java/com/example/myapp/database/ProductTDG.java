@@ -6,7 +6,7 @@ import com.example.myapp.productCatalog.*;
 import java.sql.*;
 
 
-public class ProductTDG {
+public class ProductTdg {
     private Connection connect = null;
     private Statement statement = null;
     private ResultSet resultSet = null;
@@ -36,19 +36,19 @@ public class ProductTDG {
         if(pro instanceof Tablet){
             Tablet tb = (Tablet)pro;
             sql="INSERT INTO Products (model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,dimensions, batteryInfo,operatingSystem,cameraInfo,size,discriminator) VALUES ('"+tb.getModel()+
-            "','"+tb.getWeight()+"',"+tb.getPrice()+"',"+tb.getBrand()+"',"+tb.getProcessorType()+"',"+tb.getCpuCores()+"',"+tb.getRam()+"',"+tb.getHardDriveSize()+"',"+tb.getDimensions()+"',"+
-            tb.getBatteryInfo()+"',"+tb.getOperatingSystem()+"',"+tb.getCameraInfo()+"',"+tb.getSize()+"','3')";
+            "','"+tb.getWeight()+"','"+tb.getPrice()+"','"+tb.getBrand()+"','"+tb.getProcessorType()+"','"+tb.getCpuCores()+"','"+tb.getRam()+"','"+tb.getHardDriveSize()+"','"+tb.getDimensions()+"','"+
+            tb.getBatteryInfo()+"','"+tb.getOperatingSystem()+"','"+tb.getCameraInfo()+"','"+tb.getSize()+"','3')";
         }
         if(pro instanceof Desktop){
             Desktop dt = (Desktop)pro;
             sql="INSERT INTO Products (model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,dimensions,discriminator) VALUES ('"+dt.getModel()+
-                    "','"+dt.getWeight()+"',"+dt.getPrice()+"',"+dt.getBrand()+"',"+dt.getProcessorType()+"',"+dt.getCpuCores()+"',"+dt.getRam()+"',"+dt.getHardDriveSize()+"',"+dt.getDimensions()+"','4')";
+                    "','"+dt.getWeight()+"','"+dt.getPrice()+"','"+dt.getBrand()+"','"+dt.getProcessorType()+"','"+dt.getCpuCores()+"','"+dt.getRam()+"','"+dt.getHardDriveSize()+"','"+dt.getDimensions()+"','4')";
         }
         if(pro instanceof Laptop){
             Laptop lp = (Laptop)pro;
             sql="INSERT INTO Products (model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,size, batteryInfo,operatingSystem,camera,touchScreen,discriminator) VALUES ('"+lp.getModel()+
-                    "','"+lp.getWeight()+"',"+lp.getPrice()+"',"+lp.getBrand()+"',"+lp.getProcessorType()+"',"+lp.getCpuCores()+"',"+lp.getRam()+"',"+lp.getHardDriveSize()+"',"+lp.getSize()+"',"+
-                    lp.getBatteryInfo()+"',"+lp.getOperatingSystem()+"',"+lp.getCamera()+"',"+lp.getTouchScreen()+"','5')";
+                    "','"+lp.getWeight()+"','"+lp.getPrice()+"','"+lp.getBrand()+"','"+lp.getProcessorType()+"','"+lp.getCpuCores()+"','"+lp.getRam()+"','"+lp.getHardDriveSize()+"','"+lp.getSize()+"','"+
+                    lp.getBatteryInfo()+"','"+lp.getOperatingSystem()+"','"+lp.getCamera()+"','"+lp.getTouchScreen()+"','5')";
         }
         statement.executeUpdate(sql);
         resultSet = statement.executeQuery("SELECT LAST_INSERT_ID() FROM Products");
