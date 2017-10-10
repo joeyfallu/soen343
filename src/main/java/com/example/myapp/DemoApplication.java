@@ -34,7 +34,7 @@ public class DemoApplication {
         return "login";
     }
 
-    @RequestMapping(value = "/testPage", method = RequestMethod.GET)
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test() {
         return "testPage";
     }
