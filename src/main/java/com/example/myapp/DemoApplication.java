@@ -11,7 +11,6 @@ import org.springframework.stereotype.*;
 @Controller
 @SpringBootApplication
 public class DemoApplication {
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {
 //        //Test code

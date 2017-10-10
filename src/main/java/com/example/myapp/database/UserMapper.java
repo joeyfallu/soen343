@@ -1,13 +1,12 @@
 package com.example.myapp.database;
 
-import com.example.myapp.database.UserIdentityMap;
 import com.example.myapp.userCatalog.User;
 import com.example.myapp.userCatalog.UserCatalog;
 
 public class UserMapper {
 
     private UserIdentityMap userIdentityMap;
-    private UserTdg userTdg;
+    private UserTDG userTDG;
     private UserCatalog userCatalog;
 
 
@@ -15,7 +14,7 @@ public class UserMapper {
 
     public UserMapper(UserCatalog userCatalog)
     {
-        this.userTdg= new UserTdg();
+        this.userTDG = new UserTDG();
         this.userCatalog = userCatalog;
         this.userIdentityMap = new UserIdentityMap();
     }
@@ -25,7 +24,7 @@ public class UserMapper {
     public int insert(User user){
         int id = 0;
         try {
-            id = userTdg.dbInsert(user);
+            id = userTDG.dbInsert(user);
         }
         catch(Exception e){
             //do nothing
@@ -38,7 +37,7 @@ public class UserMapper {
         User user = userIdentityMap.getUserById(id);
         if(user == null){
             try {
-                user = userTdg.dbGet(id);
+                user = userTDG.dbGet(id);
                 userIdentityMap.insertUserById(id, user);
             }
             catch (Exception e){
