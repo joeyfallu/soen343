@@ -1,5 +1,8 @@
 package com.example.myapp;
 
+import com.example.myapp.database.*;
+import com.example.myapp.userCatalog.*;
+import com.example.myapp.productCatalog.Tv;
 import com.example.myapp.productCatalog.Product;
 import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
