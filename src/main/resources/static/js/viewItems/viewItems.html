@@ -1,0 +1,19 @@
+<div ng-controller="ViewItemsCtrl">
+
+  <div class="container">
+  <div class="row">
+    <div class="col-sm-4" ng-repeat="item in itemsInventory">
+      <div class="panel panel-primary">
+        <div class="panel-heading">{{item.brand}}</div>
+        <div class="panel-body">
+          <ul style="list-style-type: none;">
+                <li ng-repeat="(key,value) in item" ng-if="key != 'id'">
+                  {{key}}: {{value}}
+                </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><br>
+</div>

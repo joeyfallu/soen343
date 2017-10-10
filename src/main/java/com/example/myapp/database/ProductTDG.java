@@ -6,7 +6,7 @@ import com.example.myapp.productCatalog.*;
 import java.sql.*;
 
 
-public class ProductTdg {
+public class ProductTDG {
     private Connection connect = null;
     private Statement statement = null;
     private ResultSet resultSet = null;

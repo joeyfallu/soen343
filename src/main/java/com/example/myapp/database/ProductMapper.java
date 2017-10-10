@@ -6,11 +6,11 @@ import com.example.myapp.productCatalog.ProductCatalog;
 public class ProductMapper {
 
     private ProductIdentityMap productIdentityMap;
-    private ProductTdg productTdg;
+    private ProductTDG productTdg;
     private ProductCatalog productCatalog;
 
     public ProductMapper(ProductCatalog productCatalog) {
-        this.productTdg = new ProductTdg();
+        this.productTdg = new ProductTDG();
         this.productCatalog = productCatalog;
         this.productIdentityMap = new ProductIdentityMap();
     }
