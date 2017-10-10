@@ -1,14 +1,13 @@
 package com.example.myapp;
 
-import com.example.myapp.database.*;
-import com.example.myapp.productCatalog.ProductCatalog;
-import com.example.myapp.userCatalog.*;
-import com.example.myapp.productCatalog.Tv;
-import com.example.myapp.database.ProductTDG;
+import com.example.myapp.productCatalog.Product;
+import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
+
+import java.util.Map;
 
 @Controller
 @SpringBootApplication
@@ -16,9 +15,7 @@ public class DemoApplication {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {
 //        //Test code
-        Store store = new Store();
-
-            System.out.println(store.viewProductCatalog());
+//        Store store = new Store();
 //        Tv t1 = new Tv(12,"wj123",40,99,"sony","40x40");
 //        ProductTdg test = new ProductTdg();
 //        int k =990;
@@ -41,6 +38,22 @@ public class DemoApplication {
     @RequestMapping(value = "/testPage", method = RequestMethod.GET)
     public String test() {
         return "testPage";
+    }
+
+    @RequestMapping(value="/viewItems", method = RequestMethod.GET)
+    public String viewItems(){
+        return "viewItems";
+    }
+
+    @RequestMapping("/get/products")
+    @ResponseBody
+    String getProducts(){
+        Store store = new Store();
+        Gson gson = new Gson();
+        Map<Integer, Product> items = store.viewProductCatalog();
+        String json = gson.toJson(items);
+
+        return json;
     }
 
     public static void main(String[] args) {
