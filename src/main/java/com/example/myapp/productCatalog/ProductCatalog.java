@@ -43,7 +43,9 @@ public class ProductCatalog {
     }
 
     public Map<Integer, Product> getProducts() {
-        return products;
+
+        return productMapper.getAll();
+
     }
 
 }

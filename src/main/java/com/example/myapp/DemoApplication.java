@@ -1,8 +1,10 @@
 package com.example.myapp;
 
 import com.example.myapp.database.*;
+import com.example.myapp.productCatalog.ProductCatalog;
 import com.example.myapp.userCatalog.*;
 import com.example.myapp.productCatalog.Tv;
+import com.example.myapp.database.ProductTDG;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +16,9 @@ public class DemoApplication {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {
 //        //Test code
-//        Store store = new Store();
+        Store store = new Store();
+
+            System.out.println(store.viewProductCatalog());
 //        Tv t1 = new Tv(12,"wj123",40,99,"sony","40x40");
 //        ProductTdg test = new ProductTdg();
 //        int k =990;

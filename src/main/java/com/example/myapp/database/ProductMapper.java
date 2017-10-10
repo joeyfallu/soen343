@@ -3,6 +3,8 @@ package com.example.myapp.database;
 import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
 
+import java.util.Map;
+
 public class ProductMapper {
 
     private ProductIdentityMap productIdentityMap;
@@ -52,5 +54,25 @@ public class ProductMapper {
         }
 
         return product;
+    }
+
+    public Map<Integer, Product> getAll(){
+
+        Map<Integer, Product> products = productIdentityMap.getAllProducts();
+        Product currentProducts[];
+
+            try{
+                currentProducts = productTDG.dbGetAll();
+
+                for(int i = 0; i < currentProducts.length; i++){
+                    productIdentityMap.insertProductById(currentProducts[i].getID(), currentProducts[i]);
+                }
+
+            }
+            catch (Exception e){
+                //do nothing
+            }
+
+        return products;
     }
 }
