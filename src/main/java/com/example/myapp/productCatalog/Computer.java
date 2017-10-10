@@ -7,8 +7,8 @@ public class Computer extends Product {
     private int hardDriveSize;
 
 
-    public Computer(int id, String model, double weight, double price, String brand, String processorType, int cpuCores, int ram, int hardDriveSize){
-        super(id, model, weight, price, brand);
+    public Computer(int id, String model, double weight, double price, String brand, String processorType, int cpuCores, int ram, int hardDriveSize, int discrimination){
+        super(id, model, weight, price, brand, discrimination);
         this.processorType = processorType;
         this.cpuCores = cpuCores;
         this.ram = ram;
@@ -67,6 +67,7 @@ public class Computer extends Product {
     public void setHardDriveSize(int newHDS){
         this.hardDriveSize = newHDS;
     }
+
 
 
 

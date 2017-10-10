@@ -78,27 +78,27 @@ public class ProductTDG {
         }
         if(Integer.parseInt(result[17])==1)
         {
-          Tv tv= new Tv(Integer.parseInt(result[1]),result[2],Double.parseDouble(result[3]),Double.parseDouble(result[4]),result[5],result[6]);
+          Tv tv= new Tv(Integer.parseInt(result[1]),result[2],Double.parseDouble(result[3]),Double.parseDouble(result[4]),result[5],result[6], Integer.parseInt(result[17]));
           return tv;
         }
         if(Integer.parseInt(result[17])==2)
         {
             //1/2/3/4/5/11
-           Monitor mn = new Monitor(Integer.parseInt(result[1]),result[2],Double.parseDouble(result[3]),Double.parseDouble(result[4]),result[5],Integer.parseInt(result[11]));
+           Monitor mn = new Monitor(Integer.parseInt(result[1]),result[2],Double.parseDouble(result[3]),Double.parseDouble(result[4]),result[5],Integer.parseInt(result[11]), Integer.parseInt(result[17]));
             return mn;
         }
         if(Integer.parseInt(result[17])==3)
         {
             //1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/
             Tablet tl= new Tablet(Integer.parseInt(result[1]),result[2],Double.parseDouble(result[3]),Double.parseDouble(result[4]),result[5],result[6],result[7],
-                    Integer.parseInt(result[8]),Integer.parseInt(result[9]),Integer.parseInt(result[10]),Double.parseDouble(result[11]),result[12],result[13],result[14]);
+                    Integer.parseInt(result[8]),Integer.parseInt(result[9]),Integer.parseInt(result[10]),Double.parseDouble(result[11]),result[12],result[13],result[14], Integer.parseInt(result[17]));
             return tl;
         }
         if(Integer.parseInt(result[17])==4)
         {
             //1/2/3/4/5/6/7/8/9/10/
             Desktop dt = new Desktop(Integer.parseInt(result[1]),result[2],Double.parseDouble(result[3]),Double.parseDouble(result[4]),result[5],result[6],result[7],
-                    Integer.parseInt(result[8]),Integer.parseInt(result[9]),Integer.parseInt(result[10]));
+                    Integer.parseInt(result[8]),Integer.parseInt(result[9]),Integer.parseInt(result[10]), Integer.parseInt(result[17]));
             return dt;
         }
         if(Integer.parseInt(result[17])==5)
@@ -106,7 +106,7 @@ public class ProductTDG {
             //1/2/3/4/5/7/8/9/10/11/12/13/15/16
             Laptop lp = new Laptop(Integer.parseInt(result[1]),result[2],Double.parseDouble(result[3]),Double.parseDouble(result[4]),result[5],result[7],
                     Integer.parseInt(result[8]),Integer.parseInt(result[9]),Integer.parseInt(result[10]),Double.parseDouble(result[11]),result[12],result[13],
-                    Boolean.parseBoolean(result[15]),Boolean.parseBoolean(result[16]));
+                    Boolean.parseBoolean(result[15]),Boolean.parseBoolean(result[16]), Integer.parseInt(result[17]));
             return lp;
         }
         return null;
@@ -135,20 +135,20 @@ public class ProductTDG {
             }
 
             if (Integer.parseInt(result[17]) == 1) {
-                Tv tv = new Tv(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[6]);
+                Tv tv = new Tv(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[6], Integer.parseInt(result[17]));
                 products[currentProductNum] = tv;
                 currentProductNum++;
             }
             if (Integer.parseInt(result[17]) == 2) {
                 //1/2/3/4/5/11
-                Monitor mn = new Monitor(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], Integer.parseInt(result[11]));
+                Monitor mn = new Monitor(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], Integer.parseInt(result[11]), Integer.parseInt(result[17]));
                 products[currentProductNum] = mn;
                 currentProductNum++;
             }
             if (Integer.parseInt(result[17]) == 3) {
                 //1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/
                 Tablet tl = new Tablet(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[6], result[7],
-                        Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Double.parseDouble(result[11]), result[12], result[13], result[14]);
+                        Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Double.parseDouble(result[11]), result[12], result[13], result[14], Integer.parseInt(result[17]));
 
                 products[currentProductNum] = tl;
                 currentProductNum++;
@@ -156,7 +156,7 @@ public class ProductTDG {
             if (Integer.parseInt(result[17]) == 4) {
                 //1/2/3/4/5/6/7/8/9/10/
                 Desktop dt = new Desktop(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[6], result[7],
-                        Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]));
+                        Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Integer.parseInt(result[17]));
 
                 products[currentProductNum] = dt;
                 currentProductNum++;
@@ -165,7 +165,7 @@ public class ProductTDG {
                 //1/2/3/4/5/7/8/9/10/11/12/13/15/16
                 Laptop lp = new Laptop(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[7],
                         Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Double.parseDouble(result[11]), result[12], result[13],
-                        Boolean.parseBoolean(result[15]), Boolean.parseBoolean(result[16]));
+                        Boolean.parseBoolean(result[15]), Boolean.parseBoolean(result[16]), Integer.parseInt(result[17]));
 
                 products[currentProductNum] = lp;
                 currentProductNum++;

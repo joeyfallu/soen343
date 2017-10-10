@@ -52,7 +52,7 @@ public class DemoApplication {
         Gson gson = new Gson();
         Map<Integer, Product> items = store.viewProductCatalog();
         String json = gson.toJson(items);
-
+        System.out.println(json);
         return json;
     }
 

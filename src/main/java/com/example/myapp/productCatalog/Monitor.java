@@ -3,8 +3,8 @@ package com.example.myapp.productCatalog;
 public class Monitor extends Product {
     private int size;
 
-    public Monitor(int id, String model, double weight, double price, String brand, int size){
-        super(id, model, weight, price, brand);
+    public Monitor(int id, String model, double weight, double price, String brand, int size, int discriminator){
+        super(id, model, weight, price, brand, discriminator);
         this.size = size;
     }
 

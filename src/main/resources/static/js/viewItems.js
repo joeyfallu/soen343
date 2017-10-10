@@ -9,7 +9,6 @@ app.controller('viewItemsCtrl', function($scope, $http){
 
         $http.get(urlProduct)
         .then((res) => {
-            console.log("HELO");
           $scope.itemsInventory = res.data
           console.log($scope.itemsInventory);
         });

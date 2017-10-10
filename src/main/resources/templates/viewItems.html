@@ -46,7 +46,11 @@
     <div class="row">
         <div class="col-sm-4" ng-repeat="item in itemsInventory">
             <div class="panel panel-primary">
-                <div class="panel-heading">{{item.brand}}</div>
+                <div ng-if="item.discrimination == 1" class="panel-heading">Tv</div>
+                <div ng-if="item.discrimination == 2" class="panel-heading">Monitor</div>
+                <div ng-if="item.discrimination == 3" class="panel-heading">Tablet</div>
+                <div ng-if="item.discrimination == 4" class="panel-heading">Desktop</div>
+                <div ng-if="item.discrimination == 5" class="panel-heading">Laptop</div>
                 <div class="panel-body">
                     <ul style="list-style-type: none;">
                         <li ng-repeat="(key,value) in item" ng-if="key != 'id'">
