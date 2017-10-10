@@ -6,6 +6,7 @@ public class Product {
     private double weight;
     private double price;
     private String brand;
+    private int discrimination;
 
     public Product(){
         this.id = 0;
@@ -15,12 +16,13 @@ public class Product {
         this.brand = null;
     }
 
-    protected Product(int id, String model, double weight, double price, String brand){
+    protected Product(int id, String model, double weight, double price, String brand, int discrimination){
         this.id = id;
         this.model = model;
         this.weight = weight;
         this.price = price;
         this.brand = brand;
+        this.discrimination = discrimination;
     }
 
     public String toString(){
@@ -54,6 +56,9 @@ public class Product {
         return brand;
     }
 
+    public int getDiscrimination() { return discrimination;}
+
+
     public void setID(int newId){
         this.id = newId;
     }
@@ -73,5 +78,7 @@ public class Product {
     public void setBrand(String newBrand){
         this.brand = newBrand;
     }
+
+    public void setDiscrimination(int discrimination) { this.discrimination = discrimination;}
 
 }

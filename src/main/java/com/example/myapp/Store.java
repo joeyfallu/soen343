@@ -1,9 +1,11 @@
 package com.example.myapp;
 
 import com.example.myapp.actionHandlers.ProductAction;
+import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
 import com.example.myapp.userCatalog.UserCatalog;
 
+import java.util.Map;
 import java.sql.SQLException;
 
 public class Store {
@@ -40,5 +42,8 @@ public class Store {
 
 
 
+    public Map<Integer, Product> viewProductCatalog(){
 
+        return this.productCatalog.getProducts();
+    }
 }

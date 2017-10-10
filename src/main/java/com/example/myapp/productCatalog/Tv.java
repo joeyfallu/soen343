@@ -3,8 +3,8 @@ package com.example.myapp.productCatalog;
 public class Tv extends Product {
     private String dimensions;
 
-    public Tv(int id, String model, double weight, double price, String brand, String dimensions){
-        super(id, model, weight, price, brand);
+    public Tv(int id, String model, double weight, double price, String brand, String dimensions, int discriminator){
+        super(id, model, weight, price, brand, discriminator);
         this.dimensions = dimensions;
     }
 
