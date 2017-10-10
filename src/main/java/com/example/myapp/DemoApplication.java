@@ -18,14 +18,14 @@ public class DemoApplication {
         //Test code
         Store store = new Store();
         Tv t1 = new Tv(12,"wj123",40,99,"sony","40x40");
-        ProductTdg test = new ProductTdg();
+        ProductTDG test = new ProductTDG();
         int k =990;
         try{k=test.dbInsert(t1);}catch(Exception e){e.printStackTrace();}
         System.out.println(k+"is the ID");
         try{ System.out.println(test.dbGet(9));}catch(Exception e){e.printStackTrace();}
         //////////////////////////////
         User clod = new User(0,"clo","dia","123 fake street","5552225555","c@c.ca","kappapride",1);
-        UserTdg test2 = new UserTdg();
+        UserTDG test2 = new UserTDG();
         try{k=test2.dbInsert(clod);}catch(Exception e){e.printStackTrace();}
         try{ System.out.println(test2.dbGet(7));}catch(Exception e){e.printStackTrace();}
       return "Hello World!";
