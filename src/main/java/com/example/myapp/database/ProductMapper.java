@@ -4,6 +4,8 @@ import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
 
 import java.util.Map;
+import java.sql.SQLException;
+
 
 public class ProductMapper {
 
@@ -34,8 +36,8 @@ public class ProductMapper {
         productIdentityMap.updateProductById(id, product);
     }
 
-    public void delete(int id){
-        //TDG here
+    public void delete(int id) throws Exception {
+        productTDG.dbDelete(id);
         productIdentityMap.deleteProductById(id);
     }
 

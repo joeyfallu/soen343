@@ -2,6 +2,7 @@ package com.example.myapp.database;
 
 
 import com.example.myapp.productCatalog.*;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
 import java.sql.*;
 
@@ -110,6 +111,12 @@ public class ProductTDG {
             return lp;
         }
         return null;
+    }
+    public void dbDelete(int id) throws Exception {
+        dbConnect();
+        String sql = "DELETE FROM Products WHERE id = '" + id + "'";
+        statement.executeUpdate(sql);
+//        System.out.println(sql);
     }
 
     public Product[] dbGetAll() throws Exception{
