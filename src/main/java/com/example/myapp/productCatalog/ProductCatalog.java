@@ -2,6 +2,7 @@ package com.example.myapp.productCatalog;
 
 import com.example.myapp.database.ProductMapper;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,8 +35,8 @@ public class ProductCatalog {
         products.put(id,product);
     }
 
-    public void deleteProduct(int id){
-
+    public void deleteProduct(int id) throws Exception {
+        productMapper.delete(id);
     }
 
     public void modifyProduct(int id, String[] values){

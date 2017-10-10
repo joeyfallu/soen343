@@ -8,15 +8,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
 
+import java.sql.SQLException;
+
 @Controller
 @SpringBootApplication
 public class DemoApplication {
 
     @RequestMapping("/")
     @ResponseBody
-    String home() {
+    String home() throws SQLException {
         //Test code
-        Store store = new Store();
+        //Store store = new Store();
         Tv t1 = new Tv(12,"wj123",40,99,"sony","40x40");
         ProductTDG test = new ProductTDG();
         int k =990;
@@ -31,7 +33,8 @@ public class DemoApplication {
       return "Hello World!";
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         SpringApplication.run(DemoApplication.class, args);
+        new Store();
     }
 }
