@@ -17,22 +17,23 @@ app.controller('addItemsCtrl', function($scope, $http){
 //              .then((res) => {
 //                 });
 //        }
-//
-//        $scope.addTV = function(){
-//              var url = "/post/addItem";
-//              var data = {
-//                discriminator : "1",
-//                model : $scope.tvModelNumber,
-//                weight : $scope.tvWeight,
-//                price : $scope.tvPrice,
-//                brand : $scope.tvBrand,
-//                dimensions : $scope.tvDimensions
-//              }
-//              $http.post(url,data)
-//              .then((res) => {
-//                 });
-//        }
-//
+
+        $scope.addTv = function(){
+              var url = "/post/addTv";
+              var data = {
+                discriminator : "1",
+                model : $scope.tvModelNumber,
+                weight : $scope.tvWeight,
+                price : $scope.tvPrice,
+                brand : $scope.tvBrand,
+                dimensions : $scope.tvDimensions
+                }
+                console.log("test");
+              $http.post(url,data)
+              .then((res) => {
+                 });
+        }
+
 //        $scope.addTablet = function(){
 //              var url = "/post/addItem";
 //              var data = {
