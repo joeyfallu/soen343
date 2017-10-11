@@ -10,7 +10,7 @@
     <!-- StyleSheets -->
 </head>
 
-<body ng-app="" ng-style = "style">
+<body ng-app="modifyItem" ng-style = "style">
 <!-- Navigation bar-->
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -43,7 +43,12 @@
 
 <!--The page-->
 
-
+<div ng-controller="modifyItemCtrl">
+    {{"Data: "}} {{itemData}}
+    <div ng-repeat="field in itemData">
+        {{field}}
+    </div>
+</div>
 
 
 <!-- Angular Import -->
