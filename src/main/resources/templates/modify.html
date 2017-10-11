@@ -46,7 +46,30 @@
 <div ng-controller="modifyItemCtrl">
     {{"Data: "}} {{itemData}}
     <div ng-repeat="field in itemData">
+
         {{field}}
+
+    </div>
+</div>
+
+
+<div ng-switch="itemData.discrimination">
+
+    <div ng-switch-when="1">
+        <form name="addTV">
+            <h2>Add a TV:</h2>
+            <label>Model Number</label>
+            <input type="text" class="form-control"  />
+            <label>Brand</label>
+            <input type="text" class="form-control"  />
+            <label>Dimensions (in cm)</label>
+            <input type="text" class="form-control"  />
+            <label>Weight (in kg)</label>
+            <input type="text" class="form-control"  />
+            <label>Price </label>
+            <input type="text" class="form-control" /><br />
+
+        </form>
     </div>
 </div>
 
