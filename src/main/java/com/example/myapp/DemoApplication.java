@@ -74,6 +74,16 @@ public class DemoApplication {
         return productJson;
     }
 
+    @RequestMapping(value = "/modify/{id}", method = RequestMethod.GET)
+    /*
+    Returns modify Page
+     */
+    public String modifyPage(
+            @PathVariable("id") int id) {
+        return "modify";
+    }
+
+
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }

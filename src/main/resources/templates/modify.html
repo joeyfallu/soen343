@@ -4,16 +4,13 @@
     <title>343 Electronics</title>
     <meta charset="utf-8"> </meta>
     <meta name="viewport" content="width=device-width, initial-scale=1"> </meta>
-    <link rel='stylesheet' href='css/style.css'> </link>
+    <link rel='stylesheet' href='/css/style.css'> </link>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> </link>
-    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css"> </link>
-    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css"> </link>
     <base href="/"> </base>
     <!-- StyleSheets -->
-    <link rel='stylesheet' href='/css/viewItems.css'> </link>
 </head>
 
-<body ng-app="modify" ng-controller="modifyCtrl" ng-style = "style">
+<body ng-app="" ng-style = "style">
 <!-- Navigation bar-->
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -48,26 +45,6 @@
 
 
 
-<div class="container">
-
-    <select ng-model=discriminator">
-        <option value="1">TV</option>
-        <option value="2">Monitor</option>
-        <option value="3">Tablet</option>
-        <option value="4">Desktop</option>
-        <option value="5">Laptop</option>
-    </select>
-
-    <div ng=-switch="discriminator">
-
-
-
-
-    </div>
-
-
-</div>
-
 
 <!-- Angular Import -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
@@ -75,7 +52,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
 
 <!-- Angular Scripts -->
-<script src="js/viewItems.js"></script>
+<script src="js/modifyItem.js"></script>
 
 </body>
 </html>
