@@ -51,12 +51,27 @@ public class DemoApplication {
     @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
-        Store store = new Store();
+        Store store = new Store();    //TODO: REMOVE THIS
         Gson gson = new Gson();
         Map<Integer, Product> items = store.viewProductCatalog();
         String json = gson.toJson(items);
         System.out.println(json);
         return json;
+    }
+
+    @RequestMapping(value = "/getItem/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    /*
+    Returns item info as json
+     */
+    public String getProductById(
+            @PathVariable("id") int id) {
+        Store store = new Store();          //TODO: REMOVE THIS
+        Gson gson = new Gson();
+        Map<Integer, Product> items = store.viewProductCatalog();
+        String productJson = gson.toJson(items.get(id));
+        System.out.println(productJson);
+        return productJson;
     }
 
     public static void main(String[] args) {
