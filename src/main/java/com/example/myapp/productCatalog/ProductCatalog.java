@@ -35,12 +35,12 @@ public class ProductCatalog {
         products.put(id,product);
     }
 
-    public void deleteProduct(int id) throws Exception {
+    public void deleteProduct(int id)  {
         productMapper.delete(id);
     }
 
     public void modifyProduct(int id, String[] values){
-
+     //   modify stuff here
     }
 
     public Map<Integer, Product> getProducts() {

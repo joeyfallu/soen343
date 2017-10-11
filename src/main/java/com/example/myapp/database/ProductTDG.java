@@ -119,6 +119,10 @@ public class ProductTDG {
 //        System.out.println(sql);
     }
 
+    public void dbModify(int id, Product product) throws Exception {
+
+    }
+
     public Product[] dbGetAll() throws Exception{
         dbConnect();
         String sql = "SELECT * FROM Products";
