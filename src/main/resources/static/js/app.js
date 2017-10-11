@@ -8,7 +8,7 @@ var app = angular.module('myApp', [
     'ngCookies',
     'myApp.testPage',
     'myApp.login',
-    'myApp.adminAddItem',
+    'myApp.addItems',
     'myApp.userActions',
     'myApp.registerAdmin',
     'myApp.viewItems',
@@ -23,7 +23,6 @@ app.config(['$locationProvider', '$routeProvider', function($locationProvider, $
     $routeProvider
         .when('/login', { templateUrl: 'login.html', controller: 'LoginController' })
         .when('/test', { templateUrl: 'testPage.html', controller: 'TestPageCtrl'})
-        .when('/addItems', { templateUrl: 'adminAddItem.html', controller: 'adminAddItemController'})
         .when('/logout', { templateUrl: 'logout.html', controller: 'logoutController'})
         .when('/home', { templateUrl: 'home.html', controller: 'homeController'});
     $routeProvider.otherwise({ redirectTo: '/' });

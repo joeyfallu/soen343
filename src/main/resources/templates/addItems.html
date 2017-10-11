@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>343 Electronics</title>
+    <meta charset="utf-8"> </meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> </meta>
+    <link rel='stylesheet' href='css/style.css'> </link>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> </link>
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css"> </link>
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css"> </link>
+    <base href="/"> </base>
+</head>
+
+<body ng-app="addItems" ng-controller="addItemsCtrl" ng-style="style">
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Logo</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/home">Home</a></li>
+                <li><a href="#">Catalog</a></li>
+                <li><a href="/test">TEST</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-if="loggedIn"><a href="/logout">Logout</a></li>
+                <li ng-if="loggedIn"><a href="/account"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+                <li ng-if="!loggedIn"><a href="/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+<div class="container">
+
+    <select ng-model="discriminator">
+        <option value="1">TV</option>
+        <option value="2">Monitor</option>
+        <option value="3">Tablet</option>
+        <option value="4">Desktop</option>
+        <option value="5">Laptop</option>
+    </select>
+
+    <div ng-switch="discriminator">
+        <div ng-switch-when="1">
+            <form name="tv">
+                Model Number:                         <input type="text" ng-model="tvModelNumber" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
+                Brand Name:                           <input type="text" ng-model="tvBrand" required><br />
+                Detailed Dimensions (in centimeters): <input type="number" ng-model="tvDimensions" min="0" required><br />
+                Weight (in kilograms):                <input type="number" ng-model="tvWeight" min="0" required><br />
+                Price (CAD):                          <input type="number" ng-model="tvPrice" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br /><br>
+                <button ng-click="addTv(tv)">Submit</button><br><br>
+            </form>
+        </div>
+        <div ng-switch-when="2">
+            <form name="monitor">
+                Model Number:                        <input type="text" ng-model="monitorModelNumber" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
+                Brand Name:                          <input type="text" ng-model="monitorbrand" required><br />
+                Size (in inches):                    <input type="number" ng-model="monitorSize" min="0" required><br />
+                Weight (in kilograms):               <input type="number" ng-model="monitorWeight" min="0" required><br />
+                Price (CAD):                         <input type="number" ng-model="monitorPrice" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br /><br>
+                <button ng-click="addMonitor(tv)">Submit</button><br><br>
+            </form>
+        </div>
+        <div ng-switch-when="3">
+            <form name="tablet">
+                Model Number:                        <input type="text" ng-model="tabletModelNumber" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
+                Brand Name:                          <input type="text" ng-model="tabletBrand" required><br />
+                Display Size (in inches):            <input type="number" ng-model="tabletSize" min="0" required><br />
+                Detailed Dimensions (in centimeters):<input type="number" ng-model="tabletDimensions" min="0" required><br />
+                Weight (in kilograms):               <input type="number" ng-model="tabletWeight" min="0" required><br />
+                Processor Type:                      <input type="text" ng-model="tabletProcessor" required><br />
+                RAM Size (in Gigabytes):             <input type="number" ng-model="tabletRam" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
+                Number of CPU Cores:                 <input type="number" ng-model="tabletCores" min="0" required><br />
+                Hard Drive Size (in Gigabytes):      <input type="number" ng-model="tabletHardDriveSize" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
+                Battery Information:                 <input type="text" ng-model="tableBattery" required><br />
+                Operating System:                    <input type="text" ng-model="tabletOperatingSystem" required><br />
+                Camera Information:                  <input type="text" ng-model="tabletCamera" required><br />
+                Price:                               <input type="number" ng-model="tabletPrice" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br />
+                <button ng-click="addTablet(tablet)">Submit</button><br><br>
+            </form>
+        </div>
+        <div ng-switch-when="4">
+            <form name="desktop">
+                Model Number:                         <input type="text" ng-model="desktopModelNumber" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
+                Brand Name:                           <input type="text" ng-model="desktopBrand" required><br />
+                Detailed Dimensions (in centimeters): <input type="number" ng-model="desktopDimensions" min="0" required>cm<br />
+                Processor Type:                       <input type="text" ng-model="desktopProcessor" required><br />
+                Weight (in kilograms):                <input type="number" ng-model="desktopWeight" min="0" required>kg<br />
+                Number of CPU Cores:                  <input type="number" ng-model="desktopCpuCores" min="0" required><br />
+                Hard Drive Size (in Gigabytes):       <input type="number" ng-model="desktopHardDriveSize" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
+                Price:                                <input type="number" ng-model="desktopPrice" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br /><br>
+                <button ng-click="addDesktop(desktop)">Submit</button><br><br>
+            </form>
+        </div>
+        <div ng-switch-when="5">
+            <form name="laptop">
+                Display Size (in inches):            <input type="number" ng-model="laptopSize" min="0" required>in<br />
+                Processor Type:                      <input type="text" ng-model="laptopProcessor" required><br />
+                Weight (in kilograms):               <input type="number" ng-model="laptopWeight" min="0" required>kg<br />
+                RAM Size (in Gigabytes):             <input type="number" ng-model="laptopRam" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
+                Number of CPU Cores:                 <input type="number" ng-model="laptopCores" min="0" required><br />
+                Hard Drive Size (in Gigabytes):      <input type="number" ng-model="laptopHardDriveSize" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>GB<br />
+                Battery Information:                 <input type="text" ng-model="laptopBattery" required><br />
+                Brand Name:                          <input type="text" ng-model="laptopBrand" required><br />
+                Model Number:                        <input type="text" ng-model="laptopModel" ng-pattern-restrict="^$|^[A-Za-z0-9]+" required><br />
+                Operating System:                    <input type="text" ng-model="laptopOperatingSystem" required><br />
+                Price:                               <input type="number" ng-model="laptopPrice" min="0" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required>$ (CAD)<br />
+                Does it have a camera?               <input type="text" ng-model="laptopCamera" required><br />
+                Does it have a touch screen?         <input type="text" ng-model="laptopTouchScreen" required><br />
+                <button ng-click="addLaptop(laptop)">Submit</button><br><br>
+            </form>
+        </div>
+    </div>
+
+</div>
+<!-- Angular Import -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
+
+<!-- Angular Scripts -->
+<script src="js/addItems.js"></script>
+</body>
+</html>

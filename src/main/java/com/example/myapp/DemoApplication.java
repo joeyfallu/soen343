@@ -48,6 +48,9 @@ public class DemoApplication {
         return "viewItems";
     }
 
+    @RequestMapping(value="/addItems", method = RequestMethod.GET)
+    public String addItems() { return "addItems"; }
+
     @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
@@ -57,6 +60,13 @@ public class DemoApplication {
         String json = gson.toJson(items);
         System.out.println(json);
         return json;
+    }
+
+    @RequestMapping("/get/items")
+    @ResponseBody
+    String addTv(){
+        Gson gson = new Gson();
+        return gson.toJson("hey");
     }
 
     public static void main(String[] args) {
