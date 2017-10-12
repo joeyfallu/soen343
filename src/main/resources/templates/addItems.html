@@ -43,149 +43,142 @@
 
 <div class="container">
 
-    <select ng-model="discriminator">
-        <option value="1">TV</option>
-        <option value="2">Monitor</option>
-        <option value="3">Tablet</option>
-        <option value="4">Desktop</option>
-        <option value="5">Laptop</option>
-    </select>
-    <form ng-submit="addTv()">
-    <h2>Add a TV:</h2>
-    <label>Model Number</label>
-    <input type="text" class="form-control"  ng-model="tvModelNumber" required="" autofocus=""/>
-    <label>Brand</label>
-    <input type="text" class="form-control"  ng-model="tvBrand" required=""/>
-    <label>Dimensions (in cm)</label>
-    <input type="text" class="form-control"  ng-model="tvDimensions" required=""/>
-    <label>Weight (in kg)</label>
-    <input type="text" class="form-control"  ng-model="tvWeight" required=""/>
-    <label>Price </label>
-    <input type="text" class="form-control"  ng-model="tvPrice" required=""/><br />
-    <button type="submit" class="btn btn-block">Submit</button>
+    <!--<select ng-model="discriminator">-->
+        <!--<option value="1">TV</option>-->
+        <!--<option value="2">Monitor</option>-->
+        <!--<option value="3">Tablet</option>-->
+        <!--<option value="4">Desktop</option>-->
+        <!--<option value="5">Laptop</option>-->
+    <!--</select>-->
+
+    <form name="tv" ng-submit="addTv()">
+        <h2>Add a TV:</h2>
+        <label>Model Number</label>
+        <input type="text" class="form-control"  ng-model="tvModelNumber" required="" autofocus=""/>
+        <label>Brand</label>
+        <input type="text" class="form-control"  ng-model="tvBrand" required=""/>
+        <label>Dimensions (in cm)</label>
+        <input type="text" class="form-control"  ng-model="tvDimensions" required=""/>
+        <label>Weight (in kg)</label>
+        <input type="text" class="form-control"  ng-model="tvWeight" required=""/>
+        <label>Price </label>
+        <input type="text" class="form-control"  ng-model="tvPrice" required=""/><br />
+        <button type="submit" class="btn btn-block">Submit</button>
+    </form>
+
+    <form name="monitor" ng-submit="addMonitor()">
+        <h2>Add a Monitor:</h2>
+        <label>Model Number</label>
+        <input type="text" class="form-control"  ng-model="monitorModelNumber" required="" autofocus=""/>
+        <label>Brand</label>
+        <input type="text" class="form-control"  ng-model="monitorBrand" required=""/>
+        <label>Size (in inches)</label>
+        <input type="text" class="form-control"  ng-model="monitorSize" required=""/>
+        <label>Weight (in kg)</label>
+        <input type="text" class="form-control"  ng-model="monitorWeight " required=""/>
+        <label>Price </label>
+        <input type="text" class="form-control"  ng-model="monitorPrice" required=""/><br />
+        <button type="submit" class="btn btn-block">Submit</button>
+    </form>
+
+    <form name="tablet" ng-submit="addTablet()">
+        <h2>Add a Tablet:</h2>
+        <label>Model Number</label>
+        <input type="text" class="form-control"  ng-model="tabletModelNumber" required="" autofocus=""/>
+        <label>Brand</label>
+        <input type="text" class="form-control"  ng-model="tabletBrand" required=""/>
+        <label>Size (in inches)</label>
+        <input type="text" class="form-control"  ng-model="tabletSize" required=""/>
+        <label>Dimensions (in cm)</label>
+        <input type="text" class="form-control"  ng-model="tabletDimensions" required=""/>
+        <label>Weight (in kg)</label>
+        <input type="text" class="form-control"  ng-model="tabletWeight" required=""/>
+        <label>Processor Type</label>
+        <input type="text" class="form-control"  ng-model="tabletProcessor" required=""/>
+        <label>RAM Size (in Gigabytes)</label>
+        <input type="text" class="form-control"  ng-model="tabletRam" required=""/>
+        <label>Number of CPU Cores</label>
+        <input type="text" class="form-control"  ng-model="tabletCores" required=""/>
+        <label>Hard Drive Size (in Gigabytes)</label>
+        <input type="text" class="form-control"  ng-model="tabletHardDriveSize" required=""/>
+        <label>Battery Information</label>
+        <input type="text" class="form-control"  ng-model="tabletBattery" required=""/>
+        <label>Operating System</label>
+        <input type="text" class="form-control"  ng-model="tabletOperatingSystem" required=""/>
+        <label>Camera Information</label>
+        <input type="text" class="form-control"  ng-model="tabletCamera" required=""/>
+        <label>Price</label>
+        <input type="text" class="form-control"  ng-model="tabletPrice" required=""/><br />
+        <button type="submit" class="btn btn-block">Submit</button>
+    </form>
+
+    <form name="desktop" ng-submit="addDesktop()">
+        <h2>Add a Desktop:</h2>
+        <label>Model Number</label>
+        <input type="text" class="form-control"  ng-model="desktopModelNumber" required="" autofocus=""/>
+        <label>Brand</label>
+        <input type="text" class="form-control"  ng-model="desktopBrand" required=""/>
+        <label>Dimensions (in cm)</label>
+        <input type="text" class="form-control"  ng-model="desktopDimensions" required=""/>
+        <label>Weight (in kg)</label>
+        <input type="text" class="form-control"  ng-model="desktopWeight" required=""/>
+        <label>Processor Type</label>
+        <input type="text" class="form-control"  ng-model="desktopProcessor" required=""/>
+        <label>Number of CPU Cores</label>
+        <input type="text" class="form-control"  ng-model="desktopCores" required=""/>
+        <label>Hard Drive Size (in Gigabytes)</label>
+        <input type="text" class="form-control"  ng-model="desktopHardDriveSize" required=""/>
+        <label>Price </label>
+        <input type="text" class="form-control"  ng-model="desktopPrice" required=""/><br />
+        <button type="submit" class="btn btn-block" >Submit</button>
+    </form>
+
+    <form name="laptop" ng-submit="addLaptop()">
+        <h2>Add a Laptop:</h2>
+        <label>Model Number</label>
+        <input type="text" class="form-control"  ng-model="laptopModelNumber" required="" autofocus=""/>
+        <label>Brand</label>
+        <input type="text" class="form-control"  ng-model="laptopBrand" required=""/>
+        <label>Size (in inches)</label>
+        <input type="text" class="form-control"  ng-model="laptopSize" required=""/>
+        <label>Weight (in kg)</label>
+        <input type="text" class="form-control"  ng-model="laptopWeight" required=""/>
+        <label>Processor Type</label>
+        <input type="text" class="form-control"  ng-model="laptopProcessor" required=""/>
+        <label>RAM Size (in Gigabytes)</label>
+        <input type="text" class="form-control"  ng-model="laptopRam" required=""/>
+        <label>Number of CPU Cores</label>
+        <input type="text" class="form-control"  ng-model="laptopCores" required=""/>
+        <label>Hard Drive Size (in Gigabytes)</label>
+        <input type="text" class="form-control"  ng-model="laptopHardDriveSize" required=""/>
+        <label>Battery Information</label>
+        <input type="text" class="form-control"  ng-model="laptopBattery" required=""/>
+        <label>Operating System</label>
+        <input type="text" class="form-control"  ng-model="laptopOperatingSystem" required=""/>
+        <label>Does it have a camera?</label>
+        <input type="text" class="form-control"  ng-model="laptopCamera" required=""/>
+        <label>Does it have a touchs creen?</label>
+        <input type="text" class="form-control"  ng-model="laptopTouchScreen" required=""/>
+        <label>Price </label>
+        <input type="text" class="form-control"  ng-model="laptopPrice" required=""/><br />
+        <button type="submit" class="btn btn-block" >Submit</button>
     </form>
 
     <!--<div ng-switch="discriminator">-->
         <!--<div ng-switch-when="1">-->
-            <!--<form name="addTV">-->
-                    <!--<h2>Add a TV:</h2>-->
-                    <!--<label>Model Number</label>-->
-                    <!--<input type="text" class="form-control"  ng-model="tvModelNumber" required="" autofocus=""/>-->
-                    <!--<label>Brand</label>-->
-                    <!--<input type="text" class="form-control"  ng-model="tvBrand" required=""/>-->
-                    <!--<label>Dimensions (in cm)</label>-->
-                    <!--<input type="text" class="form-control"  ng-model="tvDimensions" required=""/>-->
-                    <!--<label>Weight (in kg)</label>-->
-                    <!--<input type="text" class="form-control"  ng-model="tvWeight" required=""/>-->
-                    <!--<label>Price </label>-->
-                    <!--<input type="text" class="form-control"  ng-model="tvPrice" required=""/><br />-->
-                    <!--<button type="submit" class="btn btn-block"  ng-click="addTv(addTV)">Submit</button>-->
-                <!--<div>-->
-                    <!--{{errorMsg}}-->
-                <!--</div>-->
-            <!--</form>-->
+
         <!--</div>-->
         <!--<div ng-switch-when="2">-->
-            <!--<form name="addMonitor">-->
-                <!--<h2>Add a Monitor:</h2>-->
-                <!--<label>Model Number</label>-->
-                <!--<input type="text" class="form-control"  ng-model="monitorModelNumber" required="" autofocus=""/>-->
-                <!--<label>Brand</label>-->
-                <!--<input type="text" class="form-control"  ng-model="monitorBrand" required=""/>-->
-                <!--<label>Size (in inches)</label>-->
-                <!--<input type="text" class="form-control"  ng-model="monitorSize" required=""/>-->
-                <!--<label>Weight (in kg)</label>-->
-                <!--<input type="text" class="form-control"  ng-model="monitorWeight " required=""/>-->
-                <!--<label>Price </label>-->
-                <!--<input type="text" class="form-control"  ng-model="monitorPrice" required=""/><br />-->
-                <!--<button type="submit" class="btn btn-block"  ng-click="addMonitor(addMonitor)">Submit</button>-->
-            <!--</form>-->
+
         <!--</div>-->
         <!--<div ng-switch-when="3">-->
-            <!--<form name="addTablet">-->
-                <!--<h2>Add a Tablet:</h2>-->
-                <!--<label>Model Number</label>-->
-                <!--<input type="text" class="form-control"  ng-model="tabletModelNumber" required="" autofocus=""/>-->
-                <!--<label>Brand</label>-->
-                <!--<input type="text" class="form-control"  ng-model="tabletBrand" required=""/>-->
-                <!--<label>Size (in inches)</label>-->
-                <!--<input type="text" class="form-control"  ng-model="tabletSize" required=""/>-->
-                <!--<label>Dimensions (in cm)</label>-->
-                <!--<input type="text" class="form-control"  ng-model="tabletDimensions" required=""/>-->
-                <!--<label>Weight (in kg)</label>-->
-                <!--<input type="text" class="form-control"  ng-model="tabletWeight" required=""/>-->
-                <!--<label>Processor Type</label>-->
-                <!--<input type="text" class="form-control"  ng-model="tabletProcessor" required=""/>-->
-                <!--<label>RAM Size (in Gigabytes)</label>-->
-                <!--<input type="text" class="form-control"  ng-model="tabletRam" required=""/>-->
-                <!--<label>Number of CPU Cores</label>-->
-                <!--<input type="text" class="form-control"  ng-model="tabletCores" required=""/>-->
-                <!--<label>Hard Drive Size (in Gigabytes)</label>-->
-                <!--<input type="text" class="form-control"  ng-model="tabletHardDriveSize" required=""/>-->
-                <!--<label>Battery Information</label>-->
-                <!--<input type="text" class="form-control"  ng-model="tabletBattery" required=""/>-->
-                <!--<label>Operating System</label>-->
-                <!--<input type="text" class="form-control"  ng-model="tabletOperatingSystem" required=""/>-->
-                <!--<label>Camera Information</label>-->
-                <!--<input type="text" class="form-control"  ng-model="tabletCamera" required=""/>-->
-                <!--<label>Price </label>-->
-                <!--<input type="text" class="form-control"  ng-model="tabletPrice" required=""/><br />-->
-                <!--<button type="submit" class="btn btn-block"  ng-click="addTablet(addTablet)">Submit</button>-->
-            <!--</form>-->
+
         <!--</div>-->
     <!--<div ng-switch-when="4">-->
-        <!--<form name="addDesktop">-->
-            <!--<h2>Add a Desktop:</h2>-->
-            <!--<label>Model Number</label>-->
-            <!--<input type="text" class="form-control"  ng-model="desktopModelNumber" required="" autofocus=""/>-->
-            <!--<label>Brand</label>-->
-            <!--<input type="text" class="form-control"  ng-model="desktopBrand" required=""/>-->
-            <!--<label>Dimensions (in cm)</label>-->
-            <!--<input type="text" class="form-control"  ng-model="desktopDimensions" required=""/>-->
-            <!--<label>Weight (in kg)</label>-->
-            <!--<input type="text" class="form-control"  ng-model="desktopWeight" required=""/>-->
-            <!--<label>Processor Type</label>-->
-            <!--<input type="text" class="form-control"  ng-model="desktopProcessor" required=""/>-->
-            <!--<label>Number of CPU Cores</label>-->
-            <!--<input type="text" class="form-control"  ng-model="desktopCores" required=""/>-->
-            <!--<label>Hard Drive Size (in Gigabytes)</label>-->
-            <!--<input type="text" class="form-control"  ng-model="desktopHardDriveSize" required=""/>-->
-            <!--<label>Price </label>-->
-            <!--<input type="text" class="form-control"  ng-model="desktopPrice" required=""/><br />-->
-            <!--<button type="submit" class="btn btn-block"  ng-click="addDesktop(addDesktop)">Submit</button>-->
-        <!--</form>-->
+
     <!--</div>-->
     <!--<div ng-switch-when="5">-->
-        <!--<form name="addLaptop">-->
-            <!--<h2>Add a Laptop:</h2>-->
-            <!--<label>Model Number</label>-->
-            <!--<input type="text" class="form-control"  ng-model="laptopModelNumber" required="" autofocus=""/>-->
-            <!--<label>Brand</label>-->
-            <!--<input type="text" class="form-control"  ng-model="laptopBrand" required=""/>-->
-            <!--<label>Size (in inches)</label>-->
-            <!--<input type="text" class="form-control"  ng-model="laptopSize" required=""/>-->
-            <!--<label>Weight (in kg)</label>-->
-            <!--<input type="text" class="form-control"  ng-model="laptopWeight" required=""/>-->
-            <!--<label>Processor Type</label>-->
-            <!--<input type="text" class="form-control"  ng-model="laptopProcessor" required=""/>-->
-            <!--<label>RAM Size (in Gigabytes)</label>-->
-            <!--<input type="text" class="form-control"  ng-model="laptopRam" required=""/>-->
-            <!--<label>Number of CPU Cores</label>-->
-            <!--<input type="text" class="form-control"  ng-model="laptopCores" required=""/>-->
-            <!--<label>Hard Drive Size (in Gigabytes)</label>-->
-            <!--<input type="text" class="form-control"  ng-model="laptopHardDriveSize" required=""/>-->
-            <!--<label>Battery Information</label>-->
-            <!--<input type="text" class="form-control"  ng-model="laptopBattery" required=""/>-->
-            <!--<label>Operating System</label>-->
-            <!--<input type="text" class="form-control"  ng-model="laptopOperatingSystem" required=""/>-->
-            <!--<label>Does it have a camera?</label>-->
-            <!--<input type="text" class="form-control"  ng-model="laptopCamera" required=""/>-->
-            <!--<label>Does it have a touchs creen?</label>-->
-            <!--<input type="text" class="form-control"  ng-model="laptopTouchScreen" required=""/>-->
-            <!--<label>Price </label>-->
-            <!--<input type="text" class="form-control"  ng-model="laptopPrice" required=""/><br />-->
-            <!--<button type="submit" class="btn btn-block"  ng-click="addLaptop(addLaptop)">Submit</button>-->
-        <!--</form>-->
+
     <!--</div>-->
     <!--</div>-->
 </div>

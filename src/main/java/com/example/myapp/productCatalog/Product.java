@@ -6,79 +6,75 @@ public class Product {
     private double weight;
     private double price;
     private String brand;
-    private int discrimination;
+    private int discriminator;
 
-    public Product(){
-        this.id = 0;
-        this.model = null;
-        this.weight = 0;
-        this.price = 0;
-        this.brand = null;
-    }
 
-    protected Product(int id, String model, double weight, double price, String brand, int discrimination){
+    protected Product(int id, String model, double weight, double price, String brand, int discriminator){
         this.id = id;
         this.model = model;
         this.weight = weight;
         this.price = price;
         this.brand = brand;
-        this.discrimination = discrimination;
+        this.discriminator = discriminator;
     }
 
-    public String toString(){
-        String x;
-        x = "id = " + getID() + " model = " + getModel() + " weight = " + getWeight() + " price = " + getPrice() + " brand = " + getBrand();
-        return x;
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", model='" + model + '\'' +
+                ", weight=" + weight +
+                ", price=" + price +
+                ", brand='" + brand + '\'' +
+                ", discriminator=" + discriminator +
+                '}';
     }
 
-    public boolean equals(Product p){
-        return (id == p.getID() && model.equals(p.getModel()) && weight == p.getWeight() && price == p.getPrice() && brand.equals(p.getBrand()));
-
-    }
-
-    public int getID(){
+    public int getId() {
         return id;
     }
 
-    public String getModel(){
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getModel() {
         return model;
     }
 
-    public double getWeight(){
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public double getWeight() {
         return weight;
     }
 
-    public double getPrice(){
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public double getPrice() {
         return price;
     }
 
-    public String getBrand(){
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getBrand() {
         return brand;
     }
 
-    public int getDiscrimination() { return discrimination;}
-
-
-    public void setID(int newId){
-        this.id = newId;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public void setModel(String newModel){
-        this.model = newModel;
+    public int getDiscriminator() {
+        return discriminator;
     }
 
-    public void setWeight(double newWeight){
-        this.weight = newWeight;
+    public void setDiscriminator(int discriminator) {
+        this.discriminator = discriminator;
     }
-
-    public void setPrice(double newPrice){
-        this.price = newPrice;
-    }
-
-    public void setBrand(String newBrand){
-        this.brand = newBrand;
-    }
-
-    public void setDiscrimination(int discrimination) { this.discrimination = discrimination;}
-
 }

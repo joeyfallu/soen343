@@ -15,64 +15,45 @@ public class Computer extends Product {
         this.hardDriveSize = hardDriveSize;
     }
 
-    public Computer(){
-        super();
-        this.processorType = null;
-        this.cpuCores = 0;
-        this.ram = 0;
-        this.hardDriveSize = 0;
+    @Override
+    public String toString() {
+        return super.toString() + "Computer{" +
+                "processorType='" + processorType + '\'' +
+                ", cpuCores=" + cpuCores +
+                ", ram=" + ram +
+                ", hardDriveSize=" + hardDriveSize +
+                '}';
     }
 
-    public String toString(){
-        String x;
-        x = "id = " + getID() + " model = " + getModel() + " weight = " + getWeight() + " price = " + getPrice() + " brand = " + getBrand() + " processorType = " + getProcessorType() + " CpuCores = " + getCpuCores() + " ram = " + getRam() + " hardDriveSize = " + getHardDriveSize();
-        return x;
-    }
-
-    public boolean equals(Computer p){
-        return (this.getID() == p.getID() && this.getModel().equals(p.getModel()) && this.getWeight() == p.getWeight() && this.getPrice() == p.getPrice() && this.getBrand().equals(p.getBrand()) && this.getProcessorType().equals(p.getProcessorType()) && this.getCpuCores() == p.getCpuCores() && this.getRam() == p.getRam() && this.getHardDriveSize() == p.getHardDriveSize());
-
-    }
-
-    public String getProcessorType(){
+    public String getProcessorType() {
         return processorType;
     }
 
-    public int getCpuCores(){
+    public void setProcessorType(String processorType) {
+        this.processorType = processorType;
+    }
+
+    public int getCpuCores() {
         return cpuCores;
     }
 
-    public int getRam(){
+    public void setCpuCores(int cpuCores) {
+        this.cpuCores = cpuCores;
+    }
+
+    public int getRam() {
         return ram;
     }
 
-    public int getHardDriveSize(){
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public int getHardDriveSize() {
         return hardDriveSize;
     }
 
-
-
-    public void setProcessorType(String newProcessorType){
-        this.processorType = newProcessorType;
+    public void setHardDriveSize(int hardDriveSize) {
+        this.hardDriveSize = hardDriveSize;
     }
-
-    public void setCpuCores(int newCpuCores){
-        this.cpuCores = newCpuCores;
-    }
-
-    public void setRam(int newRam){
-        this.ram = newRam;
-    }
-
-    public void setHardDriveSize(int newHDS){
-        this.hardDriveSize = newHDS;
-    }
-
-
-
-
-
-
-
-
 }

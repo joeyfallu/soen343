@@ -1,9 +1,6 @@
 package com.example.myapp;
 
-import com.example.myapp.database.*;
-import com.example.myapp.userCatalog.*;
-import com.example.myapp.productCatalog.Tv;
-import com.example.myapp.productCatalog.Product;
+import com.example.myapp.productCatalog.*;
 import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -64,9 +61,54 @@ public class DemoApplication {
 
     @RequestMapping(value = "/post/addTv", method = RequestMethod.POST)
     String addTv(@RequestBody String json){
-        System.out.println(json);
-        return "test";
+        ProductCatalog productCatalog = new ProductCatalog();
+        Gson gson = new Gson();
+        Product tv = gson.fromJson(json, Tv.class);
+        productCatalog.addProduct(tv);
+        //AddItemsGoes here
+        return json;
     }
+
+    @RequestMapping(value = "/post/addMonitor", method = RequestMethod.POST)
+    String addMonitor(@RequestBody String json){
+        ProductCatalog productCatalog = new ProductCatalog();
+        Gson gson = new Gson();
+        Product monitor = gson.fromJson(json, Monitor.class);
+        productCatalog.addProduct(monitor);
+        //AddItemsGoes here
+        return json;
+    }
+
+    @RequestMapping(value = "/post/addTablet", method = RequestMethod.POST)
+    String addTablet(@RequestBody String json){
+        ProductCatalog productCatalog = new ProductCatalog();
+        Gson gson = new Gson();
+        Product tablet = gson.fromJson(json, Tablet.class);
+        productCatalog.addProduct(tablet);
+        //AddItemsGoes here
+        return json;
+    }
+
+    @RequestMapping(value = "/post/addDesktop", method = RequestMethod.POST)
+    String addDesktop(@RequestBody String json){
+        ProductCatalog productCatalog = new ProductCatalog();
+        Gson gson = new Gson();
+        Product desktop = gson.fromJson(json, Desktop.class);
+        productCatalog.addProduct(desktop);
+        //AddItemsGoes here
+        return json;
+    }
+
+    @RequestMapping(value = "/post/addLaptop", method = RequestMethod.POST)
+    String addLaptop(@RequestBody String json){
+        ProductCatalog productCatalog = new ProductCatalog();
+        Gson gson = new Gson();
+        Product desktop = gson.fromJson(json, Laptop.class);
+        productCatalog.addProduct(desktop);
+        //AddItemsGoes here
+        return json;
+    }
+
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);

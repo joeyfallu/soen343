@@ -31,7 +31,7 @@ public class Store {
     }
 
     public void addNewProduct(int discriminator, String[] values){
-        this.productCatalog.addProduct(discriminator,values);
+//        this.productCatalog.addProduct(discriminator,values);
     }
     public void deleteProduct(int id) throws Exception {
         if(productAction.isComplete()){
