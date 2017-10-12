@@ -1,6 +1,6 @@
 package com.example.myapp;
 
-import com.example.myapp.productCatalog.Product;
+import com.example.myapp.productCatalog.*;
 import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -116,11 +116,7 @@ public class DemoApplication {
 
 
     public static void main(String[] args) {
-
-
-
         SpringApplication.run(DemoApplication.class, args);
-
         store.getProductCatalog().setProducts(store.getProductCatalog().getProductMapper().getAll());
     }
 }
