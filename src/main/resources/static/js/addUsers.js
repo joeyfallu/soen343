@@ -6,14 +6,16 @@ app.controller('addUsersCtrl', function($scope, $http){
         $scope.addUser = function(){
             var url = "/post/addUser";
             var data = {
+                id : 0,
                 firstName : $scope.firstName,
                 lastName : $scope.lastName,
                 address : $scope.address,
                 phoneNumber : $scope.phoneNumber,
                 email : $scope.email,
                 password : $scope.password,
-                adminStatus : $scope.adminStatus
+                isAdmin : $scope.adminStatus
             }
+            console.log("test");
             $http.post(url,data)
                 .then((res) => {
              });
