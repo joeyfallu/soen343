@@ -46,14 +46,13 @@
 <div ng-controller="modifyItemCtrl">
     {{"Data: "}} {{itemData}}
     <div ng-repeat="field in itemData">
-
         {{field}}
 
     </div>
 
-  <!-- <div ng-switch="itemData.discrimination">-->
+  <!--<div ng-switch="itemData.discrimination">-->
 
-        <div ng-if="item.discriminator == 1">
+      <!--<div ng-switch-when="1">-->
             <form name="modifyTV" ng-submit="modifyTV()">
                 <h2>Add a TV:</h2>
                 <label>Model Number</label>
@@ -68,9 +67,9 @@
                 <input type="text" class="form-control" ng-model="itemData.price" /><br />
                 <button type="submit" class="btn btn-block">Submit</button>
          </form>
-        </div>
+        <!--</div>-->
 
-        <div ng-if="item.discriminator == 2">
+      <!--<div ng-switch-when="2">-->
             <form name="modifyMonitor" ng-submit="modifyMonitor()">
                 <h2>Add a Monitor:</h2>
                 <label>Model Number</label>
@@ -85,9 +84,9 @@
                 <input type="text" class="form-control"  ng-model="itemData.price" /><br />
                 <button type="submit" class="btn btn-block" >Submit</button>
             </form>
-        </div>
+        <!--</div>-->
 
-        <div ng-if="item.discriminator == 3">
+      <!--<div ng-switch-when="3">-->
             <form name="modifyTablet" ng-submit="modifyTablet()">
                 <h2>Add a Tablet:</h2>
                 <label>Model Number</label>
@@ -118,9 +117,9 @@
                 <input type="text" class="form-control"  ng-model="itemData.price" /><br />
                 <button type="submit" class="btn btn-block"  >Submit</button>
             </form>
-        </div>
+        <!--</div>-->
 
-        <div ng-if="item.discriminator == 4">
+      <!--<div ng-switch-when="4">-->
             <form name="modifyDesktop" ng-submit="modifyDesktop()">
                 <h2>Add a Desktop:</h2>
                 <label>Model Number</label>
@@ -141,9 +140,9 @@
                 <input type="text" class="form-control"  ng-model="itemData.price"/><br />
                 <button type="submit" class="btn btn-block" >Submit</button>
             </form>
-        </div>
+        <!--</div>-->
 
-        <div ng-if="item.discriminator == 5">
+      <!--<div ng-switch-when="5">-->
             <form name="modifyLaptop" ng-submit="modifyLaptop()">
                 <h2>Add a Laptop:</h2>
                 <label>Model Number</label>
@@ -175,9 +174,8 @@
                 <button type="submit" class="btn btn-block"  >Submit</button>
             </form>
         </div>
-
-
-    </div>
+    <!--</div>-->
+<!--</div>-->
 
 
 
