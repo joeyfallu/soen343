@@ -1,39 +1,33 @@
 'use strict';
 
-var loginModule = angular.module('login', []);
+const loginModule = angular.module('login', []);
 
-loginModule.controller('LoginController', ['$scope', "$http",
-    function loginController($scope, $http) {
+loginModule.controller('loginController', ['$scope', "$http", function loginController($scope, $http) {
         $scope.errorMsg = "";
 
-        $scope.login = function(){
-            /*
-            Handles the login form
-            */
-            var url = "/post/login";
-            var data = {
-                email : $scope.email,
-                password : $scope.password
+        $scope.login = function () {
+            /* Handles the login form*/
+            const url = "/post/login";
+            let data = {
+                email: $scope.email,
+                password: $scope.password
             };
 
-            console.log("attemtping POST");
+            console.log("attempting login POST request...");
 
-            $http.post(url,data)
-                .then((res) => {
+            $http.post(url, data).then((res) => {
+                console.log("receiving response from login POST request:")
                 console.log(res);
                 console.log(res.data);
-                if(res.data == "Wrong Password" || res.data == "Email not found"){
-                $scope.errorMsg = res.data;
-                return;
-            }
-        else {
-                $scope.userInfo = res.data;
-                $cookies.putObject('userInfo', $scope.userInfo);
-                console.log("Successful login for: ",$scope.userInfo.email);
-                $location.path('/');
-                return;
-            }
-        });
+
+                // TODO fix login and implement persistent login with cookies
+                if (res.data == "Wrong Password" || res.data == "Email not found") {
+                    $scope.errorMsg = res.data;
+                } else {
+                    $scope.userInfo = res.data;
+                    console.log("Successful login for: ", $scope.userInfo.email);
+                }
+            });
         };
     }
 ]);
