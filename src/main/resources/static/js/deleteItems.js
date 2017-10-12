@@ -1,6 +1,6 @@
- var loginModule = angular.module('myApp.deleteItems', []);
+const deleteItemsModule = angular.module('deleteItems', []);
 
-loginModule.controller('LoginController', ['$scope', '$location', "$http",function loginController($scope, $location, $http) {
+deleteItemsModule.controller('deleteItemsController', ['$scope', "$http", function loginController($scope, $http) {
     $scope.deleteItem = function(){
         /*
         Handles the 
