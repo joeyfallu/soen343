@@ -34,16 +34,15 @@ public class DemoApplication {
       return "index";
     }
 
+    /* ROUTING */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "login";
     }
 
-    @RequestMapping(value = "/post/login", method = RequestMethod.POST)
-    @ResponseBody
-    public String loginSubmit(@RequestBody String body) {
-        System.out.println(body);
-        return "{data: 'Successful login'}";
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String admin() {
+        return "admin/admin";
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -53,7 +52,7 @@ public class DemoApplication {
 
     @RequestMapping(value="/deleteItems", method = RequestMethod.GET)
     public String deleteItems(){
-        return "deleteItems";
+        return "admin/deleteItems";
     }
 
     @RequestMapping(value="/viewItems", method = RequestMethod.GET)
@@ -64,6 +63,15 @@ public class DemoApplication {
     @RequestMapping(value="/addItems")
     public String addItems() { return "addItems"; }
 
+    /* LOGIN */
+    @RequestMapping(value = "/post/login", method = RequestMethod.POST)
+    @ResponseBody
+    public String loginSubmit(@RequestBody String body) {
+        System.out.println(body);
+        return "{data: 'Successful login'}";
+    }
+
+    /* VIEW ITEMS */
     @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
