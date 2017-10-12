@@ -38,6 +38,13 @@ public class DemoApplication {
         return "login";
     }
 
+    @RequestMapping(value = "/post/login", method = RequestMethod.POST)
+    @ResponseBody
+    public String loginSubmit(@RequestBody String body) {
+        System.out.println(body);
+        return "{data: 'Successful login'}";
+    }
+
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test() {
         return "testPage";

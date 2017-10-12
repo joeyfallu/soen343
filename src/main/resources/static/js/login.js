@@ -14,9 +14,14 @@ loginModule.controller('LoginController', ['$scope', "$http",
             var data = {
                 email : $scope.email,
                 password : $scope.password
-            }
+            };
+
+            console.log("attemtping POST");
+
             $http.post(url,data)
                 .then((res) => {
+                console.log(res);
+                console.log(res.data);
                 if(res.data == "Wrong Password" || res.data == "Email not found"){
                 $scope.errorMsg = res.data;
                 return;
