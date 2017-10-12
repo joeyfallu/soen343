@@ -1,8 +1,6 @@
 'use strict';
 
-/*
-Main Angular App
-*/
+/* Main Angular App */
 var app = angular.module('myApp', [
     'ngRoute',
     'ngCookies',
@@ -11,7 +9,7 @@ var app = angular.module('myApp', [
     'myApp.adminAddItem',
     'myApp.userActions',
     'myApp.registerAdmin',
-    'myApp.viewItems',
+    'myApp.viewItems'
 ]);
 
 app.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
@@ -22,10 +20,12 @@ app.config(['$locationProvider', '$routeProvider', function($locationProvider, $
 
     $routeProvider
         .when('/login', { templateUrl: 'login.html', controller: 'LoginController' })
-        .when('/test', { templateUrl: 'testPage.html', controller: 'TestPageCtrl'})
         .when('/addItems', { templateUrl: 'adminAddItem.html', controller: 'adminAddItemController'})
         .when('/logout', { templateUrl: 'logout.html', controller: 'logoutController'})
-        .when('/home', { templateUrl: 'home.html', controller: 'homeController'});
+        .when('/home', { templateUrl: 'home.html', controller: 'homeController'})
+        .when('/admin', { templateUrl: 'admin.html', controller: 'adminPageController'})
+        .when('/test', { templateUrl: 'testPage.html', controller: 'TestPageCtrl'});
+
     $routeProvider.otherwise({ redirectTo: '/' });
 }]);
 
