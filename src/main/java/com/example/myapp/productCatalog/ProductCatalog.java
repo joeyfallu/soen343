@@ -16,11 +16,27 @@ public class ProductCatalog {
         this.products = new HashMap<>();
     }
 
+
+    public Map<Integer, Product> getProducts() {
+        return this.products;
+    }
+
+    public ProductMapper getProductMapper() {
+        return productMapper;
+    }
+
+    public void setProducts(Map<Integer, Product> products){
+                this.products = products;
+    }
+
+    public void setProductMapper(ProductMapper productMapper) {
+        this.productMapper = productMapper;
+    }
+
     public void addProduct(Product product){
         System.out.print(product.toString());
         products.put(product.getId(),product);
         //TODO: To be removed
-
     }
 
     public void deleteProduct(int id) throws Exception {
@@ -31,11 +47,4 @@ public class ProductCatalog {
     public void modifyProduct(int id, String[] values){
 
     }
-
-    public Map<Integer, Product> getProducts() {
-
-        return productMapper.getAll();
-
-    }
-
 }

@@ -1,6 +1,6 @@
 package com.example.myapp;
 
-import com.example.myapp.productCatalog.*;
+import com.example.myapp.productCatalog.Product;
 import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +12,10 @@ import java.util.Map;
 @Controller
 @SpringBootApplication
 public class DemoApplication {
+
+    static Store store = new Store();
+
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {
 //        //Test code
@@ -35,7 +39,7 @@ public class DemoApplication {
         return "login";
     }
 
-    @RequestMapping(value = "/testPage", method = RequestMethod.GET)
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test() {
         return "testPage";
     }
@@ -51,10 +55,10 @@ public class DemoApplication {
     @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
-        Store store = new Store();
+
         Gson gson = new Gson();
-        Map<Integer, Product> items = store.viewProductCatalog();
-        String json = gson.toJson(items);
+        System.out.println(store.getProductCatalog().getProducts());
+        String json = gson.toJson(store.getProductCatalog().getProducts());
         System.out.println(json);
         return json;
     }
@@ -112,6 +116,11 @@ public class DemoApplication {
 
 
     public static void main(String[] args) {
+
+
+
         SpringApplication.run(DemoApplication.class, args);
+
+        store.getProductCatalog().setProducts(store.getProductCatalog().getProductMapper().getAll());
     }
 }
