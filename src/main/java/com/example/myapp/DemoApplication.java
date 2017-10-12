@@ -88,6 +88,7 @@ public class DemoApplication {
         Gson gson = new Gson();
         User user = gson.fromJson(json, User.class);
         userCatalog.registerUser(user);
+        //AddUsers goes here
         return json;
     }
 
@@ -135,5 +136,9 @@ public class DemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
         store.getProductCatalog().setProducts(store.getProductCatalog().getProductMapper().getAll());
+
+   // The Two lines bellow were a test that succeeded in adding users to the database
+       // User user = new User(0,"hanna","georgi", "123 street", "1234567890", "hanna@hotmail", "12345", 1);
+        // store.addNewUser(user);
     }
 }

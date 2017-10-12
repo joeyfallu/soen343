@@ -1,6 +1,8 @@
 package com.example.myapp.userCatalog;
 import com.example.myapp.userCatalog.User;
 import com.example.myapp.database.UserMapper;
+
+import java.util.HashMap;
 import java.util.Map;
 public class UserCatalog {
 
@@ -10,7 +12,7 @@ public class UserCatalog {
 
     //Default constructor
     public UserCatalog(){
-
+        user = new HashMap<User, Integer>();
     }
 
     //supposed to return User
