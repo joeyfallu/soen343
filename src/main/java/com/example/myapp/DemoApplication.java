@@ -48,7 +48,7 @@ public class DemoApplication {
         return "viewItems";
     }
 
-    @RequestMapping(value="/addUsers", method = RequestMethod.GET)
+    @RequestMapping(value="/addUsers")
     public String addUsers(){
         return "addUsers";
     }
@@ -66,9 +66,10 @@ public class DemoApplication {
 */
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
     String addUser(@RequestBody String json){
+    UserCatalog userCatalog = new UserCatalog();
     Gson gson = new Gson();
     User user = gson.fromJson(json, User.class);
-    System.out.print(user.toString());
+    userCatalog.registerUser(user);
     return json;
     }
 
