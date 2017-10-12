@@ -49,7 +49,7 @@ public class ProductTDG {
             Laptop lp = (Laptop)pro;
             sql="INSERT INTO Products (model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,size, batteryInfo,operatingSystem,camera,touchScreen,discriminator) VALUES ('"+lp.getModel()+
                     "','"+lp.getWeight()+"','"+lp.getPrice()+"','"+lp.getBrand()+"','"+lp.getProcessorType()+"','"+lp.getCpuCores()+"','"+lp.getRam()+"','"+lp.getHardDriveSize()+"','"+lp.getSize()+"','"+
-                    lp.getBatteryInfo()+"','"+lp.getOperatingSystem()+"','"+lp.getCamera()+"','"+lp.getTouchScreen()+"','5')";
+                    lp.getBatteryInfo()+"','"+lp.getOperatingSystem()+"','"+lp.isCamera()+"','"+lp.isTouchScreen()+"','5')";
         }
         statement.executeUpdate(sql);
         resultSet = statement.executeQuery("SELECT LAST_INSERT_ID() FROM Products");
@@ -64,7 +64,6 @@ public class ProductTDG {
 
     public Product dbGet(int id) throws Exception{
         dbConnect();
-        Product ret= new Product();
         String sql = "SELECT * FROM Products WHERE id='" + id + "'";
         resultSet = statement.executeQuery(sql);
         String result[]= new String[18];
