@@ -40,8 +40,8 @@ public class Store {
         }
     }
 
-    public void addNewUser(String[] values){
-        this.userCatalog.registerUser(values);
+    public void addNewUser(User user){
+        this.userCatalog.registerUser(user);
     }
 
 

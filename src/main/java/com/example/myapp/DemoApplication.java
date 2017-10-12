@@ -59,6 +59,14 @@ public class DemoApplication {
         return json;
     }
 
+    @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
+    String addUser(@RequestBody String json){
+    Gson gson = new Gson();
+    User user = gson.fromJson(json, User.class);
+    System.out.print(user.toString());
+    return json;
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
