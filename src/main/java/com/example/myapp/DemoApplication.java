@@ -70,9 +70,8 @@ public class DemoApplication {
      */
     public String getProductById(
             @PathVariable("id") int id) {
-        Store store = new Store();          //TODO: REMOVE THIS
         Gson gson = new Gson();
-        Map<Integer, Product> items = store.viewProductCatalog();
+        Map<Integer, Product> items = store.getProductCatalog().getProducts();
         String productJson = gson.toJson(items.get(id));
         System.out.println(productJson);
         return productJson;
