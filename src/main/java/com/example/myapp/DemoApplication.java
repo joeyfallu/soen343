@@ -40,6 +40,11 @@ public class DemoApplication {
         return "login";
     }
 
+    @RequestMapping(value = "/registerAdmin", method = RequestMethod.GET)
+    public String registerAdmin() {
+        return "registerAdmin";
+    }
+
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String admin() {
         return "admin/admin";

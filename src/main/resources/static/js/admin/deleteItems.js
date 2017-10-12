@@ -12,6 +12,7 @@ deleteItemsModule.controller('deleteItemsController', ['$scope', "$http", functi
         };
 
         $http.post(url, data).then((res) => {
+            console.log(res);
             $scope.message = "Success!";
         }).catch((err) => {
             console.log("ERROR:");
