@@ -57,7 +57,7 @@ public class DemoApplication {
 
     @RequestMapping(value="/viewItems", method = RequestMethod.GET)
     public String viewItems(){
-        return "viewItems";
+        return "admin/viewItems";
     }
 
     @RequestMapping(value="/addItems")
