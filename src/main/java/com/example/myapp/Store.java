@@ -15,12 +15,23 @@ public class Store {
     private ProductCatalog productCatalog;
     private UserCatalog userCatalog;
 
-    public Store() throws Exception {
+
+    public Store(){
+
         productCatalog = new ProductCatalog();
         userCatalog = new UserCatalog();
 //        newProductAction();
 //        productAction.becomeComplete();
 //        deleteProduct(4);
+    }
+
+    public ProductCatalog getProductCatalog() {
+
+        return productCatalog;
+    }
+
+    public void setProductCatalog(ProductCatalog productCatalog) {
+        this.productCatalog = productCatalog;
     }
 
     public void newProductAction(){
@@ -32,12 +43,12 @@ public class Store {
     }
 
     public void addNewProduct(int discriminator, String[] values){
-        this.productCatalog.addProduct(discriminator,values);
+//        this.productCatalog.addProduct(discriminator,values);
     }
-    public void deleteProduct(int id) throws Exception {
+    public void deleteProduct(int id){
         if(productAction.isComplete()){
             productAction = new ProductAction(productCatalog);
-            productAction.deleteProduct(id);
+//            productAction.deleteProduct(id);
         }
     }
 

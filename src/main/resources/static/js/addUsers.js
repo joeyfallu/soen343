@@ -6,7 +6,7 @@ app.controller('addUsersCtrl', function($scope, $http){
         $scope.addUser = function(){
             var url = "/post/addUser";
             var data = {
-                id : 0,
+                id : "0",
                 firstName : $scope.firstName,
                 lastName : $scope.lastName,
                 address : $scope.address,
@@ -15,7 +15,6 @@ app.controller('addUsersCtrl', function($scope, $http){
                 password : $scope.password,
                 isAdmin : $scope.adminStatus
             }
-            console.log("test");
             $http.post(url,data)
                 .then((res) => {
              });

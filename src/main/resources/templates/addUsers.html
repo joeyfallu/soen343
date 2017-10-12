@@ -43,31 +43,33 @@
     </nav>
 
 
-     <form ng-submit="addUser()">
-      First name:<br>
-      <input type="text" name="firstname" ng-model="form.firstName" required>
-      <br><br>
-      Last name:<br>
-      <input type="text" name="lastname" ng-model="form.lastName" required>
-      <br><br>
-      Address:<br>
-      <input type="text" name="address" ng-model="form.address" required>
-      <br><br>
-      E-mail:<br>
-      <input type="email" name="email" ng-model="form.email" required>
-      <br><br>
-      Password:<br>
-      <input type="password" name="password" ng-model="form.password" required>
-      <br><br>
-      Phone number:<br>
-      <input type="number" name="phonenumber" ng-model="form.phoneNumber" required>
-      <br><br>
-      Admin status:<br>
-      <input type="radio" name="Admin status" value="1" ng-model="adminStatus" required> Admin<br>
-      <input type="radio" name="Admin status" value="0" ng-model="adminStatus" required> User<br>
-      <br><br>
-      <input type="submit" value="Submit">
-      <input type="reset" value="Clear">
+     <form name="user" ng-submit="addUser()">
+      First name:<br/>
+         <input type="text" name="firstname" ng-model="form.firstName" required=""/>
+      <br/><br/>
+      Last name:<br/>
+      <input type="text" name="lastname" ng-model="form.lastName" required=""/>
+      <br/><br/>
+      Address:<br/>
+      <input type="text" name="address" ng-model="form.address" required=""/>
+      <br/><br/>
+      E-mail:<br/>
+      <input type="email" name="email" ng-model="form.email" required=""/>
+      <br/><br/>
+      Password:<br/>
+      <input type="password" name="password" ng-model="form.password" required=""/>
+      <br/><br/>
+      Phone number:<br/>
+      <input type="number" name="phonenumber" ng-model="form.phoneNumber" required=""/>
+      <br/><br/>
+      Admin status:<br/>
+      <input type="radio" name="Admin status" value="1" ng-model="adminStatus" required=""/> Admin<br/>
+      <input type="radio" name="Admin status" value="0" ng-model="adminStatus" required=""/> User<br/>
+      <br/><br/>
+      <input type="submit" value="Submit"/>
+      <input type="reset" value="Clear"/>
+
+     </form>
 
       <!-- Angular Import -->
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
@@ -76,10 +78,7 @@
 
       <!-- Angular Scripts -->
       <script src="js/addUsers.js"></script>
-      </body>
+</body>
       </html>
 
-    </form>
-  </body>
 
-</html>
