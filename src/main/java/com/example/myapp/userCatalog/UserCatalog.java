@@ -1,6 +1,6 @@
 package com.example.myapp.userCatalog;
 import com.example.myapp.userCatalog.User;
-
+import com.example.myapp.database.UserMapper;
 import java.util.Map;
 public class UserCatalog {
 
@@ -10,9 +10,7 @@ public class UserCatalog {
 
     //Default constructor
     public UserCatalog(){
-      this.userMapper = new UserMapper(this);
-      this.user = new HashMap<>();
-      this.activeUser = new HashMap<>();
+
     }
 
     //supposed to return User
@@ -20,11 +18,12 @@ public class UserCatalog {
 
     }
 
-    public void registerUser(User user){
+    public void registerUser(User user1){
        //determining the auto-generated ID of the new user
-       int id = UserMapper.insert(user);
+        UserMapper userMapper = new UserMapper(this);
+       int id = userMapper.insert(user1);
        //inserting the new User/ID pair into the user HashMap
-       user.put(id,user);
+       user.put(user1,id);
     }
 
     public void login(String email, String password){

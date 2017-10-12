@@ -48,17 +48,22 @@ public class DemoApplication {
         return "viewItems";
     }
 
-    @RequestMapping("/get/products")
+    @RequestMapping(value="/addUsers", method = RequestMethod.GET)
+    public String addUsers(){
+        return "addUsers";
+    }
+
+  /*  @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
-        Store store = new Store();
+
         Gson gson = new Gson();
-        Map<Integer, Product> items = store.viewProductCatalog();
-        String json = gson.toJson(items);
+        System.out.println(store.getProductCatalog().getProducts());
+        String json = gson.toJson(store.getProductCatalog().getProducts());
         System.out.println(json);
         return json;
     }
-
+*/
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
     String addUser(@RequestBody String json){
     Gson gson = new Gson();
