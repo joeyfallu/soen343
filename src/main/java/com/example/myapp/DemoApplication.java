@@ -50,6 +50,11 @@ public class DemoApplication {
         return "testPage";
     }
 
+    @RequestMapping(value="/modifyItems", method = RequestMethod.GET)
+    public String modifyItems(){
+        return "admin/modifyItems";
+    }
+
     @RequestMapping(value="/deleteItems", method = RequestMethod.GET)
     public String deleteItems(){
         return "admin/deleteItems";
@@ -80,6 +85,14 @@ public class DemoApplication {
         String json = gson.toJson(store.getProductCatalog().getProducts());
         System.out.println(json);
         return json;
+    }
+
+    /* MODIFY ITEMS */
+    @RequestMapping("/post/modifyItems")
+    @ResponseBody
+    String modifyItemsForm(){
+        System.out.println("Backend modify items");
+        return "{}";
     }
 
     /* DELETE ITEMS */
