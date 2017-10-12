@@ -67,7 +67,7 @@ public class ProductMapper {
                 currentProducts = productTDG.dbGetAll();
 
                 for(int i = 0; i < currentProducts.length; i++){
-                    productIdentityMap.insertProductById(currentProducts[i].getID(), currentProducts[i]);
+                    productIdentityMap.insertProductById(currentProducts[i].getId(), currentProducts[i]);
                 }
 
             }
