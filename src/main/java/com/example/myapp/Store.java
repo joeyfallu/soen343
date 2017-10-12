@@ -14,7 +14,9 @@ public class Store {
     private ProductCatalog productCatalog;
     private UserCatalog userCatalog;
 
+
     public Store(){
+
         productCatalog = new ProductCatalog();
         userCatalog = new UserCatalog();
 //        newProductAction();
