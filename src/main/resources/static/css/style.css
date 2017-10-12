@@ -1,3 +1,4 @@
+/* COMMON */
 html, body {
     height: 100%;
     width: 100%;
@@ -22,6 +23,7 @@ html, body {
     border-style: dashed;
 }
 
+/* LOGIN */
 input#email, #password {
     border: 0;
     border-bottom: 1px solid;
@@ -37,6 +39,7 @@ button#login-btn {
     margin-top: 30px;
 }
 
+/* VIEW ITEMS */
 .panel-body{
     height: 150px;
     overflow: auto;
@@ -53,4 +56,12 @@ button#login-btn {
 /* The finishing CSS styles for the enter animation */
 .fade.ng-enter.ng-enter-active {
     opacity:1;
+}
+
+/* FORMS */
+.form-area {
+    background-color: #FAFAFA;
+    padding: 10px 40px 60px;
+    margin: 10px 0 60px;
+    border: 1px solid GREY;
 }

@@ -5,7 +5,7 @@
     <title>343 Electronics</title>
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel='stylesheet' href='css/style.css'/>
+    <link rel='stylesheet' href='../css/style.css'/>
     <base href="/"/>
 </head>
 
@@ -31,23 +31,28 @@
     </div>
 </nav>
 
-<div>
-    <form name="deleteItems" ng-submit="deleteItem()">
-        <div class="form-group">
-            <label for="deleteId">Please enter the ID of the item you wish to delete:</label>
-            <input type="number" id="deleteId" ng-model="deleteItemsID" required="" />
+<div class="container">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="form-area">
+            <form name="deleteItems" ng-submit="deleteItem()" role="form">
+                <h3 style="margin-bottom: 25px; text-align: center;">Delete Items</h3>
+                <div class="form-group">
+                    <label for="deleteId">Please enter the ID of the item you wish to delete:</label>
+                    <input type="number" class="form-control" id="deleteId" placeholder="ID" required="" autofocus=""/>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" id="delete-btn" class="btn btn-primary">Delete</button> {{message}}
+                </div>
+            </form>
         </div>
-        <div class="form-actions">
-            <button type="submit" id="login-delete">Delete</button>
-        </div>
-    </form>
+    </div>
 </div>
 
 <!-- Angular Import -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 
 <!-- Angular Scripts -->
-<script src="js/admin/deleteItems.js"></script>
+<script src="../js/admin/deleteItems.js"></script>
 
 </body>
 </html>

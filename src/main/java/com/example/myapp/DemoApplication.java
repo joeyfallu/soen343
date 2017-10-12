@@ -82,6 +82,14 @@ public class DemoApplication {
         return json;
     }
 
+    /* DELETE ITEMS */
+    @RequestMapping("/post/deleteItems")
+    @ResponseBody
+    String deleteItemsForm(){
+        System.out.println("Backend delete items");
+        return "{}";
+    }
+
     //TODO: Fix adds
     @RequestMapping(value = "/post/addTv", method = RequestMethod.POST)
     String addTv(@RequestBody String json){
