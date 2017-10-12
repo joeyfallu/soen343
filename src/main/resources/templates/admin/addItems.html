@@ -36,13 +36,6 @@
 <div class="container">
     <div class="col-md-8 col-md-offset-2">
         <div class="form-area">
-            <!--<select ng-model="discriminator">-->
-            <!--<option value="1">TV</option>-->
-            <!--<option value="2">Monitor</option>-->
-            <!--<option value="3">Tablet</option>-->
-            <!--<option value="4">Desktop</option>-->
-            <!--<option value="5">Laptop</option>-->
-            <!--</select>-->
 
             <form name="tv" ng-submit="addTv()">
                 <h2>Add a TV:</h2>
@@ -73,6 +66,7 @@
                 <label>Price </label>
                 <input type="text" class="form-control" ng-model="monitorPrice" required=""/><br/>
                 <button type="submit" class="btn btn-block">Submit</button>
+                {{monitorMessage}}
             </form>
 
             <form name="tablet" ng-submit="addTablet()">
@@ -104,6 +98,7 @@
                 <label>Price</label>
                 <input type="text" class="form-control" ng-model="tabletPrice" required=""/><br/>
                 <button type="submit" class="btn btn-block">Submit</button>
+                {{tabletMessage}}
             </form>
 
             <form name="desktop" ng-submit="addDesktop()">
@@ -125,6 +120,7 @@
                 <label>Price </label>
                 <input type="text" class="form-control" ng-model="desktopPrice" required=""/><br/>
                 <button type="submit" class="btn btn-block">Submit</button>
+                {{desktopMessage}}
             </form>
 
             <form name="laptop" ng-submit="addLaptop()">
@@ -150,31 +146,17 @@
                 <label>Operating System</label>
                 <input type="text" class="form-control" ng-model="laptopOperatingSystem" required=""/>
                 <label>Does it have a camera?</label>
-                <input type="text" class="form-control" ng-model="laptopCamera" required=""/>
-                <label>Does it have a touchs creen?</label>
-                <input type="text" class="form-control" ng-model="laptopTouchScreen" required=""/>
+                <label>Yes</label><input type="radio" name="camera"  ng-model="laptopCamera" required="" value="true"/>
+                <label>No</label><input type="radio" name="camera" ng-model="laptopCamera" required="" value="false"/><br/>
+                <label>Does it have a touch screen?</label>
+                <label>Yes<input type="radio" name="touchScreen"  ng-model="laptopTouchScreen" required="" value="true"/></label>
+                <label>No<input type="radio" name="touchScreen" ng-model="laptopTouchScreen" required="" value="false"/></label><br/>
                 <label>Price </label>
                 <input type="text" class="form-control" ng-model="laptopPrice" required=""/><br/>
                 <button type="submit" class="btn btn-block">Submit</button>
+                {{laptopMessage}}
             </form>
 
-            <!--<div ng-switch="discriminator">-->
-            <!--<div ng-switch-when="1">-->
-
-            <!--</div>-->
-            <!--<div ng-switch-when="2">-->
-
-            <!--</div>-->
-            <!--<div ng-switch-when="3">-->
-
-            <!--</div>-->
-            <!--<div ng-switch-when="4">-->
-
-            <!--</div>-->
-            <!--<div ng-switch-when="5">-->
-
-            <!--</div>-->
-            <!--</div>-->
         </div>
     </div>
 </div>
