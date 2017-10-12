@@ -61,7 +61,7 @@ public class DemoApplication {
     }
 
     @RequestMapping(value="/addItems")
-    public String addItems() { return "addItems"; }
+    public String addItems() { return "admin/addItems"; }
 
     /* LOGIN */
     @RequestMapping(value = "/post/login", method = RequestMethod.POST)
