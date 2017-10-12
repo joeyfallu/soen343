@@ -1,9 +1,6 @@
 package com.example.myapp;
 
-import com.example.myapp.database.*;
-import com.example.myapp.userCatalog.*;
-import com.example.myapp.productCatalog.Tv;
-import com.example.myapp.productCatalog.Product;
+import com.example.myapp.productCatalog.*;
 import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,6 +12,10 @@ import java.util.Map;
 @Controller
 @SpringBootApplication
 public class DemoApplication {
+
+    static Store store = new Store();
+
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {
 //        //Test code
@@ -33,9 +34,20 @@ public class DemoApplication {
       return "index";
     }
 
+    /* ROUTING */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "login";
+    }
+
+    @RequestMapping(value = "/registerAdmin", method = RequestMethod.GET)
+    public String registerAdmin() {
+        return "registerAdmin";
+    }
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String admin() {
+        return "admin/admin";
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -43,33 +55,113 @@ public class DemoApplication {
         return "testPage";
     }
 
+    @RequestMapping(value="/modifyItems", method = RequestMethod.GET)
+    public String modifyItems(){
+        return "admin/modifyItems";
+    }
+
     @RequestMapping(value="/deleteItems", method = RequestMethod.GET)
     public String deleteItems(){
-        return "deleteItems";
+        return "admin/deleteItems";
     }
     
     @RequestMapping(value="/viewItems", method = RequestMethod.GET)
     public String viewItems(){
-        return "viewItems";
+        return "admin/viewItems";
     }
 
+    @RequestMapping(value="/addItems")
+    public String addItems() { return "admin/addItems"; }
+
+    /* LOGIN */
+    @RequestMapping(value = "/post/login", method = RequestMethod.POST)
+    @ResponseBody
+    public String loginSubmit(@RequestBody String body) {
+        System.out.println(body);
+        return "{data: 'Successful login'}";
+    }
+
+    /* VIEW ITEMS */
     @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
-        Store store = null;
-        try {
-            store = new Store();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         Gson gson = new Gson();
-        Map<Integer, Product> items = store.viewProductCatalog();
-        String json = gson.toJson(items);
+        System.out.println(store.getProductCatalog().getProducts());
+        String json = gson.toJson(store.getProductCatalog().getProducts());
         System.out.println(json);
         return json;
     }
 
+    /* MODIFY ITEMS */
+    @RequestMapping("/post/modifyItems")
+    @ResponseBody
+    String modifyItemsForm(){
+        System.out.println("Backend modify items");
+        return "{}";
+    }
+
+    /* DELETE ITEMS */
+    @RequestMapping("/post/deleteItems")
+    @ResponseBody
+    String deleteItemsForm(){
+        System.out.println("Backend delete items");
+        return "{}";
+    }
+
+    //TODO: Fix adds
+    @RequestMapping(value = "/post/addTv", method = RequestMethod.POST)
+    String addTv(@RequestBody String json){
+        ProductCatalog productCatalog = new ProductCatalog();
+        Gson gson = new Gson();
+        Product tv = gson.fromJson(json, Tv.class);
+        productCatalog.addProduct(tv);
+        //AddItemsGoes here
+        return json;
+    }
+
+    @RequestMapping(value = "/post/addMonitor", method = RequestMethod.POST)
+    String addMonitor(@RequestBody String json){
+        ProductCatalog productCatalog = new ProductCatalog();
+        Gson gson = new Gson();
+        Product monitor = gson.fromJson(json, Monitor.class);
+        productCatalog.addProduct(monitor);
+        //AddItemsGoes here
+        return json;
+    }
+
+    @RequestMapping(value = "/post/addTablet", method = RequestMethod.POST)
+    String addTablet(@RequestBody String json){
+        ProductCatalog productCatalog = new ProductCatalog();
+        Gson gson = new Gson();
+        Product tablet = gson.fromJson(json, Tablet.class);
+        productCatalog.addProduct(tablet);
+        //AddItemsGoes here
+        return json;
+    }
+
+    @RequestMapping(value = "/post/addDesktop", method = RequestMethod.POST)
+    String addDesktop(@RequestBody String json){
+        ProductCatalog productCatalog = new ProductCatalog();
+        Gson gson = new Gson();
+        Product desktop = gson.fromJson(json, Desktop.class);
+        productCatalog.addProduct(desktop);
+        //AddItemsGoes here
+        return json;
+    }
+
+    @RequestMapping(value = "/post/addLaptop", method = RequestMethod.POST)
+    String addLaptop(@RequestBody String json){
+        ProductCatalog productCatalog = new ProductCatalog();
+        Gson gson = new Gson();
+        Product desktop = gson.fromJson(json, Laptop.class);
+        productCatalog.addProduct(desktop);
+        //AddItemsGoes here
+        return json;
+    }
+
+
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
+        store.getProductCatalog().setProducts(store.getProductCatalog().getProductMapper().getAll());
     }
 }
