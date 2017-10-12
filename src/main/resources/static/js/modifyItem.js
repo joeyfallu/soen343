@@ -17,6 +17,7 @@ app.controller('modifyItemCtrl', function($scope, $http){
        $scope.modifyTV = function(){
            var url ="/post/modify";
            var data = {
+               id : itemData.id,
                discriminator : "1",
                model : $scope.itemData.model,
                weight : $scope.itemData.weight,
@@ -32,6 +33,7 @@ app.controller('modifyItemCtrl', function($scope, $http){
         $scope.modifyMonitor = function(){
             var url = "/post/modify";
             var data = {
+                id : itemData.id,
                 discriminator : "2",
                 model : $scope.itemData.model,
                 weight : $scope.itemData.weight,
@@ -48,6 +50,7 @@ app.controller('modifyItemCtrl', function($scope, $http){
         $scope.modifyTablet = function(){
             var url = "/post/modify";
             var data = {
+                id : itemData.id,
                 discriminator : "3",
                 model : $scope.itemData.model,
                 weight : $scope.itemData.weight,
@@ -71,6 +74,7 @@ app.controller('modifyItemCtrl', function($scope, $http){
          $scope.modifyDesktop = function(){
          var url = "/post/modify";
          var data = {
+            id : itemData.id,
             discriminator : "4",
             model : $scope.itemData.model,
             weight : $scope.itemData.weight,
@@ -90,6 +94,7 @@ app.controller('modifyItemCtrl', function($scope, $http){
          $scope.modifyLaptop = function(){
          var url = "/post/modify";
          var data = {
+             id : itemData.id,
              discriminator : "5",
              model : $scope.itemData.model,
              weight : $scope.itemData.weight,
