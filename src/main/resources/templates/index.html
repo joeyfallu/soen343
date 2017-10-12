@@ -6,14 +6,11 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <base href="/"/>
-
-    <!-- StyleSheets -->
     <link rel='stylesheet' href='css/style.css'/>
-    <link rel='stylesheet' href='css/viewItems.css'/>
+    <base href="/"/>
 </head>
 
-<body ng-app="myApp" ng-controller="AppController" ng-style="style">
+<body ng-app="index" ng-controller="indexController" >
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -28,14 +25,12 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="/login"><span class="glyphicon glyphicon-user"></span>Login</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span>Cart</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
             </ul>
         </div>
     </div>
 </nav>
-
 
 <!-- Angular Import -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
@@ -43,7 +38,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
 
 <!-- Angular Scripts -->
-<script src="js/app.js"></script>
+<script src="js/index.js"></script>
 
 </body>
 </html>
