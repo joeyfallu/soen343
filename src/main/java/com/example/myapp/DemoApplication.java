@@ -56,7 +56,7 @@ public class DemoApplication {
         Map<Integer, Product> items = store.viewProductCatalog();
         String json = gson.toJson(items);
         System.out.println(json);
-        return json;git
+        return json;
     }
 
     @RequestMapping(value = "/getItem/{id}", method = RequestMethod.GET)
