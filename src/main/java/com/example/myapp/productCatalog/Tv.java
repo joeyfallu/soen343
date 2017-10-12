@@ -8,29 +8,18 @@ public class Tv extends Product {
         this.dimensions = dimensions;
     }
 
-    public Tv(){
-        super();
-        this.dimensions = "";
+    @Override
+    public String toString() {
+        return super.toString() + "Tv{" +
+                "dimensions='" + dimensions + '\'' +
+                '}';
     }
 
-    public String toString(){
-        String x;
-        x = "id = " + getID() + " model = " + getModel() + " weight = " + getWeight() + " price = " + getPrice() + " brand = " + getBrand() + " dimensions = " + getDimensions();
-        return x;
-    }
-
-    public boolean equals(Tv p){
-        return (this.getID() == p.getID() && this.getModel().equals(p.getModel()) && this.getWeight() == p.getWeight() && this.getPrice() == p.getPrice() && this.getBrand().equals(p.getBrand()) && this.getDimensions() ==(p.getDimensions()));
-
-    }
-
-    public String getDimensions(){
+    public String getDimensions() {
         return dimensions;
     }
 
-    public void setDimensions(String newDimensions){
-        this.dimensions = newDimensions;
+    public void setDimensions(String dimensions) {
+        this.dimensions = dimensions;
     }
-
-
 }
