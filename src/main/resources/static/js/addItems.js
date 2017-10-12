@@ -49,7 +49,7 @@ app.controller('addItemsCtrl', function($scope, $http){
                 cpuCores : $scope.tabletCores,
                 ram : $scope.tabletRam,
                 hardDriveSize : $scope.tabletHardDriveSize,
-                size : $scope.tabletSize;
+                size : $scope.tabletSize,
                 batteryInfo : $scope.tabletBattery,
                 operatingSystem : $scope.tabletOperatingSystem,
                 cameraInfo : $scope.tabletCamera,
@@ -68,7 +68,7 @@ app.controller('addItemsCtrl', function($scope, $http){
                 weight : $scope.desktopWeight,
                 price : $scope.desktopPrice,
                 brand : $scope.desktopBrand,
-                dimensions : $scope.desktopDimensions
+                dimensions : $scope.desktopDimensions,
                 processorType : $scope.desktopProcessor,
                 cpuCores : $scope.desktopCores,
                 ram : $scope.desktopRam,

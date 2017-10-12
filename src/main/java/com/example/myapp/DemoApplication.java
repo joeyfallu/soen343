@@ -59,6 +59,7 @@ public class DemoApplication {
         return json;
     }
 
+    //TODO: Fix adds
     @RequestMapping(value = "/post/addTv", method = RequestMethod.POST)
     String addTv(@RequestBody String json){
         ProductCatalog productCatalog = new ProductCatalog();
