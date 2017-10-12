@@ -1,6 +1,7 @@
 package com.example.myapp;
 
 import com.example.myapp.productCatalog.*;
+import com.example.myapp.userCatalog.*;
 import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -57,6 +58,9 @@ public class DemoApplication {
     @RequestMapping(value="/addItems")
     public String addItems() { return "addItems"; }
 
+    @RequestMapping(value="/addUsers")
+    public String addUsers() { return "addUsers"; }
+
     @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
@@ -75,6 +79,16 @@ public class DemoApplication {
         Product tv = gson.fromJson(json, Tv.class);
         productCatalog.addProduct(tv);
         //AddItemsGoes here
+        return json;
+    }
+
+    @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
+    String addUser(@RequestBody String json){
+        UserCatalog userCatalog = new UserCatalog();
+        Gson gson = new Gson();
+        User user = gson.fromJson(json, User.class);
+        userCatalog.registerUser(user);
+        //AddUsers goes here
         return json;
     }
 
@@ -122,5 +136,9 @@ public class DemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
         store.getProductCatalog().setProducts(store.getProductCatalog().getProductMapper().getAll());
+
+   // The Two lines bellow were a test that succeeded in adding users to the database
+       // User user = new User(0,"hanna","georgi", "123 street", "1234567890", "hanna@hotmail", "12345", 1);
+        // store.addNewUser(user);
     }
 }

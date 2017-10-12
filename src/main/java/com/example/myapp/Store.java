@@ -4,6 +4,7 @@ import com.example.myapp.actionHandlers.ProductAction;
 import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
 import com.example.myapp.userCatalog.UserCatalog;
+import com.example.myapp.userCatalog.User;
 
 import java.util.Map;
 import java.sql.SQLException;
@@ -49,6 +50,10 @@ public class Store {
             productAction = new ProductAction(productCatalog);
 //            productAction.deleteProduct(id);
         }
+    }
+
+    public void addNewUser(User user){
+        this.userCatalog.registerUser(user);
     }
 
 
