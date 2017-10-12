@@ -3,14 +3,18 @@ package com.example.myapp.database;
 import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
 
+import java.util.Map;
+import java.sql.SQLException;
+
+
 public class ProductMapper {
 
     private ProductIdentityMap productIdentityMap;
-    private ProductTdg productTdg;
+    private ProductTDG productTDG;
     private ProductCatalog productCatalog;
 
     public ProductMapper(ProductCatalog productCatalog) {
-        this.productTdg = new ProductTdg();
+        this.productTDG = new ProductTDG();
         this.productCatalog = productCatalog;
         this.productIdentityMap = new ProductIdentityMap();
     }
@@ -18,7 +22,7 @@ public class ProductMapper {
     public int insert(Product product){
         int id = 0;
         try {
-           id = productTdg.dbInsert(product);
+           id = productTDG.dbInsert(product);
         }
         catch(Exception e){
             //do nothing
@@ -32,8 +36,8 @@ public class ProductMapper {
         productIdentityMap.updateProductById(id, product);
     }
 
-    public void delete(int id){
-        //TDG here
+    public void delete(int id) throws Exception {
+        productTDG.dbDelete(id);
         productIdentityMap.deleteProductById(id);
     }
 
@@ -43,7 +47,7 @@ public class ProductMapper {
 
         if(product == null){
             try {
-                product = productTdg.dbGet(id);
+                product = productTDG.dbGet(id);
                 productIdentityMap.insertProductById(id, product);
             }
             catch (Exception e){
@@ -52,5 +56,25 @@ public class ProductMapper {
         }
 
         return product;
+    }
+
+    public Map<Integer, Product> getAll(){
+
+        Map<Integer, Product> products = productIdentityMap.getAllProducts();
+        Product currentProducts[];
+
+            try{
+                currentProducts = productTDG.dbGetAll();
+
+                for(int i = 0; i < currentProducts.length; i++){
+                    productIdentityMap.insertProductById(currentProducts[i].getID(), currentProducts[i]);
+                }
+
+            }
+            catch (Exception e){
+                //do nothing
+            }
+
+        return products;
     }
 }

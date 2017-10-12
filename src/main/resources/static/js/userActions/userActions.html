@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<div id="controlPanel "class="well well-lg" ng-controller="UserActionsCtrl">
+   <div ng-if="!isAdmin">
+      <h1>User Control Panel</h1>
+   </div>
+   <div ng-if="isAdmin">
+      <h1>Administrator Control Panel</h1>
+      <a href="/registerAdmin" class="btn" role="button">Register Admin Account</button><br>
+      <a href="/addItems" class="btn" role="button">Add New Item to Inventory</button><br>
+      <a href="/products" class="btn" role="button">View Inventory</button><br>
+   <div>
+</div>

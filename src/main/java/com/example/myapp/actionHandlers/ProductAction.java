@@ -2,6 +2,8 @@ package com.example.myapp.actionHandlers;
 
 import com.example.myapp.productCatalog.ProductCatalog;
 
+import java.sql.SQLException;
+
 public class ProductAction extends Action {
 
     private ProductCatalog productCatalog;
@@ -15,8 +17,8 @@ public class ProductAction extends Action {
 
     }
 
-    public void deleteProduct(){
-
+    public void deleteProduct(int id) throws Exception {
+        productCatalog.deleteProduct(id);
     }
 
     public void modifyProduct (){

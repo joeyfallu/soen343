@@ -5,7 +5,7 @@ import com.example.myapp.userCatalog.*;
 import java.sql.*;
 
 
-public class UserTdg {
+public class UserTDG {
 
     private Connection connect = null;
     private Statement statement = null;
