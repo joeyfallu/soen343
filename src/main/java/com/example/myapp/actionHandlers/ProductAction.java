@@ -13,6 +13,7 @@ public class ProductAction extends Action {
         this.productCatalog = productCatalog;
     }
 
+
     public void addNewProduct(int discrimintor, String [] values){
 
     }
@@ -22,6 +23,6 @@ public class ProductAction extends Action {
     }
 
     public void modifyProduct (int id, String [] values){
-        productCatalog.modifyProduct(id, values);
+
     }
 }

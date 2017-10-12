@@ -23,12 +23,12 @@ app.controller('modifyItemCtrl', function($scope, $http){
                weight : $scope.itemData.weight,
                price : $scope.itemData.price,
                brand : $scope.itemData.brand,
-               dimensions : $scope.itemData.dimensions
+               dimensions : $scope.itemData.dimensions,
            }
            $http.post(url,data)
            .then((res) => {
             });
-        }
+        };
 
         $scope.modifyMonitor = function(){
             var url = "/post/modify";
@@ -39,12 +39,12 @@ app.controller('modifyItemCtrl', function($scope, $http){
                 weight : $scope.itemData.weight,
                 price : $scope.itemData.price,
                 brand : $scope.itemData.brand,
-                size : $scope.itemData.size
+                size : $scope.itemData.size,
             }
             $http.post(url,data)
             .then((res) => {
             });
-         }
+         };
 
 
         $scope.modifyTablet = function(){
@@ -61,15 +61,15 @@ app.controller('modifyItemCtrl', function($scope, $http){
                  cpuCores : $scope.itemData.cpuCores,
                  ram : $scope.itemData.ram,
                  hardDriveSize : $scope.itemData.hardDriveSize,
-                 size : $scope.itemData.size;
+                 size : $scope.itemData.size,
                  batteryInfo : $scope.itemData.batteryInfo,
                  operatingSystem : $scope.itemData.operatingSystem,
-                 cameraInfo : $scope.itemData.cameraInfo
+                 cameraInfo : $scope.itemData.cameraInfo,
             }
             $http.post(url,data)
             .then((res) => {
             });
-         }
+         };
 
          $scope.modifyDesktop = function(){
          var url = "/post/modify";
@@ -80,16 +80,16 @@ app.controller('modifyItemCtrl', function($scope, $http){
             weight : $scope.itemData.weight,
             price : $scope.itemData.price,
             brand : $scope.itemData.brand,
-            dimensions : $scope.itemData.dimensions
+            dimensions : $scope.itemData.dimensions,
             processorType : $scope.itemData.processorType,
             cpuCores : $scope.itemData.cpuCores,
             ram : $scope.itemData.ram,
-            hardDriveSize : $scope.itemData.hardDriveSize
+            hardDriveSize : $scope.itemData.hardDriveSize,
          }
          $http.post(url,data)
          .then((res) => {
           });
-         }
+         };
 
          $scope.modifyLaptop = function(){
          var url = "/post/modify";
@@ -108,12 +108,12 @@ app.controller('modifyItemCtrl', function($scope, $http){
              batteryInfo : $scope.itemData.batteryInfo,
              operatingSystem : $scope.itemData.operatingSystem,
              cameraInfo : $scope.itemData.cameraInfo,
-             touchScreen : $scope.itemData.touchScreen
+             touchScreen : $scope.itemData.touchScreen,
          }
          $http.post(url,data)
          .then((res) => {
           });
-         }
+         };
 
 
 });
