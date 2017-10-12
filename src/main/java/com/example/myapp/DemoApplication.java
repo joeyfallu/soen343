@@ -34,9 +34,20 @@ public class DemoApplication {
       return "index";
     }
 
+    /* ROUTING */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "login";
+    }
+
+    @RequestMapping(value = "/registerAdmin", method = RequestMethod.GET)
+    public String registerAdmin() {
+        return "registerAdmin";
+    }
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String admin() {
+        return "admin/admin";
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -44,19 +55,33 @@ public class DemoApplication {
         return "testPage";
     }
 
+    @RequestMapping(value="/modifyItems", method = RequestMethod.GET)
+    public String modifyItems(){
+        return "admin/modifyItems";
+    }
+
     @RequestMapping(value="/deleteItems", method = RequestMethod.GET)
     public String deleteItems(){
-        return "deleteItems";
+        return "admin/deleteItems";
     }
 
     @RequestMapping(value="/viewItems", method = RequestMethod.GET)
     public String viewItems(){
-        return "viewItems";
+        return "admin/viewItems";
     }
 
     @RequestMapping(value="/addItems")
-    public String addItems() { return "addItems"; }
+    public String addItems() { return "admin/addItems"; }
 
+    /* LOGIN */
+    @RequestMapping(value = "/post/login", method = RequestMethod.POST)
+    @ResponseBody
+    public String loginSubmit(@RequestBody String body) {
+        System.out.println(body);
+        return "{data: 'Successful login'}";
+    }
+
+    /* VIEW ITEMS */
     @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
@@ -65,6 +90,22 @@ public class DemoApplication {
         String json = gson.toJson(store.getProductCatalog().getProducts());
         System.out.println(json);
         return json;
+    }
+
+    /* MODIFY ITEMS */
+    @RequestMapping("/post/modifyItems")
+    @ResponseBody
+    String modifyItemsForm(){
+        System.out.println("Backend modify items");
+        return "{}";
+    }
+
+    /* DELETE ITEMS */
+    @RequestMapping("/post/deleteItems")
+    @ResponseBody
+    String deleteItemsForm(){
+        System.out.println("Backend delete items");
+        return "{}";
     }
 
     //TODO: Fix adds
