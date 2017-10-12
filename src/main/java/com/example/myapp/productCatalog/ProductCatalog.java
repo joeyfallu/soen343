@@ -16,6 +16,23 @@ public class ProductCatalog {
         this.products = new HashMap<>();
     }
 
+
+    public Map<Integer, Product> getProducts() {
+        return this.products;
+    }
+
+    public ProductMapper getProductMapper() {
+        return productMapper;
+    }
+
+    public void setProducts(Map<Integer, Product> products){
+                this.products = products;
+    }
+
+    public void setProductMapper(ProductMapper productMapper) {
+        this.productMapper = productMapper;
+    }
+
     public void addProduct(int discriminator, String[] values){
         Product product = null;
         if(discriminator == 1) {
@@ -42,11 +59,4 @@ public class ProductCatalog {
     public void modifyProduct(int id, String[] values){
 
     }
-
-    public Map<Integer, Product> getProducts() {
-
-        return productMapper.getAll();
-
-    }
-
 }
