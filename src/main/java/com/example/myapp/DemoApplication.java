@@ -1,6 +1,7 @@
 package com.example.myapp;
 
 import com.example.myapp.database.*;
+import com.example.myapp.productCatalog.ProductCatalog;
 import com.example.myapp.userCatalog.*;
 import com.example.myapp.productCatalog.Tv;
 import com.example.myapp.productCatalog.Product;
@@ -15,6 +16,10 @@ import java.util.Map;
 @Controller
 @SpringBootApplication
 public class DemoApplication {
+
+    static Store store = new Store();
+
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {
 //        //Test code
@@ -51,15 +56,20 @@ public class DemoApplication {
     @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
-        Store store = new Store();
+
         Gson gson = new Gson();
-        Map<Integer, Product> items = store.viewProductCatalog();
-        String json = gson.toJson(items);
+        System.out.println(store.getProductCatalog().getProducts());
+        String json = gson.toJson(store.getProductCatalog().getProducts());
         System.out.println(json);
         return json;
     }
 
     public static void main(String[] args) {
+
+
+
         SpringApplication.run(DemoApplication.class, args);
+
+        store.getProductCatalog().setProducts(store.getProductCatalog().getProductMapper().getAll());
     }
 }
