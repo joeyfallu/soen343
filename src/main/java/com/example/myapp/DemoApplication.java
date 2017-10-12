@@ -47,7 +47,7 @@ public class DemoApplication {
     public String deleteItems(){
         return "deleteItems";
     }
-
+    
     @RequestMapping(value="/viewItems", method = RequestMethod.GET)
     public String viewItems(){
         return "viewItems";

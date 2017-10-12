@@ -1,18 +1,24 @@
-const deleteItemsModule = angular.module('deleteItems', []);
+'use strict';
 
-deleteItemsModule.controller('deleteItemsController', ['$scope', "$http", function loginController($scope, $http) {
-    $scope.deleteItem = function(){
-        /*
-        Handles the 
-        */
-        var url = "/post/deleteItem";
+
+
+
+var loginModule = angular.module('myApp.deleteItems', [])
+
+loginModule.controller('deleteItemsController', ['$scope', "$http", function deleteItemsController($scope, $http) {
+    $scope.deleteItems = function(){
+     // console.log("hi");
+        var url = "/post/deleteItems";
         var data = {
-           deleteId : $scope.deleteId,
+           deleteId : $scope.deleteId
         }
         $http.post(url,data)
         .then((res) => {
-           
-        });
+
+            //console.log(' data ');
+
+        })
+        .catch(console.error);
      };
 }]);
 

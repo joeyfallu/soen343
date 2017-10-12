@@ -33,14 +33,15 @@
     </div>
 </nav>
 
-<div ng-controller="deleteItemsController">
-    <form name="deleteItems" ng-submit="deleteItem()">
+
+<div ng-controller="deleteItemsController" >
+    <form name="deleteItems1" ng-submit="deleteItems()">
         <div class="form-group">
             <label>Please enter the ID of the item you wish to delete:</label>
             <input type="number" id="deleteId" ng-model="deleteItemsID" required="" />
         </div>
         <div class="form-actions">
-            <button type="submit" id="login-delete">Delete</button>
+            <button type="submit"  id="deleteId-btn">Delete</button>
         </div>
     </form>
 </div>
