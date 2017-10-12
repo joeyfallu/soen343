@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>343 Electronics</title>
     <meta charset="utf-8"> </meta>
@@ -7,11 +8,9 @@
     <link rel='stylesheet' href='css/style.css'> </link>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> </link>
     <base href="/"> </base>
-    <!-- StyleSheets -->
-    <link rel='stylesheet' href='/css/viewItems.css'> </link>
 </head>
 
-<body ng-app="myApp" ng-controller="AppController" ng-style="style">
+<body ng-app="login" ng-style="style">
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -28,7 +27,6 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="#">Catalog</a></li>
-                <li><a href="/deleteItems">Delete Items</a></li> 
                 <li><a href="/test">TEST</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -42,10 +40,43 @@
     </div>
 </nav>
 
-<!-- TODO fix height to be relative to navbar size -->
-{{"ANGULAR WORKS!"}}
+<!-- PAGE -->
+     
+    <div ng-controller= "deleteItemsController">
+    <form name= "deleteItems" ng-submit="deleteItem()">
+        Please enter the ID of the item you wish to delete: <br>
 
-<!--Page body code goes here-->
+        <input type="number" id= "deleteId" ng-model="deleteItemsID" required> <br>
+        <button type="submit"  id="login-delete"> Delete </button> 
+    
+    </form>
+</div>    
+
+<!-- CODE -->
+
+<div class="col-md-4 col-md-offset-4 full-height" ng-controller="LoginController">
+    <div style="padding-top: 50px; padding-bottom: 25px">
+        <img src="images/login.png" width="150px" height="122px" style="display: block; margin: auto"/>
+    </div>
+    <form name="loginForm" ng-submit="login()">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" ng-model="email" required="" autofocus=""/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" ng-model="password" required=""/>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-block" id="login-btn">Login</button>
+        </div>
+        <div class="form-group">
+            {{errorMsg}}
+        </div>
+    </form>
+</div>
+
+<!--END PAGE CODE-->
 
 <!-- Angular Import -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
@@ -53,7 +84,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
 
 <!-- Angular Scripts -->
-<script src="js/app.js"></script>
+<script src="js/login.js"></script>
 
 </body>
 </html>

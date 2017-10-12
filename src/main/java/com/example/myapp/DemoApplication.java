@@ -43,6 +43,11 @@ public class DemoApplication {
         return "testPage";
     }
 
+    @RequestMapping(value="/deleteItems", method = RequestMethod.GET)
+    public String deleteItems(){
+        return "deleteItems";
+    }
+
     @RequestMapping(value="/viewItems", method = RequestMethod.GET)
     public String viewItems(){
         return "viewItems";
@@ -51,7 +56,12 @@ public class DemoApplication {
     @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
-        Store store = new Store();
+        Store store = null;
+        try {
+            store = new Store();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Gson gson = new Gson();
         Map<Integer, Product> items = store.viewProductCatalog();
         String json = gson.toJson(items);
