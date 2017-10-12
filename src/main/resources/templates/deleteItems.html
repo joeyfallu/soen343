@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>343 Electronics</title>
+    <meta charset="utf-8"> </meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> </meta>
+    <link rel='stylesheet' href='css/style.css'> </link>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> </link>
+    <base href="/"> </base>
+</head>
+
+<body ng-app="deleteItems">
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Logo</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="#">Catalog</a></li>
+                <li><a href="/deleteItems">Delete Items</a></li>
+                <li><a href="/test">TEST</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+<div ng-controller="deleteItemsController">
+    <form name="deleteItems" ng-submit="deleteItem()">
+        <div class="form-group">
+            <label>Please enter the ID of the item you wish to delete:</label>
+            <input type="number" id="deleteId" ng-model="deleteItemsID" required="" />
+        </div>
+        <div class="form-actions">
+            <button type="submit" id="login-delete">Delete</button>
+        </div>
+    </form>
+</div>
+
+<!-- Angular Import -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
+
+<!-- Angular Scripts -->
+<script src="js/deleteItems.js"></script>
+
+
+</body>
+</html>
