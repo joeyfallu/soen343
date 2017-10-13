@@ -1,14 +1,16 @@
 package com.example.myapp;
 
 import com.example.myapp.productCatalog.*;
+<<<<<<< HEAD
 import com.example.myapp.userCatalog.*;
+=======
+import com.example.myapp.productCatalog.Desktop;
+>>>>>>> master
 import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
-
-import java.util.Map;
 
 @Controller
 @SpringBootApplication
@@ -16,28 +18,25 @@ public class DemoApplication {
 
     static Store store = new Store();
 
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {
-//        //Test code
-//        Store store = new Store();
-//        Tv t1 = new Tv(12,"wj123",40,99,"sony","40x40");
-//        ProductTdg test = new ProductTdg();
-//        int k =990;
-//        try{k=test.dbInsert(t1);}catch(Exception e){e.printStackTrace();}
-//        System.out.println(k+"is the ID");
-//        try{ System.out.println(test.dbGet(9));}catch(Exception e){e.printStackTrace();}
-//        //////////////////////////////
-//        User clod = new User(0,"clo","dia","123 fake street","5552225555","c@c.ca","kappapride",1);
-//        UserTDG test2 = new UserTDG();
-//        try{k=test2.dbInsert(clod);}catch(Exception e){e.printStackTrace();}
-//        try{ System.out.println(test2.dbGet(7));}catch(Exception e){e.printStackTrace();}
       return "index";
     }
 
+    /* ROUTING */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "login";
+    }
+
+    @RequestMapping(value = "/registerAdmin", method = RequestMethod.GET)
+    public String registerAdmin() {
+        return "registerAdmin";
+    }
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String admin() {
+        return "admin/admin";
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -45,22 +44,39 @@ public class DemoApplication {
         return "testPage";
     }
 
-    @RequestMapping(value="/deleteItems", method = RequestMethod.GET)
-    public String deleteItems(){
-        return "deleteItems";
+    @RequestMapping(value="/modifyItems", method = RequestMethod.GET)
+    public String modifyItems(){
+        return "admin/modifyItems";
     }
 
+    @RequestMapping(value="/deleteItems")
+    public String deleteItems(){
+        return "admin/deleteItems";
+    }
+    
     @RequestMapping(value="/viewItems", method = RequestMethod.GET)
     public String viewItems(){
-        return "viewItems";
+        return "admin/viewItems";
     }
 
     @RequestMapping(value="/addItems")
-    public String addItems() { return "addItems"; }
+    public String addItems() { return "admin/addItems"; }
 
+<<<<<<< HEAD
     @RequestMapping(value="/addUsers")
     public String addUsers() { return "addUsers"; }
 
+=======
+    /* LOGIN */
+    @RequestMapping(value = "/post/login", method = RequestMethod.POST)
+    @ResponseBody
+    public String loginSubmit(@RequestBody String body) {
+        System.out.println(body);
+        return "{data: 'Successful login'}";
+    }
+
+    /* VIEW ITEMS */
+>>>>>>> master
     @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
@@ -71,15 +87,92 @@ public class DemoApplication {
         return json;
     }
 
-    //TODO: Fix adds
+    /* MODIFY ITEMS */
+    @RequestMapping("/post/modifyItems")
+    @ResponseBody
+    String modifyItemsForm(){
+        System.out.println("Backend modify items");
+        return "{}";
+    }
+
+    /* DELETE ITEMS */
+    @RequestMapping(value = "/post/deleteItems", method = RequestMethod.POST)
+    @ResponseBody
+    String deleteItemsForm(@RequestBody String Json){
+
+        ProductCatalog pC = new ProductCatalog();
+
+        //Delete items with single digit IDs
+        if(Json.length() == 16 ){
+            String sid = Json.substring(13, 14);
+            int id = Integer.parseInt(sid);
+
+            try{
+                pC.deleteProduct(id);
+            }
+            catch(Exception e){
+                System.out.println("Item deletion failed: " + e.toString());
+            }
+
+            System.out.println("Item : " + id + " successfully deleted from database");
+
+        }
+        //Delete items with double digit IDs
+        if(Json.length() == 17 ){
+            String sid = Json.substring(13, 15);
+            int id = Integer.parseInt(sid);
+
+            try{
+                pC.deleteProduct(id);
+            }
+            catch(Exception e){
+                System.out.println("Item deletion failed: " + e.toString());
+            }
+
+            System.out.println("Item : " + id + " successfully deleted from database");
+        }
+        //Delete items with triple digits IDs
+        if(Json.length() == 18 ){
+            String sid = Json.substring(13, 16);
+            int id = Integer.parseInt(sid);
+
+            try{
+                pC.deleteProduct(id);
+            }
+            catch(Exception e){
+                System.out.println("Item deletion failed: " + e.toString());
+            }
+
+            System.out.println("Item : " + id + " successfully deleted from database");
+        }
+        //Delete items with quadruple digits IDs
+        if(Json.length() == 19 ){
+            String sid = Json.substring(13, 17);
+            int id = Integer.parseInt(sid);
+
+            try{
+                pC.deleteProduct(id);
+            }
+            catch(Exception e){
+                System.out.println("Item deletion failed: " + e.toString());
+            }
+
+            System.out.println("Item : " + id + " successfully deleted from database");
+        }
+
+
+
+
+        return "{}";
+    }
+
     @RequestMapping(value = "/post/addTv", method = RequestMethod.POST)
+    @ResponseBody
     String addTv(@RequestBody String json){
-        ProductCatalog productCatalog = new ProductCatalog();
         Gson gson = new Gson();
         Product tv = gson.fromJson(json, Tv.class);
-        productCatalog.addProduct(tv);
-        //AddItemsGoes here
-        return json;
+        store.addNewProduct(tv);
+        return gson.toJson(json);
     }
 
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
@@ -92,43 +185,39 @@ public class DemoApplication {
     }
 
     @RequestMapping(value = "/post/addMonitor", method = RequestMethod.POST)
+    @ResponseBody
     String addMonitor(@RequestBody String json){
-        ProductCatalog productCatalog = new ProductCatalog();
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
-        productCatalog.addProduct(monitor);
-        //AddItemsGoes here
-        return json;
+        store.addNewProduct(monitor);
+        return gson.toJson(json);
     }
 
     @RequestMapping(value = "/post/addTablet", method = RequestMethod.POST)
+    @ResponseBody
     String addTablet(@RequestBody String json){
-        ProductCatalog productCatalog = new ProductCatalog();
         Gson gson = new Gson();
         Product tablet = gson.fromJson(json, Tablet.class);
-        productCatalog.addProduct(tablet);
-        //AddItemsGoes here
-        return json;
+        store.addNewProduct(tablet);
+        return gson.toJson(json);
     }
 
     @RequestMapping(value = "/post/addDesktop", method = RequestMethod.POST)
+    @ResponseBody
     String addDesktop(@RequestBody String json){
-        ProductCatalog productCatalog = new ProductCatalog();
         Gson gson = new Gson();
         Product desktop = gson.fromJson(json, Desktop.class);
-        productCatalog.addProduct(desktop);
-        //AddItemsGoes here
-        return json;
+        store.addNewProduct(desktop);
+        return gson.toJson(json);
     }
 
     @RequestMapping(value = "/post/addLaptop", method = RequestMethod.POST)
+    @ResponseBody
     String addLaptop(@RequestBody String json){
-        ProductCatalog productCatalog = new ProductCatalog();
         Gson gson = new Gson();
-        Product desktop = gson.fromJson(json, Laptop.class);
-        productCatalog.addProduct(desktop);
-        //AddItemsGoes here
-        return json;
+        Product laptop = gson.fromJson(json, Laptop.class);
+        store.addNewProduct(laptop);
+        return gson.toJson(json);
     }
 
 

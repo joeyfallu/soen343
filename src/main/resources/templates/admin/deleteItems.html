@@ -5,11 +5,11 @@
     <title>343 Electronics</title>
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel='stylesheet' href='css/style.css'/>
+    <link rel='stylesheet' href='../css/style.css'/>
     <base href="/"/>
 </head>
 
-<body ng-app="index" ng-controller="indexController">
+<body ng-app="deleteItems" ng-controller="deleteItemsController">
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -31,20 +31,28 @@
     </div>
 </nav>
 
-<!-- TODO animation -->
-<div class="col-md-4 col-md-offset-4 full-height" style="padding-top: 60px; text-align: center" >
-    <!--suppress CheckImageSize -->
-    <img src="images/login.png" width="300" height="244" style="display: block; margin: auto"/>
-    <br/>
-    <h1>343 Electronics</h1>
+<div class="container">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="form-area">
+            <form name="deleteItems" ng-submit="deleteItem()" role="form">
+                <h3 style="margin-bottom: 25px; text-align: center;">Delete Items</h3>
+                <div class="form-group">
+                    <label >Please enter the ID of the item you wish to delete:</label>
+                    <input type="text" class="form-control" ng-model="deleteId"  placeholder="ID" required="" autofocus=""/>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" id="delete-btn" class="btn btn-primary">Delete</button> {{message}}
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
-<!-- Angular Imports -->
+<!-- Angular Import -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
 
 <!-- Angular Scripts -->
-<script src="js/index.js"></script>
+<script src="../js/admin/deleteItems.js"></script>
 
 </body>
 </html>

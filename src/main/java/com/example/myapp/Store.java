@@ -1,8 +1,10 @@
 package com.example.myapp;
 
 import com.example.myapp.actionHandlers.ProductAction;
+import com.example.myapp.database.ProductMapper;
 import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
+import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.UserCatalog;
 import com.example.myapp.userCatalog.User;
 
@@ -12,17 +14,16 @@ import java.sql.SQLException;
 public class Store {
 
     private ProductAction productAction;
-    private ProductCatalog productCatalog;
+    private ProductCatalog productCatalog = new ProductCatalog();
     private UserCatalog userCatalog;
+
+    private Transaction transaction = new Transaction();
+    private ProductMapper productMapper = new ProductMapper(productCatalog);
 
 
     public Store(){
-
-        productCatalog = new ProductCatalog();
+        transaction = new Transaction();
         userCatalog = new UserCatalog();
-//        newProductAction();
-//        productAction.becomeComplete();
-//        deleteProduct(4);
     }
 
     public ProductCatalog getProductCatalog() {
@@ -42,9 +43,10 @@ public class Store {
         this.productAction.becomeComplete();
     }
 
-    public void addNewProduct(int discriminator, String[] values){
-//        this.productCatalog.addProduct(discriminator,values);
+    public void addNewProduct(Product product){
+        this.productMapper.insert(product);
     }
+
     public void deleteProduct(int id){
         if(productAction.isComplete()){
             productAction = new ProductAction(productCatalog);
@@ -52,14 +54,21 @@ public class Store {
         }
     }
 
+<<<<<<< HEAD
     public void addNewUser(User user){
         this.userCatalog.registerUser(user);
     }
 
 
 
+=======
+>>>>>>> master
     public Map<Integer, Product> viewProductCatalog(){
 
         return this.productCatalog.getProducts();
+    }
+
+    public void initiateTransaction(int userId){
+
     }
 }
