@@ -45,7 +45,7 @@ public class ProductCatalog {
 
     public void modifyProduct(int id, Product prod){
         System.out.print(prod.toString());
-        deleteProduct(id);
+        products.remove(id);
         prod.setId(id); //making sure to modify the good product
         this.addProduct(prod.getId(),prod);
         productMapper.update(prod.getId(),prod);
