@@ -17,7 +17,7 @@ public class DemoApplication {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {
-      return "index";
+        return "index";
     }
 
     /* ROUTING */
@@ -50,7 +50,7 @@ public class DemoApplication {
     public String deleteItems(){
         return "admin/deleteItems";
     }
-    
+
     @RequestMapping(value="/viewItems", method = RequestMethod.GET)
     public String viewItems(){
         return "admin/viewItems";
@@ -61,7 +61,7 @@ public class DemoApplication {
 
 
     @RequestMapping(value="/addUsers")
-    public String addUsers() { return "addUsers"; }
+    public String addUsers() { return "admin/addUsers"; }
 
     /* LOGIN */
     @RequestMapping(value = "/post/login", method = RequestMethod.POST)
@@ -172,11 +172,12 @@ public class DemoApplication {
     }
 
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
+    @ResponseBody
     String addUser(@RequestBody String json){
+        System.out.println(json);
         Gson gson = new Gson();
         User user = gson.fromJson(json, User.class);
         store.addNewUser(user);
-        java.lang.System.out.println("post request sent successfully");
         return gson.toJson(json);
     }
 
@@ -221,8 +222,8 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
         store.getProductCatalog().setProducts(store.getProductCatalog().getProductMapper().getAll());
 
-   // The Two lines bellow were a test that succeeded in adding users to the database
-        User user = new User(0,"hanna","georgi", "123 street", "1234567890", "hanna@hotmail", "12345", 1);
-        store.addNewUser(user);
+        // The Two lines bellow were a test that succeeded in adding users to the database
+        // User user = new User(0,"hanna","georgi", "123 street", "1234567890", "hanna@hotmail", "12345", 1);
+        // store.addNewUser(user);
     }
 }
