@@ -1,6 +1,7 @@
 package com.example.myapp;
 
 import com.example.myapp.productCatalog.*;
+import com.example.myapp.userCatalog.*;
 import com.example.myapp.productCatalog.Desktop;
 import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
@@ -18,7 +19,7 @@ public class DemoApplication {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {
-      return "index";
+        return "index";
     }
 
     /* ROUTING */
@@ -51,7 +52,7 @@ public class DemoApplication {
     public String deleteItems(){
         return "admin/deleteItems";
     }
-    
+
     @RequestMapping(value="/viewItems", method = RequestMethod.GET)
     public String viewItems(){
         return "admin/viewItems";
@@ -59,6 +60,10 @@ public class DemoApplication {
 
     @RequestMapping(value="/addItems")
     public String addItems() { return "admin/addItems"; }
+
+
+    @RequestMapping(value="/addUsers")
+    public String addUsers() { return "admin/addUsers"; }
 
     /* LOGIN */
     @RequestMapping(value = "/post/login", method = RequestMethod.POST)
@@ -69,6 +74,7 @@ public class DemoApplication {
     }
 
     /* VIEW ITEMS */
+
     @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
@@ -191,6 +197,16 @@ public class DemoApplication {
         return gson.toJson(json);
     }
 
+    @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
+    @ResponseBody
+    String addUser(@RequestBody String json){
+        System.out.println(json);
+        Gson gson = new Gson();
+        User user = gson.fromJson(json, User.class);
+        store.addNewUser(user);
+        return gson.toJson(json);
+    }
+
     @RequestMapping(value = "/post/addMonitor", method = RequestMethod.POST)
     @ResponseBody
     String addMonitor(@RequestBody String json){
@@ -279,5 +295,9 @@ public class DemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
         store.getProductCatalog().setProducts(store.getProductCatalog().getProductMapper().getAll());
+
+        // The Two lines bellow were a test that succeeded in adding users to the database
+        // User user = new User(0,"hanna","georgi", "123 street", "1234567890", "hanna@hotmail", "12345", 1);
+        // store.addNewUser(user);
     }
 }

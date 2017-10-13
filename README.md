@@ -14,6 +14,7 @@ http://343electronics.com
     Zachary Kogan
     Martin Spazov
     Keven Abellard
+    Hanna Georgi Hanna
 
 ## How to Setup the Server
 

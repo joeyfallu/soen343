@@ -6,6 +6,7 @@ import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
 import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.UserCatalog;
+import com.example.myapp.userCatalog.User;
 
 import java.util.Map;
 import java.sql.SQLException;
@@ -55,6 +56,11 @@ public class Store {
 
     public void modifyProduct(int id, Product product){
         this.productCatalog.modifyProduct(id,product);
+    }
+
+
+    public void addNewUser(User user){
+        this.userCatalog.registerUser(user);
     }
 
 
