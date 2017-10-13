@@ -120,7 +120,7 @@ app.controller('addItemsCtrl', function ($scope, $http) {
             size: $scope.laptopSize,
             batteryInfo: $scope.laptopBattery,
             operatingSystem: $scope.laptopOperatingSystem,
-            cameraInfo: $scope.laptopCamera,
+            camera: $scope.laptopCamera,
             touchScreen: $scope.laptopTouchScreen,
             discriminator: "5",
         };

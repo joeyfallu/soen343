@@ -2,7 +2,7 @@ package com.example.myapp.database;
 
 
 import com.example.myapp.productCatalog.*;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+//import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
 import java.sql.*;
 
@@ -49,7 +49,7 @@ public class ProductTDG {
             Laptop lp = (Laptop)pro;
             sql="INSERT INTO Products (model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,size, batteryInfo,operatingSystem,camera,touchScreen,discriminator) VALUES ('"+lp.getModel()+
                     "','"+lp.getWeight()+"','"+lp.getPrice()+"','"+lp.getBrand()+"','"+lp.getProcessorType()+"','"+lp.getCpuCores()+"','"+lp.getRam()+"','"+lp.getHardDriveSize()+"','"+lp.getSize()+"','"+
-                    lp.getBatteryInfo()+"','"+lp.getOperatingSystem()+"','"+lp.isCamera()+"','"+lp.isTouchScreen()+"','5')";
+                    lp.getBatteryInfo()+"','"+lp.getOperatingSystem()+"','"+lp.getCamera()+"','"+lp.getTouchScreen()+"','5')";
         }
         statement.executeUpdate(sql);
         resultSet = statement.executeQuery("SELECT LAST_INSERT_ID() FROM Products");
