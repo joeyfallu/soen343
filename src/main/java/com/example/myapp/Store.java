@@ -53,8 +53,8 @@ public class Store {
         }
     }
 
-    public void modifyProduct(int id, String [] values){
-
+    public void modifyProduct(int id, Product product){
+        this.productCatalog.modifyProduct(id,product);
     }
 
 

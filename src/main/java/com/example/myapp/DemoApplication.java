@@ -229,62 +229,50 @@ public class DemoApplication {
 
 /*--stuff for modify--*/
 
-
-
     @RequestMapping(value = "/post/modifyTV", method = RequestMethod.POST)
+    @ResponseBody
     String modifyTV(@RequestBody String json){
-        ProductCatalog productCatalog = new ProductCatalog();
         Gson gson = new Gson();
         Product tv = gson.fromJson(json, Tv.class);
-        productCatalog.modifyProduct(tv.getId(),tv);
-        //modifyItemsGoes here
-        return json;
+        store.modifyProduct(tv.getId(), tv);
+        return gson.toJson(json);
     }
 
     @RequestMapping(value = "/post/modifyMonitor", method = RequestMethod.POST)
+    @ResponseBody
     String modifyMonitor(@RequestBody String json){
-        ProductCatalog productCatalog = new ProductCatalog();
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
-        productCatalog.modifyProduct(monitor.getId(),monitor);
-        //modifyItemsGoes here
-        return json;
+        store.modifyProduct(monitor.getId(), monitor);
+        return gson.toJson(json);
     }
 
     @RequestMapping(value = "/post/modifyTablet", method = RequestMethod.POST)
+    @ResponseBody
     String modifyTablet(@RequestBody String json){
-        ProductCatalog productCatalog = new ProductCatalog();
         Gson gson = new Gson();
         Product tablet = gson.fromJson(json, Tablet.class);
-        productCatalog.modifyProduct(tablet.getId(),tablet);
-        //modifyItemsGoes here
-        return json;
+        store.modifyProduct(tablet.getId(), tablet);
+        return gson.toJson(json);
     }
 
     @RequestMapping(value = "/post/modifyDesktop", method = RequestMethod.POST)
+    @ResponseBody
     String modifyDesktop(@RequestBody String json){
-        ProductCatalog productCatalog = new ProductCatalog();
         Gson gson = new Gson();
         Product desktop = gson.fromJson(json, Desktop.class);
-        productCatalog.modifyProduct(desktop.getId(),desktop);
-        //modifyItemsGoes here
-        return json;
+        store.modifyProduct(desktop.getId(), desktop);
+        return gson.toJson(json);
     }
 
     @RequestMapping(value = "/post/modifyLaptop", method = RequestMethod.POST)
+    @ResponseBody
     String modifyLaptop(@RequestBody String json){
-        ProductCatalog productCatalog = new ProductCatalog();
         Gson gson = new Gson();
         Product laptop = gson.fromJson(json, Laptop.class);
-        productCatalog.modifyProduct(laptop.getId(),laptop);
-        //modifyItemsGoes here
-        return json;
+        store.modifyProduct(laptop.getId(), laptop);
+        return gson.toJson(json);
     }
-
-
-
-
-
 
 
 

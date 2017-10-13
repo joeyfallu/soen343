@@ -29,6 +29,7 @@ modifyItemsModule.controller('modifyItemsController', function($scope, $http){
             };
             $http.post(url,data)
             .then((res) => {
+                console.log(res);
             });
          };
         $scope.modifyMonitor = function(){
@@ -44,6 +45,7 @@ modifyItemsModule.controller('modifyItemsController', function($scope, $http){
               }
               $http.post(url,data)
               .then((res) => {
+                console.log(res);
               });
         };
         $scope.modifyTablet = function(){
@@ -67,6 +69,7 @@ modifyItemsModule.controller('modifyItemsController', function($scope, $http){
                 }
                 $http.post(url,data)
                 .then((res) => {
+                console.log(res);
                 });
         };
         $scope.modifyDesktop = function(){
@@ -86,6 +89,7 @@ modifyItemsModule.controller('modifyItemsController', function($scope, $http){
                     }
                 $http.post(url,data)
                 .then((res) => {
+                console.log(res);
                 });
         };
         $scope.modifyLaptop = function(){
@@ -109,6 +113,7 @@ modifyItemsModule.controller('modifyItemsController', function($scope, $http){
             }
             $http.post(url,data)
             .then((res) => {
+            console.log(res);
             });
         };
 });

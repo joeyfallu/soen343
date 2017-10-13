@@ -119,7 +119,7 @@ public class ProductTDG {
     }
 
     public void dbModify(int id, Product product) throws Exception {
-        //sql queries
+        //sql
     }
 
     public Product[] dbGetAll() throws Exception{

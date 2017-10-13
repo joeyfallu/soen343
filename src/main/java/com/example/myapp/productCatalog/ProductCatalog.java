@@ -47,7 +47,8 @@ public class ProductCatalog {
         System.out.print(prod.toString());
         deleteProduct(id);
         prod.setId(id); //making sure to modify the good product
-        products.put(prod.getId(),prod);
+        this.addProduct(prod.getId(),prod);
+        productMapper.update(prod.getId(),prod);
 
     }
 }
