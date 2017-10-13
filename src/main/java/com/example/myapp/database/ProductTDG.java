@@ -127,35 +127,81 @@ public class ProductTDG {
             sql="UPDATE `electronics`.`Products`\n" +
                     "SET\n" +
                     "`model` = '"+tv.getModel()+"',\n" +
-                    "`weight` = "+tv.getWeight()+",\n" +
-                    "`price` = "+tv.getPrice()+",\n" +
+                    "`weight` = '"+tv.getWeight()+"',\n" +
+                    "`price` = '"+tv.getPrice()+"',\n" +
                     "`brand` = '"+tv.getBrand()+"',\n" +
                     "`dimensions` = '"+tv.getDimensions()+"',\n" +
-                    "`discriminator` = 1\n" +
+                    "`discriminator` = '1'\n" +
                     "WHERE `id` = "+ id +";\n" +
                     "\n";
         }
         if(pro instanceof Monitor){
             Monitor mn = (Monitor)pro;
-            sql="INSERT INTO Products (model, weight, price, brand, size,discriminator) VALUES ('"+mn.getModel()+"','"+mn.getWeight()
-                    +"','"+mn.getPrice()+"','"+mn.getBrand()+"','"+mn.getSize()+"','2')";
+            sql="UPDATE `electronics`.`Products`\n" +
+                    "SET\n" +
+                    "`model` = '"+mn.getModel()+"',\n" +
+                    "`weight` = '"+mn.getWeight()+"',\n" +
+                    "`price` = '"+mn.getPrice()+"',\n" +
+                    "`brand` = '"+mn.getBrand()+"',\n" +
+                    "`size` = '"+mn.getSize()+"',\n" +
+                    "`discriminator` = '2'\n" +
+                    "WHERE `id` = "+ id +";\n";
         }
         if(pro instanceof Tablet){
             Tablet tb = (Tablet)pro;
-            sql="INSERT INTO Products (model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,dimensions, batteryInfo,operatingSystem,cameraInfo,size,discriminator) VALUES ('"+tb.getModel()+
-                    "','"+tb.getWeight()+"','"+tb.getPrice()+"','"+tb.getBrand()+"','"+tb.getProcessorType()+"','"+tb.getCpuCores()+"','"+tb.getRam()+"','"+tb.getHardDriveSize()+"','"+tb.getDimensions()+"','"+
-                    tb.getBatteryInfo()+"','"+tb.getOperatingSystem()+"','"+tb.getCameraInfo()+"','"+tb.getSize()+"','3')";
+            sql="UPDATE `electronics`.`Products`\n" +
+                    "SET\n" +
+                    "`model` = '"+tb.getModel()+"',\n" +
+                    "`weight` = '"+tb.getWeight()+"',\n" +
+                    "`price` = '"+tb.getPrice()+"',\n" +
+                    "`brand` = '"+tb.getBrand()+"',\n" +
+                    "`dimensions` = '"+tb.getDimensions()+"',\n" +
+                    "`processorType` = '"+tb.getProcessorType()+"',\n" +
+                    "`cpuCores` = '"+tb.getCpuCores()+"',\n" +
+                    "`ram` = '"+tb.getRam()+"',\n" +
+                    "`hardDriveSize` = '"+tb.getHardDriveSize()+"',\n" +
+                    "`size` = '"+tb.getSize()+"',\n" +
+                    "`batteryInfo` = '"+tb.getBatteryInfo()+"',\n" +
+                    "`operatingSystem` = '"+tb.getOperatingSystem()+"',\n" +
+                    "`cameraInfo` = '"+tb.getCameraInfo()+"',\n" +
+                    "`discriminator` = '3'\n" +
+                    "WHERE `id` = "+ id +";\n";
         }
         if(pro instanceof Desktop){
             Desktop dt = (Desktop)pro;
-            sql="INSERT INTO Products (model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,dimensions,discriminator) VALUES ('"+dt.getModel()+
-                    "','"+dt.getWeight()+"','"+dt.getPrice()+"','"+dt.getBrand()+"','"+dt.getProcessorType()+"','"+dt.getCpuCores()+"','"+dt.getRam()+"','"+dt.getHardDriveSize()+"','"+dt.getDimensions()+"','4')";
+            sql="UPDATE `electronics`.`Products`\n" +
+                    "SET\n" +
+                    "`model` = '"+dt.getModel()+"',\n" +
+                    "`weight` = '"+dt.getWeight()+"',\n" +
+                    "`price` = '"+dt.getPrice()+"',\n" +
+                    "`brand` = '"+dt.getBrand()+"',\n" +
+                    "`dimensions` = '"+dt.getDimensions()+"',\n" +
+                    "`processorType` = '"+dt.getProcessorType()+"',\n" +
+                    "`cpuCores` = '"+dt.getCpuCores()+"',\n" +
+                    "`ram` = '"+dt.getRam()+"',\n" +
+                    "`hardDriveSize` = '"+dt.getHardDriveSize()+"',\n" +
+                    "`discriminator` = '4'\n" +
+                    "WHERE `id` = "+ id +";\n";
         }
         if(pro instanceof Laptop){
             Laptop lp = (Laptop)pro;
-            sql="INSERT INTO Products (model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,size, batteryInfo,operatingSystem,camera,touchScreen,discriminator) VALUES ('"+lp.getModel()+
-                    "','"+lp.getWeight()+"','"+lp.getPrice()+"','"+lp.getBrand()+"','"+lp.getProcessorType()+"','"+lp.getCpuCores()+"','"+lp.getRam()+"','"+lp.getHardDriveSize()+"','"+lp.getSize()+"','"+
-                    lp.getBatteryInfo()+"','"+lp.getOperatingSystem()+"','"+lp.getCamera()+"','"+lp.getTouchScreen()+"','5')";
+            sql="UPDATE `electronics`.`Products`\n" +
+                    "SET\n" +
+                    "`model` = '"+lp.getModel()+"',\n" +
+                    "`weight` = '"+lp.getWeight()+"',\n" +
+                    "`price` = '"+lp.getPrice()+"',\n" +
+                    "`brand` = '"+lp.getBrand()+"',\n" +
+                    "`processorType` = '"+lp.getProcessorType()+"',\n" +
+                    "`cpuCores` = '"+lp.getCpuCores()+"',\n" +
+                    "`ram` = '"+lp.getRam()+"',\n" +
+                    "`hardDriveSize` = '"+lp.getHardDriveSize()+"',\n" +
+                    "`size` = '"+lp.getSize()+"',\n" +
+                    "`batteryInfo` = '"+lp.getBatteryInfo()+"',\n" +
+                    "`operatingSystem` = '"+lp.getOperatingSystem()+"',\n" +
+                    "`cameraInfo` = '"+lp.getCamera()+"',\n" +
+                    "`touchScreen` = '"+lp.getTouchScreen()+"',\n" +
+                    "`discriminator` = '5'\n" +
+                    "WHERE `id` = "+ id +";\n";
         }
         System.out.println(sql);
         statement.executeUpdate(sql);
