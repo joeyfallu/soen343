@@ -4,8 +4,6 @@ import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
 
 import java.util.Map;
-import java.sql.SQLException;
-
 
 public class ProductMapper {
 
@@ -23,11 +21,13 @@ public class ProductMapper {
         int id = 0;
         try {
            id = productTDG.dbInsert(product);
+           product.setId(id);
         }
         catch(Exception e){
             //do nothing
         }
         productIdentityMap.insertProductById(id, product);
+        productCatalog.addProduct(id,product);
         return id;
     }
 

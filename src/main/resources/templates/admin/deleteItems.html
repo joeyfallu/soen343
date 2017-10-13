@@ -37,8 +37,8 @@
             <form name="deleteItems" ng-submit="deleteItem()" role="form">
                 <h3 style="margin-bottom: 25px; text-align: center;">Delete Items</h3>
                 <div class="form-group">
-                    <label for="deleteId">Please enter the ID of the item you wish to delete:</label>
-                    <input type="number" class="form-control" id="deleteId" placeholder="ID" required="" autofocus=""/>
+                    <label >Please enter the ID of the item you wish to delete:</label>
+                    <input type="text" class="form-control" ng-model="deleteId"  placeholder="ID" required="" autofocus=""/>
                 </div>
                 <div class="form-actions">
                     <button type="submit" id="delete-btn" class="btn btn-primary">Delete</button> {{message}}
