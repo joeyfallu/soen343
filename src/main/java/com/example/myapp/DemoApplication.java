@@ -1,12 +1,14 @@
 package com.example.myapp;
 
 import com.example.myapp.productCatalog.*;
+import com.example.myapp.productCatalog.Desktop;
 import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
 
+import java.awt.*;
 import java.util.Map;
 
 @Controller
@@ -60,7 +62,7 @@ public class DemoApplication {
         return "admin/modifyItems";
     }
 
-    @RequestMapping(value="/deleteItems", method = RequestMethod.GET)
+    @RequestMapping(value="/deleteItems")
     public String deleteItems(){
         return "admin/deleteItems";
     }
@@ -101,10 +103,73 @@ public class DemoApplication {
     }
 
     /* DELETE ITEMS */
-    @RequestMapping("/post/deleteItems")
+    @RequestMapping(value = "/post/deleteItems", method = RequestMethod.POST)
     @ResponseBody
-    String deleteItemsForm(){
-        System.out.println("Backend delete items");
+    String deleteItemsForm(@RequestBody String Json){
+
+        ProductCatalog pC = new ProductCatalog();
+
+        //Delete items with single digit IDs
+        if(Json.length() == 16 ){
+            String sid = Json.substring(13, 14);
+            int id = Integer.parseInt(sid);
+
+            try{
+                pC.deleteProduct(id);
+            }
+            catch(Exception e){
+                System.out.println("Item deletion failed: " + e.toString());
+            }
+
+            System.out.println("Item : " + id + " successfully deleted from database");
+
+        }
+        //Delete items with double digit IDs
+        if(Json.length() == 17 ){
+            String sid = Json.substring(13, 15);
+            int id = Integer.parseInt(sid);
+
+            try{
+                pC.deleteProduct(id);
+            }
+            catch(Exception e){
+                System.out.println("Item deletion failed: " + e.toString());
+            }
+
+            System.out.println("Item : " + id + " successfully deleted from database");
+        }
+        //Delete items with triple digits IDs
+        if(Json.length() == 18 ){
+            String sid = Json.substring(13, 16);
+            int id = Integer.parseInt(sid);
+
+            try{
+                pC.deleteProduct(id);
+            }
+            catch(Exception e){
+                System.out.println("Item deletion failed: " + e.toString());
+            }
+
+            System.out.println("Item : " + id + " successfully deleted from database");
+        }
+        //Delete items with quadruple digits IDs
+        if(Json.length() == 19 ){
+            String sid = Json.substring(13, 17);
+            int id = Integer.parseInt(sid);
+
+            try{
+                pC.deleteProduct(id);
+            }
+            catch(Exception e){
+                System.out.println("Item deletion failed: " + e.toString());
+            }
+
+            System.out.println("Item : " + id + " successfully deleted from database");
+        }
+
+
+
+
         return "{}";
     }
 
