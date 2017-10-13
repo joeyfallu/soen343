@@ -33,10 +33,9 @@ public class ProductCatalog {
         this.productMapper = productMapper;
     }
 
-    public void addProduct(Product product){
-        System.out.print(product.toString());
-        products.put(product.getId(),product);
-        //TODO: To be removed
+    public void addProduct(int id, Product product){
+        products.put(id,product);
+        System.out.println("Item has been added:" + products.get(id).toString());
     }
 
     public void deleteProduct(int id) throws Exception {

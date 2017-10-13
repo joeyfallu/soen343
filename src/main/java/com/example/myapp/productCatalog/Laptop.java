@@ -69,5 +69,9 @@ public class Laptop extends Computer {
     public void setTouchScreen(boolean touchScreen) {
         this.touchScreen = touchScreen;
     }
+
+    public int getTouchScreen() { return touchScreen ? 1 : 0; }
+
+    public int getCamera() { return camera ? 1 : 0; }
 }
 
