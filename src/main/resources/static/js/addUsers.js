@@ -1,12 +1,14 @@
 'use strict';
 
-var app = angular.module('addUsers', []);
+const app = angular.module('addUsers', []);
+
 app.controller('addUsersCtrl', function($scope, $http){
+    $scope.userMessage = "";
 
         $scope.addUser = function(){
             var url = "/post/addUser";
             var data = {
-                id : 0,
+                id : "0",
                 firstName : $scope.firstName,
                 lastName : $scope.lastName,
                 address : $scope.address,
@@ -15,8 +17,12 @@ app.controller('addUsersCtrl', function($scope, $http){
                 password : $scope.password,
                 isAdmin : $scope.adminStatus
             }
-            $http.post(url,data)
-                .then((res) => {
-             });
-          }
-    }]);
+
+            $http.post(url, data).then((res) => {
+                $scope.userMessage = "Success!";
+            }).catch((err) => {
+                console.log("ERROR:");
+                console.log(err);
+                $scope.userMessage = "Error. Check console.";
+            });
+        };}

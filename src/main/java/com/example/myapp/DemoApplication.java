@@ -84,12 +84,11 @@ public class DemoApplication {
 
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
     String addUser(@RequestBody String json){
-        UserCatalog userCatalog = new UserCatalog();
         Gson gson = new Gson();
         User user = gson.fromJson(json, User.class);
-        userCatalog.registerUser(user);
-        //AddUsers goes here
-        return json;
+        store.addNewUser(user);
+        java.lang.System.out.println("post request sent successfully");
+        return gson.toJson(json);
     }
 
     @RequestMapping(value = "/post/addMonitor", method = RequestMethod.POST)
