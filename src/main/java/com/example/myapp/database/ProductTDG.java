@@ -2,7 +2,7 @@ package com.example.myapp.database;
 
 
 import com.example.myapp.productCatalog.*;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+//import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
 import java.sql.*;
 
