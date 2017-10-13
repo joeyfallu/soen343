@@ -4,19 +4,22 @@ const modifyItemsModule = angular.module('modifyItems', []);
 
 modifyItemsModule.controller('modifyItemsController', function($scope, $http){
           $scope.getProdInfo = function (){
+                $scope.message = "";
                 var id = $scope.mId;
                 var urlProduct = '/getItem/' + id;
                 $scope.itemData = [];
 
                 $http.get(urlProduct)
                 .then((res) => {
+                    if(res.data == null){
+                        $scope.message = "Product with ID: " + $scope.mId + " does not exist.";
+                    }
                     $scope.itemData = res.data;
                     console.log($scope.itemData);
+
                     });
             };
-
         $scope.modifyTV = function(){
-        console.log("HERE");
             var url ="/post/modifyTV";
             var data = {
                 id : $scope.itemData.id,
@@ -30,6 +33,7 @@ modifyItemsModule.controller('modifyItemsController', function($scope, $http){
             $http.post(url,data)
             .then((res) => {
                 console.log(res);
+                $scope.message = "Successful product modification!";
             });
          };
         $scope.modifyMonitor = function(){
@@ -46,6 +50,7 @@ modifyItemsModule.controller('modifyItemsController', function($scope, $http){
               $http.post(url,data)
               .then((res) => {
                 console.log(res);
+                $scope.message = "Successful product modification!";
               });
         };
         $scope.modifyTablet = function(){
@@ -70,6 +75,7 @@ modifyItemsModule.controller('modifyItemsController', function($scope, $http){
                 $http.post(url,data)
                 .then((res) => {
                 console.log(res);
+                $scope.message = "Successful product modification!";
                 });
         };
         $scope.modifyDesktop = function(){
@@ -90,6 +96,7 @@ modifyItemsModule.controller('modifyItemsController', function($scope, $http){
                 $http.post(url,data)
                 .then((res) => {
                 console.log(res);
+                $scope.message = "Successful product modification!";
                 });
         };
         $scope.modifyLaptop = function(){
@@ -114,6 +121,7 @@ modifyItemsModule.controller('modifyItemsController', function($scope, $http){
             $http.post(url,data)
             .then((res) => {
             console.log(res);
+            $scope.message = "Successful product modification!";
             });
         };
 });
