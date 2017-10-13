@@ -1,11 +1,8 @@
 package com.example.myapp;
 
 import com.example.myapp.productCatalog.*;
-<<<<<<< HEAD
 import com.example.myapp.userCatalog.*;
-=======
 import com.example.myapp.productCatalog.Desktop;
->>>>>>> master
 import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -62,11 +59,10 @@ public class DemoApplication {
     @RequestMapping(value="/addItems")
     public String addItems() { return "admin/addItems"; }
 
-<<<<<<< HEAD
+
     @RequestMapping(value="/addUsers")
     public String addUsers() { return "addUsers"; }
 
-=======
     /* LOGIN */
     @RequestMapping(value = "/post/login", method = RequestMethod.POST)
     @ResponseBody
@@ -76,7 +72,7 @@ public class DemoApplication {
     }
 
     /* VIEW ITEMS */
->>>>>>> master
+
     @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
@@ -226,7 +222,7 @@ public class DemoApplication {
         store.getProductCatalog().setProducts(store.getProductCatalog().getProductMapper().getAll());
 
    // The Two lines bellow were a test that succeeded in adding users to the database
-       // User user = new User(0,"hanna","georgi", "123 street", "1234567890", "hanna@hotmail", "12345", 1);
-        // store.addNewUser(user);
+        User user = new User(0,"hanna","georgi", "123 street", "1234567890", "hanna@hotmail", "12345", 1);
+        store.addNewUser(user);
     }
 }

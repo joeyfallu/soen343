@@ -54,15 +54,13 @@ public class Store {
         }
     }
 
-<<<<<<< HEAD
+
     public void addNewUser(User user){
         this.userCatalog.registerUser(user);
     }
 
 
 
-=======
->>>>>>> master
     public Map<Integer, Product> viewProductCatalog(){
 
         return this.productCatalog.getProducts();
