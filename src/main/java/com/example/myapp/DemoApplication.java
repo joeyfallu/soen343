@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @SpringBootApplication
@@ -92,12 +94,11 @@ public class DemoApplication {
         return productJson;
     }
 
-    @RequestMapping(value = "/modify/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/modify", method = RequestMethod.GET)
     /*
     Returns modify Page
      */
-    public String modifyPage(
-            @PathVariable("id") int id) {
+    public String modifyPage() {
         return "modify";
     }
 

@@ -44,10 +44,12 @@
 <!--The page-->
 
 <div ng-controller="modifyItemCtrl">
-    {{"Data: "}} {{itemData}}
-    <div ng-repeat="field in itemData">
-        {{field}}
-
+    <div>
+        <form name="selectId" ng-submit="getProdInfo()">
+            <label>Enter the ID of the product that you want to modify.</label>
+            <input type="text" class="form-control" ng-model="mId"  />
+            <button type="submit" class="btn btn-block">Submit</button>
+        </form>
     </div>
 
   <div ng-switch="itemData.discriminator">
