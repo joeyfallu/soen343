@@ -18,11 +18,11 @@ public class ProductAction extends Action {
 
     }
 
-    public void deleteProduct(int id) throws Exception {
+    public void deleteProduct(int id) {
         productCatalog.deleteProduct(id);
     }
 
-    public void modifyProduct (){
+    public void modifyProduct (int id, String [] values){
 
     }
 }

@@ -54,11 +54,14 @@ public class Store {
         }
     }
 
+    public void modifyProduct(int id, Product product){
+        this.productCatalog.modifyProduct(id,product);
+    }
+
 
     public void addNewUser(User user){
         this.userCatalog.registerUser(user);
     }
-
 
 
     public Map<Integer, Product> viewProductCatalog(){

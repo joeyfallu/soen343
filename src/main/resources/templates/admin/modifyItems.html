@@ -30,20 +30,146 @@
         </div>
     </div>
 </nav>
-
 <div class="container">
     <div class="col-md-8 col-md-offset-2">
         <div class="form-area">
-            <form name="modifyItems" ng-submit="modifyItem()" role="form">
+            <form name="modifyItems" ng-submit="getProdInfo()" role="form">
                 <h3 style="margin-bottom: 25px; text-align: center;">Modify Items</h3>
                 <div class="form-group">
-                    <label for="modifyID">Please enter the ID of the item you wish to modify:</label>
-                    <input type="number" class="form-control" id="modifyID" placeholder="ID" required="" autofocus=""/>
+                    <label>Please enter the ID of the item you wish to modify:</label>
+                    <!--<input type="number" class="form-control" id="modifyID" placeholder="ID" ng-model="mId" required="" autofocus=""/> -->
+                    <input type="number" class="form-control" ng-model="mId" required="" autofocus=""/>
                 </div>
                 <div class="form-actions">
-                    <button type="submit" id="delete-btn" class="btn btn-primary">Modify</button> {{message}}
+                    <button type="submit" class="btn btn-primary">Modify</button>
                 </div>
             </form>
+        </div>
+        {{message}}
+        <div ng-switch="itemData.discriminator">
+
+            <div ng-switch-when="1">
+                <form name="modifyTVForm" ng-submit="modifyTV()">
+                    <h2>Modify a TV:</h2>
+                    <label>Model Number</label>
+                    <input type="text" class="form-control" ng-model="itemData.model"  />
+                    <label>Brand</label>
+                    <input type="text" class="form-control" ng-model="itemData.brand"  />
+                    <label>Dimensions (in cm)</label>
+                    <input type="text" class="form-control" ng-model="itemData.dimensions" />
+                    <label>Weight (in kg)</label>
+                    <input type="text" class="form-control" ng-model="itemData.weight"  />
+                    <label>Price </label>
+                    <input type="text" class="form-control" ng-model="itemData.price" /><br />
+                    <button type="submit" class="btn btn-block">Submit</button>
+                </form>
+            </div>
+
+            <div ng-switch-when="2">
+                <form name="modifyMonitorForm" ng-submit="modifyMonitor()">
+                    <h2>Modify a Monitor:</h2>
+                    <label>Model Number</label>
+                    <input type="text" class="form-control"  ng-model="itemData.model" />
+                    <label>Brand</label>
+                    <input type="text" class="form-control"  ng-model="itemData.brand" />
+                    <label>Size (in inches)</label>
+                    <input type="text" class="form-control"  ng-model="itemData.size" />
+                    <label>Weight (in kg)</label>
+                    <input type="text" class="form-control"  ng-model="itemData.weight" />
+                    <label>Price </label>
+                    <input type="text" class="form-control"  ng-model="itemData.price" /><br />
+                    <button type="submit" class="btn btn-block" >Submit</button>
+                </form>
+            </div>
+
+            <div ng-switch-when="3">
+                <form name="modifyTabletForm" ng-submit="modifyTablet()">
+                    <h2>Modify a Tablet:</h2>
+                    <label>Model Number</label>
+                    <input type="text" class="form-control"  ng-model="itemData.model" />
+                    <label>Brand</label>
+                    <input type="text" class="form-control"  ng-model="itemData.brand" />
+                    <label>Size (in inches)</label>
+                    <input type="text" class="form-control" ng-model="itemData.size" />
+                    <label>Dimensions (in cm)</label>
+                    <input type="text" class="form-control"  ng-model="itemData.dimensions" />
+                    <label>Weight (in kg)</label>
+                    <input type="text" class="form-control"  ng-model="itemData.weight" />
+                    <label>Processor Type</label>
+                    <input type="text" class="form-control"  ng-model="itemData.processorType" />
+                    <label>RAM Size (in Gigabytes)</label>
+                    <input type="text" class="form-control"  ng-model="itemData.ram" />
+                    <label>Number of CPU Cores</label>
+                    <input type="text" class="form-control"  ng-model="itemData.cpuCores" />
+                    <label>Hard Drive Size (in Gigabytes)</label>
+                    <input type="text" class="form-control"  ng-model="itemData.hardDriveSize" />
+                    <label>Battery Information</label>
+                    <input type="text" class="form-control"  ng-model="itemData.batteryInfo" />
+                    <label>Operating System</label>
+                    <input type="text" class="form-control"  ng-model="itemData.operatingSystem" />
+                    <label>Camera Information</label>
+                    <input type="text" class="form-control"  ng-model="itemData.cameraInfo" />
+                    <label>Price </label>
+                    <input type="text" class="form-control"  ng-model="itemData.price" /><br />
+                    <button type="submit" class="btn btn-block"  >Submit</button>
+                </form>
+            </div>
+
+            <div ng-switch-when="4">
+                <form name="modifyDesktopForm" ng-submit="modifyDesktop()">
+                    <h2>Modify a Desktop:</h2>
+                    <label>Model Number</label>
+                    <input type="text" class="form-control"  ng-model="itemData.model"/>
+                    <label>Brand</label>
+                    <input type="text" class="form-control" ng-model="itemData.brand"/>
+                    <label>Dimensions (in cm)</label>
+                    <input type="text" class="form-control"  ng-model="itemData.dimensions"/>
+                    <label>Weight (in kg)</label>
+                    <input type="text" class="form-control"  ng-model="itemData.weight"/>
+                    <label>Processor Type</label>
+                    <input type="text" class="form-control"  ng-model="itemData.processorType"/>
+                    <label>Number of CPU Cores</label>
+                    <input type="text" class="form-control"  ng-model="itemData.cpuCores"/>
+                    <label>Hard Drive Size (in Gigabytes)</label>
+                    <input type="text" class="form-control" ng-model="itemData.hardDriveSize"/>
+                    <label>Price </label>
+                    <input type="text" class="form-control"  ng-model="itemData.price"/><br />
+                    <button type="submit" class="btn btn-block" >Submit</button>
+                </form>
+            </div>
+
+            <div ng-switch-when="5">
+                <form name="modifyLaptopForm" ng-submit="modifyLaptop()">
+                    <h2>Modify a Laptop:</h2>
+                    <label>Model Number</label>
+                    <input type="text" class="form-control"  ng-model="itemData.model" />
+                    <label>Brand</label>
+                    <input type="text" class="form-control"  ng-model="itemData.brand" />
+                    <label>Size (in inches)</label>
+                    <input type="text" class="form-control" ng-model="itemData.size" />
+                    <label>Weight (in kg)</label>
+                    <input type="text" class="form-control"  ng-model="itemData.weight" />
+                    <label>Processor Type</label>
+                    <input type="text" class="form-control"  ng-model="itemData.processorType" />
+                    <label>RAM Size (in Gigabytes)</label>
+                    <input type="text" class="form-control"  ng-model="itemData.ram" />
+                    <label>Number of CPU Cores</label>
+                    <input type="text" class="form-control"   ng-model="itemData.cpuCores"/>
+                    <label>Hard Drive Size (in Gigabytes)</label>
+                    <input type="text" class="form-control"   ng-model="itemData.hardDriveSize"/>
+                    <label>Battery Information</label>
+                    <input type="text" class="form-control"   ng-model="itemData.batteryInfo"/>
+                    <label>Operating System</label>
+                    <input type="text" class="form-control"  ng-model="itemData.operatingSystem"/>
+                    <label>Does it have a camera?</label>
+                    <input type="text" class="form-control"   ng-model="itemData.camera"/>
+                    <label>Does it have a touch screen?</label>
+                    <input type="text" class="form-control"   ng-model="itemData.touchScreen"/>
+                    <label>Price </label>
+                    <input type="text" class="form-control"   ng-model="itemData.price"/><br />
+                    <button type="submit" class="btn btn-block"  >Submit</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

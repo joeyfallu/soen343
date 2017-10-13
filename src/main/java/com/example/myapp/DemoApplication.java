@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @SpringBootApplication
@@ -76,12 +78,36 @@ public class DemoApplication {
     @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
+
         Gson gson = new Gson();
         System.out.println(store.getProductCatalog().getProducts());
         String json = gson.toJson(store.getProductCatalog().getProducts());
         System.out.println(json);
         return json;
     }
+
+    @RequestMapping(value = "/getItem/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    /*
+    Returns item info as json
+     */
+    public String getProductById(
+            @PathVariable("id") int id) {
+        Gson gson = new Gson();
+        Map<Integer, Product> items = store.getProductCatalog().getProducts();
+        String productJson = gson.toJson(items.get(id));
+        System.out.println(productJson);
+        return productJson;
+    }
+
+    @RequestMapping(value = "/modify", method = RequestMethod.GET)
+    /*
+    Returns modify Page
+     */
+    public String modifyPage() {
+        return "modify";
+    }
+
 
     /* MODIFY ITEMS */
     @RequestMapping("/post/modifyItems")
@@ -216,6 +242,54 @@ public class DemoApplication {
         store.addNewProduct(laptop);
         return gson.toJson(json);
     }
+
+/*--stuff for modify--*/
+
+    @RequestMapping(value = "/post/modifyTV", method = RequestMethod.POST)
+    @ResponseBody
+    String modifyTV(@RequestBody String json){
+        Gson gson = new Gson();
+        Product tv = gson.fromJson(json, Tv.class);
+        store.modifyProduct(tv.getId(), tv);
+        return gson.toJson(json);
+    }
+
+    @RequestMapping(value = "/post/modifyMonitor", method = RequestMethod.POST)
+    @ResponseBody
+    String modifyMonitor(@RequestBody String json){
+        Gson gson = new Gson();
+        Product monitor = gson.fromJson(json, Monitor.class);
+        store.modifyProduct(monitor.getId(), monitor);
+        return gson.toJson(json);
+    }
+
+    @RequestMapping(value = "/post/modifyTablet", method = RequestMethod.POST)
+    @ResponseBody
+    String modifyTablet(@RequestBody String json){
+        Gson gson = new Gson();
+        Product tablet = gson.fromJson(json, Tablet.class);
+        store.modifyProduct(tablet.getId(), tablet);
+        return gson.toJson(json);
+    }
+
+    @RequestMapping(value = "/post/modifyDesktop", method = RequestMethod.POST)
+    @ResponseBody
+    String modifyDesktop(@RequestBody String json){
+        Gson gson = new Gson();
+        Product desktop = gson.fromJson(json, Desktop.class);
+        store.modifyProduct(desktop.getId(), desktop);
+        return gson.toJson(json);
+    }
+
+    @RequestMapping(value = "/post/modifyLaptop", method = RequestMethod.POST)
+    @ResponseBody
+    String modifyLaptop(@RequestBody String json){
+        Gson gson = new Gson();
+        Product laptop = gson.fromJson(json, Laptop.class);
+        store.modifyProduct(laptop.getId(), laptop);
+        return gson.toJson(json);
+    }
+
 
 
     public static void main(String[] args) {

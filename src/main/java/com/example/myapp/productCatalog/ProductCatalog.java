@@ -38,12 +38,17 @@ public class ProductCatalog {
         System.out.println("Item has been added:" + products.get(id).toString());
     }
 
-    public void deleteProduct(int id) throws Exception {
+    public void deleteProduct(int id)  {
         products.remove(id);
         productMapper.delete(id);
     }
 
-    public void modifyProduct(int id, String[] values){
+    public void modifyProduct(int id, Product prod){
+        System.out.print(prod.toString());
+        products.remove(id);
+        prod.setId(id); //making sure to modify the good product
+        this.addProduct(prod.getId(),prod);
+        productMapper.update(prod.getId(),prod);
 
     }
 }

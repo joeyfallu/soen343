@@ -33,11 +33,22 @@ public class ProductMapper {
 
     public void update(int id, Product product){
         //TDG here
+        try {
+            productTDG.dbModify(id, product);
+        }
+        catch(Exception e){
+            //do nothing
+        }
         productIdentityMap.updateProductById(id, product);
     }
 
-    public void delete(int id) throws Exception {
-        productTDG.dbDelete(id);
+    public void delete(int id) {
+        try {
+            productTDG.dbDelete(id);
+        }
+        catch (Exception e){
+
+        }
         productIdentityMap.deleteProductById(id);
     }
 

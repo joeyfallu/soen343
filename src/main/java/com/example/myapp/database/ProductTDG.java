@@ -118,6 +118,96 @@ public class ProductTDG {
 //        System.out.println(sql);
     }
 
+    public void dbModify(int id, Product pro) throws Exception {
+
+        dbConnect();
+        String sql = "";
+        if(pro instanceof Tv){
+            Tv tv = (Tv)pro;
+            sql="UPDATE `electronics`.`Products`\n" +
+                    "SET\n" +
+                    "`model` = '"+tv.getModel()+"',\n" +
+                    "`weight` = '"+tv.getWeight()+"',\n" +
+                    "`price` = '"+tv.getPrice()+"',\n" +
+                    "`brand` = '"+tv.getBrand()+"',\n" +
+                    "`dimensions` = '"+tv.getDimensions()+"',\n" +
+                    "`discriminator` = '1'\n" +
+                    "WHERE `id` = "+ id +";\n" +
+                    "\n";
+        }
+        if(pro instanceof Monitor){
+            Monitor mn = (Monitor)pro;
+            sql="UPDATE `electronics`.`Products`\n" +
+                    "SET\n" +
+                    "`model` = '"+mn.getModel()+"',\n" +
+                    "`weight` = '"+mn.getWeight()+"',\n" +
+                    "`price` = '"+mn.getPrice()+"',\n" +
+                    "`brand` = '"+mn.getBrand()+"',\n" +
+                    "`size` = '"+mn.getSize()+"',\n" +
+                    "`discriminator` = '2'\n" +
+                    "WHERE `id` = "+ id +";\n";
+        }
+        if(pro instanceof Tablet){
+            Tablet tb = (Tablet)pro;
+            sql="UPDATE `electronics`.`Products`\n" +
+                    "SET\n" +
+                    "`model` = '"+tb.getModel()+"',\n" +
+                    "`weight` = '"+tb.getWeight()+"',\n" +
+                    "`price` = '"+tb.getPrice()+"',\n" +
+                    "`brand` = '"+tb.getBrand()+"',\n" +
+                    "`dimensions` = '"+tb.getDimensions()+"',\n" +
+                    "`processorType` = '"+tb.getProcessorType()+"',\n" +
+                    "`cpuCores` = '"+tb.getCpuCores()+"',\n" +
+                    "`ram` = '"+tb.getRam()+"',\n" +
+                    "`hardDriveSize` = '"+tb.getHardDriveSize()+"',\n" +
+                    "`size` = '"+tb.getSize()+"',\n" +
+                    "`batteryInfo` = '"+tb.getBatteryInfo()+"',\n" +
+                    "`operatingSystem` = '"+tb.getOperatingSystem()+"',\n" +
+                    "`cameraInfo` = '"+tb.getCameraInfo()+"',\n" +
+                    "`discriminator` = '3'\n" +
+                    "WHERE `id` = "+ id +";\n";
+        }
+        if(pro instanceof Desktop){
+            Desktop dt = (Desktop)pro;
+            sql="UPDATE `electronics`.`Products`\n" +
+                    "SET\n" +
+                    "`model` = '"+dt.getModel()+"',\n" +
+                    "`weight` = '"+dt.getWeight()+"',\n" +
+                    "`price` = '"+dt.getPrice()+"',\n" +
+                    "`brand` = '"+dt.getBrand()+"',\n" +
+                    "`dimensions` = '"+dt.getDimensions()+"',\n" +
+                    "`processorType` = '"+dt.getProcessorType()+"',\n" +
+                    "`cpuCores` = '"+dt.getCpuCores()+"',\n" +
+                    "`ram` = '"+dt.getRam()+"',\n" +
+                    "`hardDriveSize` = '"+dt.getHardDriveSize()+"',\n" +
+                    "`discriminator` = '4'\n" +
+                    "WHERE `id` = "+ id +";\n";
+        }
+        if(pro instanceof Laptop){
+            Laptop lp = (Laptop)pro;
+            sql="UPDATE `electronics`.`Products`\n" +
+                    "SET\n" +
+                    "`model` = '"+lp.getModel()+"',\n" +
+                    "`weight` = '"+lp.getWeight()+"',\n" +
+                    "`price` = '"+lp.getPrice()+"',\n" +
+                    "`brand` = '"+lp.getBrand()+"',\n" +
+                    "`processorType` = '"+lp.getProcessorType()+"',\n" +
+                    "`cpuCores` = '"+lp.getCpuCores()+"',\n" +
+                    "`ram` = '"+lp.getRam()+"',\n" +
+                    "`hardDriveSize` = '"+lp.getHardDriveSize()+"',\n" +
+                    "`size` = '"+lp.getSize()+"',\n" +
+                    "`batteryInfo` = '"+lp.getBatteryInfo()+"',\n" +
+                    "`operatingSystem` = '"+lp.getOperatingSystem()+"',\n" +
+                    "`cameraInfo` = '"+lp.getCamera()+"',\n" +
+                    "`touchScreen` = '"+lp.getTouchScreen()+"',\n" +
+                    "`discriminator` = '5'\n" +
+                    "WHERE `id` = "+ id +";\n";
+        }
+        System.out.println(sql);
+        statement.executeUpdate(sql);
+        statement.executeQuery(sql);
+    }
+
     public Product[] dbGetAll() throws Exception{
         dbConnect();
         String sql = "SELECT * FROM Products";
