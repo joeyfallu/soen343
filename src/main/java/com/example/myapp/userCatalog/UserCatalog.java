@@ -8,7 +8,7 @@ public class UserCatalog {
 
     private Map<User, Integer > activeUser;
     private Map<User, Integer> user;
-    private UserMapper userMapper;
+
 
     //Default constructor
     public UserCatalog(){
@@ -20,10 +20,7 @@ public class UserCatalog {
 
     }
 
-    public void registerUser(User user1){
-       //determining the auto-generated ID of the new user
-        UserMapper userMapper = new UserMapper(this);
-       int id = userMapper.insert(user1);
+    public void registerUser(User user1,int id){
        //inserting the new User/ID pair into the user HashMap
        user.put(user1,id);
     }

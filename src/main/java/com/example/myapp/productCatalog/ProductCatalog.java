@@ -40,7 +40,7 @@ public class ProductCatalog {
 
     public void deleteProduct(int id)  {
         products.remove(id);
-        productMapper.delete(id);
+
     }
 
     public void modifyProduct(int id, Product prod){
@@ -48,7 +48,7 @@ public class ProductCatalog {
         products.remove(id);
         prod.setId(id); //making sure to modify the good product
         this.addProduct(prod.getId(),prod);
-        productMapper.update(prod.getId(),prod);
+
 
     }
 }

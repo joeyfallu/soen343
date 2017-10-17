@@ -203,9 +203,9 @@ public class ProductTDG {
                     "`discriminator` = '5'\n" +
                     "WHERE `id` = "+ id +";\n";
         }
-        System.out.println(sql);
+
         statement.executeUpdate(sql);
-        statement.executeQuery(sql);
+       // statement.executeQuery(sql);
     }
 
     public Product[] dbGetAll() throws Exception{

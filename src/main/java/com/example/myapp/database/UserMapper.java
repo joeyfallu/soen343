@@ -48,4 +48,7 @@ public class UserMapper {
         return user;
     }
 
+    public UserTDG getUserTDG() {
+        return userTDG;
+    }
 }

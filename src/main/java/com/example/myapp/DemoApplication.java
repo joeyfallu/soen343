@@ -1,6 +1,9 @@
 package com.example.myapp;
 
+import com.example.myapp.database.ProductMapper;
+import com.example.myapp.database.UserMapper;
 import com.example.myapp.productCatalog.*;
+import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.*;
 import com.example.myapp.productCatalog.Desktop;
 import com.google.gson.Gson;
@@ -15,7 +18,8 @@ import java.util.Map;
 @SpringBootApplication
 public class DemoApplication {
 
-    static Store store = new Store();
+    static Store store;
+    static int TempUserID=99099;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {
@@ -193,7 +197,7 @@ public class DemoApplication {
     String addTv(@RequestBody String json){
         Gson gson = new Gson();
         Product tv = gson.fromJson(json, Tv.class);
-        store.addNewProduct(tv);
+        store.addNewProduct(TempUserID,tv);
         return gson.toJson(json);
     }
 
@@ -212,7 +216,7 @@ public class DemoApplication {
     String addMonitor(@RequestBody String json){
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
-        store.addNewProduct(monitor);
+        store.addNewProduct(TempUserID,monitor);
         return gson.toJson(json);
     }
 
@@ -221,7 +225,7 @@ public class DemoApplication {
     String addTablet(@RequestBody String json){
         Gson gson = new Gson();
         Product tablet = gson.fromJson(json, Tablet.class);
-        store.addNewProduct(tablet);
+        store.addNewProduct(TempUserID,tablet);
         return gson.toJson(json);
     }
 
@@ -230,7 +234,7 @@ public class DemoApplication {
     String addDesktop(@RequestBody String json){
         Gson gson = new Gson();
         Product desktop = gson.fromJson(json, Desktop.class);
-        store.addNewProduct(desktop);
+        store.addNewProduct(TempUserID,desktop);
         return gson.toJson(json);
     }
 
@@ -239,7 +243,7 @@ public class DemoApplication {
     String addLaptop(@RequestBody String json){
         Gson gson = new Gson();
         Product laptop = gson.fromJson(json, Laptop.class);
-        store.addNewProduct(laptop);
+        store.addNewProduct(TempUserID,laptop);
         return gson.toJson(json);
     }
 
@@ -250,7 +254,7 @@ public class DemoApplication {
     String modifyTV(@RequestBody String json){
         Gson gson = new Gson();
         Product tv = gson.fromJson(json, Tv.class);
-        store.modifyProduct(tv.getId(), tv);
+        store.modifyProduct(TempUserID,tv.getId(), tv);
         return gson.toJson(json);
     }
 
@@ -259,7 +263,7 @@ public class DemoApplication {
     String modifyMonitor(@RequestBody String json){
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
-        store.modifyProduct(monitor.getId(), monitor);
+        store.modifyProduct(TempUserID,monitor.getId(), monitor);
         return gson.toJson(json);
     }
 
@@ -268,7 +272,7 @@ public class DemoApplication {
     String modifyTablet(@RequestBody String json){
         Gson gson = new Gson();
         Product tablet = gson.fromJson(json, Tablet.class);
-        store.modifyProduct(tablet.getId(), tablet);
+        store.modifyProduct(TempUserID,tablet.getId(), tablet);
         return gson.toJson(json);
     }
 
@@ -277,7 +281,7 @@ public class DemoApplication {
     String modifyDesktop(@RequestBody String json){
         Gson gson = new Gson();
         Product desktop = gson.fromJson(json, Desktop.class);
-        store.modifyProduct(desktop.getId(), desktop);
+        store.modifyProduct(TempUserID,desktop.getId(), desktop);
         return gson.toJson(json);
     }
 
@@ -286,18 +290,43 @@ public class DemoApplication {
     String modifyLaptop(@RequestBody String json){
         Gson gson = new Gson();
         Product laptop = gson.fromJson(json, Laptop.class);
-        store.modifyProduct(laptop.getId(), laptop);
+        store.modifyProduct(TempUserID,laptop.getId(), laptop);
         return gson.toJson(json);
     }
 
 
 
     public static void main(String[] args) {
+        //start the server
         SpringApplication.run(DemoApplication.class, args);
+        //initialize catalogs
+        UserCatalog userInit = new UserCatalog();
+        ProductCatalog productInit = new ProductCatalog();
+        UserMapper userMap = new UserMapper(userInit);
+        ProductMapper productMap = new ProductMapper(productInit);
+
+        //initialize the store with the current catalog from the db
+        store = new Store(userMap,productMap);
         store.getProductCatalog().setProducts(store.getProductCatalog().getProductMapper().getAll());
 
-        // The Two lines bellow were a test that succeeded in adding users to the database
-        // User user = new User(0,"hanna","georgi", "123 street", "1234567890", "hanna@hotmail", "12345", 1);
-        // store.addNewUser(user);
+        //start of test
+        //Monitor mn1 = new Monitor(0,"toshiba", 47,99,"sony",24,2);
+        //store.initiateTransaction(5, Transaction.Type.add);
+        //store.addNewProduct(5,mn1);
+        //store.endProductTransaction(5);
+        //store.endTransaction(5);
+        //start of modify test
+        // Tv tv1 = new Tv(0,"sony",99,35,"toshiba","34x32",1);
+        // store.initiateTransaction(6,Transaction.Type.add);
+        // store.modifyProduct(6,43,tv1);
+        // store.endProductTransaction(6);
+        // store.endTransaction(6);
+        //start of delete test
+        store.initiateTransaction(7,Transaction.Type.delete);
+        store.deleteProduct(7,12);
+        store.deleteProduct(7,14);
+        store.endProductTransaction(7);
+        store.endTransaction(7);
+
     }
 }
