@@ -328,10 +328,9 @@ public class DemoApplication {
         store.endProductTransaction(7);
         store.endTransaction(7);*/
 
-        User test = new User(0,"jim","bob","1234 fake","2311233322","bob@jim.com","yolo",0);
+        User test = new User(0,"jim","billy","1234 fake","2311233322","billy@jim.com","yolo",0);
         store.initiateTransaction(8,Transaction.Type.add);
         store.addNewUser(8,test);
-        store.endUserTransaction(8);
         store.endTransaction(8);
 
     }
