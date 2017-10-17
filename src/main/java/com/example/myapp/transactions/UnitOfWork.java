@@ -48,6 +48,7 @@ public class UnitOfWork {
         try{userMapper.getUserTDG().dbInsert((User)o);}catch (Exception e){
             System.out.println("failed to insert user from unit of work");
         }
+        userMapper.insert((User)o);
         }
     }
 

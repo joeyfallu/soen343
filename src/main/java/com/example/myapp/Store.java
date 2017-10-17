@@ -74,8 +74,13 @@ public class Store {
     }
 
 
-    public void addNewUser(User user){
-
+    public void addNewUser(int userId,User user){
+        if (userId!=transaction.getUserId())
+        {
+            System.out.println("Transaction in progress, please wait and try again");
+            return;
+        }
+        this.userMapper.insert(user);
     }
 
 
@@ -116,6 +121,17 @@ public class Store {
         }
         productMapper.commit();
     }
+
+    public void endUserTransaction(int userId)
+    {
+        if (userId!=transaction.getUserId())
+        {
+            System.out.println("Transaction in progress, please wait and try again");
+            return;
+        }
+        userMapper.commit();
+    }
+
     public void endTransaction(int userId)
     {
         if (userId!=transaction.getUserId())
@@ -125,5 +141,9 @@ public class Store {
         }
         transaction.setComplete(true);
         transaction.setUserId(-1);
+    }
+
+    public ProductMapper getProductMapper() {
+        return productMapper;
     }
 }

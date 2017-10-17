@@ -6,23 +6,23 @@ import java.util.HashMap;
 import java.util.Map;
 public class UserCatalog {
 
-    private Map<User, Integer > activeUser;
-    private Map<User, Integer> user;
+    private Map<Integer, User> activeUser;
+    private Map<Integer, User> user;
 
 
     //Default constructor
     public UserCatalog(){
-        user = new HashMap<User, Integer>();
+        user = new HashMap<Integer, User>();
     }
 
     //supposed to return User
-    public  void  getUsers(){
-
+    public  User  getUserById(int id){
+        return user.get(id);
     }
 
     public void registerUser(User user1,int id){
        //inserting the new User/ID pair into the user HashMap
-       user.put(user1,id);
+       user.put(id,user1);
     }
 
     public void login(String email, String password){

@@ -1,5 +1,6 @@
 package com.example.myapp.database;
 
+import com.example.myapp.transactions.UnitOfWork;
 import com.example.myapp.userCatalog.User;
 import com.example.myapp.userCatalog.UserCatalog;
 
@@ -8,7 +9,8 @@ public class UserMapper {
     private UserIdentityMap userIdentityMap;
     private UserTDG userTDG;
     private UserCatalog userCatalog;
-
+    private UnitOfWork u;
+    private int mapCount=0;
 
 
 
@@ -21,31 +23,25 @@ public class UserMapper {
 
 
 
-    public int insert(User user){
-        int id = 0;
-        try {
-            id = userTDG.dbInsert(user);
-        }
-        catch(Exception e){
-            //do nothing
-        }
-        userIdentityMap.insertUserById(id, user);
-        return id;
+    public void insert(User user){
+
+        userIdentityMap.insertUserById(mapCount, user);
+        mapCount++;
     }
 
     public User get(int id){
-        User user = userIdentityMap.getUserById(id);
-        if(user == null){
-            try {
-                user = userTDG.dbGet(id);
-                userIdentityMap.insertUserById(id, user);
-            }
-            catch (Exception e){
+        return userCatalog.getUserById(id);
+    }
 
-            }
+    public void commit()
+    {
+        u = new UnitOfWork(this);
+        for(int i=0; i<mapCount; i++)
+        {
+            User us = userIdentityMap.getUserById(i);
+            u.registerAdd(us);
         }
-
-        return user;
+        u.commitUsers();
     }
 
     public UserTDG getUserTDG() {
