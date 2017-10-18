@@ -307,7 +307,7 @@ public class DemoApplication {
     String endTransaction(){
 
         store.endTransaction(TempUserID);
-
+        System.out.println("HELLLO");
         return "hello";
     }
 
@@ -342,11 +342,11 @@ public class DemoApplication {
         store.deleteProduct(7,14);
         store.endProductTransaction(7);
         store.endTransaction(7);*/
-
-        User test = new User(0,"jim","billy","1234 fake","2311233322","billy@jim.com","yolo",0);
-        store.initiateTransaction(TempUserID,Transaction.Type.add);
-        store.addNewUser(TempUserID,test);
-        store.endTransaction(TempUserID);
+//
+//        User test = new User(0,"jim","billy","1234 fake","2311233322","billy@jim.com","yolo",0);
+//        store.initiateTransaction(TempUserID,Transaction.Type.add);
+//        store.addNewUser(TempUserID,test);
+//        store.endTransaction(TempUserID);
 
     }
 }
