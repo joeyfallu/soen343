@@ -26,7 +26,20 @@ public class UserCatalog {
     }
 
     public void login(String email, String password){
+        //Checks if the provided email password pair matches a user entry inside the users HashMap
+        for (Map.Entry<Integer, User> entry : user.entrySet()) {
+            if(entry.getValue().getEmail() == email){
+                if(entry.getValue().getPassword() == password){
+                    //Successful login
 
+                } else {
+                    //Wrong password
+
+                }
+            }
+            //Continues to the next map entry
+        }
+        //Do something if the email was not found in the map
     }
 
     public void logOut(int id){
