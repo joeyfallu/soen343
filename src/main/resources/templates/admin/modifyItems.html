@@ -54,23 +54,6 @@
         {{message}}
         <div ng-switch="itemData.discriminator">
 
-            <div ng-switch-when="1">
-                <form name="modifyTVForm" ng-submit="modifyTV()">
-                    <h2>Modify a TV:</h2>
-                    <label>Model Number</label>
-                    <input type="text" class="form-control" ng-model="itemData.model"  />
-                    <label>Brand</label>
-                    <input type="text" class="form-control" ng-model="itemData.brand"  />
-                    <label>Dimensions (in cm)</label>
-                    <input type="text" class="form-control" ng-model="itemData.dimensions" />
-                    <label>Weight (in kg)</label>
-                    <input type="text" class="form-control" ng-model="itemData.weight"  />
-                    <label>Price </label>
-                    <input type="text" class="form-control" ng-model="itemData.price" /><br />
-                    <button type="submit" class="btn btn-block">Submit</button>
-                </form>
-            </div>
-
             <div ng-switch-when="2">
                 <form name="modifyMonitorForm" ng-submit="modifyMonitor()">
                     <h2>Modify a Monitor:</h2>

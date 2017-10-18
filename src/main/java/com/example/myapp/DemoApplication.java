@@ -200,15 +200,6 @@ public class DemoApplication {
         return "{}";
     }
 
-    @RequestMapping(value = "/post/addTv", method = RequestMethod.POST)
-    @ResponseBody
-    String addTv(@RequestBody String json){
-        Gson gson = new Gson();
-        Product tv = gson.fromJson(json, Tv.class);
-        store.addNewProduct(TempUserID,tv);
-        return gson.toJson(json);
-    }
-
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
     @ResponseBody
     String addUser(@RequestBody String json){
@@ -257,14 +248,6 @@ public class DemoApplication {
 
 /*--stuff for modify--*/
 
-    @RequestMapping(value = "/post/modifyTV", method = RequestMethod.POST)
-    @ResponseBody
-    String modifyTV(@RequestBody String json){
-        Gson gson = new Gson();
-        Product tv = gson.fromJson(json, Tv.class);
-        store.modifyProduct(TempUserID,tv.getId(), tv);
-        return gson.toJson(json);
-    }
 
     @RequestMapping(value = "/post/modifyMonitor", method = RequestMethod.POST)
     @ResponseBody

@@ -19,23 +19,6 @@ modifyItemsModule.controller('modifyItemsController', function($scope, $http){
 
                     });
             };
-        $scope.modifyTV = function(){
-            var url ="/post/modifyTV";
-            var data = {
-                id : $scope.itemData.id,
-                discriminator : "1",
-                model : $scope.itemData.model,
-                weight : $scope.itemData.weight,
-                price : $scope.itemData.price,
-                brand : $scope.itemData.brand,
-                dimensions : $scope.itemData.dimensions,
-            };
-            $http.post(url,data)
-            .then((res) => {
-                console.log(res);
-                $scope.message = "Successful product modification!";
-            });
-         };
         $scope.modifyMonitor = function(){
               var url = "/post/modifyMonitor";
               var data = {

@@ -51,22 +51,6 @@
     <div class="col-md-8 col-md-offset-2">
         <div class="form-area">
 
-            <form name="tv" ng-submit="addTv()">
-                <h2>Add a TV:</h2>
-                <label>Model Number</label>
-                <input type="text" class="form-control" ng-model="tvModelNumber" required="" autofocus=""/>
-                <label>Brand</label>
-                <input type="text" class="form-control" ng-model="tvBrand" required=""/>
-                <label>Dimensions (in cm)</label>
-                <input type="text" class="form-control" ng-model="tvDimensions" required=""/>
-                <label>Weight (in kg)</label>
-                <input type="text" class="form-control" ng-model="tvWeight" required=""/>
-                <label>Price </label>
-                <input type="text" class="form-control" ng-model="tvPrice" required=""/><br/>
-                <button type="submit" class="btn btn-block">Submit</button>
-                {{tvMessage}}
-            </form>
-
             <form name="monitor" ng-submit="addMonitor()">
                 <h2>Add a Monitor:</h2>
                 <label>Model Number</label>

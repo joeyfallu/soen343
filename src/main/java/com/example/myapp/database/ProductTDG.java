@@ -24,11 +24,6 @@ public class ProductTDG {
 
         dbConnect();
         String sql = "";
-        if(pro instanceof Tv){
-            Tv tv = (Tv)pro;
-            sql="INSERT INTO Products (model, weight, price, brand, dimensions,discriminator) VALUES ('"+tv.getModel()+"','"+tv.getWeight()
-                    +"','"+tv.getPrice()+"','"+tv.getBrand()+"','"+tv.getDimensions()+"','1')";
-        }
         if(pro instanceof Monitor){
             Monitor mn = (Monitor)pro;
             sql="INSERT INTO Products (model, weight, price, brand, size,discriminator) VALUES ('"+mn.getModel()+"','"+mn.getWeight()
@@ -76,11 +71,6 @@ public class ProductTDG {
             }
 
         }
-        if(Integer.parseInt(result[17])==1)
-        {
-          Tv tv= new Tv(Integer.parseInt(result[1]),result[2],Double.parseDouble(result[3]),Double.parseDouble(result[4]),result[5],result[6], Integer.parseInt(result[17]));
-          return tv;
-        }
         if(Integer.parseInt(result[17])==2)
         {
             //1/2/3/4/5/11
@@ -122,19 +112,6 @@ public class ProductTDG {
 
         dbConnect();
         String sql = "";
-        if(pro instanceof Tv){
-            Tv tv = (Tv)pro;
-            sql="UPDATE `electronics`.`Products`\n" +
-                    "SET\n" +
-                    "`model` = '"+tv.getModel()+"',\n" +
-                    "`weight` = '"+tv.getWeight()+"',\n" +
-                    "`price` = '"+tv.getPrice()+"',\n" +
-                    "`brand` = '"+tv.getBrand()+"',\n" +
-                    "`dimensions` = '"+tv.getDimensions()+"',\n" +
-                    "`discriminator` = '1'\n" +
-                    "WHERE `id` = "+ id +";\n" +
-                    "\n";
-        }
         if(pro instanceof Monitor){
             Monitor mn = (Monitor)pro;
             sql="UPDATE `electronics`.`Products`\n" +
@@ -230,11 +207,6 @@ public class ProductTDG {
                 result[i] = resultSet.getString(i);
             }
 
-            if (Integer.parseInt(result[17]) == 1) {
-                Tv tv = new Tv(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[6], Integer.parseInt(result[17]));
-                products[currentProductNum] = tv;
-                currentProductNum++;
-            }
             if (Integer.parseInt(result[17]) == 2) {
                 //1/2/3/4/5/11
                 Monitor mn = new Monitor(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], Integer.parseInt(result[11]), Integer.parseInt(result[17]));
