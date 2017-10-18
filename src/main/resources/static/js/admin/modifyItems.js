@@ -124,5 +124,17 @@ modifyItemsModule.controller('modifyItemsController', function($scope, $http){
             $scope.message = "Successful product modification!";
             });
         };
-});
 
+    $scope.endTransaction = function(){
+        url = "/post/endTransaction";
+
+        $http.post(url);
+    }
+
+
+       window.onbeforeunload =  function(e){
+            var url = "/post/endTransaction";
+            $http.post(url);
+            return "Leaving Page";
+       };
+});

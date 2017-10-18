@@ -90,6 +90,7 @@ public class Store {
     }
 
     public void initiateTransaction(int userId, Transaction.Type t){
+
         if(transaction.isComplete())
         {
             transaction.setComplete(false);
@@ -116,6 +117,7 @@ public class Store {
 
     public void endTransaction(int userId)
     {
+        System.out.println(userId + "                 " +  transaction.getUserId());
         if (userId!=transaction.getUserId())
         {
             System.out.println("Transaction in progress, please wait and try again");

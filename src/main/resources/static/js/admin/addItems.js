@@ -133,4 +133,16 @@ app.controller('addItemsCtrl', function ($scope, $http) {
             $scope.laptopMessage = "Error. Check console.";
         });
     };
+
+       $scope.endTransaction = function(){
+            var url = "/post/endTransaction";
+            console.log("Hello");
+            $http.post(url);
+       }
+
+       window.onbeforeunload =  function(e){
+            var url = "/post/endTransaction";
+            $http.post(url);
+            return "Leaving Page";
+       };
 });
