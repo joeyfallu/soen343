@@ -49,11 +49,13 @@ public class DemoApplication {
 
     @RequestMapping(value="/modifyItems", method = RequestMethod.GET)
     public String modifyItems(){
+        store.initiateTransaction(TempUserID,Transaction.Type.modify);
         return "admin/modifyItems";
     }
 
     @RequestMapping(value="/deleteItems")
     public String deleteItems(){
+        store.initiateTransaction(TempUserID,Transaction.Type.delete);
         return "admin/deleteItems";
     }
 
@@ -63,11 +65,17 @@ public class DemoApplication {
     }
 
     @RequestMapping(value="/addItems")
-    public String addItems() { return "admin/addItems"; }
+    public String addItems() {
+        store.initiateTransaction(TempUserID,Transaction.Type.add);
+        return "admin/addItems";
+    }
 
 
     @RequestMapping(value="/addUsers")
-    public String addUsers() { return "admin/addUsers"; }
+    public String addUsers() {
+        store.initiateTransaction(TempUserID,Transaction.Type.add);
+        return "admin/addUsers";
+    }
 
     /* LOGIN */
     @RequestMapping(value = "/post/login", method = RequestMethod.POST)
@@ -294,7 +302,14 @@ public class DemoApplication {
         return gson.toJson(json);
     }
 
+    @RequestMapping(value="/post/endTransaction", method = RequestMethod.POST)
+    @ResponseBody
+    String endTransaction(){
 
+        store.endTransaction(TempUserID);
+
+        return "hello";
+    }
 
     public static void main(String[] args) {
         //start the server
@@ -329,9 +344,9 @@ public class DemoApplication {
         store.endTransaction(7);*/
 
         User test = new User(0,"jim","billy","1234 fake","2311233322","billy@jim.com","yolo",0);
-        store.initiateTransaction(8,Transaction.Type.add);
-        store.addNewUser(8,test);
-        store.endTransaction(8);
+        store.initiateTransaction(TempUserID,Transaction.Type.add);
+        store.addNewUser(TempUserID,test);
+        store.endTransaction(TempUserID);
 
     }
 }

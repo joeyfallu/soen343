@@ -9,6 +9,8 @@
 </head>
 
 <body ng-app="addUsers" ng-controller="addUsersCtrl">
+
+
 <h1>Add New User Form</h1>
 
 <nav class="navbar navbar-inverse">
@@ -30,7 +32,9 @@
         </div>
     </div>
 </nav>
-
+<div class="finishTransactions"   ng-click="endTransaction()" style="padding-bottom: 1%;">
+    <button class="btn btn-default">Finish</button>
+</div>
 
 <form name="user" ng-submit="addUser()">
     <label>First name:</label>

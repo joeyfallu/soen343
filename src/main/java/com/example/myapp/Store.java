@@ -90,6 +90,7 @@ public class Store {
     }
 
     public void initiateTransaction(int userId, Transaction.Type t){
+
         if(transaction.isComplete())
         {
             transaction.setComplete(false);

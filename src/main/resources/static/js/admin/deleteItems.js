@@ -20,5 +20,16 @@ deleteItemsModule.controller('deleteItemsController', ['$scope', "$http", functi
             $scope.message = "Error. Check console.";
         });
     };
+
+       $scope.endTransaction = function(){
+            var url = "/post/endTransaction";
+            $http.post(url);
+        }
+
+       window.onbeforeunload =  function(e){
+            var url = "/post/endTransaction";
+            $http.post(url);
+            return "Leaving Page";
+       };
 }]);
 

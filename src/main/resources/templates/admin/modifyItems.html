@@ -10,7 +10,6 @@
 </head>
 
 <body ng-app="modifyItems" ng-controller="modifyItemsController">
-
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -30,6 +29,11 @@
         </div>
     </div>
 </nav>
+
+<div class="finishTransactions"   ng-click="endTransaction()" style="padding-bottom: 1%;">
+    <button class="btn btn-default">Finish</button>
+</div>
+
 <div class="container">
     <div class="col-md-8 col-md-offset-2">
         <div class="form-area">
