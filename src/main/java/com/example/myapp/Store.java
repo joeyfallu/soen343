@@ -86,7 +86,7 @@ public class Store {
 
     public Map<Integer, Product> viewProductCatalog(){
 
-        return productMapper.getProductCatalog().getProducts();
+        return this.productMapper.getProductCatalog().getProducts();
     }
 
     public void initiateTransaction(int userId, Transaction.Type t){
@@ -131,5 +131,9 @@ public class Store {
 
     public ProductMapper getProductMapper() {
         return productMapper;
+    }
+
+    public void setProductMapper(ProductMapper productMapper) {
+        this.productMapper = productMapper;
     }
 }

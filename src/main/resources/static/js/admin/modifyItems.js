@@ -126,7 +126,7 @@ modifyItemsModule.controller('modifyItemsController', function($scope, $http){
         };
 
     $scope.endTransaction = function(){
-        url = "/post/endTransaction";
+        var url = "/post/endTransaction";
 
         $http.post(url);
     }

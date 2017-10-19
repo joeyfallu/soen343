@@ -136,7 +136,7 @@ app.controller('addItemsCtrl', function ($scope, $http) {
 
        $scope.endTransaction = function(){
             var url = "/post/endTransaction";
-            console.log("Hello");
+
             $http.post(url);
        }
 
