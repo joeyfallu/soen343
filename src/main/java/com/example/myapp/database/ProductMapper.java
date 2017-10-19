@@ -137,4 +137,8 @@ public class ProductMapper {
     public ProductCatalog getProductCatalog() {
         return productCatalog;
     }
+
+    public void setProductCatalog(ProductCatalog productCatalog) {
+        this.productCatalog = productCatalog;
+    }
 }

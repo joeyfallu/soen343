@@ -92,9 +92,9 @@ public class DemoApplication {
     String getProducts(){
 
         Gson gson = new Gson();
-        System.out.println(store.getProductCatalog().getProducts());
-        String json = gson.toJson(store.getProductCatalog().getProducts());
-        System.out.println(json);
+
+        String json = gson.toJson(store.getProductMapper().getProductCatalog().getProducts());
+
         return json;
     }
 
