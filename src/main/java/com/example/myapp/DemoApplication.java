@@ -8,7 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
-import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -16,54 +15,6 @@ import java.util.Map;
 public class DemoApplication {
 
     static Store store = new Store();
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home() {
-        return "index";
-    }
-
-    /* ROUTING */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "login";
-    }
-
-    @RequestMapping(value = "/registerAdmin", method = RequestMethod.GET)
-    public String registerAdmin() {
-        return "registerAdmin";
-    }
-
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String admin() {
-        return "admin/admin";
-    }
-
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String test() {
-        return "testPage";
-    }
-
-    @RequestMapping(value="/modifyItems", method = RequestMethod.GET)
-    public String modifyItems(){
-        return "admin/modifyItems";
-    }
-
-    @RequestMapping(value="/deleteItems")
-    public String deleteItems(){
-        return "admin/deleteItems";
-    }
-
-    @RequestMapping(value="/viewItems", method = RequestMethod.GET)
-    public String viewItems(){
-        return "admin/viewItems";
-    }
-
-    @RequestMapping(value="/addItems")
-    public String addItems() { return "admin/addItems"; }
-
-
-    @RequestMapping(value="/addUsers")
-    public String addUsers() { return "admin/addUsers"; }
 
     /* LOGIN */
     @RequestMapping(value = "/post/login", method = RequestMethod.POST)
@@ -74,11 +25,9 @@ public class DemoApplication {
     }
 
     /* VIEW ITEMS */
-
     @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
-
         Gson gson = new Gson();
         System.out.println(store.getProductCatalog().getProducts());
         String json = gson.toJson(store.getProductCatalog().getProducts());
