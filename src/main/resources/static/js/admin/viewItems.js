@@ -1,8 +1,6 @@
 'use strict';
 
-const app = angular.module('viewItems', []);
-
-app.controller('viewItemsCtrl', function ($scope, $http) {
+angular.module('app').controller('viewItemsCtrl', function ($scope, $http) {
     $scope.items = [];
 
     const urlProduct = '/get/products';

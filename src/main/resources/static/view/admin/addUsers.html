@@ -1,0 +1,24 @@
+<!-- TODO cleanup -->
+<h1>Add New User Form</h1>
+
+<form name="user" ng-submit="addUser()">
+    <label>First name:</label>
+    <input type="text" class="form-control" ng-model="firstName" required=""/>
+    <label>Last name:</label>
+    <input type="text" class="form-control" ng-model="lastName" required=""/>
+    <label>Address:</label>
+    <input type="text" class="form-control" ng-model="address" required=""/>
+    <label>E-mail:</label>
+    <input type="email" class="form-control" ng-model="email" required=""/>
+    <label>password:</label>
+    <input type="password" class="form-control" ng-model="password" required=""/>
+    <label>Phone number:</label>
+    <input type="text" class="form-control" ng-model="phoneNumber" required=""/>
+    <label>Admin status:</label><br/>
+
+        <input type="radio" ng-model="adminStatus" ng-value="1"/> Admin<br/>
+        <input type="radio" ng-model="adminStatus" ng-value="0"/> User<br/>
+
+    <button type="submit" class="btn btn-block">Submit</button>
+    {{userMessage}}
+</form>

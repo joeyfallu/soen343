@@ -1,12 +1,10 @@
 'use strict';
 
-const registerAdminModule = angular.module('registerAdmin', []);
-
 /*
 Controller is the JavaScript function that makes/changes/removes/controls the data.
 The data from the controller is sent to the model (html page) which will be displayed in the view
 */
-registerAdminModule.controller('RegisterAdminCtrl', ["$scope", "$http", function ($scope, $http) {
+angular.module('app').controller('RegisterAdminCtrl', ["$scope", "$http", function ($scope, $http) {
 
     // Instance Variables Declaration
     $scope.dataRegisterResponse = "";

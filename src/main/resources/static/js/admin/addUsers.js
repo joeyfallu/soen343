@@ -1,8 +1,6 @@
 'use strict';
 
-const app = angular.module('addUsers', []);
-
-app.controller('addUsersCtrl', function ($scope, $http) {
+angular.module('app').controller('addUsersCtrl', function ($scope, $http) {
     $scope.userMessage = "";
 
 

@@ -1,8 +1,6 @@
 'use strict';
 
-const app = angular.module('addItems', []);
-
-app.controller('addItemsCtrl', function ($scope, $http) {
+angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
     $scope.tvMessage = "";
     $scope.monitorMessage = "";
     $scope.tabletMessage = "";
