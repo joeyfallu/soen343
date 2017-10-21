@@ -17,61 +17,22 @@ public class DemoApplication {
     static Store store = new Store();
 
     /* Single page application routing */
-    @RequestMapping(value = "/**/{[path:[^\\.]*}")
+    // https://stackoverflow.com/questions/24837715/spring-boot-with-angularjs-html5mode/44850886#44850886
+    @RequestMapping({
+            "/",
+            "/test",
+            "/login",
+            "/registerAdmin",
+            "/admin",
+            "/addItems",
+            "/addUsers",
+            "/viewItems",
+            "/modifyItems",
+            "/deleteItems"
+    })
     public String redirect() {
-        // Forward to home page so that route is preserved.
-        return "forward:/";
+        return "forward:/index.html";
     }
-
-    //    @RequestMapping(value = "/", method = RequestMethod.GET)
-//    public String getHomeTemplate() {
-//        return "index";
-//    }
-//
-//    @RequestMapping(value = "/login", method = RequestMethod.GET)
-//    public String getLoginTemplate() {
-//        return "login";
-//    }
-//
-//    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-//    public String getAdminPageTemplate() {
-//        return "admin/admin";
-//    }
-//
-//    @RequestMapping(value="/addItems", method = RequestMethod.GET)
-//    public String getAddItemsTemplate() {
-//        return "admin/addItems";
-//    }
-//
-//    @RequestMapping(value="/viewItems", method = RequestMethod.GET)
-//    public String getViewItemsTemplate(){
-//        return "admin/viewItems";
-//    }
-//
-//    @RequestMapping(value="/modifyItems", method = RequestMethod.GET)
-//    public String getModifyItemsTemplate(){
-//        return "admin/modifyItems";
-//    }
-//
-//    @RequestMapping(value="/deleteItems", method = RequestMethod.GET)
-//    public String getDeleteItemsTemplate(){
-//        return "admin/deleteItems";
-//    }
-//
-//    @RequestMapping(value = "/registerAdmin", method = RequestMethod.GET)
-//    public String getRegisterAdminTemplate() {
-//        return "registerAdmin";
-//    }
-//
-//    @RequestMapping(value="/addUsers", method = RequestMethod.GET)
-//    public String getAddUsersTemplate() {
-//        return "admin/addUsers";
-//    }
-//
-//    @RequestMapping(value = "/test", method = RequestMethod.GET)
-//    public String getTestPageTemplate() {
-//        return "static/testPage";
-//    }
 
     /* LOGIN */
     @RequestMapping(value = "/post/login", method = RequestMethod.POST, produces = "application/json")
