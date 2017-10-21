@@ -16,12 +16,69 @@ public class DemoApplication {
 
     static Store store = new Store();
 
+    /* Single page application routing */
+    @RequestMapping(value = "/**/{[path:[^\\.]*}")
+    public String redirect() {
+        // Forward to home page so that route is preserved.
+        return "forward:/";
+    }
+
+    //    @RequestMapping(value = "/", method = RequestMethod.GET)
+//    public String getHomeTemplate() {
+//        return "index";
+//    }
+//
+//    @RequestMapping(value = "/login", method = RequestMethod.GET)
+//    public String getLoginTemplate() {
+//        return "login";
+//    }
+//
+//    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+//    public String getAdminPageTemplate() {
+//        return "admin/admin";
+//    }
+//
+//    @RequestMapping(value="/addItems", method = RequestMethod.GET)
+//    public String getAddItemsTemplate() {
+//        return "admin/addItems";
+//    }
+//
+//    @RequestMapping(value="/viewItems", method = RequestMethod.GET)
+//    public String getViewItemsTemplate(){
+//        return "admin/viewItems";
+//    }
+//
+//    @RequestMapping(value="/modifyItems", method = RequestMethod.GET)
+//    public String getModifyItemsTemplate(){
+//        return "admin/modifyItems";
+//    }
+//
+//    @RequestMapping(value="/deleteItems", method = RequestMethod.GET)
+//    public String getDeleteItemsTemplate(){
+//        return "admin/deleteItems";
+//    }
+//
+//    @RequestMapping(value = "/registerAdmin", method = RequestMethod.GET)
+//    public String getRegisterAdminTemplate() {
+//        return "registerAdmin";
+//    }
+//
+//    @RequestMapping(value="/addUsers", method = RequestMethod.GET)
+//    public String getAddUsersTemplate() {
+//        return "admin/addUsers";
+//    }
+//
+//    @RequestMapping(value = "/test", method = RequestMethod.GET)
+//    public String getTestPageTemplate() {
+//        return "static/testPage";
+//    }
+
     /* LOGIN */
-    @RequestMapping(value = "/post/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/post/login", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String loginSubmit(@RequestBody String body) {
         System.out.println(body);
-        return "{data: 'Successful login'}";
+        return body;
     }
 
     /* VIEW ITEMS */
