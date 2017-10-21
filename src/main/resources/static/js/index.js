@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app', ['ngRoute'])
-    .controller("indexController", function indexController($scope) {
+    .controller("mainController", function mainController($scope) {
 
     })
 
@@ -10,7 +10,7 @@ angular.module('app', ['ngRoute'])
 
         $routeProvider
             .when('/', {templateUrl: "view/frontPage.html"})
-            .when('/test', {templateUrl: "view/testPage.html"})
+            .when('/test', {templateUrl: "view/testPage.html", controller: "testPageController"})
             .when('/login', {templateUrl: "view/login.html", controller: "loginController"})
             .otherwise({redirectTo: '/'});
     });
