@@ -9,7 +9,7 @@
     <base href="/"/>
 </head>
 
-<body ng-app="index" ng-controller="indexController">
+<body ng-app="app">
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -20,7 +20,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li><a href="/admin">Admin</a></li>
-                <li><a href="/test">TEST</a></li>
+                <li><a ng-href="test">TEST</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -31,17 +31,12 @@
     </div>
 </nav>
 
-<!-- TODO animation -->
-<div class="col-md-4 col-md-offset-4 full-height" style="padding-top: 60px; text-align: center" >
-    <!--suppress CheckImageSize -->
-    <img src="images/login.png" width="300" height="244" style="display: block; margin: auto"/>
-    <br/>
-    <h1>343 Electronics</h1>
-</div>
+<div ng-view=""></div>
 
 <!-- Angular Imports -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
 
 <!-- Angular Scripts -->
 <script src="js/index.js"></script>
