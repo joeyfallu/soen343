@@ -12,6 +12,14 @@
 </head>
 
 <body ng-app="addItems" ng-controller="addItemsCtrl">
+<script>
+  window.onbeforeunload = confirmExit;
+  function confirmExit()
+  {
+
+    return "You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
+  }
+</script>
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -33,25 +41,15 @@
     </div>
 </nav>
 
+<div class="finishTransactions"  ng-click="endTransaction()" style="padding-bottom: 1%;">
+    <a href="/admin">
+        <button class="btn btn-default">Finish</button>
+    </a>
+</div>
+
 <div class="container">
     <div class="col-md-8 col-md-offset-2">
         <div class="form-area">
-
-            <form name="tv" ng-submit="addTv()">
-                <h2>Add a TV:</h2>
-                <label>Model Number</label>
-                <input type="text" class="form-control" ng-model="tvModelNumber" required="" autofocus=""/>
-                <label>Brand</label>
-                <input type="text" class="form-control" ng-model="tvBrand" required=""/>
-                <label>Dimensions (in cm)</label>
-                <input type="text" class="form-control" ng-model="tvDimensions" required=""/>
-                <label>Weight (in kg)</label>
-                <input type="text" class="form-control" ng-model="tvWeight" required=""/>
-                <label>Price </label>
-                <input type="text" class="form-control" ng-model="tvPrice" required=""/><br/>
-                <button type="submit" class="btn btn-block">Submit</button>
-                {{tvMessage}}
-            </form>
 
             <form name="monitor" ng-submit="addMonitor()">
                 <h2>Add a Monitor:</h2>

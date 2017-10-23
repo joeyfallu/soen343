@@ -30,27 +30,6 @@ app.controller('addItemsCtrl', function ($scope, $http) {
         });
     };
 
-    $scope.addTv = function () {
-        var url = "/post/addTv";
-        var data = {
-            id: "0",
-            model: $scope.tvModelNumber,
-            weight: $scope.tvWeight,
-            price: $scope.tvPrice,
-            brand: $scope.tvBrand,
-            dimensions: $scope.tvDimensions,
-            discriminator: "1",
-        };
-
-        $http.post(url, data).then((res) => {
-            $scope.tvMessage = "Success!";
-        }).catch((err) => {
-            console.log("ERROR:");
-            console.log(err);
-            $scope.tvMessage = "Error. Check console.";
-        });
-    };
-
     $scope.addTablet = function () {
         var url = "/post/addTablet";
         var data = {
@@ -133,4 +112,16 @@ app.controller('addItemsCtrl', function ($scope, $http) {
             $scope.laptopMessage = "Error. Check console.";
         });
     };
+
+       $scope.endTransaction = function(){
+            var url = "/post/endTransaction";
+
+            $http.post(url);
+       }
+
+       window.onbeforeunload =  function(e){
+            var url = "/post/endTransaction";
+            $http.post(url);
+            return "Leaving Page";
+       };
 });

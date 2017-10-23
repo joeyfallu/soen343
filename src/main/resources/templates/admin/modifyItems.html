@@ -10,7 +10,6 @@
 </head>
 
 <body ng-app="modifyItems" ng-controller="modifyItemsController">
-
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -30,6 +29,13 @@
         </div>
     </div>
 </nav>
+
+<div class="finishTransactions"  ng-click="endTransaction()" style="padding-bottom: 1%;">
+    <a href="/admin">
+        <button class="btn btn-default">Finish</button>
+    </a>
+</div>
+
 <div class="container">
     <div class="col-md-8 col-md-offset-2">
         <div class="form-area">
@@ -47,23 +53,6 @@
         </div>
         {{message}}
         <div ng-switch="itemData.discriminator">
-
-            <div ng-switch-when="1">
-                <form name="modifyTVForm" ng-submit="modifyTV()">
-                    <h2>Modify a TV:</h2>
-                    <label>Model Number</label>
-                    <input type="text" class="form-control" ng-model="itemData.model"  />
-                    <label>Brand</label>
-                    <input type="text" class="form-control" ng-model="itemData.brand"  />
-                    <label>Dimensions (in cm)</label>
-                    <input type="text" class="form-control" ng-model="itemData.dimensions" />
-                    <label>Weight (in kg)</label>
-                    <input type="text" class="form-control" ng-model="itemData.weight"  />
-                    <label>Price </label>
-                    <input type="text" class="form-control" ng-model="itemData.price" /><br />
-                    <button type="submit" class="btn btn-block">Submit</button>
-                </form>
-            </div>
 
             <div ng-switch-when="2">
                 <form name="modifyMonitorForm" ng-submit="modifyMonitor()">
