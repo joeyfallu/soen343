@@ -28,6 +28,18 @@ angular.module('app').controller('addUsersCtrl', function ($scope, $http) {
     });
     };
 
+   $scope.endTransaction = function(){
+        var url = "/post/endTransaction";
+
+        $http.post(url);
+    }
+
+
+    window.onbeforeunload =  function(e){
+          var url = "/post/endTransaction";
+          $http.post(url);
+          return "Leaving Page";
+    };
 
 
 });

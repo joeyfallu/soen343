@@ -9,7 +9,7 @@ public class Product {
     private int discriminator;
 
 
-    protected Product(int id, String model, double weight, double price, String brand, int discriminator){
+    public Product(int id, String model, double weight, double price, String brand, int discriminator){
         this.id = id;
         this.model = model;
         this.weight = weight;
