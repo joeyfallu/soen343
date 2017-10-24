@@ -9,7 +9,7 @@
     <base href="/"/>
 </head>
 
-<body ng-app="viewItems" ng-controller="viewItemsCtrl">
+<body ng-app="viewItemsDetail" ng-controller="viewItemsDetailCtrl">
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -32,30 +32,23 @@
 </nav>
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-4" ng-repeat="item in itemsInventory">
-            <div class="panel panel-primary">
-                <div ng-if="item.discriminator == 2" class="panel-heading"><a href="viewItems/{{item.id}}">Monitor</a></div>
-                <div ng-if="item.discriminator == 3" class="panel-heading"><a href="viewItems/{{item.id}}">Tablet</a></div>
-                <div ng-if="item.discriminator == 4" class="panel-heading"><a href="viewItems/{{item.id}}">Desktop</a></div>
-                <div ng-if="item.discriminator == 5" class="panel-heading"><a href="viewItems/{{item.id}}">Laptop</a></div>
-                <div class="panel-body">
-                    <ul style="list-style-type: none;">
-                        <li ng-repeat="(key,value) in item">
-                            {{key}}: {{value}}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    <h2>{{item.brand}} {{item.model}}</h2>
+
+    <h3>Product Information</h3>
+    <table class="table table-striped">
+        <tr class="row" ng-repeat="(key,value) in item">
+            <td>{{key | capitalize}}:</td>
+            <td>{{value}}</td>
+        </tr>
+    </table>
+
 </div>
 
 <!-- Angular Import -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 
 <!-- Angular Scripts -->
-<script src="../js/admin/viewItems.js"></script>
+<script src="../js/viewItemsDetail.js"></script>
 
 </body>
 </html>

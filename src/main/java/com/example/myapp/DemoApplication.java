@@ -64,6 +64,7 @@ public class DemoApplication {
         return "admin/viewItems";
     }
 
+
     @RequestMapping(value="/addItems")
     public String addItems() {
         store.initiateTransaction(TempUserID,Transaction.Type.add);
@@ -97,6 +98,9 @@ public class DemoApplication {
 
         return json;
     }
+
+    @RequestMapping(value="/viewItems/{id}", method = RequestMethod.GET)
+    public String viewItemsId() { return "viewItemsDetail";}
 
     @RequestMapping(value = "/getItem/{id}", method = RequestMethod.GET)
     @ResponseBody
