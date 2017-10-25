@@ -17,8 +17,9 @@ import java.util.Map;
 @SpringBootApplication
 public class DemoApplication {
 
-    static Store store;
-    static int TempUserID=99099;
+    private static Store store;
+
+    private static int TempUserID = 99099;
 
     /* Single page application routing */
     // https://stackoverflow.com/questions/24837715/spring-boot-with-angularjs-html5mode/44850886#44850886
@@ -28,42 +29,33 @@ public class DemoApplication {
             "/login",
             "/registerAdmin",
             "/admin",
-            "/addItems",
-            "/addUsers",
-            "/viewItems",
-            "/modifyItems",
-            "/deleteItems"
+            "/viewItems"
     })
-    public String redirect() {
+    public String redirectOnReload() {
         return "forward:/index.html";
     }
 
-    // TODO fix
-    /* ROUTING */
-    @RequestMapping(value="/modifyItems", method = RequestMethod.GET)
-    public String modifyItems(){
+    @RequestMapping({
+            "/addItems",
+            "/addUsers",
+    })
+    public String redirectForAddTransaction() {
+        store.initiateTransaction(TempUserID,Transaction.Type.add);
+        return "forward:/index.html";
+    }
+
+    @RequestMapping({"/modifyItems"})
+    public String redirectForModifyTransaction() {
         store.initiateTransaction(TempUserID,Transaction.Type.modify);
-        return "admin/modifyItems";
+        return "forward:/index.html";
     }
 
-    @RequestMapping(value="/deleteItems")
-    public String deleteItems(){
+    @RequestMapping({"/deleteItems"})
+    public String redirectForDeleteTransaction() {
         store.initiateTransaction(TempUserID,Transaction.Type.delete);
-        return "admin/deleteItems";
+        return "forward:/index.html";
     }
 
-    @RequestMapping(value="/addItems")
-    public String addItems() {
-        store.initiateTransaction(TempUserID,Transaction.Type.add);
-        return "admin/addItems";
-    }
-
-
-    @RequestMapping(value="/addUsers")
-    public String addUsers() {
-        store.initiateTransaction(TempUserID,Transaction.Type.add);
-        return "admin/addUsers";
-    }
 
     /* LOGIN */
     @RequestMapping(value = "/post/login", method = RequestMethod.POST, produces = "application/json")
@@ -72,6 +64,7 @@ public class DemoApplication {
         System.out.println(body);
         return body;
     }
+
 
     /* VIEW ITEMS */
     @RequestMapping("/get/products")
@@ -96,14 +89,6 @@ public class DemoApplication {
         String productJson = gson.toJson(items.get(id));
         System.out.println(productJson);
         return productJson;
-    }
-
-    @RequestMapping(value = "/modify", method = RequestMethod.GET)
-    /*
-    Returns modify Page
-     */
-    public String modifyPage() {
-        return "modify";
     }
 
 

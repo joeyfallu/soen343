@@ -2,18 +2,11 @@
 
 <script>
     window.onbeforeunload = confirmExit;
-    function confirmExit()
-    {
-
-        return "You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
+    function confirmExit() {
+        return "You have attempted to leave this page.  If you have made any changes to the fields without " +
+            "clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
     }
 </script>
-
-<div class="finishTransactions"  ng-click="endTransaction()" style="padding-bottom: 1%;">
-    <a href="/admin">
-        <button class="btn btn-default">Finish</button>
-    </a>
-</div>
 
 <div class="container">
     <div class="col-md-8 col-md-offset-2">
@@ -122,6 +115,12 @@
                 <button type="submit" class="btn btn-block">Submit</button>
                 {{laptopMessage}}
             </form>
+
+            <div class="finishTransactions"  ng-click="endTransaction()">
+                <a ng-href="admin">
+                    <button class="btn btn-default">Finish</button>
+                </a>
+            </div>
 
         </div>
     </div>
