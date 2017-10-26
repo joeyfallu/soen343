@@ -2,11 +2,10 @@
     <div class="row">
         <div class="col-sm-4" ng-repeat="item in itemsInventory">
             <div class="panel panel-primary">
-                <div ng-if="item.discriminator == 1" class="panel-heading">Tv</div>
-                <div ng-if="item.discriminator == 2" class="panel-heading">Monitor</div>
-                <div ng-if="item.discriminator == 3" class="panel-heading">Tablet</div>
-                <div ng-if="item.discriminator == 4" class="panel-heading">Desktop</div>
-                <div ng-if="item.discriminator == 5" class="panel-heading">Laptop</div>
+                <div ng-if="item.discriminator == 2" class="panel-heading"><a href="viewItems/{{item.id}}">Monitor</a></div>
+                <div ng-if="item.discriminator == 3" class="panel-heading"><a href="viewItems/{{item.id}}">Tablet</a></div>
+                <div ng-if="item.discriminator == 4" class="panel-heading"><a href="viewItems/{{item.id}}">Desktop</a></div>
+                <div ng-if="item.discriminator == 5" class="panel-heading"><a href="viewItems/{{item.id}}">Laptop</a></div>
                 <div class="panel-body">
                     <ul style="list-style-type: none;">
                         <li ng-repeat="(key,value) in item">

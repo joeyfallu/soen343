@@ -33,11 +33,10 @@ public class DemoApplication {
             "/addItems",
             "/addUsers",
             "/viewItems",
-            "/modifyItems"
+            "/modifyItems",
+            "/viewItems/:id"
     })
-    public String redirectOnReload() {
-        return "forward:/index.html";
-    }
+    public String redirectOnReload() {return "forward:/index.html";}
 
     // TODO remove
     @RequestMapping({"/deleteItems"})
