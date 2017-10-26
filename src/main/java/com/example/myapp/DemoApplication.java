@@ -51,7 +51,26 @@ public class DemoApplication {
     @RequestMapping(value = "/post/login", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String loginSubmit(@RequestBody String body) {
-        System.out.println(body);
+
+        Gson gson = new Gson();
+        User tempUser = gson.fromJson(body, User.class);
+        String email = tempUser.getEmail();
+        String password = tempUser.getPassword();
+        tempUser = null;                            //This object isn't needed anymore
+        try{
+            User loggedInUser = store.getUserMapper().getUserCatalog().login(email, password);
+            System.out.println("Successful login by: " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " "+ loggedInUser.getEmail());
+        } catch(Exception e) {
+            if(e.getMessage() == "Wrong password"){
+                System.out.println("Wrong password");
+                //DO SOMETHING
+            }
+            if(e.getMessage() == "Email not found"){
+                System.out.println("Email not found");
+                //DO SOMETHING
+            }
+        }
+
         return body;
     }
 
@@ -81,14 +100,6 @@ public class DemoApplication {
         return productJson;
     }
 
-
-    /* MODIFY ITEMS */
-    @RequestMapping("/post/modifyItems")
-    @ResponseBody
-    String modifyItemsForm(){
-        System.out.println("Backend modify items");
-        return "{}";
-    }
 
     /* DELETE ITEMS */
     @RequestMapping(value = "/post/deleteItems", method = RequestMethod.POST)
@@ -293,30 +304,8 @@ public class DemoApplication {
         //initialize the store with the current catalog from the db
         store = new Store(userMap,productMap);
         store.getProductCatalog().setProducts(store.getProductMapper().getAll());
+        store.getUserMapper().getUserCatalog().setUsers(store.getUserMapper().getAll());
 
-        /*//start of test
-        Monitor mn1 = new Monitor(0,"toshiba", 47,99,"sony",24,2);
-        store.initiateTransaction(5, Transaction.Type.add);
-        store.addNewProduct(5,mn1);
-        store.endProductTransaction(5);
-        store.endTransaction(5);
-        //start of modify test
-        Tv tv1 = new Tv(0,"sony",99,35,"toshiba","34x32",1);
-        store.initiateTransaction(6,Transaction.Type.add);
-        store.modifyProduct(6,43,tv1);
-        store.endProductTransaction(6);
-        store.endTransaction(6);
-        //start of delete test
-        store.initiateTransaction(7,Transaction.Type.delete);
-        store.deleteProduct(7,12);
-        store.deleteProduct(7,14);
-        store.endProductTransaction(7);
-        store.endTransaction(7);*/
-//
-//        User test = new User(0,"jim","billy","1234 fake","2311233322","billy@jim.com","yolo",0);
-//        store.initiateTransaction(TempUserID,Transaction.Type.add);
-//        store.addNewUser(TempUserID,test);
-//        store.endTransaction(TempUserID);
-
+        System.out.println("Done initializing");
     }
 }

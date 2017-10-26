@@ -136,4 +136,8 @@ public class Store {
     public void setProductMapper(ProductMapper productMapper) {
         this.productMapper = productMapper;
     }
+
+    public UserMapper getUserMapper(){
+        return userMapper;
+    }
 }
