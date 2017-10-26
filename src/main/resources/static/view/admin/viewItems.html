@@ -1,6 +1,23 @@
 <div class="container">
+    <form>
+        <select ng-model="selector">
+            <option ng-value="id">Newest</option>
+            <option ng-value="-id">Oldest</option>
+            <option ng-value="price">Least expensive</option>
+            <option ng-value="-price">Most expensive</option>
+            <option ng-value="brand">Brand (A to Z)</option>
+            <option ng-value="-brand">Brand (Z to A)</option>
+            <option ng-value="weight">Lightes</option>
+            <option ng-value="-weight">Heaviest</option>
+            <option ng-value="discriminator">Type</option>
+        </select>
+        <input type="submit" ng-submit="sortBy(selector)">
+    </form>
+</div>
+
+<div class="container">
     <div class="row">
-        <div class="col-sm-4" ng-repeat="item in itemsInventory">
+        <div class="col-sm-4" ng-repeat="item in itemsInventory  | orderBy:select">
             <div class="panel panel-primary">
                 <div ng-if="item.discriminator == 1" class="panel-heading">Tv</div>
                 <div ng-if="item.discriminator == 2" class="panel-heading">Monitor</div>
