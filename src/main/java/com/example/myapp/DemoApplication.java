@@ -37,18 +37,13 @@ public class DemoApplication {
         return "forward:/index.html";
     }
 
-    @RequestMapping({"/addUsers"})
-    public String redirectForAddTransaction() {
-        store.initiateTransaction(TempUserID,Transaction.Type.add);
-        return "forward:/index.html";
-    }
-
     @RequestMapping({"/modifyItems"})
     public String redirectForModifyTransaction() {
         store.initiateTransaction(TempUserID,Transaction.Type.modify);
         return "forward:/index.html";
     }
 
+    // TODO remove
     @RequestMapping({"/deleteItems"})
     public String redirectForDeleteTransaction() {
         store.initiateTransaction(TempUserID,Transaction.Type.delete);
