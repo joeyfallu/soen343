@@ -258,11 +258,18 @@ public class DemoApplication {
 
     @RequestMapping(value="/post/endTransaction", method = RequestMethod.POST)
     @ResponseBody
-    String endTransaction(){
+    String endTransaction() {
 
         store.endTransaction(TempUserID);
-        System.out.println("HELLLO");
+        System.out.println("Ending transaction");
         return "hello";
+    }
+
+    @RequestMapping(value = "/get/startAddTransaction", method = RequestMethod.GET)
+    public String startStoreAddTransaction() {
+        System.out.println("Starting add transaction");
+        store.initiateTransaction(TempUserID, Transaction.Type.add);
+        return "";
     }
 
     public static void main(String[] args) {

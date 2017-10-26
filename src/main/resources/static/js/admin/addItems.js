@@ -110,12 +110,23 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
             $scope.laptopMessage = "Error. Check console.";
         });
     };
+    //
+    // $scope.$on('$routeChangeStart', function() {
+    //     console.log("route changed, ending transaction");
+    //     $scope.endTransaction();
+    // });
+
+
+    $scope.initiateTransaction = function() {
+        console.log("Calling backend to start add transaction");
+        $http.get("/get/startAddTransaction");
+    };
 
        $scope.endTransaction = function(){
             var url = "/post/endTransaction";
 
             $http.post(url);
-       }
+       };
 
        window.onbeforeunload =  function(e){
             var url = "/post/endTransaction";
