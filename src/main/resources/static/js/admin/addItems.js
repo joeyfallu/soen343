@@ -1,8 +1,8 @@
 'use strict';
 
-const app = angular.module('addItems', []);
+angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
 
-app.controller('addItemsCtrl', function ($scope, $http) {
+    /* Form submission */
     $scope.tvMessage = "";
     $scope.monitorMessage = "";
     $scope.tabletMessage = "";
@@ -10,8 +10,7 @@ app.controller('addItemsCtrl', function ($scope, $http) {
     $scope.laptopMessage = "";
 
     $scope.addMonitor = function () {
-        var url = "/post/addMonitor";
-        var data = {
+        let data = {
             id: "0",
             model: $scope.monitorModelNumber,
             weight: $scope.monitorWeight,
@@ -21,7 +20,7 @@ app.controller('addItemsCtrl', function ($scope, $http) {
             discriminator: "2",
         };
 
-        $http.post(url, data).then((res) => {
+        $http.post("/post/addMonitor", data).then((res) => {
             $scope.monitorMessage = "Success!";
         }).catch((err) => {
             console.log("ERROR:");
@@ -31,8 +30,7 @@ app.controller('addItemsCtrl', function ($scope, $http) {
     };
 
     $scope.addTablet = function () {
-        var url = "/post/addTablet";
-        var data = {
+        let data = {
             id: "0",
             model: $scope.tabletModelNumber,
             weight: $scope.tabletWeight,
@@ -50,7 +48,7 @@ app.controller('addItemsCtrl', function ($scope, $http) {
             discriminator: "3",
         };
 
-        $http.post(url, data).then((res) => {
+        $http.post("/post/addTablet", data).then((res) => {
             $scope.tabletMessage = "Success!";
         }).catch((err) => {
             console.log("ERROR:");
@@ -60,8 +58,7 @@ app.controller('addItemsCtrl', function ($scope, $http) {
     };
 
     $scope.addDesktop = function () {
-        var url = "/post/addDesktop";
-        var data = {
+        let data = {
             id: "0",
             model: $scope.desktopModelNumber,
             weight: $scope.desktopWeight,
@@ -75,7 +72,7 @@ app.controller('addItemsCtrl', function ($scope, $http) {
             discriminator: "4",
         };
 
-        $http.post(url, data).then((res) => {
+        $http.post("/post/addDesktop", data).then((res) => {
             $scope.desktopMessage = "Success!";
         }).catch((err) => {
             console.log("ERROR:");
@@ -85,8 +82,7 @@ app.controller('addItemsCtrl', function ($scope, $http) {
     };
 
     $scope.addLaptop = function () {
-        var url = "/post/addLaptop";
-        var data = {
+        let data = {
             id: "0",
             model: $scope.laptopModelNumber,
             weight: $scope.laptopWeight,
@@ -104,7 +100,7 @@ app.controller('addItemsCtrl', function ($scope, $http) {
             discriminator: "5",
         };
 
-        $http.post(url, data).then((res) => {
+        $http.post("/post/addLaptop", data).then((res) => {
             $scope.laptopMessage = "Success!";
         }).catch((err) => {
             console.log("ERROR:");
@@ -113,15 +109,29 @@ app.controller('addItemsCtrl', function ($scope, $http) {
         });
     };
 
-       $scope.endTransaction = function(){
-            var url = "/post/endTransaction";
+    /* Routing */
+    $scope.$on('$routeChangeSuccess', function () {
+        console.log("view loaded, starting transaction");
+        $scope.initiateAddTransaction();
+    });
 
-            $http.post(url);
-       }
+    $scope.$on('$routeChangeStart', function() {
+        console.log("exiting view, ending transaction");
+        $scope.endTransaction();
+    });
 
-       window.onbeforeunload =  function(e){
-            var url = "/post/endTransaction";
-            $http.post(url);
-            return "Leaving Page";
-       };
+    window.onbeforeunload = function () {
+        $scope.endTransaction();
+    };
+
+    $scope.initiateAddTransaction = function () {
+        console.log("Calling backend to start add transaction");
+        $http.get("/get/startAddTransaction");
+    };
+
+    $scope.endTransaction = function () {
+        console.log("Calling backend to end transaction");
+        $http.get("/get/endTransaction");
+    };
+
 });

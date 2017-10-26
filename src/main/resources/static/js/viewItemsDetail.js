@@ -1,10 +1,6 @@
 'use strict';
 
-const app = angular.module('viewItemsDetail', [], function($locationProvider){
-    $locationProvider.html5Mode(true);
-});
-
-app.controller('viewItemsDetailCtrl', function ($scope, $http, $location) {
+angular.module('app').controller('viewItemsDetailCtrl', function ($scope, $http, $location) {
 
     var itemId = $location.path().split("/")[2];
 
@@ -17,7 +13,7 @@ app.controller('viewItemsDetailCtrl', function ($scope, $http, $location) {
 
 });
 
-app.filter('capitalize', function() {
+angular.module('app').filter('capitalize', function() {
     return function(input) {
       return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
     }
