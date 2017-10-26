@@ -1,8 +1,6 @@
 'use strict';
 
-const deleteItemsModule = angular.module('deleteItems', []);
-
-deleteItemsModule.controller('deleteItemsController', ['$scope', "$http", function loginController($scope, $http) {
+angular.module('app').controller('deleteItemsController', ['$scope', "$http", function loginController($scope, $http) {
     $scope.deleteItem = function () {
         $scope.message = "";
 

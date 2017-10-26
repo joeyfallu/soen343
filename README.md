@@ -1,7 +1,7 @@
 # SOEN 343 - Architecture & Design I
 ### Website:
 
-http://343electronics.com
+http://soen343electronics.herokuapp.com/
 
 ### Team:
 

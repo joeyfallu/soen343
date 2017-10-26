@@ -1,47 +1,54 @@
 'use strict';
 
-const app = angular.module('addUsers', []);
+angular.module('app').controller('addUsersCtrl', function ($scope, $http) {
 
-app.controller('addUsersCtrl', function ($scope, $http) {
+    /* Form submission */
     $scope.userMessage = "";
 
-
-
-
     $scope.addUser = function () {
-        var url = "/post/addUser";
-        var data = {
-            id : "0",
-            firstName : $scope.firstName,
-            lastName : $scope.lastName,
-            address : $scope.address,
-            phoneNumber : $scope.phoneNumber,
-            email : $scope.email,
-            password : $scope.password,
-            isAdmin : $scope.adminStatus
+        let data = {
+            id: "0",
+            firstName: $scope.firstName,
+            lastName: $scope.lastName,
+            address: $scope.address,
+            phoneNumber: $scope.phoneNumber,
+            email: $scope.email,
+            password: $scope.password,
+            isAdmin: $scope.adminStatus
         };
 
-        $http.post(url, data).then((res) => {
+        $http.post("/post/addUser", data).then((res) => {
             $scope.userMessage = "Success!";
-    }).catch((err) => {
+        }).catch((err) => {
             console.log("ERROR:");
-        console.log(err);
-        $scope.userMessage = "Error. Check console.";
+            console.log(err);
+            $scope.userMessage = "Error. Check console.";
+        });
+    };
+
+    /* Routing */
+    $scope.$on('$routeChangeSuccess', function () {
+        console.log("view loaded, starting transaction");
+        $scope.initiateAddTransaction();
     });
+
+    $scope.$on('$routeChangeStart', function() {
+        console.log("exiting view, ending transaction");
+        $scope.endTransaction();
+    });
+
+    window.onbeforeunload = function () {
+        $scope.endTransaction();
     };
 
-   $scope.endTransaction = function(){
-        var url = "/post/endTransaction";
-
-        $http.post(url);
-    }
-
-
-    window.onbeforeunload =  function(e){
-          var url = "/post/endTransaction";
-          $http.post(url);
-          return "Leaving Page";
+    $scope.initiateAddTransaction = function () {
+        console.log("Calling backend to start add transaction");
+        $http.get("/get/startAddTransaction");
     };
 
+    $scope.endTransaction = function () {
+        console.log("Calling backend to end transaction");
+        $http.get("/get/endTransaction");
+    };
 
 });
