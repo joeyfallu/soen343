@@ -7,6 +7,7 @@ import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.*;
 import com.example.myapp.productCatalog.Desktop;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
@@ -132,72 +133,16 @@ public class DemoApplication {
     /* DELETE ITEMS */
     @RequestMapping(value = "/post/deleteItems", method = RequestMethod.POST)
     @ResponseBody
-    String deleteItemsForm(@RequestBody String Json){
-
-        ProductCatalog pC = new ProductCatalog();
-
-        //Delete items with single digit IDs
-        if(Json.length() == 16 ){
-            String sid = Json.substring(13, 14);
-            int id = Integer.parseInt(sid);
-
-            try{
-                pC.deleteProduct(id);
-            }
-            catch(Exception e){
-                System.out.println("Item deletion failed: " + e.toString());
-            }
-
-            System.out.println("Item : " + id + " successfully deleted from database");
-
-        }
-        //Delete items with double digit IDs
-        if(Json.length() == 17 ){
-            String sid = Json.substring(13, 15);
-            int id = Integer.parseInt(sid);
-
-            try{
-                pC.deleteProduct(id);
-            }
-            catch(Exception e){
-                System.out.println("Item deletion failed: " + e.toString());
-            }
-
-            System.out.println("Item : " + id + " successfully deleted from database");
-        }
-        //Delete items with triple digits IDs
-        if(Json.length() == 18 ){
-            String sid = Json.substring(13, 16);
-            int id = Integer.parseInt(sid);
-
-            try{
-                pC.deleteProduct(id);
-            }
-            catch(Exception e){
-                System.out.println("Item deletion failed: " + e.toString());
-            }
-
-            System.out.println("Item : " + id + " successfully deleted from database");
-        }
-        //Delete items with quadruple digits IDs
-        if(Json.length() == 19 ){
-            String sid = Json.substring(13, 17);
-            int id = Integer.parseInt(sid);
-
-            try{
-                pC.deleteProduct(id);
-            }
-            catch(Exception e){
-                System.out.println("Item deletion failed: " + e.toString());
-            }
-
-            System.out.println("Item : " + id + " successfully deleted from database");
-        }
-
-
-
-
-        return "{}";
+    String deleteItemsForm(@RequestBody String json){
+        Gson gson = new Gson();
+        JsonObject jsonObject = new Gson().fromJson(json, JsonObject.class);
+        int id = jsonObject.get("deleteId").getAsInt();
+        Map<Integer, Product> products = store.viewProductCatalog();
+        if(!products.containsKey(id))
+            System.out.println("Item does not exist");
+        else
+            store.deleteProduct(TempUserID,id);
+        return json;
     }
 
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)

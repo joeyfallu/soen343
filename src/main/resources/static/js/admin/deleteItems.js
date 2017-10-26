@@ -13,7 +13,7 @@ deleteItemsModule.controller('deleteItemsController', ['$scope', "$http", functi
 
         $http.post(url, data).then((res) => {
             console.log(res);
-            $scope.message = "Success!";
+            $scope.message = "Item with id "  + $scope.deleteId + " was deleted";
         }).catch((err) => {
             console.log("ERROR:");
             console.log(err);
