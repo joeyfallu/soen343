@@ -31,15 +31,11 @@ public class DemoApplication {
             "/registerAdmin",
             "/admin",
             "/addItems",
-            "/viewItems"
+            "/addUsers",
+            "/viewItems",
+            "/modifyItems"
     })
     public String redirectOnReload() {
-        return "forward:/index.html";
-    }
-
-    @RequestMapping({"/modifyItems"})
-    public String redirectForModifyTransaction() {
-        store.initiateTransaction(TempUserID,Transaction.Type.modify);
         return "forward:/index.html";
     }
 
@@ -268,6 +264,20 @@ public class DemoApplication {
     public void startStoreAddTransaction() {
         System.out.println("Starting add transaction");
         store.initiateTransaction(TempUserID, Transaction.Type.add);
+    }
+
+    @RequestMapping(value = "/get/startModifyTransaction", method = RequestMethod.GET)
+    @ResponseBody
+    public void startStoreModifyTransaction() {
+        System.out.println("Starting modify transaction");
+        store.initiateTransaction(TempUserID, Transaction.Type.modify);
+    }
+
+    @RequestMapping(value = "/get/startDeleteTransaction", method = RequestMethod.GET)
+    @ResponseBody
+    public void startStoreDeleteTransaction() {
+        System.out.println("Starting delete transaction");
+        store.initiateTransaction(TempUserID, Transaction.Type.delete);
     }
 
 
