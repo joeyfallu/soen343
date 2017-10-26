@@ -1,8 +1,6 @@
 'use strict';
 
-const modifyItemsModule = angular.module('modifyItems', []);
-
-modifyItemsModule.controller('modifyItemsController', function($scope, $http){
+angular.module('app').controller('modifyItemsController', function($scope, $http){
           $scope.getProdInfo = function (){
                 $scope.message = "";
                 var id = $scope.mId;

@@ -11,86 +11,64 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
-import java.util.HashMap;
 import java.util.Map;
 
 @Controller
 @SpringBootApplication
 public class DemoApplication {
 
-    static Store store;
-    static int TempUserID=99099;
+    private static Store store;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home() {
-        return "index";
+    // TODO replace with current user ID
+    private static int TempUserID = 99099;
+
+    /* Single page application routing */
+    // https://stackoverflow.com/questions/24837715/spring-boot-with-angularjs-html5mode/44850886#44850886
+    @RequestMapping({
+            "/",
+            "/test",
+            "/login",
+            "/registerAdmin",
+            "/admin",
+            "/addItems",
+            "/viewItems"
+    })
+    public String redirectOnReload() {
+        return "forward:/index.html";
     }
 
-    /* ROUTING */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "login";
+    @RequestMapping({"/addUsers"})
+    public String redirectForAddTransaction() {
+        store.initiateTransaction(TempUserID,Transaction.Type.add);
+        return "forward:/index.html";
     }
 
-    @RequestMapping(value = "/registerAdmin", method = RequestMethod.GET)
-    public String registerAdmin() {
-        return "registerAdmin";
-    }
-
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String admin() {
-        return "admin/admin";
-    }
-
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String test() {
-        return "testPage";
-    }
-
-    @RequestMapping(value="/modifyItems", method = RequestMethod.GET)
-    public String modifyItems(){
+    @RequestMapping({"/modifyItems"})
+    public String redirectForModifyTransaction() {
         store.initiateTransaction(TempUserID,Transaction.Type.modify);
-        return "admin/modifyItems";
+        return "forward:/index.html";
     }
 
-    @RequestMapping(value="/deleteItems")
-    public String deleteItems(){
+    @RequestMapping({"/deleteItems"})
+    public String redirectForDeleteTransaction() {
         store.initiateTransaction(TempUserID,Transaction.Type.delete);
-        return "admin/deleteItems";
+        return "forward:/index.html";
     }
 
-    @RequestMapping(value="/viewItems", method = RequestMethod.GET)
-    public String viewItems(){
-        return "admin/viewItems";
-    }
-
-    @RequestMapping(value="/addItems")
-    public String addItems() {
-        store.initiateTransaction(TempUserID,Transaction.Type.add);
-        return "admin/addItems";
-    }
-
-
-    @RequestMapping(value="/addUsers")
-    public String addUsers() {
-        store.initiateTransaction(TempUserID,Transaction.Type.add);
-        return "admin/addUsers";
-    }
 
     /* LOGIN */
-    @RequestMapping(value = "/post/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/post/login", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String loginSubmit(@RequestBody String body) {
         System.out.println(body);
-        return "{data: 'Successful login'}";
+        return body;
     }
 
-    /* VIEW ITEMS */
 
+    /* VIEW ITEMS */
     @RequestMapping("/get/products")
     @ResponseBody
     String getProducts(){
-
         Gson gson = new Gson();
 
         String json = gson.toJson(store.getProductMapper().getProductCatalog().getProducts());
@@ -110,14 +88,6 @@ public class DemoApplication {
         String productJson = gson.toJson(items.get(id));
         System.out.println(productJson);
         return productJson;
-    }
-
-    @RequestMapping(value = "/modify", method = RequestMethod.GET)
-    /*
-    Returns modify Page
-     */
-    public String modifyPage() {
-        return "modify";
     }
 
 
@@ -200,6 +170,8 @@ public class DemoApplication {
         return "{}";
     }
 
+
+    /* ADD USER */
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
     @ResponseBody
     String addUser(@RequestBody String json){
@@ -210,6 +182,7 @@ public class DemoApplication {
         return gson.toJson(json);
     }
 
+    /* ADD ITEMS */
     @RequestMapping(value = "/post/addMonitor", method = RequestMethod.POST)
     @ResponseBody
     String addMonitor(@RequestBody String json){
@@ -285,14 +258,23 @@ public class DemoApplication {
         return gson.toJson(json);
     }
 
-    @RequestMapping(value="/post/endTransaction", method = RequestMethod.POST)
-    @ResponseBody
-    String endTransaction(){
 
+    /* TRANSACTIONS */
+    // TODO move to different controller files
+    @RequestMapping(value = "/get/endTransaction", method = RequestMethod.GET)
+    @ResponseBody
+    public void endTransaction() {
+        System.out.println("Ending transaction");
         store.endTransaction(TempUserID);
-        System.out.println("HELLLO");
-        return "hello";
     }
+
+    @RequestMapping(value = "/get/startAddTransaction", method = RequestMethod.GET)
+    @ResponseBody
+    public void startStoreAddTransaction() {
+        System.out.println("Starting add transaction");
+        store.initiateTransaction(TempUserID, Transaction.Type.add);
+    }
+
 
     public static void main(String[] args) {
         //start the server

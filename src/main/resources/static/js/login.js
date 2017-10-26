@@ -1,13 +1,13 @@
 'use strict';
 
-const loginModule = angular.module('login', []);
-
-loginModule.controller('loginController', ['$scope', "$http", function loginController($scope, $http) {
+angular.module('app')
+    .controller('loginController', ['$scope', "$http", function loginController($scope, $http) {
         $scope.errorMsg = "";
 
+        /* Handles the login form */
         $scope.login = function () {
-            /* Handles the login form*/
             const url = "/post/login";
+
             let data = {
                 email: $scope.email,
                 password: $scope.password
@@ -29,5 +29,4 @@ loginModule.controller('loginController', ['$scope', "$http", function loginCont
                 }
             });
         };
-    }
-]);
+    }]);
