@@ -1,33 +1,30 @@
-<!-- TODO cleanup -->
-
-<script>
-    window.onbeforeunload = confirmExit;
-    function confirmExit() {
-        return "You have attempted to leave this page.  If you have made any changes to the fields without " +
-            "clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
-    }
-</script>
-
 <div class="container">
     <div class="col-md-8 col-md-offset-2">
         <div class="form-area">
 
             <form name="monitor" ng-submit="addMonitor()">
                 <h2>Add a Monitor:</h2>
-                <label>Model Number</label>
-                <input type="text" class="form-control" ng-model="monitorModelNumber" required="" autofocus=""/>
-                <label>Brand</label>
-                <input type="text" class="form-control" ng-model="monitorBrand" required=""/>
-                <label>Size (in inches)</label>
-                <input type="text" class="form-control" ng-model="monitorSize" required=""/>
-                <label>Weight (in kg)</label>
-                <input type="text" class="form-control" ng-model="monitorWeight " required=""/>
-                <label>Price </label>
-                <input type="text" class="form-control" ng-model="monitorPrice" required=""/><br/>
-                <button type="submit" class="btn btn-block">Submit</button>
+
+                <label for="monitorModelNumInput">Model Number</label>
+                <input type="text" class="form-control" ng-model="monitorModelNumber" required="" autofocus="" id="monitorModelNumInput"/>
+
+                <label for="monitorBrandInput">Brand</label>
+                <input type="text" class="form-control" ng-model="monitorBrand" required="" id="monitorBrandInput"/>
+
+                <label for="monitorSizeInput">Size (in inches)</label>
+                <input type="text" class="form-control" ng-model="monitorSize" required="" id="monitorSizeInput"/>
+
+                <label for="monitorWeightInput">Weight (in kg)</label>
+                <input type="text" class="form-control" ng-model="monitorWeight" required="" id="monitorWeightInput"/>
+
+                <label for="monitorPriceInput">Price</label>
+                <input type="text" class="form-control" ng-model="monitorPrice" required="" id="monitorPriceInput"/>
+
+                <br/><button type="submit" class="btn btn-block">Submit</button>
                 {{monitorMessage}}
             </form>
 
+            <!-- TODO cleanup -->
             <form name="tablet" ng-submit="addTablet()">
                 <h2>Add a Tablet:</h2>
                 <label>Model Number</label>
@@ -116,11 +113,7 @@
                 {{laptopMessage}}
             </form>
 
-            <div class="finishTransactions"  ng-click="endTransaction()">
-                <a ng-href="admin">
-                    <button class="btn btn-default">Finish</button>
-                </a>
-            </div>
+            <br/><a ng-href="admin"><button class="btn btn-block">Finish</button></a>
 
         </div>
     </div>

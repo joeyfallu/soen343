@@ -19,6 +19,7 @@ public class DemoApplication {
 
     private static Store store;
 
+    // TODO replace with current user ID
     private static int TempUserID = 99099;
 
     /* Single page application routing */
@@ -29,16 +30,14 @@ public class DemoApplication {
             "/login",
             "/registerAdmin",
             "/admin",
+            "/addItems",
             "/viewItems"
     })
     public String redirectOnReload() {
         return "forward:/index.html";
     }
 
-    @RequestMapping({
-            "/addItems",
-            "/addUsers",
-    })
+    @RequestMapping({"/addUsers"})
     public String redirectForAddTransaction() {
         store.initiateTransaction(TempUserID,Transaction.Type.add);
         return "forward:/index.html";
@@ -171,6 +170,8 @@ public class DemoApplication {
         return "{}";
     }
 
+
+    /* ADD USER */
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
     @ResponseBody
     String addUser(@RequestBody String json){
@@ -181,6 +182,7 @@ public class DemoApplication {
         return gson.toJson(json);
     }
 
+    /* ADD ITEMS */
     @RequestMapping(value = "/post/addMonitor", method = RequestMethod.POST)
     @ResponseBody
     String addMonitor(@RequestBody String json){
@@ -256,21 +258,23 @@ public class DemoApplication {
         return gson.toJson(json);
     }
 
-    @RequestMapping(value="/post/endTransaction", method = RequestMethod.POST)
-    @ResponseBody
-    String endTransaction() {
 
-        store.endTransaction(TempUserID);
+    /* TRANSACTIONS */
+    // TODO move to different controller files
+    @RequestMapping(value = "/get/endTransaction", method = RequestMethod.GET)
+    @ResponseBody
+    public void endTransaction() {
         System.out.println("Ending transaction");
-        return "hello";
+        store.endTransaction(TempUserID);
     }
 
     @RequestMapping(value = "/get/startAddTransaction", method = RequestMethod.GET)
-    public String startStoreAddTransaction() {
+    @ResponseBody
+    public void startStoreAddTransaction() {
         System.out.println("Starting add transaction");
         store.initiateTransaction(TempUserID, Transaction.Type.add);
-        return "";
     }
+
 
     public static void main(String[] args) {
         //start the server
