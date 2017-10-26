@@ -1,31 +1,40 @@
-<!-- TODO cleanup -->
-<h1>Add New User Form</h1>
+<div class="container">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="form-area">
 
-<form name="user" ng-submit="addUser()">
-    <label>First name:</label>
-    <input type="text" class="form-control" ng-model="firstName" required=""/>
-    <label>Last name:</label>
-    <input type="text" class="form-control" ng-model="lastName" required=""/>
-    <label>Address:</label>
-    <input type="text" class="form-control" ng-model="address" required=""/>
-    <label>E-mail:</label>
-    <input type="email" class="form-control" ng-model="email" required=""/>
-    <label>password:</label>
-    <input type="password" class="form-control" ng-model="password" required=""/>
-    <label>Phone number:</label>
-    <input type="text" class="form-control" ng-model="phoneNumber" required=""/>
-    <label>Admin status:</label><br/>
+            <h1>Add New User Form</h1>
 
-        <input type="radio" ng-model="adminStatus" ng-value="1"/> Admin<br/>
-        <input type="radio" ng-model="adminStatus" ng-value="0"/> User<br/>
+            <form name="user" ng-submit="addUser()">
 
-    <button type="submit" class="btn btn-block">Submit</button>
-    {{userMessage}}
+                <label for="firstNameInput">First name:</label>
+                <input type="text" class="form-control" ng-model="firstName" required="" id="firstNameInput"/>
 
-    <div class="finishTransactions"  ng-click="endTransaction()">
-        <a ng-href="admin">
-            <button class="btn btn-default">Finish</button>
-        </a>
+                <label for="lastNameInput">Last name:</label>
+                <input type="text" class="form-control" ng-model="lastName" required="" id="lastNameInput"/>
+
+                <label for="addressInput">Address:</label>
+                <input type="text" class="form-control" ng-model="address" required="" id="addressInput"/>
+
+                <label for="emailInput">E-mail:</label>
+                <input type="email" class="form-control" ng-model="email" required="" id="emailInput"/>
+
+                <label for="passwordInput">Password:</label>
+                <input type="password" class="form-control" ng-model="password" required="" id="passwordInput"/>
+
+                <label for="phoneNumInput">Phone number:</label>
+                <input type="text" class="form-control" ng-model="phoneNumber" required="" id="phoneNumInput"/>
+
+                <label>Admin status:</label><br/>
+                <input type="radio" ng-model="adminStatus" ng-value="1"/> Admin<br/>
+                <input type="radio" ng-model="adminStatus" ng-value="0"/> User<br/>
+
+                <br/><button type="submit" class="btn btn-block">Submit</button>
+                {{userMessage}}
+
+                <br/><a ng-href="admin"><button class="btn btn-block">Finish</button></a>
+
+            </form>
+
+        </div>
     </div>
-
-</form>
+</div>

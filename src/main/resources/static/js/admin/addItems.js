@@ -121,7 +121,6 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
     });
 
     window.onbeforeunload = function () {
-        console.log("reloading or closing page");
         $scope.endTransaction();
     };
 
