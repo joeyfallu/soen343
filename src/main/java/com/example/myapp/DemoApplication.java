@@ -14,6 +14,7 @@ import org.springframework.stereotype.*;
 import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 
 @Controller
 @SpringBootApplication
@@ -62,20 +63,30 @@ public class DemoApplication {
         try{
             User loggedInUser = store.getUserMapper().getUserCatalog().login(email, password);
             System.out.println("Successful login by: " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " "+ loggedInUser.getEmail());
+            //Send two cookies which store the user's id and info as json
+            Cookie userIdCookie = new Cookie("SESSIONID", ""+loggedInUser.getId());
+            userIdCookie.setMaxAge(24*60*60);
+            response.addCookie(userIdCookie);
+            //the json needs to be URL encoded in order to be stored in a cookie.
+            String userInfoStr = URLEncoder.encode(gson.toJson(loggedInUser), "UTF-8");
+            Cookie userInfoCookie = new Cookie("USERINFO", userInfoStr);
+            userInfoCookie.setMaxAge(24*60*60);
+            response.addCookie(userInfoCookie);
+            //Could be encrypted for security
+            String userJsonResponse = gson.toJson(loggedInUser);
+            //Responds with a User Object in Json format
+            return userJsonResponse;
         } catch(Exception e) {
             if(e.getMessage().equals("Wrong password")){
-                System.out.println("Wrong password");
-                //DO SOMETHING
+                return "{\"message\":\"Wrong password\"}";
             }
-            if(e.getMessage().equals("Email not found")){
-                System.out.println("Email not found");
-                //DO SOMETHING
+            if (e.getMessage().equals("Email not found")){
+                return "{\"message\":\"Email not found\"}";
+            } else {
+                e.printStackTrace();
+                return "{\"message\":\"Error logging in\"}";
             }
         }
-        Cookie userCookie = new Cookie("TESTTESTEST","LOLOLOLOLOL");
-        userCookie.setMaxAge(24*60*60);
-        response.addCookie(userCookie);
-        return body;
     }
 
 
