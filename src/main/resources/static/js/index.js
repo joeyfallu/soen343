@@ -14,7 +14,6 @@ angular.module('app', ['ngRoute','ngCookies'])
             let data = {
                 id: $cookies.get("SESSIONID")
             };
-
             $http.post(url, data).then((res) => {
                 if (res.data.message)
                     $scope.errorMsg = res.data.message;

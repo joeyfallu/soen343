@@ -67,10 +67,14 @@ public class DemoApplication {
             //Send two cookies which store the user's id and info as json
             Cookie userIdCookie = new Cookie("SESSIONID", ""+loggedInUser.getId());
             userIdCookie.setMaxAge(24*60*60);
+            userIdCookie.setPath("/");
+            userIdCookie.setHttpOnly(false);
             response.addCookie(userIdCookie);
             //the json needs to be URL encoded in order to be stored in a cookie.
             String userInfoStr = URLEncoder.encode(gson.toJson(loggedInUser), "UTF-8");
             Cookie userInfoCookie = new Cookie("USERINFO", userInfoStr);
+            userInfoCookie.setPath("/");
+            userInfoCookie.setHttpOnly(false);
             userInfoCookie.setMaxAge(24*60*60);
             response.addCookie(userInfoCookie);
             //Could be encrypted for security
