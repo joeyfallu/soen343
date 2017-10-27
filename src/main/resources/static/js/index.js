@@ -1,9 +1,29 @@
 'use strict';
 
-angular.module('app', ['ngRoute'])
-    .controller("mainController", function mainController($scope) {
+angular.module('app', ['ngRoute','ngCookies'])
+    .controller("mainController", ['$scope','$cookies','$http',"$location", function mainController($scope, $cookies, $http, $location) {
+        $scope.loggedIn = function(){
+            console.log("COOKIE: ", $cookies.get("SESSIONID"));
+            if($cookies.get("SESSIONID") != null)
+                return true;
+            else
+                return false;
+        };
+        $scope.logout = function(){
+            const url = '/post/logout';
+            let data = {
+                id: $cookies.get("SESSIONID")
+            };
 
-    })
+            $http.post(url, data).then((res) => {
+                if (res.data.message)
+                    $scope.errorMsg = res.data.message;
+                $cookies.remove("SESSIONID");
+                $cookies.remove("USERINFO");
+                $location.path('/');
+            });
+        };
+    }])
 
     .config(function ($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);

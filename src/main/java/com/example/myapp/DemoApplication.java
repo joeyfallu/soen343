@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
 import java.util.Map;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 
@@ -89,6 +90,15 @@ public class DemoApplication {
         }
     }
 
+    /* LOGOUT */
+    @RequestMapping(value = "/post/logout", method = RequestMethod.POST)
+    @ResponseBody
+    String logout(@RequestBody String json){
+        Gson gson = new Gson();
+        int id = gson.fromJson(json, int.class);
+        System.out.println(id);
+        return null;
+    }
 
     /* VIEW ITEMS */
     @RequestMapping("/get/products")
