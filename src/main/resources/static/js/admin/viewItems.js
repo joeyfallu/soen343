@@ -15,6 +15,8 @@ angular.module('app').controller('viewItemsCtrl', function ($scope, $http) {
 
         $scope.itemsInventory = items;
         $scope.select = null;
+        $scope.search3= 0;
+        $scope.search4 = 100000000;
 
 
         $scope.listOfOptions = ['Most Expensive', 'Least Expensive', 'Most Recent', 'Least Recent', 'Heaviest', 'Lightest', 'Brand (A-Z)', 'Brand (Z-A)'];
@@ -53,13 +55,18 @@ angular.module('app').controller('viewItemsCtrl', function ($scope, $http) {
         //https://stackoverflow.com/questions/24081004/angularjs-ng-repeat-filter-when-value-is-greater-than
         $scope.greaterThan = function(prop, val){
             return function(item){
+                if (item['discriminator'] === 4){
+                    return true;
+                }
               return item[prop] > val;
             }
         }
-        
-        $scope.SmallerThan = function(prop, val){
+        $scope.smallerThan = function(prop, val){
             return function(item){
-              return item[prop] > val;
+                if (item['discriminator'] === 4){
+                    return true;
+                }
+              return item[prop] < val;
             }
         }
 
