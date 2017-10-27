@@ -19,6 +19,7 @@ angular.module('app', ['ngRoute'])
             .when('/viewItems', {templateUrl: "view/admin/viewItems.html", controller: "viewItemsCtrl"})
             .when('/modifyItems', {templateUrl: "view/admin/modifyItems.html", controller: "modifyItemsController"})
             .when('/deleteItems', {templateUrl: "view/admin/deleteItems.html", controller: "deleteItemsController"})
+            .when('/viewItems/:id', {templateUrl: "view/viewItemsDetail.html", controller: "viewItemsDetailCtrl"})
 
             .otherwise({redirectTo: '/'});
     });
