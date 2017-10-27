@@ -45,8 +45,8 @@ public class DemoApplication {
 
     // TODO remove
     @RequestMapping({"/deleteItems"})
-    public String redirectForDeleteTransaction() {
-        store.initiateTransaction(TempUserID,Transaction.Type.delete);
+    public String redirectForDeleteTransaction(@CookieValue("SESSIONID") int cookieId) {
+        store.initiateTransaction(cookieId,Transaction.Type.delete);
         return "forward:/index.html";
     }
 
@@ -133,19 +133,19 @@ public class DemoApplication {
     /* DELETE ITEMS */
     @RequestMapping(value = "/deleteItem/{id}", method = RequestMethod.GET)
     @ResponseBody
-    String deleteItemsForm(@PathVariable("id") int id){
+    String deleteItemsForm(@PathVariable("id") int id,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Map<Integer, Product> products = store.getProductCatalog().getProducts();
         String product = gson.toJson(products.get(id));
         if(product != null)
-            store.deleteProduct(TempUserID,id);
+            store.deleteProduct(cookieId,id);
         return product;
     }
 
     /* ADD USER */
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
     @ResponseBody
-    String addUser(@RequestBody String json){
+    String addUser(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         System.out.println(json);
         Gson gson = new Gson();
         User user = gson.fromJson(json, User.class);
@@ -160,7 +160,7 @@ public class DemoApplication {
             //Continues to the next map entry
         }
         if (DuplicateEmail == false) {
-            store.addNewUser(TempUserID, user);
+            store.addNewUser(cookieId, user);
             return gson.toJson(json);
         }
         else if (DuplicateEmail == true) {
@@ -175,37 +175,37 @@ public class DemoApplication {
     /* ADD ITEMS */
     @RequestMapping(value = "/post/addMonitor", method = RequestMethod.POST)
     @ResponseBody
-    String addMonitor(@RequestBody String json){
+    String addMonitor(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
-        store.addNewProduct(TempUserID,monitor);
+        store.addNewProduct(cookieId,monitor);
         return gson.toJson(json);
     }
 
     @RequestMapping(value = "/post/addTablet", method = RequestMethod.POST)
     @ResponseBody
-    String addTablet(@RequestBody String json){
+    String addTablet(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product tablet = gson.fromJson(json, Tablet.class);
-        store.addNewProduct(TempUserID,tablet);
+        store.addNewProduct(cookieId,tablet);
         return gson.toJson(json);
     }
 
     @RequestMapping(value = "/post/addDesktop", method = RequestMethod.POST)
     @ResponseBody
-    String addDesktop(@RequestBody String json){
+    String addDesktop(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product desktop = gson.fromJson(json, Desktop.class);
-        store.addNewProduct(TempUserID,desktop);
+        store.addNewProduct(cookieId,desktop);
         return gson.toJson(json);
     }
 
     @RequestMapping(value = "/post/addLaptop", method = RequestMethod.POST)
     @ResponseBody
-    String addLaptop(@RequestBody String json){
+    String addLaptop(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product laptop = gson.fromJson(json, Laptop.class);
-        store.addNewProduct(TempUserID,laptop);
+        store.addNewProduct(cookieId,laptop);
         return gson.toJson(json);
     }
 
@@ -214,37 +214,37 @@ public class DemoApplication {
 
     @RequestMapping(value = "/post/modifyMonitor", method = RequestMethod.POST)
     @ResponseBody
-    String modifyMonitor(@RequestBody String json){
+    String modifyMonitor(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
-        store.modifyProduct(TempUserID,monitor.getId(), monitor);
+        store.modifyProduct(cookieId,monitor.getId(), monitor);
         return gson.toJson(json);
     }
 
     @RequestMapping(value = "/post/modifyTablet", method = RequestMethod.POST)
     @ResponseBody
-    String modifyTablet(@RequestBody String json){
+    String modifyTablet(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product tablet = gson.fromJson(json, Tablet.class);
-        store.modifyProduct(TempUserID,tablet.getId(), tablet);
+        store.modifyProduct(cookieId,tablet.getId(), tablet);
         return gson.toJson(json);
     }
 
     @RequestMapping(value = "/post/modifyDesktop", method = RequestMethod.POST)
     @ResponseBody
-    String modifyDesktop(@RequestBody String json){
+    String modifyDesktop(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product desktop = gson.fromJson(json, Desktop.class);
-        store.modifyProduct(TempUserID,desktop.getId(), desktop);
+        store.modifyProduct(cookieId,desktop.getId(), desktop);
         return gson.toJson(json);
     }
 
     @RequestMapping(value = "/post/modifyLaptop", method = RequestMethod.POST)
     @ResponseBody
-    String modifyLaptop(@RequestBody String json){
+    String modifyLaptop(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product laptop = gson.fromJson(json, Laptop.class);
-        store.modifyProduct(TempUserID,laptop.getId(), laptop);
+        store.modifyProduct(cookieId,laptop.getId(), laptop);
         return gson.toJson(json);
     }
 
@@ -253,30 +253,30 @@ public class DemoApplication {
     // TODO move to different controller files
     @RequestMapping(value = "/get/endTransaction", method = RequestMethod.GET)
     @ResponseBody
-    public void endTransaction() {
+    public void endTransaction(@CookieValue("SESSIONID") int cookieId) {
         System.out.println("Ending transaction");
-        store.endTransaction(TempUserID);
+        store.endTransaction(cookieId);
     }
 
     @RequestMapping(value = "/get/startAddTransaction", method = RequestMethod.GET)
     @ResponseBody
-    public void startStoreAddTransaction() {
+    public void startStoreAddTransaction(@CookieValue("SESSIONID") int cookieId) {
         System.out.println("Starting add transaction");
-        store.initiateTransaction(TempUserID, Transaction.Type.add);
+        store.initiateTransaction(cookieId, Transaction.Type.add);
     }
 
     @RequestMapping(value = "/get/startModifyTransaction", method = RequestMethod.GET)
     @ResponseBody
-    public void startStoreModifyTransaction() {
+    public void startStoreModifyTransaction(@CookieValue("SESSIONID") int cookieId) {
         System.out.println("Starting modify transaction");
-        store.initiateTransaction(TempUserID, Transaction.Type.modify);
+        store.initiateTransaction(cookieId, Transaction.Type.modify);
     }
 
     @RequestMapping(value = "/get/startDeleteTransaction", method = RequestMethod.GET)
     @ResponseBody
-    public void startStoreDeleteTransaction() {
+    public void startStoreDeleteTransaction(@CookieValue("SESSIONID") int cookieId) {
         System.out.println("Starting delete transaction");
-        store.initiateTransaction(TempUserID, Transaction.Type.delete);
+        store.initiateTransaction(cookieId, Transaction.Type.delete);
     }
 
 
