@@ -1,6 +1,45 @@
 <div class="container">
+    <p> Sort:  </p>
+    <select
+        ng-options = "option for option in listOfOptions"
+        ng-model="selectedItem"
+        ng-change="rename(selectedItem)">
+    </select>
+
+    <p> Brand filter:  </p>
+    <input type="text" data-ng-model="search.brand">
+    <br>
+    <p> model filter: </p>
+    <input type="text" data-ng-model="search1.model">
+    <br>
+    <p> Type filter: </p>
+    <input type="radio" data-ng-model="search2.discriminator" value="" ng-checked="true"> All 
+    <input type="radio" data-ng-model="search2.discriminator" value="1"> TV 
+    <input type="radio" data-ng-model="search2.discriminator" value="2"> Monitor 
+    <input type="radio" data-ng-model="search2.discriminator" value="3"> Tablet 
+    <input type="radio" data-ng-model="search2.discriminator" value="4"> Desktop 
+    <input type="radio" data-ng-model="search2.discriminator" value="5"> Laptop 
+    <p> Size filters</p> 
+    <p> Greater than : </p>
+    <input type="radio" data-ng-model="search3" value="0" ng-checked="true"> show All 
+    <input type="radio" data-ng-model="search3" value="25"> 25 
+    <input type="radio" data-ng-model="search3" value="50"> 50 <br>
+    <p> Smaller than : </p>
+    <input type="radio" data-ng-model="search4" value="1000000" ng-checked="true"> show All 
+    <input type="radio" data-ng-model="search4" value="25"> 25 
+    <input type="radio" data-ng-model="search4" value="50"> 50
+
+
+
+   <!--  <input type="text" data-ng-model="search3"> <br> -->
+   
+</div>
+</br>
+</br>
+<div class="container">
     <div class="row">
-        <div class="col-sm-4" ng-repeat="item in itemsInventory">
+            <div class="col-sm-4" ng-repeat="item in itemsInventory  | orderBy:select | filter:search | filter:search1 | filter:search2 | filter: greaterThan('size', search3) | filter: smallerThan('size', search4) ">
+                <!-- | filter: greaterThan('size', search3) -->
             <div class="panel panel-primary">
                 <div ng-if="item.discriminator == 2" class="panel-heading"><a href="viewItems/{{item.id}}">Monitor</a></div>
                 <div ng-if="item.discriminator == 3" class="panel-heading"><a href="viewItems/{{item.id}}">Tablet</a></div>
