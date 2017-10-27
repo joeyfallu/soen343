@@ -59,7 +59,7 @@ angular.module('app').controller('viewItemsCtrl', function ($scope, $http) {
         
         $scope.SmallerThan = function(prop, val){
             return function(item){
-              return item[prop] > val;
+              return item[prop] < val;
             }
         }
 
