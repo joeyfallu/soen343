@@ -92,20 +92,16 @@ public class DemoApplication {
     }
 
     /* DELETE ITEMS */
-    @RequestMapping(value = "/post/deleteItems", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteItem/{id}", method = RequestMethod.GET)
     @ResponseBody
-    String deleteItemsForm(@RequestBody String json){
+    String deleteItemsForm(@PathVariable("id") int id){
         Gson gson = new Gson();
-        JsonObject jsonObject = new Gson().fromJson(json, JsonObject.class);
-        int id = jsonObject.get("deleteId").getAsInt();
-        Map<Integer, Product> products = store.viewProductCatalog();
-        if(!products.containsKey(id))
-            System.out.println("Item does not exist");
-        else
+        Map<Integer, Product> products = store.getProductCatalog().getProducts();
+        String product = gson.toJson(products.get(id));
+        if(product != null)
             store.deleteProduct(TempUserID,id);
-        return json;
+        return product;
     }
-
 
     /* ADD USER */
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
