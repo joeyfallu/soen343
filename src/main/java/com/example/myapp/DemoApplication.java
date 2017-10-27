@@ -7,6 +7,7 @@ import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.*;
 import com.example.myapp.productCatalog.Desktop;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
@@ -98,10 +99,10 @@ public class DemoApplication {
     @RequestMapping(value = "/post/logout", method = RequestMethod.POST)
     @ResponseBody
     String logout(@RequestBody String json){
-        Gson gson = new Gson();
-        int id = gson.fromJson(json, int.class);
-        System.out.println(id);
-        return null;
+        JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
+        int id = jobj.get("id").getAsInt();
+        store.getUserMapper().getUserCatalog().removeActiveUserById(id);
+        return "{\"message\":\"Logged Out\"}";
     }
 
     /* VIEW ITEMS */

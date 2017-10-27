@@ -3,7 +3,6 @@
 angular.module('app', ['ngRoute','ngCookies'])
     .controller("mainController", ['$scope','$cookies','$http',"$location", function mainController($scope, $cookies, $http, $location) {
         $scope.loggedIn = function(){
-            console.log("COOKIE: ", $cookies.get("SESSIONID"));
             if($cookies.get("SESSIONID") != null)
                 return true;
             else

@@ -50,9 +50,6 @@ public class UserCatalog {
         throw new Exception("Email not found");
     }
 
-    public void logOut(int id){
-
-    }
     public Map<Integer, User> getUsers(){return users;}
     public Map<Integer, User> getActiveUsers(){return activeUsers;}
 
