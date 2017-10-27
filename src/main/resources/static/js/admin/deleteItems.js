@@ -19,15 +19,30 @@ angular.module('app').controller('deleteItemsController', ['$scope', "$http", fu
          });
     };
 
-       $scope.endTransaction = function(){
-            var url = "/post/endTransaction";
-            $http.post(url);
-        }
+    /* Routing */
+    $scope.$on('$routeChangeSuccess', function () {
+        console.log("view loaded, starting transaction");
+        $scope.initiateAddTransaction();
+    });
 
-       window.onbeforeunload =  function(e){
-            var url = "/post/endTransaction";
-            $http.post(url);
-            return "Leaving Page";
-       };
+    $scope.$on('$routeChangeStart', function() {
+        console.log("exiting view, ending transaction");
+        $scope.endTransaction();
+    });
+
+    window.onbeforeunload = function () {
+        $scope.endTransaction();
+    };
+
+    $scope.initiateAddTransaction = function () {
+        console.log("Calling backend to start add transaction");
+        $http.get("/get/startDeleteTransaction");
+    };
+
+    $scope.endTransaction = function () {
+        console.log("Calling backend to end transaction");
+        $http.get("/get/endTransaction");
+    };
+
 }]);
 
