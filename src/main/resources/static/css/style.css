@@ -45,6 +45,12 @@ button#login-btn {
     overflow: auto;
 }
 
+.panel a{
+    text-decoration: underline;
+    color: white;
+}
+
+
 /* ANIMATIONS */
 
 /* The starting CSS styles for the enter animation */
@@ -70,3 +76,4 @@ button#login-btn {
 [ng-click] {
     cursor: pointer;
 }
+
