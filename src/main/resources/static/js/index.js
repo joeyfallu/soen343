@@ -1,37 +1,44 @@
 'use strict';
 
 angular.module('app', ['ngRoute', 'ngCookies'])
-    .controller("mainController", ['$scope', '$cookies', '$http', "$location", function mainController($scope, $cookies, $http, $location) {
-        $scope.loggedIn = function () {
-            if ($cookies.get("SESSIONID") != null)
-                return true;
-            else
-                return false;
-        };
 
-        // Check on page load
-        $scope.loggedIn();
+    /* Controller is executed on page load because loggedIn is tied to an ng-if in index.html */
+    .controller("mainController", ['$scope', '$cookies', '$http', "$location",
+        function mainController($scope, $cookies, $http, $location) {
 
-        $scope.logout = function () {
-            const url = '/post/logout';
-            let data = {
-                id: $cookies.get("SESSIONID")
+            $scope.loggedIn = function () {
+                return $cookies.get("SESSIONID") !== null;
             };
-            $http.post(url, data).then((res) => {
-                if (res.data.message)
-                    $scope.errorMsg = res.data.message;
-                $cookies.remove("SESSIONID");
-                $cookies.remove("USERINFO");
-                $location.path('/');
-            });
-        };
-    }])
+
+            // Check on page load
+            $scope.loggedIn();
+
+            $scope.logout = function () {
+                const url = '/post/logout';
+                let data = {
+                    id: $cookies.get("SESSIONID")
+                };
+
+                $http.post(url, data).then((res) => {
+                    if (res.data.message)
+                        $scope.errorMsg = res.data.message;
+                    $cookies.remove("SESSIONID");
+                    $cookies.remove("USERINFO");
+                    $location.path('/');
+                });
+            };
+
+        }])
 
     .config(function ($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
 
         $routeProvider
-            .when('/', {templateUrl: "view/frontPage.html"}) // TODO controller
+            .when('/', {
+                templateUrl: "view/frontPage.html",
+                controller: "frontPageController",
+                controllerAs: "frontPageController"
+            })
             .when('/test', {templateUrl: "view/testPage.html", controller: "testPageController"})
             .when('/login', {templateUrl: "view/login.html", controller: "loginController"})
             .when('/registerAdmin', {templateUrl: "view/registerAdmin.html", controller: "RegisterAdminCtrl"})
@@ -58,12 +65,11 @@ angular.module('app', ['ngRoute', 'ngCookies'])
                 next.templateUrl === "view/admin/modifyItems.html" ||
                 next.templateUrl === "view/admin/deleteItems.html") {
 
-                if (typeof userInfoObject === 'undefined') {
+                if (typeof userInfoObject === 'undefined')
                     $location.path("/");
-                    return;
-                } else if (userInfoObject.isAdmin === 0) {
+                else if (userInfoObject.isAdmin === 0)
                     $location.path("/");
-                }
+
             }
 
         });
