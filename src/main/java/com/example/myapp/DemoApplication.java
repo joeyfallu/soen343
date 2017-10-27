@@ -149,8 +149,27 @@ public class DemoApplication {
         System.out.println(json);
         Gson gson = new Gson();
         User user = gson.fromJson(json, User.class);
-        store.addNewUser(TempUserID,user);
-        return gson.toJson(json);
+
+        boolean DuplicateEmail = false;
+        String email = user.getEmail();
+
+        for (Map.Entry<Integer, User> entry : store.getUserMapper().getUserCatalog().getUsers().entrySet()) {
+            if(entry.getValue().getEmail().equals(email)) {
+                DuplicateEmail = true;
+            }
+            //Continues to the next map entry
+        }
+        if (DuplicateEmail == false) {
+            store.addNewUser(TempUserID, user);
+            return gson.toJson(json);
+        }
+        else if (DuplicateEmail == true) {
+            return "{\"message\":\"Duplicate\"}";
+        }
+        else {
+            return " ";
+        }
+
     }
 
     /* ADD ITEMS */
