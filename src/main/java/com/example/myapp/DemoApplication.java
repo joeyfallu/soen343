@@ -12,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
 import java.util.Map;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @SpringBootApplication
@@ -50,7 +52,7 @@ public class DemoApplication {
     /* LOGIN */
     @RequestMapping(value = "/post/login", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public String loginSubmit(@RequestBody String body) {
+    public String loginSubmit(@RequestBody String body, HttpServletResponse response) {
 
         Gson gson = new Gson();
         User tempUser = gson.fromJson(body, User.class);
@@ -61,16 +63,18 @@ public class DemoApplication {
             User loggedInUser = store.getUserMapper().getUserCatalog().login(email, password);
             System.out.println("Successful login by: " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " "+ loggedInUser.getEmail());
         } catch(Exception e) {
-            if(e.getMessage() == "Wrong password"){
+            if(e.getMessage().equals("Wrong password")){
                 System.out.println("Wrong password");
                 //DO SOMETHING
             }
-            if(e.getMessage() == "Email not found"){
+            if(e.getMessage().equals("Email not found")){
                 System.out.println("Email not found");
                 //DO SOMETHING
             }
         }
-
+        Cookie userCookie = new Cookie("TESTTESTEST","LOLOLOLOLOL");
+        userCookie.setMaxAge(24*60*60);
+        response.addCookie(userCookie);
         return body;
     }
 
