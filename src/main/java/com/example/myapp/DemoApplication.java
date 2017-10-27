@@ -7,11 +7,16 @@ import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.*;
 import com.example.myapp.productCatalog.Desktop;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
 import java.util.Map;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 
 @Controller
 @SpringBootApplication
@@ -34,7 +39,7 @@ public class DemoApplication {
             "/addUsers",
             "/viewItems",
             "/modifyItems",
-            "/viewItems/:id"
+            "/viewItems/{id}"
     })
     public String redirectOnReload() {return "forward:/index.html";}
 
@@ -49,11 +54,55 @@ public class DemoApplication {
     /* LOGIN */
     @RequestMapping(value = "/post/login", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public String loginSubmit(@RequestBody String body) {
-        System.out.println(body);
-        return body;
+    public String loginSubmit(@RequestBody String body, HttpServletResponse response) {
+
+        Gson gson = new Gson();
+        User tempUser = gson.fromJson(body, User.class);
+        String email = tempUser.getEmail();
+        String password = tempUser.getPassword();
+        tempUser = null;                            //This object isn't needed anymore
+        try{
+            User loggedInUser = store.getUserMapper().getUserCatalog().login(email, password);
+            System.out.println("Successful login by: " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " "+ loggedInUser.getEmail());
+            //Send two cookies which store the user's id and info as json
+            Cookie userIdCookie = new Cookie("SESSIONID", ""+loggedInUser.getId());
+            userIdCookie.setMaxAge(24*60*60);
+            userIdCookie.setPath("/");
+            userIdCookie.setHttpOnly(false);
+            response.addCookie(userIdCookie);
+            //the json needs to be URL encoded in order to be stored in a cookie.
+            String userInfoStr = URLEncoder.encode(gson.toJson(loggedInUser), "UTF-8");
+            Cookie userInfoCookie = new Cookie("USERINFO", userInfoStr);
+            userInfoCookie.setPath("/");
+            userInfoCookie.setHttpOnly(false);
+            userInfoCookie.setMaxAge(24*60*60);
+            response.addCookie(userInfoCookie);
+            //Could be encrypted for security
+            String userJsonResponse = gson.toJson(loggedInUser);
+            //Responds with a User Object in Json format
+            return userJsonResponse;
+        } catch(Exception e) {
+            if(e.getMessage().equals("Wrong password")){
+                return "{\"message\":\"Wrong password\"}";
+            }
+            if (e.getMessage().equals("Email not found")){
+                return "{\"message\":\"Email not found\"}";
+            } else {
+                e.printStackTrace();
+                return "{\"message\":\"Error logging in\"}";
+            }
+        }
     }
 
+    /* LOGOUT */
+    @RequestMapping(value = "/post/logout", method = RequestMethod.POST)
+    @ResponseBody
+    String logout(@RequestBody String json){
+        JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
+        int id = jobj.get("id").getAsInt();
+        store.getUserMapper().getUserCatalog().removeActiveUserById(id);
+        return "{\"message\":\"Logged Out\"}";
+    }
 
     /* VIEW ITEMS */
     @RequestMapping("/get/products")
@@ -81,85 +130,17 @@ public class DemoApplication {
     }
 
 
-    /* MODIFY ITEMS */
-    @RequestMapping("/post/modifyItems")
-    @ResponseBody
-    String modifyItemsForm(){
-        System.out.println("Backend modify items");
-        return "{}";
-    }
-
     /* DELETE ITEMS */
-    @RequestMapping(value = "/post/deleteItems", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteItem/{id}", method = RequestMethod.GET)
     @ResponseBody
-    String deleteItemsForm(@RequestBody String Json){
-
-        ProductCatalog pC = new ProductCatalog();
-
-        //Delete items with single digit IDs
-        if(Json.length() == 16 ){
-            String sid = Json.substring(13, 14);
-            int id = Integer.parseInt(sid);
-
-            try{
-                pC.deleteProduct(id);
-            }
-            catch(Exception e){
-                System.out.println("Item deletion failed: " + e.toString());
-            }
-
-            System.out.println("Item : " + id + " successfully deleted from database");
-
-        }
-        //Delete items with double digit IDs
-        if(Json.length() == 17 ){
-            String sid = Json.substring(13, 15);
-            int id = Integer.parseInt(sid);
-
-            try{
-                pC.deleteProduct(id);
-            }
-            catch(Exception e){
-                System.out.println("Item deletion failed: " + e.toString());
-            }
-
-            System.out.println("Item : " + id + " successfully deleted from database");
-        }
-        //Delete items with triple digits IDs
-        if(Json.length() == 18 ){
-            String sid = Json.substring(13, 16);
-            int id = Integer.parseInt(sid);
-
-            try{
-                pC.deleteProduct(id);
-            }
-            catch(Exception e){
-                System.out.println("Item deletion failed: " + e.toString());
-            }
-
-            System.out.println("Item : " + id + " successfully deleted from database");
-        }
-        //Delete items with quadruple digits IDs
-        if(Json.length() == 19 ){
-            String sid = Json.substring(13, 17);
-            int id = Integer.parseInt(sid);
-
-            try{
-                pC.deleteProduct(id);
-            }
-            catch(Exception e){
-                System.out.println("Item deletion failed: " + e.toString());
-            }
-
-            System.out.println("Item : " + id + " successfully deleted from database");
-        }
-
-
-
-
-        return "{}";
+    String deleteItemsForm(@PathVariable("id") int id){
+        Gson gson = new Gson();
+        Map<Integer, Product> products = store.getProductCatalog().getProducts();
+        String product = gson.toJson(products.get(id));
+        if(product != null)
+            store.deleteProduct(TempUserID,id);
+        return product;
     }
-
 
     /* ADD USER */
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
@@ -292,30 +273,8 @@ public class DemoApplication {
         //initialize the store with the current catalog from the db
         store = new Store(userMap,productMap);
         store.getProductCatalog().setProducts(store.getProductMapper().getAll());
+        store.getUserMapper().getUserCatalog().setUsers(store.getUserMapper().getAll());
 
-        /*//start of test
-        Monitor mn1 = new Monitor(0,"toshiba", 47,99,"sony",24,2);
-        store.initiateTransaction(5, Transaction.Type.add);
-        store.addNewProduct(5,mn1);
-        store.endProductTransaction(5);
-        store.endTransaction(5);
-        //start of modify test
-        Tv tv1 = new Tv(0,"sony",99,35,"toshiba","34x32",1);
-        store.initiateTransaction(6,Transaction.Type.add);
-        store.modifyProduct(6,43,tv1);
-        store.endProductTransaction(6);
-        store.endTransaction(6);
-        //start of delete test
-        store.initiateTransaction(7,Transaction.Type.delete);
-        store.deleteProduct(7,12);
-        store.deleteProduct(7,14);
-        store.endProductTransaction(7);
-        store.endTransaction(7);*/
-//
-//        User test = new User(0,"jim","billy","1234 fake","2311233322","billy@jim.com","yolo",0);
-//        store.initiateTransaction(TempUserID,Transaction.Type.add);
-//        store.addNewUser(TempUserID,test);
-//        store.endTransaction(TempUserID);
-
+        System.out.println("Done initializing");
     }
 }

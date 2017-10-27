@@ -3,31 +3,46 @@
 angular.module('app').controller('deleteItemsController', ['$scope', "$http", function loginController($scope, $http) {
     $scope.deleteItem = function () {
         $scope.message = "";
+        let id = $scope.deleteId;
+        let url = "/deleteItem/" + id;
 
-        const url = "/post/deleteItems";
-        let data = {
-            deleteId: $scope.deleteId,
-        };
+        $http.get(url).then((res) => {
+            if (res.data == null)
+                $scope.message = "Product with ID: " + $scope.deleteId + " does not exist.";
+            else
+                $scope.message = "Product with ID: " + $scope.deleteId + " has been deleted.";
 
-        $http.post(url, data).then((res) => {
-            console.log(res);
-            $scope.message = "Success!";
-        }).catch((err) => {
-            console.log("ERROR:");
-            console.log(err);
-            $scope.message = "Error. Check console.";
-        });
+         }).catch((err) => {
+             console.log("ERROR:");
+             console.log(err);
+             $scope.message = "Error. Check console.";
+         });
     };
 
-       $scope.endTransaction = function(){
-            var url = "/post/endTransaction";
-            $http.post(url);
-        }
+    /* Routing */
+    $scope.$on('$routeChangeSuccess', function () {
+        console.log("view loaded, starting transaction");
+        $scope.initiateAddTransaction();
+    });
 
-       window.onbeforeunload =  function(e){
-            var url = "/post/endTransaction";
-            $http.post(url);
-            return "Leaving Page";
-       };
+    $scope.$on('$routeChangeStart', function() {
+        console.log("exiting view, ending transaction");
+        $scope.endTransaction();
+    });
+
+    window.onbeforeunload = function () {
+        $scope.endTransaction();
+    };
+
+    $scope.initiateAddTransaction = function () {
+        console.log("Calling backend to start add transaction");
+        $http.get("/get/startDeleteTransaction");
+    };
+
+    $scope.endTransaction = function () {
+        console.log("Calling backend to end transaction");
+        $http.get("/get/endTransaction");
+    };
+
 }]);
 

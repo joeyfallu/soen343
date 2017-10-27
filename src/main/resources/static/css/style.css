@@ -72,3 +72,8 @@ button#login-btn {
     border: 1px solid GREY;
 }
 
+/* Angular click */
+[ng-click] {
+    cursor: pointer;
+}
+
