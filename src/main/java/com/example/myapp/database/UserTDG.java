@@ -52,6 +52,33 @@ public class UserTDG {
 
     }
 
+    public User[] dbGetAll() throws Exception{
+        dbConnect();
+        String sql = "SELECT * FROM User";
+        int numberOfUsers = 0;
+        int currentUserNum = 0;
+
+        resultSet = statement.executeQuery(sql);
+
+        while(resultSet.next()){
+            numberOfUsers++;
+        }
+
+        User[] users = new User[numberOfUsers];
+        String[] results = new String[9];
+
+        resultSet = statement.executeQuery(sql);
+        while(resultSet.next()) {
+            for(int i=1; i<9; i++) {
+                results[i] = resultSet.getString(i);
+            }
+            users[currentUserNum] = new User(Integer.parseInt(results[1]),results[2],results[3],results[4],results[5],results[6],results[7],Integer.parseInt(results[8]));
+            currentUserNum++;
+        }
+
+        return users;
+    }
+
 
 
 

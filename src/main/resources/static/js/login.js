@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('loginController', ['$scope', "$http", function loginController($scope, $http) {
+    .controller('loginController', ['$scope', "$http","$location", function loginController($scope, $http, $location) {
         $scope.errorMsg = "";
 
         /* Handles the login form */
@@ -12,20 +12,16 @@ angular.module('app')
                 email: $scope.email,
                 password: $scope.password
             };
-
-            console.log("attempting login POST request...");
-
+            $scope.errorMsg = "";
             $http.post(url, data).then((res) => {
-                console.log("receiving response from login POST request:")
-                console.log(res);
                 console.log(res.data);
-
-                // TODO fix login and implement persistent login with cookies
-                if (res.data == "Wrong Password" || res.data == "Email not found") {
-                    $scope.errorMsg = res.data;
+                if (res.data.message) {
+                    $scope.errorMsg = res.data.message;
                 } else {
+                    //Successful login
                     $scope.userInfo = res.data;
                     console.log("Successful login for: ", $scope.userInfo.email);
+                    $location.path('/');
                 }
             });
         };

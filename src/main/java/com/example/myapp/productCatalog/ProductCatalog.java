@@ -29,7 +29,8 @@ public class ProductCatalog {
 
     public void addProduct(int id, Product product){
         products.put(id,product);
-        System.out.println("Item has been added:" + products.get(id).toString());
+        //TODO output to console to be removed after debugging
+        //System.out.println("Item has been added:" + products.get(id).toString());
     }
 
     public void deleteProduct(int id)  {
