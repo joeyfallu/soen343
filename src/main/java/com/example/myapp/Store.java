@@ -15,15 +15,11 @@ import java.sql.SQLException;
 public class Store {
 
     private ProductAction productAction;
-
-
-
     private Transaction transaction;
     private ProductMapper productMapper;
     private UserMapper userMapper;
 
     private int tempID=2;
-
 
     public Store(UserMapper userMapper, ProductMapper productMapper){
 
@@ -32,17 +28,11 @@ public class Store {
         this.userMapper = userMapper;
         this.productMapper = productMapper;
 
-
     }
-
-
 
     public ProductCatalog getProductCatalog() {
-
         return productMapper.getProductCatalog();
     }
-
-
 
     public void addNewProduct(int userId,Product product){
         if (userId!=transaction.getUserId())
@@ -51,7 +41,6 @@ public class Store {
             return;
         }
         this.productMapper.insert(product);
-
     }
 
     public void deleteProduct(int userId,int id){
@@ -85,7 +74,6 @@ public class Store {
 
 
     public Map<Integer, Product> viewProductCatalog(){
-
         return this.productMapper.getProductCatalog().getProducts();
     }
 
@@ -109,10 +97,7 @@ public class Store {
                 System.out.printf("transaction in progress, please wait");
             }
         }
-
-
     }
-
 
 
     public void endTransaction(int userId)
@@ -135,5 +120,9 @@ public class Store {
 
     public void setProductMapper(ProductMapper productMapper) {
         this.productMapper = productMapper;
+    }
+
+    public UserMapper getUserMapper(){
+        return userMapper;
     }
 }
