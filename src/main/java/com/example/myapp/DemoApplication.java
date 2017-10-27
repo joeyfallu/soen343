@@ -34,7 +34,7 @@ public class DemoApplication {
             "/addUsers",
             "/viewItems",
             "/modifyItems",
-            "/viewItems/:id"
+            "/viewItems/{id}"
     })
     public String redirectOnReload() {return "forward:/index.html";}
 

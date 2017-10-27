@@ -8,7 +8,7 @@
                 <div ng-if="item.discriminator == 5" class="panel-heading"><a href="viewItems/{{item.id}}">Laptop</a></div>
                 <div class="panel-body">
                     <ul style="list-style-type: none;">
-                        <li ng-repeat="(key,value) in item">
+                        <li ng-repeat="(key,value) in item" ng-if="key != 'discriminator'">
                             {{key}}: {{value}}
                         </li>
                     </ul>
