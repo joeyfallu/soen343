@@ -1,14 +1,18 @@
 'use strict';
 
-angular.module('app', ['ngRoute','ngCookies'])
-    .controller("mainController", ['$scope','$cookies','$http',"$location", function mainController($scope, $cookies, $http, $location) {
-        $scope.loggedIn = function(){
-            if($cookies.get("SESSIONID") != null)
+angular.module('app', ['ngRoute', 'ngCookies'])
+    .controller("mainController", ['$scope', '$cookies', '$http', "$location", function mainController($scope, $cookies, $http, $location) {
+        $scope.loggedIn = function () {
+            if ($cookies.get("SESSIONID") != null)
                 return true;
             else
                 return false;
         };
-        $scope.logout = function(){
+
+        // Check on page load
+        $scope.loggedIn();
+
+        $scope.logout = function () {
             const url = '/post/logout';
             let data = {
                 id: $cookies.get("SESSIONID")
@@ -39,4 +43,27 @@ angular.module('app', ['ngRoute','ngCookies'])
             .when('/deleteItems', {templateUrl: "view/admin/deleteItems.html", controller: "deleteItemsController"})
 
             .otherwise({redirectTo: '/'});
+    })
+
+    .run(function ($rootScope, $location, $cookies) {
+        // Disable access to admin pages
+        $rootScope.$on("$routeChangeStart", function (event, next, current) {
+            let userInfoObject = $cookies.getObject("USERINFO");
+
+            if (next.templateUrl === "view/admin/admin.html" ||
+                next.templateUrl === "view/admin/addItems.html" ||
+                next.templateUrl === "view/admin/addUsers.html" ||
+                next.templateUrl === "view/admin/viewItems.html" ||
+                next.templateUrl === "view/admin/modifyItems.html" ||
+                next.templateUrl === "view/admin/deleteItems.html") {
+
+                if (typeof userInfoObject === 'undefined') {
+                    $location.path("/");
+                    return;
+                } else if (userInfoObject.isAdmin === 0) {
+                    $location.path("/");
+                }
+            }
+
+        });
     });
