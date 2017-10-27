@@ -22,7 +22,7 @@ public class UserTDG {
     {
         dbConnect();
         String sql="INSERT INTO User (firstName, lastName, address, phoneNumber, email, password, isAdmin) VALUES ('"+user.getFirstName()+"','"+user.getLastName()+"','"
-                +user.getAddress()+"','"+user.getPhoneNumber()+"','"+user.getEmail()+"','"+user.getPassword()+"','"+user.getIsAdmin()+"')";
+                +user.getAddress()+"','"+user.getPhoneNumber()+"','"+user.getEmail()+"','"+user.getPassword()+"','0')";
         statement.executeUpdate(sql);
         resultSet = statement.executeQuery("SELECT LAST_INSERT_ID() FROM User");
         int id=-1;

@@ -18,12 +18,13 @@ angular.module('app').controller('addUsersCtrl', function ($scope, $http) {
         };
 
         $http.post("/post/addUser", data).then((res) => {
+            console.log(res);
+        if (res.data.message) {
+            $scope.userMessage = "ERROR: Duplicate Email!";
+        } else {
             $scope.userMessage = "Success!";
-        }).catch((err) => {
-            console.log("ERROR:");
-            console.log(err);
-            $scope.userMessage = "Error. Check console.";
-        });
+        }
+    });
     };
 
     /* Routing */
