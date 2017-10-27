@@ -3,6 +3,7 @@ package com.example.myapp.database;
 import com.example.myapp.transactions.UnitOfWork;
 import com.example.myapp.userCatalog.User;
 import com.example.myapp.userCatalog.UserCatalog;
+import java.util.Map;
 
 public class UserMapper {
 
@@ -33,6 +34,21 @@ public class UserMapper {
         return userCatalog.getUserById(id);
     }
 
+    //Gets all the users from DB, stores them in userCatalog then returns the userCatalog
+    public Map<Integer, User> getAll(){
+        User currentUsers[];
+        try{
+            currentUsers = userTDG.dbGetAll();
+
+            for(int i=0;i<currentUsers.length;i++){
+                userCatalog.addUser(currentUsers[i]);
+            }
+        } catch (Exception e){
+            //TODO
+        }
+        return userCatalog.getUsers();
+    }
+
     public void commit()
     {
         u = new UnitOfWork(this);
@@ -46,5 +62,8 @@ public class UserMapper {
 
     public UserTDG getUserTDG() {
         return userTDG;
+    }
+    public UserCatalog getUserCatalog(){
+        return userCatalog;
     }
 }
