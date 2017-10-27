@@ -14,8 +14,38 @@ angular.module('app').controller('viewItemsCtrl', function ($scope, $http) {
         }
 
         $scope.itemsInventory = items;
-        $scope.select = 'price';
-        
+        $scope.select = null;
+
+        $scope.listOfOptions = ['Most Expensive', 'Least Expensive', 'Most Recent', 'Least Recent', 'Heaviest', 'Lightest', 'Brand (A-Z)', 'Brand (Z-A)'];
+
+        $scope.rename = function(x){
+                   if (x === 'Most Expensive' ){
+                       $scope.sortBy('-price');
+                   }
+                   if (x === 'Least Expensive' ){
+                       $scope.sortBy('price');
+                   }
+                   if (x === 'Most Recent' ){
+                       $scope.sortBy('-id');
+                   }
+                   if (x === 'Least Recent' ){
+                       $scope.sortBy('id');
+                   }
+                   if (x === 'Heaviest' ){
+                       $scope.sortBy('-weight');
+                   }
+                   if (x === 'Lightest' ){
+                       $scope.sortBy('weight');
+                   }
+                   if (x === 'Brand (A-Z)' ){
+                       $scope.sortBy('brand');
+                   }
+                   if (x === 'Brand (Z-A)' ){
+                       $scope.sortBy('-brand');
+                   }
+
+               }
+
         $scope.sortBy = function(select) {
             $scope.select = select;
           };

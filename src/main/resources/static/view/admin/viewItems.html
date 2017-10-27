@@ -1,20 +1,12 @@
 <div class="container">
-    <form>
-        <select ng-model="selector">
-            <option ng-value="id">Newest</option>
-            <option ng-value="-id">Oldest</option>
-            <option ng-value="price">Least expensive</option>
-            <option ng-value="-price">Most expensive</option>
-            <option ng-value="brand">Brand (A to Z)</option>
-            <option ng-value="-brand">Brand (Z to A)</option>
-            <option ng-value="weight">Lightes</option>
-            <option ng-value="-weight">Heaviest</option>
-            <option ng-value="discriminator">Type</option>
-        </select>
-        <input type="submit" ng-submit="sortBy(selector)">
-    </form>
+    <select
+        ng-options = "option for option in listOfOptions"
+        ng-model="selectedItem"
+        ng-change="rename(selectedItem)">
+    </select>
 </div>
-
+</br>
+</br>
 <div class="container">
     <div class="row">
         <div class="col-sm-4" ng-repeat="item in itemsInventory  | orderBy:select">
