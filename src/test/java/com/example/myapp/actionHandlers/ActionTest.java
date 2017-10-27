@@ -3,21 +3,15 @@ package com.example.myapp.actionHandlers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ActionTest {
-    @Before
-    public void setUp() throws Exception {
-    }
 
-    @Mock
-    boolean isComplete;
-
-    @After
-    public void tearDown() throws Exception {
-    }
 
     @Test
     public void isComplete() throws Exception {
