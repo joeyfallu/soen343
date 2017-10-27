@@ -131,76 +131,16 @@ public class DemoApplication {
 
 
     /* DELETE ITEMS */
-    @RequestMapping(value = "/post/deleteItems", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteItem/{id}", method = RequestMethod.GET)
     @ResponseBody
-    String deleteItemsForm(@RequestBody String Json){
-
-        ProductCatalog pC = new ProductCatalog();
-
-        //Delete items with single digit IDs
-        if(Json.length() == 16 ){
-            String sid = Json.substring(13, 14);
-            int id = Integer.parseInt(sid);
-
-            try{
-                pC.deleteProduct(id);
-            }
-            catch(Exception e){
-                System.out.println("Item deletion failed: " + e.toString());
-            }
-
-            System.out.println("Item : " + id + " successfully deleted from database");
-
-        }
-        //Delete items with double digit IDs
-        if(Json.length() == 17 ){
-            String sid = Json.substring(13, 15);
-            int id = Integer.parseInt(sid);
-
-            try{
-                pC.deleteProduct(id);
-            }
-            catch(Exception e){
-                System.out.println("Item deletion failed: " + e.toString());
-            }
-
-            System.out.println("Item : " + id + " successfully deleted from database");
-        }
-        //Delete items with triple digits IDs
-        if(Json.length() == 18 ){
-            String sid = Json.substring(13, 16);
-            int id = Integer.parseInt(sid);
-
-            try{
-                pC.deleteProduct(id);
-            }
-            catch(Exception e){
-                System.out.println("Item deletion failed: " + e.toString());
-            }
-
-            System.out.println("Item : " + id + " successfully deleted from database");
-        }
-        //Delete items with quadruple digits IDs
-        if(Json.length() == 19 ){
-            String sid = Json.substring(13, 17);
-            int id = Integer.parseInt(sid);
-
-            try{
-                pC.deleteProduct(id);
-            }
-            catch(Exception e){
-                System.out.println("Item deletion failed: " + e.toString());
-            }
-
-            System.out.println("Item : " + id + " successfully deleted from database");
-        }
-
-
-
-
-        return "{}";
+    String deleteItemsForm(@PathVariable("id") int id){
+        Gson gson = new Gson();
+        Map<Integer, Product> products = store.getProductCatalog().getProducts();
+        String product = gson.toJson(products.get(id));
+        if(product != null)
+            store.deleteProduct(TempUserID,id);
+        return product;
     }
-
 
     /* ADD USER */
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
