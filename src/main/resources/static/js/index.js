@@ -2,33 +2,28 @@
 
 angular.module('app', ['ngRoute', 'ngCookies'])
 
-    /* Controller is executed on page load because loggedIn is tied to an ng-if in index.html */
-    .controller("mainController", ['$scope', '$cookies', '$http', "$location",
-        function mainController($scope, $cookies, $http, $location) {
+    .controller("mainController", function mainController($rootScope, $scope, $cookies, $http, $location) {
 
-            $scope.loggedIn = function () {
-                return $cookies.get("SESSIONID") !== null;
+        $scope.authenticate = function () {
+            return typeof $cookies.get("SESSIONID") !== 'undefined';
+        };
+
+        $scope.logout = function () {
+            const url = '/post/logout';
+            let data = {
+                id: $cookies.get("SESSIONID")
             };
 
-            // Check on page load
-            $scope.loggedIn();
+            $http.post(url, data).then((res) => {
+                if (res.data.message)
+                    $scope.errorMsg = res.data.message;
+                $cookies.remove("SESSIONID");
+                $cookies.remove("USERINFO");
+                $location.path('/');
+            });
+        };
 
-            $scope.logout = function () {
-                const url = '/post/logout';
-                let data = {
-                    id: $cookies.get("SESSIONID")
-                };
-
-                $http.post(url, data).then((res) => {
-                    if (res.data.message)
-                        $scope.errorMsg = res.data.message;
-                    $cookies.remove("SESSIONID");
-                    $cookies.remove("USERINFO");
-                    $location.path('/');
-                });
-            };
-
-        }])
+    })
 
     .config(function ($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
