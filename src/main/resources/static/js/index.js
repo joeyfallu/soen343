@@ -1,22 +1,19 @@
 'use strict';
 
 angular.module('app', ['ngRoute', 'ngCookies'])
-    .controller("mainController", ['$scope', '$cookies', '$http', "$location", function mainController($scope, $cookies, $http, $location) {
-        $scope.loggedIn = function () {
-            if ($cookies.get("SESSIONID") != null)
-                return true;
-            else
-                return false;
-        };
 
-        // Check on page load
-        $scope.loggedIn();
+    .controller("mainController", function mainController($scope, $cookies, $http, $location) {
+
+        $scope.authenticate = function () {
+            return typeof $cookies.get("SESSIONID") !== 'undefined';
+        };
 
         $scope.logout = function () {
             const url = '/post/logout';
             let data = {
                 id: $cookies.get("SESSIONID")
             };
+
             $http.post(url, data).then((res) => {
                 if (res.data.message)
                     $scope.errorMsg = res.data.message;
@@ -25,16 +22,24 @@ angular.module('app', ['ngRoute', 'ngCookies'])
                 $location.path('/');
             });
         };
-    }])
+
+    })
 
     .config(function ($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
 
         $routeProvider
-            .when('/', {templateUrl: "view/frontPage.html"}) // TODO controller
+            .when('/', {
+                templateUrl: "view/frontPage.html",
+                controller: "frontPageController",
+                controllerAs: "frontPageController"
+            })
             .when('/test', {templateUrl: "view/testPage.html", controller: "testPageController"})
             .when('/login', {templateUrl: "view/login.html", controller: "loginController"})
             .when('/registerAdmin', {templateUrl: "view/registerAdmin.html", controller: "RegisterAdminCtrl"})
+            .when('/catalog', {templateUrl: "view/catalog.html", controller: "catalogController"})
+            .when('/cart', {templateUrl: "view/cart.html", controller: "cartController"})
+            .when('/history', {templateUrl: "view/PurchaseHistory.html", controller: "purchaseHistoryController"})
             .when('/admin', {templateUrl: "view/admin/admin.html"}) // TODO controller
             .when('/addItems', {templateUrl: "view/admin/addItems.html", controller: "addItemsCtrl"})
             .when('/addUsers', {templateUrl: "view/admin/addUsers.html", controller: "addUsersCtrl"})
@@ -58,12 +63,11 @@ angular.module('app', ['ngRoute', 'ngCookies'])
                 next.templateUrl === "view/admin/modifyItems.html" ||
                 next.templateUrl === "view/admin/deleteItems.html") {
 
-                if (typeof userInfoObject === 'undefined') {
+                if (typeof userInfoObject === 'undefined')
                     $location.path("/");
-                    return;
-                } else if (userInfoObject.isAdmin === 0) {
+                else if (userInfoObject.isAdmin === 0)
                     $location.path("/");
-                }
+
             }
 
         });

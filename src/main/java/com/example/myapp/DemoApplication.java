@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
 import java.util.Map;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 
@@ -24,16 +23,16 @@ public class DemoApplication {
 
     private static Store store;
 
-    // TODO replace with current user ID
-    private static int TempUserID = 99099;
-
     /* Single page application routing */
     // https://stackoverflow.com/questions/24837715/spring-boot-with-angularjs-html5mode/44850886#44850886
     @RequestMapping({
             "/",
             "/test",
             "/login",
-            "/registerAdmin",
+            "/registerAdmin", // TODO change to /register
+            "/catalog",
+            "/cart",
+            "/history",
             "/admin",
             "/addItems",
             "/addUsers",
