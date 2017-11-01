@@ -155,18 +155,16 @@ public class DemoApplication {
         for (Map.Entry<Integer, User> entry : store.getUserMapper().getUserCatalog().getUsers().entrySet()) {
             if(entry.getValue().getEmail().equals(email)) {
                 DuplicateEmail = true;
+                //Sets DuplicateEmail value to true if a duplicate email is detected in the database
             }
             //Continues to the next map entry
         }
-        if (DuplicateEmail == false) {
-            store.addNewUser(cookieId, user);
-            return gson.toJson(json);
-        }
-        else if (DuplicateEmail == true) {
+        if (DuplicateEmail == true) {
             return "{\"message\":\"Duplicate\"}";
         }
         else {
-            return " ";
+            store.addNewUser(cookieId, user);
+            return gson.toJson(json);
         }
 
     }
