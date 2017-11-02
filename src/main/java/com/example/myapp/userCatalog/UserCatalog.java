@@ -1,27 +1,19 @@
 package com.example.myapp.userCatalog;
-import com.example.myapp.userCatalog.User;
-import com.example.myapp.database.UserMapper;
 
 import java.util.HashMap;
 import java.util.Map;
+
 public class UserCatalog {
 
     private Map<Integer, User> activeUsers;
     private Map<Integer, User> users;
 
-
-    //Default constructor
-    public UserCatalog(){
+    public UserCatalog() {
         users = new HashMap<Integer, User>();
         activeUsers = new HashMap<Integer, User>();
     }
 
-    //supposed to return User
-    public  User  getUserById(int id){
-        return users.get(id);
-    }
-
-    public void registerUser(User user1,int id){
+    public void registerUser(User user1,int id) {
        //inserting the new User/ID pair into the user HashMap
        users.put(id,user1);
     }
@@ -35,12 +27,14 @@ public class UserCatalog {
         for (Map.Entry<Integer, User> entry : users.entrySet()) {
             if(entry.getValue().getEmail().equals(email)) {
                 if (entry.getValue().getPassword().equals(password)) {
+                    if (activeUsers.get(entry.getValue().getId()) != null)
+                        throw new Exception("User already logged in");
+
                     //Successful login
                     //Adds the user to the activeUsers hashMap
                     addActiveUser(entry.getValue());
                     return activeUsers.get(entry.getKey());
                 } else {
-                    //Wrong password
                     throw new Exception("Wrong password");
                 }
             }
@@ -50,24 +44,36 @@ public class UserCatalog {
         throw new Exception("Email not found");
     }
 
-    public Map<Integer, User> getUsers(){return users;}
-    public Map<Integer, User> getActiveUsers(){return activeUsers;}
+    public Map<Integer, User> getUsers(){
+        return users;
+    }
 
-    public User getActiveUserById(int id){
+    public Map<Integer, User> getActiveUsers(){
+        return activeUsers;
+    }
+
+    public User getUserById(int id) {
+        return users.get(id);
+    }
+
+    public User getActiveUserById(int id) {
         return activeUsers.get(id);
     }
-    public void addActiveUser(User user){
+
+    public void addActiveUser(User user) {
         activeUsers.put(user.getId(),user);
     }
-    public void removeActiveUserById(int id){
+
+    public void removeActiveUserById(int id) {
         activeUsers.remove(id);
     }
-    public void setUsers(Map<Integer, User> users){
+
+    public void setUsers(Map<Integer, User> users) {
         this.users = users;
     }
-    public void addUser(User user){
+
+    public void addUser(User user) {
         users.put(user.getId(), user);
     }
-
 
 }

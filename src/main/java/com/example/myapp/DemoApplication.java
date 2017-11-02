@@ -54,13 +54,12 @@ public class DemoApplication {
     @RequestMapping(value = "/post/login", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String loginSubmit(@RequestBody String body, HttpServletResponse response) {
-
         Gson gson = new Gson();
         User tempUser = gson.fromJson(body, User.class);
         String email = tempUser.getEmail();
         String password = tempUser.getPassword();
-        tempUser = null;                            //This object isn't needed anymore
-        try{
+
+        try {
             User loggedInUser = store.getUserMapper().getUserCatalog().login(email, password);
             System.out.println("Successful login by: " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " "+ loggedInUser.getEmail());
             //Send two cookies which store the user's id and info as json
@@ -83,9 +82,10 @@ public class DemoApplication {
         } catch(Exception e) {
             if(e.getMessage().equals("Wrong password")){
                 return "{\"message\":\"Wrong password\"}";
-            }
-            if (e.getMessage().equals("Email not found")){
+            } else if (e.getMessage().equals("Email not found")){
                 return "{\"message\":\"Email not found\"}";
+            } else if (e.getMessage().equals("User already logged in")) {
+                return "{\"message\":\"User already logged in\"}";
             } else {
                 e.printStackTrace();
                 return "{\"message\":\"Error logging in\"}";
