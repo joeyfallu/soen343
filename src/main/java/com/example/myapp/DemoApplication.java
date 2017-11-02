@@ -29,7 +29,7 @@ public class DemoApplication {
             "/",
             "/test",
             "/login",
-            "/registerAdmin", // TODO change to /register
+            "/register",
             "/catalog",
             "/cart",
             "/history",

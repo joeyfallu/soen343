@@ -16,11 +16,6 @@ public class UserCatalog {
         loginHistory = new HashMap<>();
     }
 
-    public void registerUser(User user1,int id) {
-       //inserting the new User/ID pair into the user HashMap
-       users.put(id,user1);
-    }
-
     /*
     Login
     Returns the User object after a successful login, or throws an exception

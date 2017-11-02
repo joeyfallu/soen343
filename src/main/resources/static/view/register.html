@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="form-area">
+            <form name="register" ng-submit="register()" role="form">
+                <h3 style="margin-bottom: 25px; text-align: center;">User Registration</h3>
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" class="form-control" ng-model="firstName" id="firstName" required=""
+                           autofocus=""/>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" class="form-control" ng-model="lastName" id="lastName" required=""/>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" class="form-control" ng-model="address" id="address" required=""/>
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number:</label>
+                    <input type="text" class="form-control" ng-model="phoneNumber" id="phoneNumber"
+                           required=""/>
+                </div>
+                <div class="form-group">
+                    <label for="registrationEmail">Email:</label>
+                    <input type="email" class="form-control" ng-model="email" id="registrationEmail" required=""/>
+                </div>
+                <div class="form-group">
+                    <label for="registrationPassword">Password:</label>
+                    <input type="password" class="form-control" ng-model="password" id="registrationPassword"
+                           required=""/>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    {{dataRegisterResponse}}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -25,6 +25,7 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+                <li><a ng-href="register">Register</a></li>
                 <li ng-if="!authenticate()"><a ng-href="login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
                 <li ng-if="authenticate()"><a ng-click="logout()"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
                 <li><a ng-href="history">Purchase History</a></li>
@@ -46,8 +47,7 @@
 <script src="js/index.js"></script>
 <script src="js/frontPage.js"></script>
 <script src="js/login.js"></script>
-<script src="js/testPage.js"></script>
-<script src="js/registerAdmin.js"></script>
+<script src="js/register.js"></script>
 <script src="js/catalog.js"></script>
 <script src="js/cart.js"></script>
 <script src="js/purchaseHistory.js"></script>
@@ -58,6 +58,7 @@
 <script src="js/admin/modifyItems.js"></script>
 <script src="js/admin/viewItems.js"></script>
 <script src="js/viewItemsDetail.js"></script>
+<script src="js/testPage.js"></script>
 
 
 </body>
