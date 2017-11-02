@@ -1,5 +1,6 @@
 package com.example.myapp.userCatalog;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,10 +8,12 @@ public class UserCatalog {
 
     private Map<Integer, User> activeUsers;
     private Map<Integer, User> users;
+    private Map<Integer, LocalDateTime> loginHistory;
 
     public UserCatalog() {
-        users = new HashMap<Integer, User>();
-        activeUsers = new HashMap<Integer, User>();
+        users = new HashMap<>();
+        activeUsers = new HashMap<>();
+        loginHistory = new HashMap<>();
     }
 
     public void registerUser(User user1,int id) {
@@ -62,10 +65,12 @@ public class UserCatalog {
 
     public void addActiveUser(User user) {
         activeUsers.put(user.getId(),user);
+        loginHistory.put(user.getId(), LocalDateTime.now());
     }
 
     public void removeActiveUserById(int id) {
         activeUsers.remove(id);
+        loginHistory.remove(id);
     }
 
     public void setUsers(Map<Integer, User> users) {
@@ -76,4 +81,7 @@ public class UserCatalog {
         users.put(user.getId(), user);
     }
 
+    public Map<Integer, LocalDateTime> getLoginHistory() {
+        return loginHistory;
+    }
 }
