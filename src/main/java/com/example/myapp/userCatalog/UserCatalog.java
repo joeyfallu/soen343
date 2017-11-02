@@ -16,6 +16,7 @@ public class UserCatalog {
         loginHistory = new HashMap<>();
     }
 
+
     /*
     Login
     Returns the User object after a successful login, or throws an exception

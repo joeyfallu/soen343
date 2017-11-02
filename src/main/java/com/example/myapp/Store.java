@@ -102,7 +102,6 @@ public class Store {
 
     public void endTransaction(int userId)
     {
-        System.out.println(userId + "                 " +  transaction.getUserId());
         if (userId!=transaction.getUserId())
         {
             System.out.println("Transaction in progress, please wait and try again");

@@ -30,6 +30,11 @@ public class UserMapper {
         mapCount++;
     }
 
+    public void insertUserCatalog(User user)
+    {
+        userCatalog.addUser(user);
+    }
+
     public User get(int id){
         return userCatalog.getUserById(id);
     }

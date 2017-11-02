@@ -124,7 +124,6 @@ public class DemoApplication {
         Gson gson = new Gson();
         Map<Integer, Product> items = store.getProductCatalog().getProducts();
         String productJson = gson.toJson(items.get(id));
-        System.out.println(productJson);
         return productJson;
     }
 
@@ -145,7 +144,6 @@ public class DemoApplication {
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
     @ResponseBody
     String addUser(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
-        System.out.println(json);
         Gson gson = new Gson();
         User user = gson.fromJson(json, User.class);
 
