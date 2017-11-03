@@ -23,13 +23,7 @@ angular.module('app').controller('registerController', function ($scope, $http, 
                 $scope.userMessage = "ERROR: Duplicate Email!";
             } else {
                 $scope.userMessage = "Success";
-                console.log("Calling backend to perform registration transaction");
-                $http.get("/get/registrationTransaction").then(function (err) {
-                    if (err.data.message)
-                        $scope.userMessage = "ERROR: Registration failed.";
-                    else
-                        $location.path("/");
-                });
+                $location.path("/");
             }
         });
 

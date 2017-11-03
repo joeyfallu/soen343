@@ -156,7 +156,11 @@ public class DemoApplication {
         }
 
         if (!isDuplicateEmail) {
-            store.addNewUser(user);
+            System.out.println("Adding user to database.");
+            // Use a temporary ID to make a transaction while not logged in
+            store.initiateTransaction(1000, Transaction.Type.add);
+            store.addNewUser(1000, user);
+            store.endTransaction(1000);
             return gson.toJson(json);
         } else {
             return "{\"message\":\"Duplicate\"}";
@@ -269,15 +273,6 @@ public class DemoApplication {
     public void startStoreDeleteTransaction(@CookieValue("SESSIONID") int cookieId) {
         System.out.println("Starting delete transaction");
         store.initiateTransaction(cookieId, Transaction.Type.delete);
-    }
-
-    @RequestMapping(value = "/get/registrationTransaction", method = RequestMethod.GET)
-    @ResponseBody
-    public void registrationTransaction() {
-        System.out.println("Performing registration transaction");
-        // Use a temporary ID to make a transaction while not logged in
-        store.initiateTransaction(1000, Transaction.Type.add);
-        store.endTransaction(1000);
     }
 
 

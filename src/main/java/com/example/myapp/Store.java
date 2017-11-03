@@ -1,6 +1,5 @@
 package com.example.myapp;
 
-import com.example.myapp.actionHandlers.ProductAction;
 import com.example.myapp.database.ProductMapper;
 import com.example.myapp.database.UserMapper;
 import com.example.myapp.productCatalog.Product;
@@ -12,12 +11,9 @@ import java.util.Map;
 
 public class Store {
 
-    private ProductAction productAction;
     private Transaction transaction;
     private ProductMapper productMapper;
     private UserMapper userMapper;
-
-    private int tempID=2;
 
     public Store(UserMapper userMapper, ProductMapper productMapper){
 
@@ -61,7 +57,11 @@ public class Store {
     }
 
 
-    public void addNewUser(User user){
+    public void addNewUser(int userId, User user){
+        if (userId != transaction.getUserId()) {
+            System.out.println("Transaction in progress, please wait and try again");
+            return;
+        }
         this.userMapper.insert(user);
     }
 
