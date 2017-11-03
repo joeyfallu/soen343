@@ -1,25 +1,19 @@
 package com.example.myapp;
 
-import com.example.myapp.actionHandlers.ProductAction;
 import com.example.myapp.database.ProductMapper;
 import com.example.myapp.database.UserMapper;
 import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
 import com.example.myapp.transactions.Transaction;
-import com.example.myapp.userCatalog.UserCatalog;
 import com.example.myapp.userCatalog.User;
 
 import java.util.Map;
-import java.sql.SQLException;
 
 public class Store {
 
-    private ProductAction productAction;
     private Transaction transaction;
     private ProductMapper productMapper;
     private UserMapper userMapper;
-
-    private int tempID=2;
 
     public Store(UserMapper userMapper, ProductMapper productMapper){
 
@@ -63,9 +57,8 @@ public class Store {
     }
 
 
-    public void addNewUser(int userId,User user){
-        if (userId!=transaction.getUserId())
-        {
+    public void addNewUser(int userId, User user){
+        if (userId != transaction.getUserId()) {
             System.out.println("Transaction in progress, please wait and try again");
             return;
         }
@@ -84,8 +77,7 @@ public class Store {
             transaction.setComplete(false);
             transaction.setUserId(userId);
         }
-        else
-        if(transaction.isComplete()==false)
+        else if(!transaction.isComplete())
         {
             if(transaction.getUserId()==userId)
             {

@@ -29,13 +29,12 @@ public class DemoApplication {
             "/",
             "/test",
             "/login",
-            "/registerAdmin", // TODO change to /register
+            "/register",
             "/catalog",
             "/cart",
             "/history",
             "/admin",
             "/addItems",
-            "/addUsers",
             "/viewItems",
             "/modifyItems",
             "/viewItems/{id}"
@@ -143,28 +142,28 @@ public class DemoApplication {
     /* ADD USER */
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
     @ResponseBody
-    String addUser(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
+    public String addUser(@RequestBody String json){
         Gson gson = new Gson();
         User user = gson.fromJson(json, User.class);
-
-        boolean DuplicateEmail = false;
         String email = user.getEmail();
+        boolean isDuplicateEmail = false;
 
         for (Map.Entry<Integer, User> entry : store.getUserMapper().getUserCatalog().getUsers().entrySet()) {
             if(entry.getValue().getEmail().equals(email)) {
-                DuplicateEmail = true;
+                isDuplicateEmail = true;
+                break;
             }
-            //Continues to the next map entry
         }
-        if (DuplicateEmail == false) {
-            store.addNewUser(cookieId, user);
+
+        if (!isDuplicateEmail) {
+            System.out.println("Adding user to database.");
+            // Use a temporary ID to make a transaction while not logged in
+            store.initiateTransaction(1000, Transaction.Type.add);
+            store.addNewUser(1000, user);
+            store.endTransaction(1000);
             return gson.toJson(json);
-        }
-        else if (DuplicateEmail == true) {
+        } else {
             return "{\"message\":\"Duplicate\"}";
-        }
-        else {
-            return " ";
         }
 
     }
