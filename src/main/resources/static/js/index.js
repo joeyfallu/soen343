@@ -36,13 +36,12 @@ angular.module('app', ['ngRoute', 'ngCookies'])
             })
             .when('/test', {templateUrl: "view/testPage.html", controller: "testPageController"})
             .when('/login', {templateUrl: "view/login.html", controller: "loginController"})
-            .when('/registerAdmin', {templateUrl: "view/registerAdmin.html", controller: "RegisterAdminCtrl"})
+            .when('/register', {templateUrl: "view/register.html", controller: "registerController"})
             .when('/catalog', {templateUrl: "view/catalog.html", controller: "catalogController"})
             .when('/cart', {templateUrl: "view/cart.html", controller: "cartController"})
             .when('/history', {templateUrl: "view/PurchaseHistory.html", controller: "purchaseHistoryController"})
             .when('/admin', {templateUrl: "view/admin/admin.html"}) // TODO controller
             .when('/addItems', {templateUrl: "view/admin/addItems.html", controller: "addItemsCtrl"})
-            .when('/addUsers', {templateUrl: "view/admin/addUsers.html", controller: "addUsersCtrl"})
             .when('/viewItems', {templateUrl: "view/admin/viewItems.html", controller: "viewItemsCtrl"})
             .when('/modifyItems', {templateUrl: "view/admin/modifyItems.html", controller: "modifyItemsController"})
             .when('/deleteItems', {templateUrl: "view/admin/deleteItems.html", controller: "deleteItemsController"})
@@ -58,7 +57,6 @@ angular.module('app', ['ngRoute', 'ngCookies'])
 
             if (next.templateUrl === "view/admin/admin.html" ||
                 next.templateUrl === "view/admin/addItems.html" ||
-                next.templateUrl === "view/admin/addUsers.html" ||
                 next.templateUrl === "view/admin/viewItems.html" ||
                 next.templateUrl === "view/admin/modifyItems.html" ||
                 next.templateUrl === "view/admin/deleteItems.html") {
