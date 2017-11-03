@@ -35,7 +35,6 @@ public class DemoApplication {
             "/history",
             "/admin",
             "/addItems",
-            "/addUsers",
             "/viewItems",
             "/modifyItems",
             "/viewItems/{id}"
@@ -143,28 +142,24 @@ public class DemoApplication {
     /* ADD USER */
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
     @ResponseBody
-    String addUser(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
+    public String addUser(@RequestBody String json){
         Gson gson = new Gson();
         User user = gson.fromJson(json, User.class);
-
-        boolean DuplicateEmail = false;
         String email = user.getEmail();
+        boolean isDuplicateEmail = false;
 
         for (Map.Entry<Integer, User> entry : store.getUserMapper().getUserCatalog().getUsers().entrySet()) {
             if(entry.getValue().getEmail().equals(email)) {
-                DuplicateEmail = true;
+                isDuplicateEmail = true;
+                break;
             }
-            //Continues to the next map entry
         }
-        if (DuplicateEmail == false) {
-            store.addNewUser(cookieId, user);
+
+        if (!isDuplicateEmail) {
+            store.addNewUser(user);
             return gson.toJson(json);
-        }
-        else if (DuplicateEmail == true) {
+        } else {
             return "{\"message\":\"Duplicate\"}";
-        }
-        else {
-            return " ";
         }
 
     }
@@ -274,6 +269,15 @@ public class DemoApplication {
     public void startStoreDeleteTransaction(@CookieValue("SESSIONID") int cookieId) {
         System.out.println("Starting delete transaction");
         store.initiateTransaction(cookieId, Transaction.Type.delete);
+    }
+
+    @RequestMapping(value = "/get/registrationTransaction", method = RequestMethod.GET)
+    @ResponseBody
+    public void registrationTransaction() {
+        System.out.println("Performing registration transaction");
+        // Use a temporary ID to make a transaction while not logged in
+        store.initiateTransaction(1000, Transaction.Type.add);
+        store.endTransaction(1000);
     }
 
 

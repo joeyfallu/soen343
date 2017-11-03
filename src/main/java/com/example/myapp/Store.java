@@ -6,11 +6,9 @@ import com.example.myapp.database.UserMapper;
 import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
 import com.example.myapp.transactions.Transaction;
-import com.example.myapp.userCatalog.UserCatalog;
 import com.example.myapp.userCatalog.User;
 
 import java.util.Map;
-import java.sql.SQLException;
 
 public class Store {
 
@@ -63,12 +61,7 @@ public class Store {
     }
 
 
-    public void addNewUser(int userId,User user){
-        if (userId!=transaction.getUserId())
-        {
-            System.out.println("Transaction in progress, please wait and try again");
-            return;
-        }
+    public void addNewUser(User user){
         this.userMapper.insert(user);
     }
 
@@ -84,8 +77,7 @@ public class Store {
             transaction.setComplete(false);
             transaction.setUserId(userId);
         }
-        else
-        if(transaction.isComplete()==false)
+        else if(!transaction.isComplete())
         {
             if(transaction.getUserId()==userId)
             {
