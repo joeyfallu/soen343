@@ -83,13 +83,14 @@ public class Store {
         {
             transaction.setComplete(false);
             transaction.setUserId(userId);
+            transaction.setType(t);
         }
         else
         if(transaction.isComplete()==false)
         {
             if(transaction.getUserId()==userId)
             {
-                transaction = new Transaction(t);
+                transaction.setType(t);
                 transaction.setUserId(userId);
                 transaction.setComplete(false);
             }
