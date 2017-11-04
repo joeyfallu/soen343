@@ -2,7 +2,7 @@
     <div class="col-md-8 col-md-offset-2">
         <div class="form-area">
 
-            <h1>Add New User Form</h1>
+            <h1>User Registration</h1>
 
             <form name="user" ng-submit="addUser()">
 
@@ -24,10 +24,8 @@
                 <label for="phoneNumInput">Phone number:</label>
                 <input type="text" class="form-control" ng-model="phoneNumber" required="" id="phoneNumInput"/>
 
-                <br/><button type="submit" class="btn btn-block">Submit</button>
+                <br/><button type="submit" class="btn btn-block">Register</button>
                 {{userMessage}}
-
-                <br/><a ng-href="admin"><button class="btn btn-block">Finish</button></a>
 
             </form>
 

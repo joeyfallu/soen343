@@ -15,6 +15,3 @@ http://soen343electronics.herokuapp.com/
     Martin Spazov
     Keven Abellard
 
-## How to Setup the Server
-
-Please read [How to Setup the Server](https://github.com/joeyfallu/soen343/wiki/1.-How-to-Setup-the-Server)
