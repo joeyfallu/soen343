@@ -5,19 +5,12 @@ html, body {
 }
 
 .navbar {
+    margin-bottom: 50px;
     border-radius: 0;
 }
 
-.view {
-    margin: 50px 0 0 0;
-}
-
 .full-height {
-    height: 100vh;
-}
-
-.full-width {
-    width: 100%;
+    height: calc(100vh - 105px);
 }
 
 .center-vertically {
@@ -28,34 +21,6 @@ html, body {
 
 .debug {
     border-style: dashed;
-}
-
-/* Hide website loading */
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-    display: none !important;
-}
-
-/* Front page */
-.carousel {
-    overflow: hidden;
-    position: absolute;
-    z-index: -99;
-}
-
-.logo {
-    position: absolute;
-    margin-top: 100px;
-    padding: 30px 5px 5px 5px;
-    text-align: center;
-    border-radius: 10px;
-    background: rgba(250, 250, 250, 0.95);
-    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-    -webkit-animation: fadein 1.5s;
-}
-
-@keyframes fadein {
-    from { top: -50px; opacity: 0; }
-    to   { top: 50px; opacity: 1; }
 }
 
 /* LOGIN */
