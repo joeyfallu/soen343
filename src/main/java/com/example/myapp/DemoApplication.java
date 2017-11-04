@@ -30,20 +30,21 @@ public class DemoApplication {
             "/test",
             "/login",
             "/register",
-            "/catalog/desktops",
-            "/catalog/monitors",
-            "/catalog/laptops",
-            "/catalog/tablets",
+            "/catalog",
             "/cart",
             "/history",
             "/admin",
             "/addItems",
             "/viewItems",
             "/modifyItems",
-            "/deleteItems",
             "/viewItems/{id}"
     })
-    public String redirectOnReload() {
+    public String redirectOnReload() {return "forward:/index.html";}
+
+    // TODO remove
+    @RequestMapping({"/deleteItems"})
+    public String redirectForDeleteTransaction(@CookieValue("SESSIONID") int cookieId) {
+        store.initiateTransaction(cookieId,Transaction.Type.delete);
         return "forward:/index.html";
     }
 
