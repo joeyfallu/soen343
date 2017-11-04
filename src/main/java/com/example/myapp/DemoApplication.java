@@ -40,14 +40,10 @@ public class DemoApplication {
             "/addItems",
             "/viewItems",
             "/modifyItems",
+            "/deleteItems",
             "/viewItems/{id}"
     })
-    public String redirectOnReload() {return "forward:/index.html";}
-
-    // TODO remove
-    @RequestMapping({"/deleteItems"})
-    public String redirectForDeleteTransaction(@CookieValue("SESSIONID") int cookieId) {
-        store.initiateTransaction(cookieId,Transaction.Type.delete);
+    public String redirectOnReload() {
         return "forward:/index.html";
     }
 
