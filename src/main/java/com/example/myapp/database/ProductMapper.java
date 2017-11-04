@@ -4,9 +4,11 @@ import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
 import com.example.myapp.transactions.Transaction;
 import com.example.myapp.transactions.UnitOfWork;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+@Service
 public class ProductMapper {
 
     private ProductIdentityMap productIdentityMap;
@@ -15,6 +17,14 @@ public class ProductMapper {
     private Transaction.Type commitType= Transaction.Type.add;
     private UnitOfWork u;
     private int mapCount=0;
+
+    public ProductMapper()
+    {
+        this.productTDG = new ProductTDG();
+        this.productCatalog = new ProductCatalog();
+        this.productIdentityMap = new ProductIdentityMap();
+        getProductCatalog().setProducts(this.getAll());
+    }
 
     public ProductMapper(ProductCatalog productCatalog) {
         this.productTDG = new ProductTDG();

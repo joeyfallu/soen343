@@ -4,9 +4,12 @@ import com.example.myapp.transactions.UnitOfWork;
 import com.example.myapp.userCatalog.User;
 import com.example.myapp.userCatalog.UserCatalog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 
 import java.util.Map;
 
+@Service
 public class UserMapper {
 
     private UserIdentityMap userIdentityMap;
@@ -16,6 +19,13 @@ public class UserMapper {
     private int mapCount=0;
 
 
+    public UserMapper()
+    {
+        this.userTDG = new UserTDG();
+        this.userCatalog = new UserCatalog();
+        this.userIdentityMap = new UserIdentityMap();
+        getUserCatalog().setUsers(this.getAll());
+    }
 
     public UserMapper(UserCatalog userCatalog)
     {

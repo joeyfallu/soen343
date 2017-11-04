@@ -29,6 +29,10 @@ public class EmployeeServiceAspect {
 	public void beforeAdvice2(JoinPoint joinPoint) {
 		System.out.println("something happened");
 	}
+	@Before(value = "execution(* com.example.myapp.database.UserMapper.*(..))")
+	public void beforeAdvice3(JoinPoint joinPoint) {
+		System.out.println("something happened in the User mapper");
+	}
 
 	@Before(value = "execution(* com.example.myapp.service.EmployeeService.*(..))")
 	public void beforeAdvice1(JoinPoint joinPoint) {
