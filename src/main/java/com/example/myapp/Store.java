@@ -6,14 +6,31 @@ import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
 import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.User;
+import com.example.myapp.userCatalog.UserCatalog;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+@Service
 public class Store {
 
     private Transaction transaction;
     private ProductMapper productMapper;
     private UserMapper userMapper;
+
+    public Store()
+    {
+        transaction = new Transaction(Transaction.Type.add);
+        transaction.setComplete(true);
+        UserCatalog userInit = new UserCatalog();
+        ProductCatalog productInit = new ProductCatalog();
+        UserMapper userMap = new UserMapper(userInit);
+        ProductMapper productMap = new ProductMapper(productInit);
+        this.userMapper=userMap;
+        this.productMapper = productMap;
+        this.getProductCatalog().setProducts(this.getProductMapper().getAll());
+        this.getUserMapper().getUserCatalog().setUsers(this.getUserMapper().getAll());
+    }
 
     public Store(UserMapper userMapper, ProductMapper productMapper){
 

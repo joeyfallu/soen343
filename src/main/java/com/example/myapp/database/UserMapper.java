@@ -3,6 +3,8 @@ package com.example.myapp.database;
 import com.example.myapp.transactions.UnitOfWork;
 import com.example.myapp.userCatalog.User;
 import com.example.myapp.userCatalog.UserCatalog;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Map;
 
 public class UserMapper {
