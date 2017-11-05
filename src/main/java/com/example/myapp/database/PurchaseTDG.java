@@ -60,45 +60,47 @@ public class PurchaseTDG {
 
     }
 
-    public Purchases dbGet(int userId) throws Exception {
+    public Purchase dbGet(int id) throws Exception {
         dbConnect();
-        String sql = "SELECT * FROM Purchases WHERE userId='" + userId + "'";
+        String sql = "SELECT * FROM Purchases WHERE id='" + id + "'";
         resultSet = statement.executeQuery(sql);
         String result[] = new String[20];
-        Map<Product, String> purchaseMap = new HashMap<>();
 
-
-        while (resultSet.next()) {
+        while (resultSet.next())
+        {
             for (int i = 1; i < 20; i++) {
                 result[i] = resultSet.getString(i);
             }
-
-            if (Integer.parseInt(result[17]) == 2) {
-                //1/2/3/4/5/11
-                Monitor monitor = new Monitor(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], Integer.parseInt(result[11]), Integer.parseInt(result[17]));
-                purchaseMap.put(monitor, result[18]);
-            }
-            else if (Integer.parseInt(result[17]) == 3) {
-                //1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/
-                Tablet tablet = new Tablet(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[6], result[7],
-                        Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Double.parseDouble(result[11]), result[12], result[13], result[14], Integer.parseInt(result[17]));
-                purchaseMap.put(tablet, result[18]);
-            }
-            else if (Integer.parseInt(result[17]) == 4) {
-                //1/2/3/4/5/6/7/8/9/10/
-                Desktop desktop = new Desktop(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[6], result[7],
-                        Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Integer.parseInt(result[17]));
-                purchaseMap.put(desktop, result[18]);
-            }
-            else if (Integer.parseInt(result[17]) == 5) {
-                //1/2/3/4/5/7/8/9/10/11/12/13/15/16
-                Laptop laptop = new Laptop(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[7],
-                        Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Double.parseDouble(result[11]), result[12], result[13],
-                        Boolean.parseBoolean(result[15]), Boolean.parseBoolean(result[16]), Integer.parseInt(result[17]));
-                purchaseMap.put(laptop, result[18]);
-            }
         }
-        return new Purchases(userId ,purchaseMap);
+        if (Integer.parseInt(result[17]) == 2)
+        {
+            //1/2/3/4/5/11
+            Monitor monitor = new Monitor(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], Integer.parseInt(result[11]), Integer.parseInt(result[17]));
+            return new Purchase(Integer.parseInt(result[19]),result[18],monitor);
+        }
+        else if (Integer.parseInt(result[17]) == 3)
+        {
+            //1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/
+            Tablet tablet = new Tablet(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[6], result[7],
+                    Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Double.parseDouble(result[11]), result[12], result[13], result[14], Integer.parseInt(result[17]));
+            return new Purchase(Integer.parseInt(result[19]),result[18],tablet);
+        }
+        else if (Integer.parseInt(result[17]) == 4)
+        {
+            //1/2/3/4/5/6/7/8/9/10/
+            Desktop desktop = new Desktop(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[6], result[7],
+                    Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Integer.parseInt(result[17]));
+            return new Purchase(Integer.parseInt(result[19]),result[18],desktop);
+        }
+        else if (Integer.parseInt(result[17]) == 5)
+        {
+            //1/2/3/4/5/7/8/9/10/11/12/13/15/16
+            Laptop laptop = new Laptop(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[7],
+                    Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Double.parseDouble(result[11]), result[12], result[13],
+                    Boolean.parseBoolean(result[15]), Boolean.parseBoolean(result[16]), Integer.parseInt(result[17]));
+            return new Purchase(Integer.parseInt(result[19]),result[18],laptop);
+        }
+        return null;
     }
 
     public void dbDelete(int id) throws Exception {
