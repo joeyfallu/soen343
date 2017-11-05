@@ -24,12 +24,12 @@ public class UnitOfWorkAspect {
 	UserMapper userMapper;
 
 	@Before(value = "execution(* com.example.myapp.Store.*(..))")
-	public void beforeAdvice2(JoinPoint joinPoint) {
+	public void beforeAdvice(JoinPoint joinPoint) {
 
 	}
 
 	@Before(value = "execution(* com.example.myapp.database.UserMapper.commit(..))")
-	public void beforeAdvice3(JoinPoint joinPoint) {
+	public void beforeUserCommit(JoinPoint joinPoint) {
 		userMapper = (UserMapper)joinPoint.getThis();
 		int mapCount = userMapper.getMapCount();
 		for (int i = 0; i<mapCount; i++)
@@ -41,7 +41,7 @@ public class UnitOfWorkAspect {
 	}
 
 	@Before(value ="execution(* com.example.myapp.database.ProductMapper.commit(..))")
-	public void beforeAdvice4(JoinPoint joinPoint) {
+	public void beforeProductCommit(JoinPoint joinPoint) {
 		productMapper = (ProductMapper)joinPoint.getThis();
 		int mapCount = productMapper.getMapCount();
 		Transaction.Type transactionType= productMapper.getCommitType();
