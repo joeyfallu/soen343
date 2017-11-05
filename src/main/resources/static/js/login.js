@@ -12,13 +12,13 @@ angular.module('app')
                 email: $scope.email,
                 password: $scope.password
             };
+
             $scope.errorMsg = "";
+
             $http.post(url, data).then((res) => {
-                console.log(res.data);
                 if (res.data.message) {
                     $scope.errorMsg = res.data.message;
                 } else {
-                    //Successful login
                     $scope.userInfo = res.data;
                     console.log("Successful login for: ", $scope.userInfo.email);
                     $location.path('/');
