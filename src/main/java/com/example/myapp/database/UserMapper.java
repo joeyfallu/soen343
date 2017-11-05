@@ -1,19 +1,30 @@
 package com.example.myapp.database;
 
-import com.example.myapp.transactions.UnitOfWork;
+
 import com.example.myapp.userCatalog.User;
 import com.example.myapp.userCatalog.UserCatalog;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
 import java.util.Map;
 
+@Service
 public class UserMapper {
 
     private UserIdentityMap userIdentityMap;
     private UserTDG userTDG;
     private UserCatalog userCatalog;
-    private UnitOfWork u;
     private int mapCount=0;
 
 
+    public UserMapper()
+    {
+        this.userTDG = new UserTDG();
+        this.userCatalog = new UserCatalog();
+        this.userIdentityMap = new UserIdentityMap();
+        getUserCatalog().setUsers(this.getAll());
+    }
 
     public UserMapper(UserCatalog userCatalog)
     {
@@ -56,13 +67,7 @@ public class UserMapper {
 
     public void commit()
     {
-        u = new UnitOfWork(this);
-        for(int i=0; i<mapCount; i++)
-        {
-            User us = userIdentityMap.getUserById(i);
-            u.registerAdd(us);
-        }
-        u.commitUsers();
+        mapCount=0;
     }
 
     public UserTDG getUserTDG() {
@@ -70,5 +75,13 @@ public class UserMapper {
     }
     public UserCatalog getUserCatalog(){
         return userCatalog;
+    }
+
+    public int getMapCount() {
+        return mapCount;
+    }
+
+    public UserIdentityMap getUserIdentityMap() {
+        return userIdentityMap;
     }
 }

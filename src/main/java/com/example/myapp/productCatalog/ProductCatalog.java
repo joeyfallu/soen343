@@ -1,11 +1,13 @@
 package com.example.myapp.productCatalog;
 
 import com.example.myapp.database.ProductMapper;
+import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class ProductCatalog {
 
     private Map<Integer, Product> products;
