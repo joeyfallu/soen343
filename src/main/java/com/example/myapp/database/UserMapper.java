@@ -68,13 +68,13 @@ public class UserMapper {
 
     public void commit()
     {
-        u = new UnitOfWork(this);
+        /*u = new UnitOfWork(this);
         for(int i=0; i<mapCount; i++)
         {
             User us = userIdentityMap.getUserById(i);
             u.registerAdd(us);
         }
-        u.commitUsers();
+        u.commitUsers();*/
     }
 
     public UserTDG getUserTDG() {
@@ -84,4 +84,11 @@ public class UserMapper {
         return userCatalog;
     }
 
+    public int getMapCount() {
+        return mapCount;
+    }
+
+    public UserIdentityMap getUserIdentityMap() {
+        return userIdentityMap;
+    }
 }

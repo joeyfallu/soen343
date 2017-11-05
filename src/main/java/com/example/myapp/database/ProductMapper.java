@@ -151,4 +151,16 @@ public class ProductMapper {
     public void setProductCatalog(ProductCatalog productCatalog) {
         this.productCatalog = productCatalog;
     }
+
+    public ProductIdentityMap getProductIdentityMap() {
+        return productIdentityMap;
+    }
+
+    public Transaction.Type getCommitType() {
+        return commitType;
+    }
+
+    public int getMapCount() {
+        return mapCount;
+    }
 }
