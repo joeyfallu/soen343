@@ -3,6 +3,7 @@ package com.example.myapp.aspect;
 import com.example.myapp.database.ProductMapper;
 import com.example.myapp.database.UserMapper;
 import com.example.myapp.productCatalog.Product;
+import com.example.myapp.purchases.PurchaseMapper;
 import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.User;
 import org.aspectj.lang.JoinPoint;
@@ -17,16 +18,14 @@ import java.util.ArrayList;
 @Component
 public class UnitOfWorkAspect {
 
-	ArrayList<Object> add = new ArrayList<Object>();
-	ArrayList<Object> delete = new ArrayList<Object>();
-	ArrayList<Object> modify = new ArrayList<Object>();
-	ProductMapper productMapper;
-	UserMapper userMapper;
-
-	@Before(value = "execution(* com.example.myapp.Store.*(..))")
-	public void beforeAdvice(JoinPoint joinPoint) {
-
-	}
+	private ArrayList<Object> add = new ArrayList<Object>();
+	private ArrayList<Object> delete = new ArrayList<Object>();
+	private ArrayList<Object> modify = new ArrayList<Object>();
+	private ArrayList<Object> purchase = new ArrayList<>();
+	private ArrayList<Object> returnItem = new ArrayList<>();
+	private ProductMapper productMapper;
+	private UserMapper userMapper;
+	private PurchaseMapper purchaseMapper;
 
 	@Before(value = "execution(* com.example.myapp.database.UserMapper.commit(..))")
 	public void beforeUserCommit(JoinPoint joinPoint) {

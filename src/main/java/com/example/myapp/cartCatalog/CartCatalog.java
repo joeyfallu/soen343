@@ -19,7 +19,7 @@ public class CartCatalog {
     }
 
     public void emptyCart(int userId) {
-        Cart cart = carts.get(userId);
+        Cart cart = getCart(userId);
         cart.setSize(0);
         cart.setTotal(0);
         Map<Integer, Date> cartProducts = cart.getCartProducts();
@@ -27,18 +27,22 @@ public class CartCatalog {
     }
 
     public void addToCart(int userId, int itemId){
-        Cart cart = carts.get(userId);
+        Cart cart = getCart(userId);
         Map<Integer, Date> cartProducts = cart.getCartProducts();
         cartProducts.put(itemId, new Date());
     }
 
     public void removeFromCart(int userId, int itemId){
-        Cart cart = carts.get(userId);
+        Cart cart = getCart(userId);
         Map<Integer, Date> cartProducts = cart.getCartProducts();
         cartProducts.remove(itemId);
     }
 
     public void purchaseCart(){
 
+    }
+
+    public Cart getCart(int userId){
+        return carts.get(userId);
     }
 }
