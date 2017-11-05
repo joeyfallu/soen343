@@ -1,11 +1,14 @@
 package com.example.myapp.database;
 
 import com.example.myapp.productCatalog.*;
+import com.example.myapp.purchases.Purchases;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PurchaseTDG {
     private Connection connect = null;
@@ -25,23 +28,23 @@ public class PurchaseTDG {
         String sql = "";
         if(pro instanceof Monitor){
             Monitor mn = (Monitor)pro;
-            sql="INSERT INTO Purchases (model, weight, price, brand, size,discriminator, timeStamp, userId) VALUES ('"+mn.getModel()+"','"+mn.getWeight()
+            sql="INSERT INTO Purchases (id, model, weight, price, brand, size,discriminator, timeStamp, userId) VALUES ('"+ mn.getId() +"','"+mn.getModel()+"','"+mn.getWeight()
                     +"','"+mn.getPrice()+"','"+mn.getBrand()+"','"+mn.getSize()+"','2','"+timeStamp+"','"+userId+"')";
         }
         else if(pro instanceof Tablet){
             Tablet tb = (Tablet)pro;
-            sql="INSERT INTO Purchases (model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,dimensions, batteryInfo,operatingSystem,cameraInfo,size,discriminator, timeStamp, userId) VALUES ('"+tb.getModel()+
+            sql="INSERT INTO Purchases (id, model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,dimensions, batteryInfo,operatingSystem,cameraInfo,size,discriminator, timeStamp, userId) VALUES ('"+ tb.getId() +"','"+tb.getModel()+
                     "','"+tb.getWeight()+"','"+tb.getPrice()+"','"+tb.getBrand()+"','"+tb.getProcessorType()+"','"+tb.getCpuCores()+"','"+tb.getRam()+"','"+tb.getHardDriveSize()+"','"+tb.getDimensions()+"','"+
                     tb.getBatteryInfo()+"','"+tb.getOperatingSystem()+"','"+tb.getCameraInfo()+"','"+tb.getSize()+"','3','"+timeStamp+"','"+userId+"')";
         }
         else if(pro instanceof Desktop){
             Desktop dt = (Desktop)pro;
-            sql="INSERT INTO Purchases (model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,dimensions,discriminator, timeStamp, userId) VALUES ('"+dt.getModel()+
+            sql="INSERT INTO Purchases (id, model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,dimensions,discriminator, timeStamp, userId) VALUES ('"+ dt.getId() +"','"+dt.getModel()+
                     "','"+dt.getWeight()+"','"+dt.getPrice()+"','"+dt.getBrand()+"','"+dt.getProcessorType()+"','"+dt.getCpuCores()+"','"+dt.getRam()+"','"+dt.getHardDriveSize()+"','"+dt.getDimensions()+"','4','"+timeStamp+"','"+userId+"')";
         }
         else if(pro instanceof Laptop){
             Laptop lp = (Laptop)pro;
-            sql="INSERT INTO Purchases (model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,size, batteryInfo,operatingSystem,camera,touchScreen,discriminator, timeStamp, userId) VALUES ('"+lp.getModel()+
+            sql="INSERT INTO Purchases (id, model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,size, batteryInfo,operatingSystem,camera,touchScreen,discriminator, timeStamp, userId) VALUES ('"+lp.getId() +"','"+lp.getModel()+
                     "','"+lp.getWeight()+"','"+lp.getPrice()+"','"+lp.getBrand()+"','"+lp.getProcessorType()+"','"+lp.getCpuCores()+"','"+lp.getRam()+"','"+lp.getHardDriveSize()+"','"+lp.getSize()+"','"+
                     lp.getBatteryInfo()+"','"+lp.getOperatingSystem()+"','"+lp.getCamera()+"','"+lp.getTouchScreen()+"','5','"+timeStamp+"','"+userId+"')";
         }
@@ -56,112 +59,51 @@ public class PurchaseTDG {
 
     }
 
-    public Product dbGet(int id) throws Exception{
+    public Purchases dbGet(int userId) throws Exception {
         dbConnect();
-        String sql = "SELECT * FROM Purchases WHERE id='" + id + "'";
+        String sql = "SELECT * FROM Purchases WHERE userId='" + userId + "'";
         resultSet = statement.executeQuery(sql);
-        String result[]= new String[20];
+        String result[] = new String[20];
+        Map<Product, String> purchaseMap = new HashMap<>();
 
 
-        while(resultSet.next())
-        {
-            for(int i=1; i<20; i++) {
+        while (resultSet.next()) {
+            for (int i = 1; i < 20; i++) {
                 result[i] = resultSet.getString(i);
             }
 
+            if (Integer.parseInt(result[17]) == 2) {
+                //1/2/3/4/5/11
+                Monitor monitor = new Monitor(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], Integer.parseInt(result[11]), Integer.parseInt(result[17]));
+                purchaseMap.put(monitor, result[18]);
+            }
+            if (Integer.parseInt(result[17]) == 3) {
+                //1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/
+                Tablet tablet = new Tablet(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[6], result[7],
+                        Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Double.parseDouble(result[11]), result[12], result[13], result[14], Integer.parseInt(result[17]));
+                purchaseMap.put(tablet, result[18]);
+            }
+            if (Integer.parseInt(result[17]) == 4) {
+                //1/2/3/4/5/6/7/8/9/10/
+                Desktop desktop = new Desktop(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[6], result[7],
+                        Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Integer.parseInt(result[17]));
+                purchaseMap.put(desktop, result[18]);
+            }
+            if (Integer.parseInt(result[17]) == 5) {
+                //1/2/3/4/5/7/8/9/10/11/12/13/15/16
+                Laptop laptop = new Laptop(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[7],
+                        Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Double.parseDouble(result[11]), result[12], result[13],
+                        Boolean.parseBoolean(result[15]), Boolean.parseBoolean(result[16]), Integer.parseInt(result[17]));
+                purchaseMap.put(laptop, result[18]);
+            }
         }
-        if(Integer.parseInt(result[17])==2)
-        {
-            //1/2/3/4/5/11
-            Monitor mn = new Monitor(Integer.parseInt(result[1]),result[2],Double.parseDouble(result[3]),Double.parseDouble(result[4]),result[5],Integer.parseInt(result[11]), Integer.parseInt(result[17]));
-            return mn;
-        }
-        if(Integer.parseInt(result[17])==3)
-        {
-            //1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/
-            Tablet tl= new Tablet(Integer.parseInt(result[1]),result[2],Double.parseDouble(result[3]),Double.parseDouble(result[4]),result[5],result[6],result[7],
-                    Integer.parseInt(result[8]),Integer.parseInt(result[9]),Integer.parseInt(result[10]),Double.parseDouble(result[11]),result[12],result[13],result[14], Integer.parseInt(result[17]));
-            return tl;
-        }
-        if(Integer.parseInt(result[17])==4)
-        {
-            //1/2/3/4/5/6/7/8/9/10/
-            Desktop dt = new Desktop(Integer.parseInt(result[1]),result[2],Double.parseDouble(result[3]),Double.parseDouble(result[4]),result[5],result[6],result[7],
-                    Integer.parseInt(result[8]),Integer.parseInt(result[9]),Integer.parseInt(result[10]), Integer.parseInt(result[17]));
-            return dt;
-        }
-        if(Integer.parseInt(result[17])==5)
-        {
-            //1/2/3/4/5/7/8/9/10/11/12/13/15/16
-            Laptop lp = new Laptop(Integer.parseInt(result[1]),result[2],Double.parseDouble(result[3]),Double.parseDouble(result[4]),result[5],result[7],
-                    Integer.parseInt(result[8]),Integer.parseInt(result[9]),Integer.parseInt(result[10]),Double.parseDouble(result[11]),result[12],result[13],
-                    Boolean.parseBoolean(result[15]),Boolean.parseBoolean(result[16]), Integer.parseInt(result[17]));
-            return lp;
-        }
-        return null;
+        return new Purchases(userId ,purchaseMap);
     }
+
     public void dbDelete(int id) throws Exception {
         dbConnect();
         String sql = "DELETE FROM Purchases WHERE id = '" + id + "'";
         statement.executeUpdate(sql);
     }
 
-
-    public Product[] dbGetAll() throws Exception{
-        dbConnect();
-        String sql = "SELECT * FROM Purchases";
-        int numberOfProducts = 0;
-        int currentProductNum = 0;
-
-        resultSet = statement.executeQuery(sql);
-
-        while(resultSet.next()){
-            numberOfProducts++;
-        }
-
-        Product products[] = new Product[numberOfProducts];
-        String result[] = new String[18];
-
-        resultSet = statement.executeQuery(sql);
-
-        while(resultSet.next()) {
-            for (int i = 1; i < 18; i++) {
-                result[i] = resultSet.getString(i);
-            }
-
-            if (Integer.parseInt(result[17]) == 2) {
-                //1/2/3/4/5/11
-                Monitor mn = new Monitor(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], Integer.parseInt(result[11]), Integer.parseInt(result[17]));
-                products[currentProductNum] = mn;
-                currentProductNum++;
-            }
-            if (Integer.parseInt(result[17]) == 3) {
-                //1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/
-                Tablet tl = new Tablet(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[6], result[7],
-                        Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Double.parseDouble(result[11]), result[12], result[13], result[14], Integer.parseInt(result[17]));
-
-                products[currentProductNum] = tl;
-                currentProductNum++;
-            }
-            if (Integer.parseInt(result[17]) == 4) {
-                //1/2/3/4/5/6/7/8/9/10/
-                Desktop dt = new Desktop(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[6], result[7],
-                        Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Integer.parseInt(result[17]));
-
-                products[currentProductNum] = dt;
-                currentProductNum++;
-            }
-            if (Integer.parseInt(result[17]) == 5) {
-                //1/2/3/4/5/7/8/9/10/11/12/13/15/16
-                Laptop lp = new Laptop(Integer.parseInt(result[1]), result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[7],
-                        Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Double.parseDouble(result[11]), result[12], result[13],
-                        Boolean.parseBoolean(result[15]), Boolean.parseBoolean(result[16]), Integer.parseInt(result[17]));
-
-                products[currentProductNum] = lp;
-                currentProductNum++;
-            }
-        }
-        return products;
-
-    }
 }
