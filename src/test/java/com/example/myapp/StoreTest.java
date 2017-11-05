@@ -52,7 +52,7 @@ public class StoreTest {
 
     @Test
     public void addNewUser(){
-        store.addNewUser(0,userMock);
+        store.addNewUser(0, userMock);
         Mockito.verify(userMapperMock).insert(userMock);
     }
 

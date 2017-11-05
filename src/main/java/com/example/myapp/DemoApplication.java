@@ -29,23 +29,21 @@ public class DemoApplication {
             "/",
             "/test",
             "/login",
-            "/registerAdmin", // TODO change to /register
-            "/catalog",
+            "/register",
+            "/catalog/desktops",
+            "/catalog/monitors",
+            "/catalog/laptops",
+            "/catalog/tablets",
             "/cart",
             "/history",
             "/admin",
             "/addItems",
-            "/addUsers",
             "/viewItems",
             "/modifyItems",
+            "/deleteItems",
             "/viewItems/{id}"
     })
-    public String redirectOnReload() {return "forward:/index.html";}
-
-    // TODO remove
-    @RequestMapping({"/deleteItems"})
-    public String redirectForDeleteTransaction(@CookieValue("SESSIONID") int cookieId) {
-        store.initiateTransaction(cookieId,Transaction.Type.delete);
+    public String redirectOnReload() {
         return "forward:/index.html";
     }
 
@@ -54,13 +52,12 @@ public class DemoApplication {
     @RequestMapping(value = "/post/login", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String loginSubmit(@RequestBody String body, HttpServletResponse response) {
-
         Gson gson = new Gson();
         User tempUser = gson.fromJson(body, User.class);
         String email = tempUser.getEmail();
         String password = tempUser.getPassword();
-        tempUser = null;                            //This object isn't needed anymore
-        try{
+
+        try {
             User loggedInUser = store.getUserMapper().getUserCatalog().login(email, password);
             System.out.println("Successful login by: " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " "+ loggedInUser.getEmail());
             //Send two cookies which store the user's id and info as json
@@ -83,9 +80,10 @@ public class DemoApplication {
         } catch(Exception e) {
             if(e.getMessage().equals("Wrong password")){
                 return "{\"message\":\"Wrong password\"}";
-            }
-            if (e.getMessage().equals("Email not found")){
+            } else if (e.getMessage().equals("Email not found")){
                 return "{\"message\":\"Email not found\"}";
+            } else if (e.getMessage().equals("User already logged in")) {
+                return "{\"message\":\"User already logged in\"}";
             } else {
                 e.printStackTrace();
                 return "{\"message\":\"Error logging in\"}";
@@ -124,7 +122,6 @@ public class DemoApplication {
         Gson gson = new Gson();
         Map<Integer, Product> items = store.getProductCatalog().getProducts();
         String productJson = gson.toJson(items.get(id));
-        System.out.println(productJson);
         return productJson;
     }
 
@@ -144,29 +141,28 @@ public class DemoApplication {
     /* ADD USER */
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
     @ResponseBody
-    String addUser(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
-        System.out.println(json);
+    public String addUser(@RequestBody String json){
         Gson gson = new Gson();
         User user = gson.fromJson(json, User.class);
-
-        boolean DuplicateEmail = false;
         String email = user.getEmail();
+        boolean isDuplicateEmail = false;
 
         for (Map.Entry<Integer, User> entry : store.getUserMapper().getUserCatalog().getUsers().entrySet()) {
             if(entry.getValue().getEmail().equals(email)) {
-                DuplicateEmail = true;
+                isDuplicateEmail = true;
+                break;
             }
-            //Continues to the next map entry
         }
-        if (DuplicateEmail == false) {
-            store.addNewUser(cookieId, user);
+
+        if (!isDuplicateEmail) {
+            System.out.println("Adding user to database.");
+            // Use a temporary ID to make a transaction while not logged in
+            store.initiateTransaction(1000, Transaction.Type.add);
+            store.addNewUser(1000, user);
+            store.endTransaction(1000);
             return gson.toJson(json);
-        }
-        else if (DuplicateEmail == true) {
+        } else {
             return "{\"message\":\"Duplicate\"}";
-        }
-        else {
-            return " ";
         }
 
     }
