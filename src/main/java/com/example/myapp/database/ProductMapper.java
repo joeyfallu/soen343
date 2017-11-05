@@ -3,7 +3,7 @@ package com.example.myapp.database;
 import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
 import com.example.myapp.transactions.Transaction;
-import com.example.myapp.transactions.UnitOfWork;
+
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -15,7 +15,6 @@ public class ProductMapper {
     private ProductTDG productTDG;
     private ProductCatalog productCatalog;
     private Transaction.Type commitType= Transaction.Type.add;
-    private UnitOfWork u;
     private int mapCount=0;
 
     public ProductMapper()
@@ -110,37 +109,6 @@ public class ProductMapper {
 
     public void commit()
     {
-        if(commitType== Transaction.Type.add)
-        {
-            u= new UnitOfWork(this);
-            for(int i=0; i<mapCount;i++)
-            {
-                Product p = productIdentityMap.getProductById(i);
-                u.registerAdd(p);
-            }
-            u.commitProducts();
-
-        }
-        else if(commitType== Transaction.Type.modify)
-        {
-            u= new UnitOfWork(this);
-            for(int i=0; i<mapCount; i++)
-            {
-                Product p = productIdentityMap.getProductById(i);
-                u.registerModification(p);
-            }
-            u.commitProducts();
-        }
-        else if(commitType== Transaction.Type.delete)
-        {
-        u= new UnitOfWork(this);
-        for(int i=0; i<mapCount; i++)
-        {
-            Product p = productIdentityMap.getProductById(i);
-            u.registerDelete(p);
-        }
-        u.commitProducts();
-        }
         mapCount=0;
     }
 

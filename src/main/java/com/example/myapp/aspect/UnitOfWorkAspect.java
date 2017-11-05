@@ -66,7 +66,12 @@ public class UnitOfWorkAspect {
 		}
 		else if (transactionType == Transaction.Type.delete)
 		{
-
+			for (int i = 0; i<mapCount; i++)
+			{
+				Product product = productMapper.getProductIdentityMap().getProductById(i);
+				registerDelete(product);
+			}
+			commitProducts();
 		}
 	}
 
@@ -124,6 +129,9 @@ public class UnitOfWorkAspect {
 			}
 			productMapper.modifyProductCatalog(((Product)o).getId(),(Product)o);
 		}
+		add = new ArrayList<Object>();
+		delete = new ArrayList<Object>();
+		modify = new ArrayList<Object>();
 	}
 
 }
