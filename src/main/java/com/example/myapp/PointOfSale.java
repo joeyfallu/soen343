@@ -52,6 +52,10 @@ public class PointOfSale {
         cartCatalog.addToCart(userId,itemId);
     }
 
+    public void removeCartItem(int userId, int itemId){
+        cartCatalog.removeFromCart(userId, itemId);
+    }
+
     public void endPurchase(int userId){
         Map<Integer, Product> productCatalog = store.getProductCatalog().getProducts();
         Map<Integer, Date> productsInCart = cartCatalog.purchaseCart(userId);
