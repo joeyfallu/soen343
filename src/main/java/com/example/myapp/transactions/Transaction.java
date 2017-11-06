@@ -5,7 +5,7 @@ public class Transaction {
     private boolean isComplete;
     private int userId;
     private Type type;
-    public enum Type{add,modify,delete}
+    public enum Type{add,modify,delete,purchase,returnItem}
 
     public Transaction(Type t)
     {

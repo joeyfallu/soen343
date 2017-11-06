@@ -3,10 +3,11 @@ package com.example.myapp.aspect;
 import com.example.myapp.database.ProductMapper;
 import com.example.myapp.database.UserMapper;
 import com.example.myapp.productCatalog.Product;
+import com.example.myapp.purchases.Purchase;
+import com.example.myapp.purchases.PurchaseMapper;
 import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.User;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -17,16 +18,13 @@ import java.util.ArrayList;
 @Component
 public class UnitOfWorkAspect {
 
-	ArrayList<Object> add = new ArrayList<Object>();
-	ArrayList<Object> delete = new ArrayList<Object>();
-	ArrayList<Object> modify = new ArrayList<Object>();
-	ProductMapper productMapper;
-	UserMapper userMapper;
+	private ArrayList<Object> add = new ArrayList<Object>();
+	private ArrayList<Object> delete = new ArrayList<Object>();
+	private ArrayList<Object> modify = new ArrayList<Object>();
 
-	@Before(value = "execution(* com.example.myapp.Store.*(..))")
-	public void beforeAdvice(JoinPoint joinPoint) {
-
-	}
+	private ProductMapper productMapper;
+	private UserMapper userMapper;
+	private PurchaseMapper purchaseMapper;
 
 	@Before(value = "execution(* com.example.myapp.database.UserMapper.commit(..))")
 	public void beforeUserCommit(JoinPoint joinPoint) {
@@ -38,6 +36,31 @@ public class UnitOfWorkAspect {
 			registerAdd(user);
 		}
 		commitUsers();
+	}
+
+	@Before(value = "execution(* com.example.myapp.purchases.PurchaseMapper.commit(..))")
+	public void beforePurchaseCommit(JoinPoint joinPoint){
+		purchaseMapper =(PurchaseMapper)joinPoint.getThis();
+		int mapCount = purchaseMapper.getMapCount();
+		Transaction.Type transactionType = purchaseMapper.getCommitType();
+		if (transactionType == Transaction.Type.purchase)
+		{
+			for (int i = 0; i<mapCount; i++)
+			{
+				Purchase purchase = purchaseMapper.getPurchasesIdentityMap().getPurchaseById(i);
+				registerAdd(purchase);
+			}
+			commitPurchase();
+		}
+		if (transactionType == Transaction.Type.returnItem)
+		{
+			for (int i = 0; i<mapCount; i++)
+			{
+				Purchase purchase = purchaseMapper.getPurchasesIdentityMap().getPurchaseById(i);
+				registerDelete(purchase);
+			}
+			commitPurchase();
+		}
 	}
 
 	@Before(value ="execution(* com.example.myapp.database.ProductMapper.commit(..))")
@@ -75,9 +98,6 @@ public class UnitOfWorkAspect {
 		}
 	}
 
-
-
-
 	public void registerModification(Object object)
 	{
 		modify.add(object);
@@ -104,14 +124,52 @@ public class UnitOfWorkAspect {
 		add = new ArrayList<Object>();
 	}
 
+	public void commitPurchase()
+	{
+		for (Object object : add)
+		{
+			int id = ((Purchase)object).getProduct().getId();
+			try{purchaseMapper.getPurchaseTDG().dbInsert((Purchase)object);}catch(Exception e){
+				System.out.println("failed to insert purchase from unit of work");
+			}
+			purchaseMapper.insertPurchaseHistory(id,(Purchase)object);
+		}
+
+		for (Object object : delete)
+		{
+			int id = ((Purchase)object).getProduct().getId();
+			try{purchaseMapper.getPurchaseTDG().dbDelete(id);}catch(Exception e)
+			{
+				System.out.println("failed to return from unit of work");
+			}
+			purchaseMapper.deletePurchaseHistory(id);
+		}
+
+
+		add = new ArrayList<Object>();
+		delete = new ArrayList<Object>();
+	}
+
 	public void commitProducts()
 	{
 		for(Object o : add){
 			int k=0;
-			try{k = productMapper.getProductTDG().dbInsert((Product)o);}catch (Exception e){
-				System.out.println("failed to insert product from unit of work");
+			if(((Product)o).getId()==0) {
+				try {
+					k = productMapper.getProductTDG().dbInsert((Product) o);
+				} catch (Exception e) {
+					System.out.println("failed to insert product from unit of work");
+				}
+				((Product) o).setId(k);
+			}else{
+				try{
+					productMapper.getProductTDG().dbInsert((Product)o,((Product)o).getId());
+					k=((Product)o).getId();
+				}catch(Exception e)
+				{
+
+				}
 			}
-			((Product)o).setId(k);
 			productMapper.insertProductCatalog(k,(Product)o);
 		}
 

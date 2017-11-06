@@ -7,9 +7,9 @@ import java.util.Map;
 
 public class Purchases {
     private int userID;
-    private Map<Product, String> purchasedProducts;
+    private Map<Integer, Purchase> purchasedProducts;
 
-    public Purchases(int userID, Map<Product, String> purchasedProducts ) {
+    public Purchases(int userID, Map<Integer, Purchase> purchasedProducts ) {
         this.userID = userID;
         this.purchasedProducts = purchasedProducts;
     }
@@ -26,11 +26,16 @@ public class Purchases {
         return str;
     }
 
+    public void addPurchase(Purchase purchase)
+    {
+
+    }
+
     public int getUserID() {
         return userID;
     }
 
-    public Map<Product, String> getPurchasedProducts() {
+    public Map<Integer, Purchase> getPurchasedProducts() {
         return purchasedProducts;
     }
 }

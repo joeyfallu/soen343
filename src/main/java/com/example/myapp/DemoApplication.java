@@ -3,6 +3,7 @@ package com.example.myapp;
 import com.example.myapp.database.ProductMapper;
 import com.example.myapp.database.UserMapper;
 import com.example.myapp.productCatalog.*;
+import com.example.myapp.purchases.Purchase;
 import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.*;
 import com.example.myapp.productCatalog.Desktop;
@@ -26,6 +27,10 @@ public class DemoApplication {
 
     @Autowired
     private Store store;
+    @Autowired
+    private PointOfSale pointOfSale;
+
+
 
     //private static Store store;
 
@@ -113,7 +118,9 @@ public class DemoApplication {
     String getProducts(){
         Gson gson = new Gson();
 
-        String json = gson.toJson(store.getProductMapper().getProductCatalog().getProducts());
+        //TODO remove this piece of test code \/
+        testPOS();
+        String json = gson.toJson(store.getProductCatalog().getProducts());
 
         return json;
     }
@@ -290,6 +297,30 @@ public class DemoApplication {
         //start the server
         SpringApplication.run(DemoApplication.class, args);
         //aop test
+
+
         System.out.println("Done initializing");
+    }
+
+    public void testPOS()
+    {
+       // pointOfSale.setStore(store);
+//        System.out.println(store.toString());
+//        System.out.println(pointOfSale.getStore().toString());
+       /* pointOfSale.getStore().initiateTransaction(99,Transaction.Type.purchase);
+        Monitor mn = new Monitor(69,"sony",69,69,"sony",69,2);
+        Purchase p = new Purchase(99,"never",mn);
+        pointOfSale.getPurchaseMapper().purchase(p);
+        pointOfSale.getPurchaseMapper().commit();
+        pointOfSale.getStore().endTransaction(99);*/
+//       pointOfSale.getStore().initiateTransaction(99,Transaction.Type.purchase);
+//        Monitor mn = new Monitor(69,"sony",69,69,"sony",69,2);
+//        Purchase p = new Purchase(99,"never",mn);
+//        pointOfSale.getPurchaseMapper().returnItem(69);
+//        pointOfSale.getPurchaseMapper().commit();
+//        pointOfSale.getStore().endTransaction(99);
+//        pointOfSale.processReturn(99,84);
+
+
     }
 }
