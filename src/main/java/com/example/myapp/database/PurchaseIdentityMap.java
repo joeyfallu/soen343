@@ -27,4 +27,6 @@ public class PurchaseIdentityMap {
     public void deletePurchaseById(int id){
         purchases.remove(id);
     }
+
+    public void reset(){purchases = new HashMap<>();}
 }

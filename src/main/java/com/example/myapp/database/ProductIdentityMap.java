@@ -10,6 +10,8 @@ public class ProductIdentityMap {
 
     private Map<Integer, Product> products = new HashMap<>();
 
+    public void reset(){products = new HashMap<>();}
+
     public Product getProductById(int id){
         return products.getOrDefault(id, null);
     }

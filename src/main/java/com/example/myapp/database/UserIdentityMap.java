@@ -17,4 +17,6 @@ public class UserIdentityMap {
     public void insertUserById(int id, User user){
         users.put(id,user);
     }
+
+    public void reset(){users = new HashMap<>();}
 }

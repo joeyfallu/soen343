@@ -1,5 +1,6 @@
 package com.example.myapp;
 
+import com.example.myapp.database.ProductIdentityMap;
 import com.example.myapp.database.ProductMapper;
 import com.example.myapp.database.UserMapper;
 import com.example.myapp.productCatalog.Product;
@@ -114,6 +115,11 @@ public class Store {
         productMapper.commit();
         userMapper.commit();
         purchaseMapper.commit();
+
+        productMapper.getProductIdentityMap().reset();
+        userMapper.getUserIdentityMap().reset();
+        purchaseMapper.getPurchasesIdentityMap().reset();
+
         transaction.setComplete(true);
         transaction.setUserId(-1);
     }
