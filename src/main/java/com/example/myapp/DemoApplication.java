@@ -118,9 +118,10 @@ public class DemoApplication {
     String getProducts(){
         Gson gson = new Gson();
 
-        String json = gson.toJson(store.getProductMapper().getProductCatalog().getProducts());
         //TODO remove this piece of test code \/
         testPOS();
+        String json = gson.toJson(store.getProductCatalog().getProducts());
+
         return json;
     }
 

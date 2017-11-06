@@ -78,11 +78,6 @@ public class Store {
         this.userMapper.insert(user);
     }
 
-
-    public Map<Integer, Product> viewProductCatalog(){
-        return this.productMapper.getProductCatalog().getProducts();
-    }
-
     public void initiateTransaction(int userId, Transaction.Type t){
 
         if(transaction.isComplete())
@@ -123,11 +118,17 @@ public class Store {
         return productMapper;
     }
 
-    public void setProductMapper(ProductMapper productMapper) {
-        this.productMapper = productMapper;
-    }
-
     public UserMapper getUserMapper(){
         return userMapper;
+    }
+
+    public boolean validateTransaction(int userId){
+        if (userId != transaction.getUserId()) {
+            System.out.println("Transaction in progress, please wait and try again");
+            return false;
+        }
+        else
+            System.out.println("No transaction in progress");
+            return true;
     }
 }

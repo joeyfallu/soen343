@@ -24,7 +24,7 @@ public class CartCatalog {
     }
 
     public void emptyCart(int userId) {
-        Cart cart = getCart(userId);
+        Cart cart = carts.get(userId);
         cart.setSize(0);
         cart.setTotal(0);
         Map<Integer, Date> cartProducts = cart.getCartProducts();
@@ -32,7 +32,7 @@ public class CartCatalog {
     }
 
     public void addToCart(int userId, int itemId){
-        Cart cart = getCart(userId);
+        Cart cart = carts.get(userId);
         Map<Integer, Date> cartProducts = cart.getCartProducts();
         cartProducts.put(itemId, new Date());
     }
