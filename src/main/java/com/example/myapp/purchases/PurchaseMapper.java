@@ -113,4 +113,8 @@ public class PurchaseMapper {
     {
         return purchaseTDG;
     }
+
+    public Transaction.Type getCommitType() {
+        return commitType;
+    }
 }

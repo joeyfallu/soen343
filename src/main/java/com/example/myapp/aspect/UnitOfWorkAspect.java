@@ -43,7 +43,7 @@ public class UnitOfWorkAspect {
 	public void beforePurchaseCommit(JoinPoint joinPoint){
 		purchaseMapper =(PurchaseMapper)joinPoint.getThis();
 		int mapCount = purchaseMapper.getMapCount();
-		Transaction.Type transactionType = productMapper.getCommitType();
+		Transaction.Type transactionType = purchaseMapper.getCommitType();
 		if (transactionType == Transaction.Type.purchase)
 		{
 			for (int i = 0; i<mapCount; i++)

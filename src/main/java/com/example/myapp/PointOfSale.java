@@ -4,13 +4,16 @@ import com.example.myapp.cartCatalog.Cart;
 import com.example.myapp.cartCatalog.CartCatalog;
 import com.example.myapp.productCatalog.ProductCatalog;
 import com.example.myapp.purchases.PurchaseMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PointOfSale {
 
+    @Autowired
     private Store store;
+
     private CartCatalog cartCatalog;
 
     @Autowired
@@ -23,6 +26,7 @@ public class PointOfSale {
     }
     public PointOfSale(Store store)
     {
+
         this.purchaseMapper = new PurchaseMapper();
         this.cartCatalog = new CartCatalog();
         this.store=store;
