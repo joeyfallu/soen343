@@ -320,8 +320,8 @@ public class DemoApplication {
 //        pointOfSale.getPurchaseMapper().commit();
 //        pointOfSale.getStore().endTransaction(99);
         pointOfSale.startPurchase(99);
-        pointOfSale.addCartItem(99,48);
-        pointOfSale.addCartItem(99,49);
+        pointOfSale.addCartItem(99,84);
+        pointOfSale.addCartItem(99,86);
         pointOfSale.endPurchase(99);
 
     }

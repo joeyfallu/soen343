@@ -4,6 +4,7 @@ import com.example.myapp.database.ProductMapper;
 import com.example.myapp.database.UserMapper;
 import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
+import com.example.myapp.purchases.PurchaseMapper;
 import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.User;
 import com.example.myapp.userCatalog.UserCatalog;
@@ -20,6 +21,8 @@ public class Store {
     private ProductMapper productMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private PurchaseMapper purchaseMapper;
 
     public Store()
     {
@@ -110,6 +113,7 @@ public class Store {
         }
         productMapper.commit();
         userMapper.commit();
+        purchaseMapper.commit();
         transaction.setComplete(true);
         transaction.setUserId(-1);
     }

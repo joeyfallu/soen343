@@ -45,6 +45,7 @@ public class UnitOfWorkAspect {
 		Transaction.Type transactionType = purchaseMapper.getCommitType();
 		if (transactionType == Transaction.Type.purchase)
 		{
+			System.out.println("purchase was created");
 			for (int i = 0; i<mapCount; i++)
 			{
 				Purchase purchase = purchaseMapper.getPurchasesIdentityMap().getPurchaseById(i);
