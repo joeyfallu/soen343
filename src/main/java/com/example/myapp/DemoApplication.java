@@ -319,7 +319,7 @@ public class DemoApplication {
 //        pointOfSale.getPurchaseMapper().returnItem(69);
 //        pointOfSale.getPurchaseMapper().commit();
 //        pointOfSale.getStore().endTransaction(99);
-        pointOfSale.processReturn(99,84);
+//        pointOfSale.processReturn(99,84);
 
 
     }
