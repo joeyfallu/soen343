@@ -1,11 +1,9 @@
 package com.example.myapp.purchases;
 
 
-        import org.springframework.stereotype.Service;
-
-
-        import java.util.HashMap;
-        import java.util.Map;
+import org.springframework.stereotype.Service;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class PurchaseHistory {

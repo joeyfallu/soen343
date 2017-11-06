@@ -3,6 +3,7 @@ package com.example.myapp.aspect;
 import com.example.myapp.database.ProductMapper;
 import com.example.myapp.database.UserMapper;
 import com.example.myapp.productCatalog.Product;
+import com.example.myapp.purchases.Purchase;
 import com.example.myapp.purchases.PurchaseMapper;
 import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.User;
@@ -21,8 +22,7 @@ public class UnitOfWorkAspect {
 	private ArrayList<Object> add = new ArrayList<Object>();
 	private ArrayList<Object> delete = new ArrayList<Object>();
 	private ArrayList<Object> modify = new ArrayList<Object>();
-	private ArrayList<Object> purchase = new ArrayList<>();
-	private ArrayList<Object> returnItem = new ArrayList<>();
+
 	private ProductMapper productMapper;
 	private UserMapper userMapper;
 	private PurchaseMapper purchaseMapper;
@@ -37,6 +37,31 @@ public class UnitOfWorkAspect {
 			registerAdd(user);
 		}
 		commitUsers();
+	}
+
+	@Before(value = "execution(* com.example.myapp.purchases.PurchaseMapper.commit(..))")
+	public void beforePurchaseCommit(JoinPoint joinPoint){
+		purchaseMapper =(PurchaseMapper)joinPoint.getThis();
+		int mapCount = purchaseMapper.getMapCount();
+		Transaction.Type transactionType = productMapper.getCommitType();
+		if (transactionType == Transaction.Type.purchase)
+		{
+			for (int i = 0; i<mapCount; i++)
+			{
+				Purchase purchase = purchaseMapper.getPurchasesIdentityMap().getPurchaseById(i);
+				registerAdd(purchase);
+			}
+			commitPurchase();
+		}
+		if (transactionType == Transaction.Type.returnItem)
+		{
+			for (int i = 0; i<mapCount; i++)
+			{
+				Purchase purchase = purchaseMapper.getPurchasesIdentityMap().getPurchaseById(i);
+				registerDelete(purchase);
+			}
+			commitPurchase();
+		}
 	}
 
 	@Before(value ="execution(* com.example.myapp.database.ProductMapper.commit(..))")
@@ -101,6 +126,32 @@ public class UnitOfWorkAspect {
 			userMapper.insertUserCatalog((User)object);
 		}
 		add = new ArrayList<Object>();
+	}
+
+	public void commitPurchase()
+	{
+		for (Object object : add)
+		{
+			int id = ((Purchase)object).getProduct().getId();
+			try{purchaseMapper.getPurchaseTDG().dbInsert((Purchase)object);}catch(Exception e){
+				System.out.println("failed to insert purchase from unit of work");
+			}
+			purchaseMapper.insertPurchaseCatalog(id,(Purchase)object);
+		}
+
+		for (Object object : delete)
+		{
+			int id = ((Purchase)object).getProduct().getId();
+			try{purchaseMapper.getPurchaseTDG().dbDelete(id);}catch(Exception e)
+			{
+				System.out.println("failed to return from unit of work");
+			}
+			purchaseMapper.deletePurchaseCatalog(id);
+		}
+
+
+		add = new ArrayList<Object>();
+		delete = new ArrayList<Object>();
 	}
 
 	public void commitProducts()

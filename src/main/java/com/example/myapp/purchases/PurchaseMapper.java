@@ -1,6 +1,6 @@
 package com.example.myapp.purchases;
 
-import com.example.myapp.cartCatalog.Cart;
+
 import com.example.myapp.database.PurchaseTDG;
 import com.example.myapp.database.PurchaseIdentityMap;
 import com.example.myapp.productCatalog.Product;
@@ -40,6 +40,16 @@ public class PurchaseMapper {
         mapCount++;
     }
 
+    public void insertPurchaseCatalog(int index,Purchase purchase)
+    {
+        purchaseHistory.addPurchase(index,purchase);
+    }
+
+    public void deletePurchaseCatalog(int id)
+    {
+        purchaseHistory.deletePurchase(id);
+    }
+
     public void returnItem(int id)
     {
         commitType = Transaction.Type.returnItem;
@@ -50,7 +60,7 @@ public class PurchaseMapper {
         mapCount++;
     }
 
-    /*public Purchase get(int id)
+    public Purchase get(int id)
     {
         Purchase purchase = purchasesIdentityMap.getPurchaseById(id);
 
@@ -58,13 +68,15 @@ public class PurchaseMapper {
         {
             try {
                 purchase = purchaseTDG.dbGet(id);
+                purchasesIdentityMap.insertPurchaseById(id,purchase);
             }
             catch(Exception e)
             {
 
             }
         }
-    }*/
+        return purchase;
+    }
 
     public Map<Integer, Purchase> getAll()
     {
@@ -83,11 +95,22 @@ public class PurchaseMapper {
         return purchaseHistory.getPurchases();
     }
 
-    public void insert(Cart cart){
-
-    }
+    public void commit(){mapCount=0;}
 
     public PurchaseHistory getPurchaseHistory() {
         return purchaseHistory;
+    }
+
+    public int getMapCount() {
+        return mapCount;
+    }
+
+    public PurchaseIdentityMap getPurchasesIdentityMap() {
+        return purchasesIdentityMap;
+    }
+
+    public PurchaseTDG getPurchaseTDG()
+    {
+        return purchaseTDG;
     }
 }

@@ -12,13 +12,35 @@ public class PointOfSale {
 
     private Store store;
     private CartCatalog cartCatalog;
+
     @Autowired
     private PurchaseMapper purchaseMapper;
+
+    public PointOfSale()
+    {
+        this.purchaseMapper = new PurchaseMapper();
+        this.cartCatalog = new CartCatalog();
+    }
+    public PointOfSale(Store store)
+    {
+        this.purchaseMapper = new PurchaseMapper();
+        this.cartCatalog = new CartCatalog();
+        this.store=store;
+    }
 
     public PointOfSale(Store store, CartCatalog cartCatalog, PurchaseMapper purchaseMapper) {
         this.store = store;
         this.cartCatalog = cartCatalog;
         this.purchaseMapper = purchaseMapper;
+    }
+
+    public void setStore(Store store)
+    {
+        this.store = store;
+    }
+
+    public Store getStore() {
+        return store;
     }
 
     public void startPurchase(int userId){
@@ -36,7 +58,7 @@ public class PointOfSale {
     public void endPurchase(int userId){
         ProductCatalog productCatalog = store.getProductCatalog();
         Cart cart = viewCart(userId);
-        this.purchaseMapper.insert(cart);
+        //this.purchaseMapper.insert(cart);
 
     }
 
@@ -44,4 +66,7 @@ public class PointOfSale {
         return cartCatalog.getCart(userId);
     }
 
+    public PurchaseMapper getPurchaseMapper() {
+        return purchaseMapper;
+    }
 }

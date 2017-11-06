@@ -23,7 +23,11 @@ public class PurchaseTDG {
         statement = connect.createStatement();
     }
 
-    public int dbInsert(Product pro, int userId, String timeStamp) throws Exception {
+    public int dbInsert(Purchase purchase) throws Exception {
+
+        Product pro = purchase.getProduct();
+        int userId = purchase.getUserId();
+        String timeStamp = purchase.getTimeStamp();
 
         dbConnect();
         String sql = "";

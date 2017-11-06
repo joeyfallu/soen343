@@ -9,6 +9,11 @@ public class CartCatalog {
 
     private Map<Integer, Cart> carts;
 
+    public CartCatalog()
+    {
+        carts = new HashMap<>();
+    }
+
     public CartCatalog(Map<Integer, Cart> carts) {
         this.carts = carts;
     }
