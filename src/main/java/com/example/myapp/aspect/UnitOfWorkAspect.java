@@ -158,10 +158,21 @@ public class UnitOfWorkAspect {
 	{
 		for(Object o : add){
 			int k=0;
-			try{k = productMapper.getProductTDG().dbInsert((Product)o);}catch (Exception e){
-				System.out.println("failed to insert product from unit of work");
+			if(((Product)o).getId()==0) {
+				try {
+					k = productMapper.getProductTDG().dbInsert((Product) o);
+				} catch (Exception e) {
+					System.out.println("failed to insert product from unit of work");
+				}
+				((Product) o).setId(k);
+			}else{
+				try{
+					productMapper.getProductTDG().dbInsert((Product)o,((Product)o).getId());
+				}catch(Exception e)
+				{
+
+				}
 			}
-			((Product)o).setId(k);
 			productMapper.insertProductCatalog(k,(Product)o);
 		}
 
