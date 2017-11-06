@@ -5,11 +5,13 @@ import com.example.myapp.cartCatalog.CartCatalog;
 import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
 import com.example.myapp.purchases.Purchase;
+import com.example.myapp.purchases.PurchaseHistory;
 import com.example.myapp.purchases.PurchaseMapper;
 import com.example.myapp.transactions.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
@@ -75,6 +77,24 @@ public class PointOfSale {
         store.endTransaction(userId);
 
         cartCatalog.emptyCart(userId);
+    }
+
+    public void processReturn(int userId, int itemId){
+        Map<Integer, Purchase> purchases = purchaseMapper.getPurchaseHistory().getPurchases();
+        Collection<Purchase> values = purchases.values();
+        Product productToReturn = null;
+        for (Purchase value : values) {
+            if(value.getProduct().getId() == itemId) {
+                productToReturn = value.getProduct();
+            }
+        }
+        store.initiateTransaction(userId, Transaction.Type.returnItem);
+        purchaseMapper.returnItem(itemId);
+        store.endTransaction(userId);
+
+        store.initiateTransaction(userId, Transaction.Type.add);
+        store.addNewProduct(userId, productToReturn);
+        store.endTransaction(userId);
     }
 
     public Cart viewCart(int userId){

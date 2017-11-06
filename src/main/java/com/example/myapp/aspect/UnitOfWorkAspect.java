@@ -99,9 +99,6 @@ public class UnitOfWorkAspect {
 		}
 	}
 
-
-
-
 	public void registerModification(Object object)
 	{
 		modify.add(object);
