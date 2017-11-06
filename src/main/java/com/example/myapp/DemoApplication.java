@@ -305,22 +305,24 @@ public class DemoApplication {
     public void testPOS()
     {
        // pointOfSale.setStore(store);
-        System.out.println(store.toString());
-        System.out.println(pointOfSale.getStore().toString());
+//        System.out.println(store.toString());
+//        System.out.println(pointOfSale.getStore().toString());
        /* pointOfSale.getStore().initiateTransaction(99,Transaction.Type.purchase);
         Monitor mn = new Monitor(69,"sony",69,69,"sony",69,2);
         Purchase p = new Purchase(99,"never",mn);
         pointOfSale.getPurchaseMapper().purchase(p);
         pointOfSale.getPurchaseMapper().commit();
         pointOfSale.getStore().endTransaction(99);*/
-       pointOfSale.getStore().initiateTransaction(99,Transaction.Type.purchase);
-        Monitor mn = new Monitor(69,"sony",69,69,"sony",69,2);
-        Purchase p = new Purchase(99,"never",mn);
-        pointOfSale.getPurchaseMapper().returnItem(69);
-        pointOfSale.getPurchaseMapper().commit();
-        pointOfSale.getStore().endTransaction(99);
-
-
+//       pointOfSale.getStore().initiateTransaction(99,Transaction.Type.purchase);
+//        Monitor mn = new Monitor(69,"sony",69,69,"sony",69,2);
+//        Purchase p = new Purchase(99,"never",mn);
+//        pointOfSale.getPurchaseMapper().returnItem(69);
+//        pointOfSale.getPurchaseMapper().commit();
+//        pointOfSale.getStore().endTransaction(99);
+        pointOfSale.startPurchase(99);
+        pointOfSale.addCartItem(99,48);
+        pointOfSale.addCartItem(99,49);
+        pointOfSale.endPurchase(99);
 
     }
 }

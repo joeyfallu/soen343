@@ -2,34 +2,29 @@ package com.example.myapp;
 
 import com.example.myapp.cartCatalog.Cart;
 import com.example.myapp.cartCatalog.CartCatalog;
+import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
+import com.example.myapp.purchases.Purchase;
 import com.example.myapp.purchases.PurchaseMapper;
-import org.springframework.beans.BeanUtils;
+import com.example.myapp.transactions.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class PointOfSale {
 
     @Autowired
     private Store store;
-
-    private CartCatalog cartCatalog;
-
     @Autowired
     private PurchaseMapper purchaseMapper;
+    private CartCatalog cartCatalog;
 
-    public PointOfSale()
-    {
-        this.purchaseMapper = new PurchaseMapper();
+    public PointOfSale() {
         this.cartCatalog = new CartCatalog();
-    }
-    public PointOfSale(Store store)
-    {
-
-        this.purchaseMapper = new PurchaseMapper();
-        this.cartCatalog = new CartCatalog();
-        this.store=store;
     }
 
     public PointOfSale(Store store, CartCatalog cartCatalog, PurchaseMapper purchaseMapper) {
@@ -38,11 +33,7 @@ public class PointOfSale {
         this.purchaseMapper = purchaseMapper;
     }
 
-    public void setStore(Store store)
-    {
-        this.store = store;
-    }
-
+    //TODO: For testing purposes
     public Store getStore() {
         return store;
     }
@@ -60,10 +51,30 @@ public class PointOfSale {
     }
 
     public void endPurchase(int userId){
-        ProductCatalog productCatalog = store.getProductCatalog();
-        Cart cart = viewCart(userId);
-        //this.purchaseMapper.insert(cart);
+        Map<Integer, Product> productCatalog = store.getProductCatalog().getProducts();
+        Map<Integer, Date> productsInCart = cartCatalog.purchaseCart(userId);
+        Set<Integer> productIdsInCart = productsInCart.keySet();
 
+        for (Integer integer : productIdsInCart) {
+            System.out.println(integer);
+            System.out.println(productCatalog.get(integer).toString());
+            System.out.println(productsInCart.get(integer).toString());
+            System.out.println(purchaseMapper.toString());
+        }
+
+        store.initiateTransaction(userId, Transaction.Type.purchase);
+        for (Integer itemId : productIdsInCart) {
+            purchaseMapper.purchase(new Purchase(userId,productsInCart.get(itemId).toString(),productCatalog.get(itemId)));
+        }
+        store.endTransaction(userId);
+
+        store.initiateTransaction(userId, Transaction.Type.delete);
+        for (Integer itemId : productIdsInCart) {
+            store.deleteProduct(userId,itemId);
+        }
+        store.endTransaction(userId);
+
+        cartCatalog.emptyCart(userId);
     }
 
     public Cart viewCart(int userId){

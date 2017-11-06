@@ -8,7 +8,6 @@ import com.example.myapp.purchases.PurchaseMapper;
 import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.User;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -136,7 +135,7 @@ public class UnitOfWorkAspect {
 			try{purchaseMapper.getPurchaseTDG().dbInsert((Purchase)object);}catch(Exception e){
 				System.out.println("failed to insert purchase from unit of work");
 			}
-			purchaseMapper.insertPurchaseCatalog(id,(Purchase)object);
+			purchaseMapper.insertPurchaseHistory(id,(Purchase)object);
 		}
 
 		for (Object object : delete)
@@ -146,7 +145,7 @@ public class UnitOfWorkAspect {
 			{
 				System.out.println("failed to return from unit of work");
 			}
-			purchaseMapper.deletePurchaseCatalog(id);
+			purchaseMapper.deletePurchaseHistory(id);
 		}
 
 

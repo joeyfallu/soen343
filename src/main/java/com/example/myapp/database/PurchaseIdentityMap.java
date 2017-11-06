@@ -1,7 +1,6 @@
 package com.example.myapp.database;
 
 
-
 import com.example.myapp.purchases.Purchase;
 
 import java.util.HashMap;

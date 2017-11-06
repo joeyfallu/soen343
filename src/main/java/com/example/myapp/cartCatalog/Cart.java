@@ -18,7 +18,6 @@ public class Cart {
         this.cartProducts = cartProducts;
     }
 
-
     public int getUserId() {
         return userId;
     }

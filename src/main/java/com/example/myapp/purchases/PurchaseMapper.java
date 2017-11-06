@@ -1,6 +1,5 @@
 package com.example.myapp.purchases;
 
-
 import com.example.myapp.database.PurchaseTDG;
 import com.example.myapp.database.PurchaseIdentityMap;
 import com.example.myapp.productCatalog.Product;
@@ -18,13 +17,11 @@ public class PurchaseMapper {
     private Transaction.Type commitType = Transaction.Type.purchase;
     private int mapCount=0;
 
-    public PurchaseMapper()
-    {
+    public PurchaseMapper() {
         this.purchaseTDG = new PurchaseTDG();
         this.purchaseHistory = new PurchaseHistory();
         this.purchasesIdentityMap= new PurchaseIdentityMap();
         getPurchaseHistory().setPurchases(getAll());
-
     }
 
     public PurchaseMapper(PurchaseTDG purchaseTDG, PurchaseHistory purchaseHistory, Transaction.Type commitType) {
@@ -33,25 +30,21 @@ public class PurchaseMapper {
         this.commitType = commitType;
     }
 
-    public void purchase(Purchase purchase)
-    {
+    public void purchase(Purchase purchase) {
         commitType = Transaction.Type.purchase;
         purchasesIdentityMap.insertPurchaseById(mapCount,purchase);
         mapCount++;
     }
 
-    public void insertPurchaseCatalog(int index,Purchase purchase)
-    {
-        purchaseHistory.addPurchase(index,purchase);
+    public void insertPurchaseHistory(int id, Purchase purchase) {
+        purchaseHistory.addPurchase(id,purchase);
     }
 
-    public void deletePurchaseCatalog(int id)
-    {
+    public void deletePurchaseHistory(int id) {
         purchaseHistory.deletePurchase(id);
     }
 
-    public void returnItem(int id)
-    {
+    public void returnItem(int id) {
         commitType = Transaction.Type.returnItem;
         Product emptyProduct = new Product(0,"",0,0,"",0);
         emptyProduct.setId(id);
@@ -72,7 +65,7 @@ public class PurchaseMapper {
             }
             catch(Exception e)
             {
-
+                //do nothing
             }
         }
         return purchase;

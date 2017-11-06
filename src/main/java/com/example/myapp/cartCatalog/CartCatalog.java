@@ -9,8 +9,7 @@ public class CartCatalog {
 
     private Map<Integer, Cart> carts;
 
-    public CartCatalog()
-    {
+    public CartCatalog() {
         carts = new HashMap<>();
     }
 
@@ -35,16 +34,18 @@ public class CartCatalog {
         Cart cart = carts.get(userId);
         Map<Integer, Date> cartProducts = cart.getCartProducts();
         cartProducts.put(itemId, new Date());
+        cart.setSize(cart.getSize() + 1);
     }
 
     public void removeFromCart(int userId, int itemId){
         Cart cart = getCart(userId);
         Map<Integer, Date> cartProducts = cart.getCartProducts();
         cartProducts.remove(itemId);
+        cart.setSize(cart.getSize() - 1);
     }
 
-    public void purchaseCart(){
-
+    public Map<Integer, Date> purchaseCart(int userId){
+        return carts.get(userId).getCartProducts();
     }
 
     public Cart getCart(int userId){
