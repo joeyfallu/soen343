@@ -165,6 +165,7 @@ public class UnitOfWorkAspect {
 			}else{
 				try{
 					productMapper.getProductTDG().dbInsert((Product)o,((Product)o).getId());
+					k=((Product)o).getId();
 				}catch(Exception e)
 				{
 
