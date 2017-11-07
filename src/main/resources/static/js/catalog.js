@@ -50,6 +50,23 @@ angular.module('app')
                                }
                             }
 
+                    //https://stackoverflow.com/questions/24081004/angularjs-ng-repeat-filter-when-value-is-greater-than
+                    $scope.greaterThan = function(prop, val){
+                        return function(item){
+                            if (item['discriminator'] === 4){
+                                return true;
+                            }
+                          return item[prop] > val;
+                        }
+                    }
+                    $scope.smallerThan = function(prop, val){
+                        return function(item){
+                            if (item['discriminator'] === 4){
+                                return true;
+                            }
+                          return item[prop] < val;
+                        }
+                    }
                             $scope.sortBy = function(select) {
                                 $scope.select = select;
                             };        

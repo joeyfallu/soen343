@@ -18,7 +18,7 @@
 <div class="container">
     <br/><br/><br/><!--CSS IS NOT LOADING -->
     <div class="row">
-        <div class="col-md-4"  ng-repeat="item in itemsInventory | orderBy:select" ng-if="item.discriminator == 4">
+        <div class="col-md-4"  ng-repeat="item in itemsInventory | orderBy:select | filter:search | filter:search1 | filter:search2 |" ng-if="item.discriminator == 4">
             <div class="thumbnail">
 
                 <h4 class="text-center"><span class="label label-info">Desktop</span></h4>
