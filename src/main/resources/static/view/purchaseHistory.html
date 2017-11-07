@@ -1,6 +1,4 @@
-<div>
-    Purchase History
-    <div class="container">
+<div class="container">
         <div class="row">
             <div class="col-md-3"  ng-repeat="item in purchaseHistory">
                 <div class="thumbnail">
@@ -41,6 +39,8 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-3 h4" ng-if="emptyHistory">
+                Your Purchase History is empty.
+            </div>
         </div>
-    </div>
 </div>

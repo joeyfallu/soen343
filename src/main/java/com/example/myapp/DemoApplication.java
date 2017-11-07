@@ -389,7 +389,7 @@ public class DemoApplication {
                 return "{\"message\":\"User trying to return is not the buyer\"}";
             } else {
                 //Item Returned Successfully
-                pointOfSale.getPurchaseMapper().returnItem(itemId);
+                pointOfSale.processReturn(cookieId, itemId);
                 return "{\"message\":\"Item "+ itemId +" Returned Successfully\"}";
             }
         }
