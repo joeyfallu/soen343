@@ -390,7 +390,7 @@ public class DemoApplication {
             } else {
                 //Item Returned Successfully
                 pointOfSale.getPurchaseMapper().returnItem(itemId);
-                return "{\"message\":\"Item Returned Successfully\"}";
+                return "{\"message\":\"Item "+ itemId +" Returned Successfully\"}";
             }
         }
     }
