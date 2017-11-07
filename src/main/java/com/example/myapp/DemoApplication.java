@@ -362,22 +362,39 @@ public class DemoApplication {
     @RequestMapping(value="/get/purchaseHistory", method = RequestMethod.GET)
     @ResponseBody
     String getPurchaseHistory(@CookieValue("SESSIONID") int cookieId){
-        System.out.println("PURCHASE HISTORY : " + cookieId);
         Gson gson = new Gson();
-        Map<Integer, Purchase> purchases = pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases();
         Map<Integer, Purchase> userPurchases = new HashMap<>();
-        for (Map.Entry<Integer, Purchase> purchase : purchases.entrySet()) {
+        for (Map.Entry<Integer, Purchase> purchase : pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().entrySet()) {
             //Code is potentially not secure
             //If the user uses a cookie manager, he could view other people's purchase history
             //by changing userId stored in the cookie to another user's cookie.
             //In a real production environment, proper cookie encryption is needed.
             if(purchase.getValue().getUserId() == cookieId) {
-                System.out.println(purchase.getValue().toString());
                 userPurchases.put(purchase.getKey(), purchase.getValue());
             }
         }
         return gson.toJson(userPurchases);
     }
+
+    @RequestMapping(value="/get/returnItem/{itemId}", method = RequestMethod.GET)
+    @ResponseBody
+    String returnItem(@PathVariable(value="itemId") int itemId, @CookieValue("SESSIONID") int cookieId){
+        //Check that item exists
+        if(pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().get(itemId) == null){
+            //Error: Item not in purchase history
+            return "{\"message\":\" Item not in purchase history\"}";
+        } else {
+            if(pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().get(itemId).getUserId() != cookieId){
+                //Error: User trying to return is not the buyer
+                return "{\"message\":\"User trying to return is not the buyer\"}";
+            } else {
+                //Item Returned Successfully
+                pointOfSale.getPurchaseMapper().returnItem(itemId);
+                return "{\"message\":\"Item Returned Successfully\"}";
+            }
+        }
+    }
+
 
 
 

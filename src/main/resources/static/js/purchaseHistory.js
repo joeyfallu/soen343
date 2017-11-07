@@ -8,4 +8,11 @@ angular.module('app')
             $scope.purchaseHistory = res.data;
             console.log($scope.purchaseHistory);
         });
+
+        $scope.returnItem = function (id){
+            console.log("returning item ",id);
+            $http.get("/get/returnItem/"+id).then((res)=> {
+                console.log(res.data);
+            });
+        }
     });
