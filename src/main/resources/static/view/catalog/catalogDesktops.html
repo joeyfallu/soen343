@@ -1,7 +1,24 @@
 <div class="container">
+    <p> Sort:  </p>
+    <select
+        ng-options = "option for option in listOfOptions"
+        ng-model="selectedItem"
+        ng-change="rename(selectedItem)">
+    </select>
+
+    <p> Brand filter:  </p>
+    <input type="text" data-ng-model="search.brand">
+    <br>
+    <p> model filter: </p>
+    <input type="text" data-ng-model="search1.model">
+    <br>
+
+   
+</div>
+<div class="container">
     <br/><br/><br/><!--CSS IS NOT LOADING -->
     <div class="row">
-        <div class="col-md-4"  ng-repeat="item in itemsInventory" ng-if="item.discriminator == 4">
+        <div class="col-md-4"  ng-repeat="item in itemsInventory | orderBy:select" ng-if="item.discriminator == 4">
             <div class="thumbnail">
 
                 <h4 class="text-center"><span class="label label-info">Desktop</span></h4>
