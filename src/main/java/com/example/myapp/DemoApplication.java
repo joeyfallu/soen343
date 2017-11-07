@@ -3,6 +3,7 @@ package com.example.myapp;
 import com.example.myapp.database.ProductMapper;
 import com.example.myapp.database.UserMapper;
 import com.example.myapp.productCatalog.*;
+import com.example.myapp.purchases.Purchase;
 import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.*;
 import com.example.myapp.productCatalog.Desktop;
@@ -10,18 +11,28 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
 import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 @SpringBootApplication
+@EnableAspectJAutoProxy(proxyTargetClass=true)
 public class DemoApplication {
 
-    private static Store store;
+    @Autowired
+    private Store store;
+    @Autowired
+    private PointOfSale pointOfSale;
+
+
+
+    //private static Store store;
 
     /* Single page application routing */
     // https://stackoverflow.com/questions/24837715/spring-boot-with-angularjs-html5mode/44850886#44850886
@@ -110,7 +121,9 @@ public class DemoApplication {
     String getProducts(){
         Gson gson = new Gson();
 
-        String json = gson.toJson(store.getProductMapper().getProductCatalog().getProducts());
+        //TODO remove this piece of test code \/
+        testPOS();
+        String json = gson.toJson(store.getProductCatalog().getProducts());
 
         return json;
     }
@@ -247,6 +260,7 @@ public class DemoApplication {
     }
 
 
+
     /* TRANSACTIONS */
     // TODO move to different controller files
     @RequestMapping(value = "/get/endTransaction", method = RequestMethod.GET)
@@ -275,23 +289,41 @@ public class DemoApplication {
     public void startStoreDeleteTransaction(@CookieValue("SESSIONID") int cookieId) {
         System.out.println("Starting delete transaction");
         store.initiateTransaction(cookieId, Transaction.Type.delete);
+
     }
+
+
+
 
 
     public static void main(String[] args) {
         //start the server
         SpringApplication.run(DemoApplication.class, args);
-        //initialize catalogs
-        UserCatalog userInit = new UserCatalog();
-        ProductCatalog productInit = new ProductCatalog();
-        UserMapper userMap = new UserMapper(userInit);
-        ProductMapper productMap = new ProductMapper(productInit);
+        //aop test
 
-        //initialize the store with the current catalog from the db
-        store = new Store(userMap,productMap);
-        store.getProductCatalog().setProducts(store.getProductMapper().getAll());
-        store.getUserMapper().getUserCatalog().setUsers(store.getUserMapper().getAll());
 
         System.out.println("Done initializing");
+    }
+
+    public void testPOS()
+    {
+       // pointOfSale.setStore(store);
+//        System.out.println(store.toString());
+//        System.out.println(pointOfSale.getStore().toString());
+       /* pointOfSale.getStore().initiateTransaction(99,Transaction.Type.purchase);
+        Monitor mn = new Monitor(69,"sony",69,69,"sony",69,2);
+        Purchase p = new Purchase(99,"never",mn);
+        pointOfSale.getPurchaseMapper().purchase(p);
+        pointOfSale.getPurchaseMapper().commit();
+        pointOfSale.getStore().endTransaction(99);*/
+//       pointOfSale.getStore().initiateTransaction(99,Transaction.Type.purchase);
+//        Monitor mn = new Monitor(69,"sony",69,69,"sony",69,2);
+//        Purchase p = new Purchase(99,"never",mn);
+//        pointOfSale.getPurchaseMapper().returnItem(69);
+//        pointOfSale.getPurchaseMapper().commit();
+//        pointOfSale.getStore().endTransaction(99);
+//        pointOfSale.processReturn(99,84);
+
+
     }
 }

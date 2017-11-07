@@ -1,9 +1,13 @@
 package com.example.myapp.userCatalog;
 
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+
+@Service
 public class UserCatalog {
 
     private Map<Integer, User> activeUsers;
@@ -50,6 +54,8 @@ public class UserCatalog {
     public Map<Integer, User> getActiveUsers(){
         return activeUsers;
     }
+
+    public void test(){}
 
     public User getUserById(int id) {
         return users.get(id);

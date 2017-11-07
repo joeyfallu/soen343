@@ -29,18 +29,18 @@ public class ProductTDG {
             sql="INSERT INTO Products (model, weight, price, brand, size,discriminator) VALUES ('"+mn.getModel()+"','"+mn.getWeight()
                     +"','"+mn.getPrice()+"','"+mn.getBrand()+"','"+mn.getSize()+"','2')";
         }
-        if(pro instanceof Tablet){
+        else if(pro instanceof Tablet){
             Tablet tb = (Tablet)pro;
             sql="INSERT INTO Products (model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,dimensions, batteryInfo,operatingSystem,cameraInfo,size,discriminator) VALUES ('"+tb.getModel()+
             "','"+tb.getWeight()+"','"+tb.getPrice()+"','"+tb.getBrand()+"','"+tb.getProcessorType()+"','"+tb.getCpuCores()+"','"+tb.getRam()+"','"+tb.getHardDriveSize()+"','"+tb.getDimensions()+"','"+
             tb.getBatteryInfo()+"','"+tb.getOperatingSystem()+"','"+tb.getCameraInfo()+"','"+tb.getSize()+"','3')";
         }
-        if(pro instanceof Desktop){
+        else if(pro instanceof Desktop){
             Desktop dt = (Desktop)pro;
             sql="INSERT INTO Products (model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,dimensions,discriminator) VALUES ('"+dt.getModel()+
                     "','"+dt.getWeight()+"','"+dt.getPrice()+"','"+dt.getBrand()+"','"+dt.getProcessorType()+"','"+dt.getCpuCores()+"','"+dt.getRam()+"','"+dt.getHardDriveSize()+"','"+dt.getDimensions()+"','4')";
         }
-        if(pro instanceof Laptop){
+        else if(pro instanceof Laptop){
             Laptop lp = (Laptop)pro;
             sql="INSERT INTO Products (model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,size, batteryInfo,operatingSystem,camera,touchScreen,discriminator) VALUES ('"+lp.getModel()+
                     "','"+lp.getWeight()+"','"+lp.getPrice()+"','"+lp.getBrand()+"','"+lp.getProcessorType()+"','"+lp.getCpuCores()+"','"+lp.getRam()+"','"+lp.getHardDriveSize()+"','"+lp.getSize()+"','"+
@@ -56,6 +56,40 @@ public class ProductTDG {
         return id;
 
     }
+
+    public void dbInsert(Product pro, int id) throws Exception
+    {
+
+        dbConnect();
+        String sql = "";
+        if(pro instanceof Monitor){
+            Monitor mn = (Monitor)pro;
+            sql="INSERT INTO Products (id, model, weight, price, brand, size,discriminator) VALUES ('"+id+"','"+mn.getModel()+"','"+mn.getWeight()
+                    +"','"+mn.getPrice()+"','"+mn.getBrand()+"','"+mn.getSize()+"','2')";
+        }
+        else if(pro instanceof Tablet){
+            Tablet tb = (Tablet)pro;
+            sql="INSERT INTO Products (id, model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,dimensions, batteryInfo,operatingSystem,cameraInfo,size,discriminator) VALUES ('"+id+"','"+tb.getModel()+
+                    "','"+tb.getWeight()+"','"+tb.getPrice()+"','"+tb.getBrand()+"','"+tb.getProcessorType()+"','"+tb.getCpuCores()+"','"+tb.getRam()+"','"+tb.getHardDriveSize()+"','"+tb.getDimensions()+"','"+
+                    tb.getBatteryInfo()+"','"+tb.getOperatingSystem()+"','"+tb.getCameraInfo()+"','"+tb.getSize()+"','3')";
+        }
+        else if(pro instanceof Desktop){
+            Desktop dt = (Desktop)pro;
+            sql="INSERT INTO Products (id, model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,dimensions,discriminator) VALUES ('"+id+"','"+dt.getModel()+
+                    "','"+dt.getWeight()+"','"+dt.getPrice()+"','"+dt.getBrand()+"','"+dt.getProcessorType()+"','"+dt.getCpuCores()+"','"+dt.getRam()+"','"+dt.getHardDriveSize()+"','"+dt.getDimensions()+"','4')";
+        }
+        else if(pro instanceof Laptop){
+            Laptop lp = (Laptop)pro;
+            sql="INSERT INTO Products (id, model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,size, batteryInfo,operatingSystem,camera,touchScreen,discriminator) VALUES ('"+id+"','"+lp.getModel()+
+                    "','"+lp.getWeight()+"','"+lp.getPrice()+"','"+lp.getBrand()+"','"+lp.getProcessorType()+"','"+lp.getCpuCores()+"','"+lp.getRam()+"','"+lp.getHardDriveSize()+"','"+lp.getSize()+"','"+
+                    lp.getBatteryInfo()+"','"+lp.getOperatingSystem()+"','"+lp.getCamera()+"','"+lp.getTouchScreen()+"','5')";
+        }
+        statement.executeUpdate(sql);
+
+
+    }
+
+
 
     public Product dbGet(int id) throws Exception{
         dbConnect();
@@ -105,7 +139,6 @@ public class ProductTDG {
         dbConnect();
         String sql = "DELETE FROM Products WHERE id = '" + id + "'";
         statement.executeUpdate(sql);
-//        System.out.println(sql);
     }
 
     public void dbModify(int id, Product pro) throws Exception {

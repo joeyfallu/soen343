@@ -1,19 +1,36 @@
 package com.example.myapp;
 
+import com.example.myapp.database.ProductIdentityMap;
 import com.example.myapp.database.ProductMapper;
 import com.example.myapp.database.UserMapper;
 import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
+import com.example.myapp.purchases.PurchaseMapper;
 import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.User;
+import com.example.myapp.userCatalog.UserCatalog;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+@Service
 public class Store {
 
     private Transaction transaction;
+    @Autowired
     private ProductMapper productMapper;
+    @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private PurchaseMapper purchaseMapper;
+
+    public Store()
+    {
+        transaction = new Transaction(Transaction.Type.add);
+        transaction.setComplete(true);
+
+    }
 
     public Store(UserMapper userMapper, ProductMapper productMapper){
 
@@ -65,11 +82,6 @@ public class Store {
         this.userMapper.insert(user);
     }
 
-
-    public Map<Integer, Product> viewProductCatalog(){
-        return this.productMapper.getProductCatalog().getProducts();
-    }
-
     public void initiateTransaction(int userId, Transaction.Type t){
 
         if(transaction.isComplete())
@@ -102,6 +114,12 @@ public class Store {
         }
         productMapper.commit();
         userMapper.commit();
+        purchaseMapper.commit();
+
+        productMapper.getProductIdentityMap().reset();
+        userMapper.getUserIdentityMap().reset();
+        purchaseMapper.getPurchasesIdentityMap().reset();
+
         transaction.setComplete(true);
         transaction.setUserId(-1);
     }
@@ -110,11 +128,17 @@ public class Store {
         return productMapper;
     }
 
-    public void setProductMapper(ProductMapper productMapper) {
-        this.productMapper = productMapper;
-    }
-
     public UserMapper getUserMapper(){
         return userMapper;
+    }
+
+    public boolean validateTransaction(int userId){
+        if (userId != transaction.getUserId()) {
+            System.out.println("Transaction in progress, please wait and try again");
+            return false;
+        }
+        else
+            System.out.println("No transaction in progress");
+            return true;
     }
 }
