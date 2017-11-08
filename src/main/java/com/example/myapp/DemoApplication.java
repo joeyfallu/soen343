@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -116,10 +117,14 @@ public class DemoApplication {
     String logout(@RequestBody String json){
         JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
         int id = jobj.get("id").getAsInt();
+
+        if(store.getUserMapper().getUserCatalog().getUserById(id).getIsAdmin() == 0) {
+            pointOfSale.cancelPurchase(id);
+        }
+
         store.getUserMapper().getUserCatalog().removeActiveUserById(id);
 
 
-        pointOfSale.cancelPurchase(id);
         return "{\"message\":\"Logged Out\"}";
     }
 
@@ -145,8 +150,15 @@ public class DemoApplication {
             @PathVariable("id") int id) {
         Gson gson = new Gson();
         Map<Integer, Product> items = store.getProductCatalog().getProducts();
-        String productJson = gson.toJson(items.get(id));
-        return productJson;
+        if(items.get(id) != null){
+            String productJson = gson.toJson(items.get(id));
+            return productJson;
+        } else {
+            //product might be already sold
+            Map<Integer, Purchase> soldItems = pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases();
+            String productJson = gson.toJson(soldItems.get(id).getProduct());
+            return productJson;
+        }
     }
 
 
@@ -350,6 +362,43 @@ public class DemoApplication {
         store.initiateTransaction(cookieId, Transaction.Type.delete);
 
     }
+
+    @RequestMapping(value="/get/purchaseHistory", method = RequestMethod.GET)
+    @ResponseBody
+    String getPurchaseHistory(@CookieValue("SESSIONID") int cookieId){
+        Gson gson = new Gson();
+        Map<Integer, Purchase> userPurchases = new HashMap<>();
+        for (Map.Entry<Integer, Purchase> purchase : pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().entrySet()) {
+            //Code is potentially not secure
+            //If the user uses a cookie manager, he could view other people's purchase history
+            //by changing userId stored in the cookie to another user's cookie.
+            //In a real production environment, proper cookie encryption is needed.
+            if(purchase.getValue().getUserId() == cookieId) {
+                userPurchases.put(purchase.getKey(), purchase.getValue());
+            }
+        }
+        return gson.toJson(userPurchases);
+    }
+
+    @RequestMapping(value="/get/returnItem/{itemId}", method = RequestMethod.GET)
+    @ResponseBody
+    String returnItem(@PathVariable(value="itemId") int itemId, @CookieValue("SESSIONID") int cookieId){
+        //Check that item exists
+        if(pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().get(itemId) == null){
+            //Error: Item not in purchase history
+            return "{\"message\":\" Item not in purchase history\"}";
+        } else {
+            if(pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().get(itemId).getUserId() != cookieId){
+                //Error: User trying to return is not the buyer
+                return "{\"message\":\"User trying to return is not the buyer\"}";
+            } else {
+                //Item Returned Successfully
+                pointOfSale.processReturn(cookieId, itemId);
+                return "{\"message\":\"Item "+ itemId +" Returned Successfully\"}";
+            }
+        }
+    }
+
 
 
 
