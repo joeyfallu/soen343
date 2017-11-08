@@ -14,6 +14,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
+
+import java.util.Date;
 import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -91,6 +93,12 @@ public class DemoApplication {
             //Could be encrypted for security
             String userJsonResponse = gson.toJson(loggedInUser);
             //Responds with a User Object in Json format
+
+            //Creates the users cart
+            if(loggedInUser.getIsAdmin() == 0){
+                pointOfSale.startPurchase(loggedInUser.getId());
+            }
+
             return userJsonResponse;
         } catch(Exception e) {
             if(e.getMessage().equals("Wrong password")){
@@ -112,6 +120,9 @@ public class DemoApplication {
         JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
         int id = jobj.get("id").getAsInt();
         store.getUserMapper().getUserCatalog().removeActiveUserById(id);
+
+
+        pointOfSale.cancelPurchase(id);
         return "{\"message\":\"Logged Out\"}";
     }
 
@@ -218,6 +229,57 @@ public class DemoApplication {
         Product laptop = gson.fromJson(json, Laptop.class);
         store.addNewProduct(cookieId,laptop);
         return gson.toJson(json);
+    }
+
+    /* Cart routes */
+    @RequestMapping(value="/post/addToCart", method = RequestMethod.POST)
+    @ResponseBody
+    String addToCart(@RequestBody int itemId,@CookieValue("SESSIONID") int cookieId){
+
+        //for now because on refresh cart wont get recreated until login
+        if(pointOfSale.viewCart(cookieId) == null){
+            pointOfSale.startPurchase(cookieId);
+        }
+
+        if(pointOfSale.viewCart(cookieId).getSize() >= 7){
+            return "{\"message\":\"Too many items in the cart\"}";
+        }
+
+        pointOfSale.addCartItem(cookieId, itemId);
+//        store.deleteProduct(cookieId, itemId);
+
+        return "{\"message\":\"Added to cart\"}";
+    }
+
+    @RequestMapping(value="/get/cart", method = RequestMethod.GET)
+    @ResponseBody
+    String getCart(@CookieValue("SESSIONID") int cookieId){
+
+        //for now because on refresh cart wont get recreated until login
+        if(pointOfSale.viewCart(cookieId) == null){
+            pointOfSale.startPurchase(cookieId);
+        }
+
+        Gson gson = new Gson();
+        System.out.println(pointOfSale.viewCart(cookieId).getCartProducts());
+        return gson.toJson(pointOfSale.viewCart(cookieId).getCartProducts());
+    }
+
+    @RequestMapping(value="/post/removeFromCart", method = RequestMethod.POST)
+    @ResponseBody
+    String removeFromCart(@RequestBody int itemId, @CookieValue("SESSIONID") int cookieId){
+        pointOfSale.removeCartItem(cookieId, itemId);
+        pointOfSale.addCartItem(cookieId, itemId);
+        return "{\"message\":\"Item Removed\"}";
+    }
+
+    @RequestMapping(value="/get/purchaseCart", method = RequestMethod.GET)
+    @ResponseBody
+    String purchaseCart(@CookieValue("SESSIONID") int cookieId){
+
+        pointOfSale.endPurchase(cookieId);
+
+        return "{\"message\":\"Purchase Succesful\"}";
     }
 
 /*--stuff for modify--*/

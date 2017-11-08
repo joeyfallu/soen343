@@ -32,6 +32,7 @@ public class CartCatalog {
 
     public void addToCart(int userId, int itemId){
         Cart cart = carts.get(userId);
+
         Map<Integer, Date> cartProducts = cart.getCartProducts();
         cartProducts.put(itemId, new Date());
         cart.setSize(cart.getSize() + 1);
