@@ -28,6 +28,12 @@ public class UserMapperTest {
     @Test
     public void insert() throws Exception {
         userMapper.insert(userMock);
+        Mockito.verify(userMapper).insert(userMock);
+    }
+
+    @Test
+    public void insertUserCatalog() {
+        userCatalogMock.addUser(userMock);
     }
 
 }
