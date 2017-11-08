@@ -8,9 +8,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.HashMap;
-import java.util.Map;
-
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProductCatalogTest {
