@@ -15,35 +15,33 @@ import java.util.Map;
 @RunWith(MockitoJUnitRunner.class)
 public class ProductCatalogTest {
 
+
+    ProductCatalog productCatalog;
     @Mock
-    private ProductMapper productMapperMock;
+    ProductMapper productMapperMock;
     @Mock
-    private ProductCatalog productCatalogMock;
-    @Mock
-    private Product productMock;
-    private Map<Integer, Product> map = new HashMap<>();
+    Product productMock;
 
     @Before
     public void setUp() throws Exception {
-        map.put(1,productMock);
-        productCatalogMock = new ProductCatalog();
+        productCatalog = new ProductCatalog();
     }
 
     @Test
     public void addProduct(){
-        ProductCatalog.addProduct(0, productMock);
+        productCatalog.addProduct(0, productMock);
         Mockito.verify(productMapperMock).insert(productMock);
     }
 
     @Test
     public void deleteProduct(){
-        ProductCatalog.deleteProduct(0);
+        productCatalog.deleteProduct(0);
         Mockito.verify(productMapperMock).delete(0);
     }
 
     @Test
     public void modifyProduct(){
-        ProductCatalog.modifyProduct(0, productMock);
+        productCatalog.modifyProduct(0, productMock);
         Mockito.verify(productMapperMock).update(productMock);
     }
 
