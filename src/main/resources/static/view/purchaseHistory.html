@@ -1,13 +1,16 @@
 <div class="container">
         <div class="row">
+            <h2>Purchase History</h2>
+        </div>
+        <div class="row">
             <div class="col-md-3"  ng-repeat="item in purchaseHistory">
                 <div class="thumbnail">
 
                     <h4 class="text-center">
-                        <span class="label label-info" ng-if="item.product.discriminator == 2" class="panel-heading"><a href="viewItems/{{item.product.id}}">Monitor</a></span>
-                        <span class="label label-info" ng-if="item.product.discriminator == 3" class="panel-heading"><a href="viewItems/{{item.product.id}}">Tablet</a></span>
-                        <span class="label label-info" ng-if="item.product.discriminator == 4" class="panel-heading"><a href="viewItems/{{item.product.id}}">Desktop</a></span>
-                        <span class="label label-info" ng-if="item.product.discriminator == 5" class="panel-heading"><a href="viewItems/{{item.product.id}}">Laptop</a></span>
+                        <span class="label" ng-if="item.product.discriminator == 2" class="panel-heading"><a href="viewItems/{{item.product.id}}">Monitor</a></span>
+                        <span class="label" ng-if="item.product.discriminator == 3" class="panel-heading"><a href="viewItems/{{item.product.id}}">Tablet</a></span>
+                        <span class="label" ng-if="item.product.discriminator == 4" class="panel-heading"><a href="viewItems/{{item.product.id}}">Desktop</a></span>
+                        <span class="label" ng-if="item.product.discriminator == 5" class="panel-heading"><a href="viewItems/{{item.product.id}}">Laptop</a></span>
                     </h4>
 
                     <img src="http://placehold.it/650x450&text=Placeholder" class="img-responsive">
@@ -31,8 +34,8 @@
                                 </a>
                             </div>
                             <div class="col-md-7" ng-click="returnItem(item.product.id)">
-                                <button class="btn btn-danger">
-                                    <span class="glyphicon glyphicon-shopping-cart"></span> Return Item
+                                <button class="btn btn-primary">
+                                    <span class="glyphicon glyphicon-arrow-left"></span> Return Item
                                 </button>
                             </div>
                         </div>
