@@ -6,12 +6,14 @@ angular.module('app')
         $scope.items = "";
         $scope.cart = [];
         $scope.subtotal = 0;
+        $scope.emptyCart = false;
+        $scope.message = "";
+
         const urlCart = '/get/cart';
-
-         $http.get(urlCart).then((res) => {
-
+        $http.get(urlCart).then((res) => {
             $scope.items = res.data;
-            console.log($scope.cart);
+            if(angular.equals($scope.items, {}))
+                $scope.emptyCart = true;
             for(var id in $scope.items){
                 $http.get('/getItem/' + id).then((res)=> {
                     if($cookies.get(id)){
