@@ -116,10 +116,14 @@ public class DemoApplication {
     String logout(@RequestBody String json){
         JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
         int id = jobj.get("id").getAsInt();
+
+        if(store.getUserMapper().getUserCatalog().getUserById(id).getIsAdmin() == 0) {
+            pointOfSale.cancelPurchase(id);
+        }
+
         store.getUserMapper().getUserCatalog().removeActiveUserById(id);
 
 
-        pointOfSale.cancelPurchase(id);
         return "{\"message\":\"Logged Out\"}";
     }
 
