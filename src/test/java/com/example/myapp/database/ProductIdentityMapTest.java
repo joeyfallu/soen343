@@ -28,6 +28,7 @@ public class ProductIdentityMapTest {
         productIdentityMap = new ProductIdentityMap();
     }
 
+    //note: these tests do not work. need fixing.
     @Test
     public void insertProductById() throws Exception {
         productIdentityMap.insertProductById(0, productMock);
