@@ -6,7 +6,6 @@ public class Product {
     private double weight;
     private double price;
     private String brand;
-//    private boolean inCart;
     private int discriminator;
 
 
@@ -16,7 +15,6 @@ public class Product {
         this.weight = weight;
         this.price = price;
         this.brand = brand;
-//        this.inCart = false;
         this.discriminator = discriminator;
     }
 
@@ -79,8 +77,4 @@ public class Product {
     public void setDiscriminator(int discriminator) {
         this.discriminator = discriminator;
     }
-
-//    public boolean getinCart(){ return this.inCart; }
-//
-//    public void setInCart(boolean inCart){ this.inCart = inCart; }
 }
