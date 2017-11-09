@@ -5,11 +5,21 @@ angular.module('app')
 
 
         $scope.itemsInventory = "";
+        $scope.cartItems = "";
         const urlProduct = '/get/products';
 
+
+        $http.get('/get/cart').then((res) => {
+            $scope.cartItems = res.data;
+            console.log($scope.cartItems);
+        })
         $http.get(urlProduct).then((res) => {
 
             $scope.itemsInventory = res.data;
+
+            for(var cartItem in $scope.cartItems){
+                delete $scope.itemsInventory[cartItem];
+            }
             console.log($scope.itemsInventory);
         });
 
@@ -21,7 +31,7 @@ angular.module('app')
                 }
                 else{
                     var expireDate = new Date();
-                    //5 seconds * 1000 milliseconds
+                    //300 seconds * 1000 milliseconds
                     expireDate.setTime(expireDate.getTime() + (300*1000));
 
                     $cookies.put(itemId, itemId, {'expires': expireDate})
