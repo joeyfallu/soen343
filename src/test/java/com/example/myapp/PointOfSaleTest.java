@@ -113,7 +113,7 @@ public class PointOfSaleTest {
     {
 
         pointOfSale.endPurchase(1);
-      
+
 
     }
 

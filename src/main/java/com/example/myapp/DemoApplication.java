@@ -119,12 +119,19 @@ public class DemoApplication {
     String logout(@RequestBody String json){
         JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
         int id = jobj.get("id").getAsInt();
+
+        if(store.getUserMapper().getUserCatalog().getUserById(id).getIsAdmin() == 0) {
+            pointOfSale.cancelPurchase(id);
+        }
+
+
+
         store.getUserMapper().getUserCatalog().removeActiveUserById(id);
 
 
-        pointOfSale.cancelPurchase(id);
         return "{\"message\":\"Logged Out\"}";
     }
+
 
     /* VIEW ITEMS */
     @RequestMapping("/get/products")
@@ -246,7 +253,6 @@ public class DemoApplication {
         }
 
         pointOfSale.addCartItem(cookieId, itemId);
-//        store.deleteProduct(cookieId, itemId);
 
         return "{\"message\":\"Added to cart\"}";
     }
@@ -261,15 +267,30 @@ public class DemoApplication {
         }
 
         Gson gson = new Gson();
-        System.out.println(pointOfSale.viewCart(cookieId).getCartProducts());
+
         return gson.toJson(pointOfSale.viewCart(cookieId).getCartProducts());
+    }
+
+    @RequestMapping(value="/get/allCarts", method = RequestMethod.GET)
+    @ResponseBody
+    String getAllCarts(){
+
+
+        Gson gson = new Gson();
+
+
+        System.out.println(pointOfSale.getCartCatalog().getCarts());
+        return gson.toJson(pointOfSale.getCartCatalog().getCarts());
     }
 
     @RequestMapping(value="/post/removeFromCart", method = RequestMethod.POST)
     @ResponseBody
     String removeFromCart(@RequestBody int itemId, @CookieValue("SESSIONID") int cookieId){
         pointOfSale.removeCartItem(cookieId, itemId);
-        pointOfSale.addCartItem(cookieId, itemId);
+
+        store.getProductCatalog().addProduct(itemId, store.getProductMapper().get(itemId));
+
+        store.addNewProduct(cookieId,store.getProductMapper().get(itemId));
         return "{\"message\":\"Item Removed\"}";
     }
 

@@ -8,6 +8,18 @@ angular.module('app', ['ngRoute', 'ngCookies'])
             return typeof $cookies.get("SESSIONID") !== 'undefined';
         };
 
+        $scope.getIsAdmin = function(){
+            try {
+                var x = $cookies.getObject("USERINFO");
+                return x.isAdmin;
+            } catch (error) {
+                console.log("Nobody is logged in");
+                return 2;
+            }
+            
+        }
+
+
         $scope.logout = function () {
             const url = '/post/logout';
             let data = {
