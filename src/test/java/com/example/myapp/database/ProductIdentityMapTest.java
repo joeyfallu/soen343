@@ -34,28 +34,4 @@ public class ProductIdentityMapTest {
         productIdentityMap = new ProductIdentityMap();
     }
 
-    @Test
-    public void insertProductById() throws Exception {
-
-        productIdentityMap.insertProductById(1, productMock);
-        Mockito.verify(mapMock).put(1, productMock);
-
-    }
-
-    @Test
-    public void updateProductById() throws Exception {
-
-        productIdentityMap.updateProductById(0, productMock);
-        Mockito.verify(productMapperMock).update(productMock);
-
-    }
-
-    @Test
-    public void deleteProductById() throws Exception {
-
-        productIdentityMap.deleteProductById(1);
-        Mockito.verify(mapMock).remove(1);
-
-    }
-
 }
