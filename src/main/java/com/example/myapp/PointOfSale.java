@@ -105,6 +105,10 @@ public class PointOfSale {
         return cartCatalog.getCart(userId);
     }
 
+    public CartCatalog getCartCatalog() {
+        return cartCatalog;
+    }
+
     public PurchaseMapper getPurchaseMapper() {
         return purchaseMapper;
     }

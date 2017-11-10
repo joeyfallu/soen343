@@ -45,6 +45,10 @@ public class CartCatalog {
         cart.setSize(cart.getSize() - 1);
     }
 
+    public Map<Integer, Cart> getCarts(){
+        return this.carts;
+    }
+
     public Map<Integer, Date> purchaseCart(int userId){
         return carts.get(userId).getCartProducts();
     }

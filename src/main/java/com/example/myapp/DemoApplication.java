@@ -118,8 +118,6 @@ public class DemoApplication {
         JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
         int id = jobj.get("id").getAsInt();
 
-        Map<Integer, Date> cart = pointOfSale.viewCart(id).getCartProducts();
-
         if(store.getUserMapper().getUserCatalog().getUserById(id).getIsAdmin() == 0) {
             pointOfSale.cancelPurchase(id);
         }
@@ -275,6 +273,18 @@ public class DemoApplication {
         Gson gson = new Gson();
 
         return gson.toJson(pointOfSale.viewCart(cookieId).getCartProducts());
+    }
+
+    @RequestMapping(value="/get/allCarts", method = RequestMethod.GET)
+    @ResponseBody
+    String getAllCarts(){
+
+
+        Gson gson = new Gson();
+
+
+        System.out.println(pointOfSale.getCartCatalog().getCarts());
+        return gson.toJson(pointOfSale.getCartCatalog().getCarts());
     }
 
     @RequestMapping(value="/post/removeFromCart", method = RequestMethod.POST)

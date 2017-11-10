@@ -6,7 +6,13 @@ angular.module('app')
         $scope.cartItems = "";
         $scope.itemsInventory = "";
 
-    $http.get('/get/cart').then((res) => {
+        var cartItemsArray = []
+        for(var key in $scope.cartItems){
+            cartItemsArray.push($scope.cartItems[key]);
+        }
+        $scope.cartItems = cartItemsArray;
+
+    $http.get('/get/allCarts').then((res) => {
 
         $scope.cartItems = res.data;
 
@@ -14,9 +20,13 @@ angular.module('app')
 
 
             $scope.itemsInventory = res.data;
-            console.log($scope.itemsInventory)
-            for(var cartItem in $scope.cartItems){
-                delete $scope.itemsInventory[cartItem];
+            console.log($scope.cartItems)
+            for(var key in $scope.cartItems){
+                console.log($scope.cartItems[key].cartProducts);
+                for(var cartItemId in $scope.cartItems[key].cartProducts){
+                    console.log(cartItemId);
+                    delete $scope.itemsInventory[cartItemId];
+                }
             }
 
             var items = [];
