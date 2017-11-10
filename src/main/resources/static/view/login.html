@@ -12,11 +12,15 @@
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" ng-model="password" required=""/>
         </div>
-        <div class="form-group">
-            <label for="admin">Admin</label>
-            <input type="radio" class="form-control" id="admin" ng-model="isAdmin"  ng-value ="1"/>
-            <label for="client">Client</label>
-            <input type="radio" class="form-control" id="client" ng-model="isAdmin"  ng-value ="0"/>
+        <div class="select">
+                    <label for="admin">Admin
+                    <input type="radio" class="select" id="admin" ng-model="isAdmin"  ng-value ="1"/>
+                    </label>
+
+                    <label for="client">Client
+                    <input type="radio" class="select" id="client" ng-model="isAdmin"  ng-value ="0"/>
+                    </label>
+
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-block" id="login-btn">Login</button>

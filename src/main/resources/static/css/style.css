@@ -67,6 +67,22 @@ input#email, #password {
     margin-bottom: 16px;
 }
 
+input#admin, #client{
+    border: 0;
+    border-bottom: 1px solid;
+    border-radius: 0;
+    box-shadow: none;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.select{
+}
+    width: 0.5em;
+    height: 0.5em;
+    text-align: left;
+   }
+
 button#login-btn {
     border-radius: 30px;
     background: #333;
