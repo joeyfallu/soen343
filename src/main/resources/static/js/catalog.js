@@ -74,6 +74,17 @@ angular.module('app')
             console.log($scope.itemsInventory);
         });
 
+        $scope.getIsAdmin = function(){
+            try {
+                var x = $cookies.getObject("USERINFO");
+                return x.isAdmin;
+            } catch (error) {
+                console.log("Nobody is logged in");
+                return 2;
+            }
+            
+        }
+
         $scope.addToCart = function(itemId){
             const addToCartUrl = '/post/addToCart';
             $http.post(addToCartUrl, itemId).then((res) => {
