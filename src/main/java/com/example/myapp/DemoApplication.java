@@ -14,6 +14,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
+
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -88,6 +91,12 @@ public class DemoApplication {
             //Could be encrypted for security
             String userJsonResponse = gson.toJson(loggedInUser);
             //Responds with a User Object in Json format
+
+            //Creates the users cart
+            if(loggedInUser.getIsAdmin() == 0){
+                pointOfSale.startPurchase(loggedInUser.getId());
+            }
+
             return userJsonResponse;
         } catch(Exception e) {
             if(e.getMessage().equals("Wrong password")){
@@ -109,7 +118,14 @@ public class DemoApplication {
     String logout(@RequestBody String json){
         JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
         int id = jobj.get("id").getAsInt();
+
+        if(store.getUserMapper().getUserCatalog().getUserById(id).getIsAdmin() == 0) {
+            pointOfSale.cancelPurchase(id);
+        }
+
         store.getUserMapper().getUserCatalog().removeActiveUserById(id);
+
+
         return "{\"message\":\"Logged Out\"}";
     }
 
@@ -135,8 +151,15 @@ public class DemoApplication {
             @PathVariable("id") int id) {
         Gson gson = new Gson();
         Map<Integer, Product> items = store.getProductCatalog().getProducts();
-        String productJson = gson.toJson(items.get(id));
-        return productJson;
+        if(items.get(id) != null){
+            String productJson = gson.toJson(items.get(id));
+            return productJson;
+        } else {
+            //product might be already sold
+            Map<Integer, Purchase> soldItems = pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases();
+            String productJson = gson.toJson(soldItems.get(id).getProduct());
+            return productJson;
+        }
     }
 
 
@@ -225,6 +248,57 @@ public class DemoApplication {
         return gson.toJson(json);
     }
 
+    /* Cart routes */
+    @RequestMapping(value="/post/addToCart", method = RequestMethod.POST)
+    @ResponseBody
+    String addToCart(@RequestBody int itemId,@CookieValue("SESSIONID") int cookieId){
+
+        //for now because on refresh cart wont get recreated until login
+        if(pointOfSale.viewCart(cookieId) == null){
+            pointOfSale.startPurchase(cookieId);
+        }
+
+        if(pointOfSale.viewCart(cookieId).getSize() >= 7){
+            return "{\"message\":\"Too many items in the cart\"}";
+        }
+
+        pointOfSale.addCartItem(cookieId, itemId);
+//        store.deleteProduct(cookieId, itemId);
+
+        return "{\"message\":\"Added to cart\"}";
+    }
+
+    @RequestMapping(value="/get/cart", method = RequestMethod.GET)
+    @ResponseBody
+    String getCart(@CookieValue("SESSIONID") int cookieId){
+
+        //for now because on refresh cart wont get recreated until login
+        if(pointOfSale.viewCart(cookieId) == null){
+            pointOfSale.startPurchase(cookieId);
+        }
+
+        Gson gson = new Gson();
+        System.out.println(pointOfSale.viewCart(cookieId).getCartProducts());
+        return gson.toJson(pointOfSale.viewCart(cookieId).getCartProducts());
+    }
+
+    @RequestMapping(value="/post/removeFromCart", method = RequestMethod.POST)
+    @ResponseBody
+    String removeFromCart(@RequestBody int itemId, @CookieValue("SESSIONID") int cookieId){
+        pointOfSale.removeCartItem(cookieId, itemId);
+        pointOfSale.addCartItem(cookieId, itemId);
+        return "{\"message\":\"Item Removed\"}";
+    }
+
+    @RequestMapping(value="/get/purchaseCart", method = RequestMethod.GET)
+    @ResponseBody
+    String purchaseCart(@CookieValue("SESSIONID") int cookieId){
+
+        pointOfSale.endPurchase(cookieId);
+
+        return "{\"message\":\"Purchase Succesful\"}";
+    }
+
 /*--stuff for modify--*/
 
 
@@ -296,6 +370,43 @@ public class DemoApplication {
         store.initiateTransaction(cookieId, Transaction.Type.delete);
 
     }
+
+    @RequestMapping(value="/get/purchaseHistory", method = RequestMethod.GET)
+    @ResponseBody
+    String getPurchaseHistory(@CookieValue("SESSIONID") int cookieId){
+        Gson gson = new Gson();
+        Map<Integer, Purchase> userPurchases = new HashMap<>();
+        for (Map.Entry<Integer, Purchase> purchase : pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().entrySet()) {
+            //Code is potentially not secure
+            //If the user uses a cookie manager, he could view other people's purchase history
+            //by changing userId stored in the cookie to another user's cookie.
+            //In a real production environment, proper cookie encryption is needed.
+            if(purchase.getValue().getUserId() == cookieId) {
+                userPurchases.put(purchase.getKey(), purchase.getValue());
+            }
+        }
+        return gson.toJson(userPurchases);
+    }
+
+    @RequestMapping(value="/get/returnItem/{itemId}", method = RequestMethod.GET)
+    @ResponseBody
+    String returnItem(@PathVariable(value="itemId") int itemId, @CookieValue("SESSIONID") int cookieId){
+        //Check that item exists
+        if(pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().get(itemId) == null){
+            //Error: Item not in purchase history
+            return "{\"message\":\" Item not in purchase history\"}";
+        } else {
+            if(pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().get(itemId).getUserId() != cookieId){
+                //Error: User trying to return is not the buyer
+                return "{\"message\":\"User trying to return is not the buyer\"}";
+            } else {
+                //Item Returned Successfully
+                pointOfSale.processReturn(cookieId, itemId);
+                return "{\"message\":\"Item "+ itemId +" Returned Successfully\"}";
+            }
+        }
+    }
+
 
 
 
