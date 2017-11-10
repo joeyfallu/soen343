@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -42,8 +43,6 @@ public class DemoApplication {
             "/",
             "/test",
             "/login",
-            "/registerAdmin", // TODO change to /register
-            "/catalog",
             "/register",
             "/catalog/desktops",
             "/catalog/monitors",
@@ -53,7 +52,6 @@ public class DemoApplication {
             "/history",
             "/admin",
             "/addItems",
-            "/addUsers",
             "/viewItems",
             "/modifyItems",
             "/deleteItems",
@@ -68,13 +66,12 @@ public class DemoApplication {
     @RequestMapping(value = "/post/login", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String loginSubmit(@RequestBody String body, HttpServletResponse response) {
-
         Gson gson = new Gson();
         User tempUser = gson.fromJson(body, User.class);
         String email = tempUser.getEmail();
         String password = tempUser.getPassword();
-        tempUser = null;                            //This object isn't needed anymore
-        try{
+
+        try {
             User loggedInUser = store.getUserMapper().getUserCatalog().login(email, password);
             System.out.println("Successful login by: " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " "+ loggedInUser.getEmail());
             //Send two cookies which store the user's id and info as json
@@ -103,9 +100,10 @@ public class DemoApplication {
         } catch(Exception e) {
             if(e.getMessage().equals("Wrong password")){
                 return "{\"message\":\"Wrong password\"}";
-            }
-            if (e.getMessage().equals("Email not found")){
+            } else if (e.getMessage().equals("Email not found")){
                 return "{\"message\":\"Email not found\"}";
+            } else if (e.getMessage().equals("User already logged in")) {
+                return "{\"message\":\"User already logged in\"}";
             } else {
                 e.printStackTrace();
                 return "{\"message\":\"Error logging in\"}";
@@ -132,7 +130,6 @@ public class DemoApplication {
         return "{\"message\":\"Logged Out\"}";
     }
 
-
     /* VIEW ITEMS */
     @RequestMapping("/get/products")
     @ResponseBody
@@ -155,9 +152,15 @@ public class DemoApplication {
             @PathVariable("id") int id) {
         Gson gson = new Gson();
         Map<Integer, Product> items = store.getProductCatalog().getProducts();
-        String productJson = gson.toJson(items.get(id));
-        System.out.println(productJson);
-        return productJson;
+        if(items.get(id) != null){
+            String productJson = gson.toJson(items.get(id));
+            return productJson;
+        } else {
+            //product might be already sold
+            Map<Integer, Purchase> soldItems = pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases();
+            String productJson = gson.toJson(soldItems.get(id).getProduct());
+            return productJson;
+        }
     }
 
 
@@ -176,27 +179,28 @@ public class DemoApplication {
     /* ADD USER */
     @RequestMapping(value = "/post/addUser", method = RequestMethod.POST)
     @ResponseBody
-    String addUser(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
-        System.out.println(json);
+    public String addUser(@RequestBody String json){
         Gson gson = new Gson();
         User user = gson.fromJson(json, User.class);
-
-        boolean DuplicateEmail = false;
         String email = user.getEmail();
+        boolean isDuplicateEmail = false;
 
         for (Map.Entry<Integer, User> entry : store.getUserMapper().getUserCatalog().getUsers().entrySet()) {
             if(entry.getValue().getEmail().equals(email)) {
-                DuplicateEmail = true;
-                //Sets DuplicateEmail value to true if a duplicate email is detected in the database
+                isDuplicateEmail = true;
+                break;
             }
-            //Continues to the next map entry
         }
-        if (DuplicateEmail == true) {
-            return "{\"message\":\"Duplicate\"}";
-        }
-        else {
-            store.addNewUser(cookieId, user);
+
+        if (!isDuplicateEmail) {
+            System.out.println("Adding user to database.");
+            // Use a temporary ID to make a transaction while not logged in
+            store.initiateTransaction(1000, Transaction.Type.add);
+            store.addNewUser(1000, user);
+            store.endTransaction(1000);
             return gson.toJson(json);
+        } else {
+            return "{\"message\":\"Duplicate\"}";
         }
 
     }
@@ -375,6 +379,43 @@ public class DemoApplication {
 
     }
 
+    @RequestMapping(value="/get/purchaseHistory", method = RequestMethod.GET)
+    @ResponseBody
+    String getPurchaseHistory(@CookieValue("SESSIONID") int cookieId){
+        Gson gson = new Gson();
+        Map<Integer, Purchase> userPurchases = new HashMap<>();
+        for (Map.Entry<Integer, Purchase> purchase : pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().entrySet()) {
+            //Code is potentially not secure
+            //If the user uses a cookie manager, he could view other people's purchase history
+            //by changing userId stored in the cookie to another user's cookie.
+            //In a real production environment, proper cookie encryption is needed.
+            if(purchase.getValue().getUserId() == cookieId) {
+                userPurchases.put(purchase.getKey(), purchase.getValue());
+            }
+        }
+        return gson.toJson(userPurchases);
+    }
+
+    @RequestMapping(value="/get/returnItem/{itemId}", method = RequestMethod.GET)
+    @ResponseBody
+    String returnItem(@PathVariable(value="itemId") int itemId, @CookieValue("SESSIONID") int cookieId){
+        //Check that item exists
+        if(pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().get(itemId) == null){
+            //Error: Item not in purchase history
+            return "{\"message\":\" Item not in purchase history\"}";
+        } else {
+            if(pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().get(itemId).getUserId() != cookieId){
+                //Error: User trying to return is not the buyer
+                return "{\"message\":\"User trying to return is not the buyer\"}";
+            } else {
+                //Item Returned Successfully
+                pointOfSale.processReturn(cookieId, itemId);
+                return "{\"message\":\"Item "+ itemId +" Returned Successfully\"}";
+            }
+        }
+    }
+
+
 
 
 
@@ -390,7 +431,7 @@ public class DemoApplication {
 
     public void testPOS()
     {
-       // pointOfSale.setStore(store);
+        // pointOfSale.setStore(store);
 //        System.out.println(store.toString());
 //        System.out.println(pointOfSale.getStore().toString());
        /* pointOfSale.getStore().initiateTransaction(99,Transaction.Type.purchase);
