@@ -12,16 +12,16 @@ angular.module('app')
         $http.get('/get/cart').then((res) => {
             $scope.cartItems = res.data;
             console.log($scope.cartItems);
+
+             $http.get(urlProduct).then((res) => {
+
+                $scope.itemsInventory = res.data;
+
+                for(var cartItem in $scope.cartItems){
+                    delete $scope.itemsInventory[cartItem];
+                }
+             });
         })
-        $http.get(urlProduct).then((res) => {
-
-            $scope.itemsInventory = res.data;
-
-            for(var cartItem in $scope.cartItems){
-                delete $scope.itemsInventory[cartItem];
-            }
-            console.log($scope.itemsInventory);
-        });
 
         $scope.addToCart = function(itemId){
             const addToCartUrl = '/post/addToCart';
