@@ -47,8 +47,9 @@
                 <div ng-if="item.discriminator == 5" class="panel-heading"><a href="viewItems/{{item.id}}">Laptop</a></div>
                 <div class="panel-body">
                     <ul style="list-style-type: none;">
-                        <li ng-repeat="(key,value) in item" ng-if="key != 'discriminator'">
-                            {{key}}: {{value}}
+                        <strong>ID:</strong> {{item.id}}
+                        <li ng-repeat="(key,value) in item" ng-if="key != 'discriminator' && key != 'id'">
+                            <strong>{{key}}:</strong> {{value}}
                         </li>
                     </ul>
                 </div>
