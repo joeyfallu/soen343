@@ -108,13 +108,4 @@ public class PointOfSaleTest {
 
     }
 
-    @Test
-    public void endPurchase() throws Exception
-    {
-
-        pointOfSale.endPurchase(1);
-
-
-    }
-
 }

@@ -17,8 +17,6 @@ import static org.junit.Assert.*;
 
 public class ProductIdentityMapTest {
 
-    //These tests do not work. Not sure this class can even be tested.
-
     ProductIdentityMap productIdentityMap;
 
     @Mock
