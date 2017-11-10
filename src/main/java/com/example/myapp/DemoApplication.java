@@ -431,7 +431,7 @@ public class DemoApplication {
 
     public void testPOS()
     {
-       // pointOfSale.setStore(store);
+        // pointOfSale.setStore(store);
 //        System.out.println(store.toString());
 //        System.out.println(pointOfSale.getStore().toString());
        /* pointOfSale.getStore().initiateTransaction(99,Transaction.Type.purchase);
