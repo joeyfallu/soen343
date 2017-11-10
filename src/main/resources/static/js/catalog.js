@@ -3,25 +3,95 @@
 angular.module('app')
     .controller('catalogController', function ($scope,$http, $cookies) {
 
-
-        $scope.itemsInventory = "";
         $scope.cartItems = "";
-        const urlProduct = '/get/products';
+        $scope.itemsInventory = "";
+
+    $http.get('/get/cart').then((res) => {
+
+        $scope.cartItems = res.data;
+
+        $http.get('/get/products').then((res) => {
 
 
-        $http.get('/get/cart').then((res) => {
-            $scope.cartItems = res.data;
-            console.log($scope.cartItems);
+            $scope.itemsInventory = res.data;
+            console.log($scope.itemsInventory)
+            for(var cartItem in $scope.cartItems){
+                delete $scope.itemsInventory[cartItem];
+            }
 
-             $http.get(urlProduct).then((res) => {
+            var items = [];
+            for(var key in $scope.itemsInventory){
+                items.push($scope.itemsInventory[key]);
+            }
 
-                $scope.itemsInventory = res.data;
+            $scope.itemsInventory = items;
+            $scope.select = null;
+            $scope.search3= 0;
+            $scope.search4 = 100000000;
 
-                for(var cartItem in $scope.cartItems){
-                    delete $scope.itemsInventory[cartItem];
-                }
-             });
-        })
+            $scope.listOfOptions = ['Most Expensive', 'Least Expensive', 'Most Recent', 'Least Recent', 'Heaviest', 'Lightest', 'Brand (A-Z)', 'Brand (Z-A)'];
+            
+                    $scope.rename = function(x){
+                               if (x === 'Most Expensive' ){
+                                   $scope.sortBy('-price');
+                               }
+                               if (x === 'Least Expensive' ){
+                                   $scope.sortBy('price');
+                               }
+                               if (x === 'Most Recent' ){
+                                   $scope.sortBy('-id');
+                               }
+                               if (x === 'Least Recent' ){
+                                   $scope.sortBy('id');
+                               }
+                               if (x === 'Heaviest' ){
+                                   $scope.sortBy('-weight');
+                               }
+                               if (x === 'Lightest' ){
+                                   $scope.sortBy('weight');
+                               }
+                               if (x === 'Brand (A-Z)' ){
+                                   $scope.sortBy('brand');
+                               }
+                               if (x === 'Brand (Z-A)' ){
+                                   $scope.sortBy('-brand');
+                               }
+                            }
+
+                    //https://stackoverflow.com/questions/24081004/angularjs-ng-repeat-filter-when-value-is-greater-than
+                    $scope.greaterThan = function(prop, val){
+                        return function(item){
+                            if (item['discriminator'] === 4){
+                                return true;
+                            }
+                          return item[prop] > val;
+                        }
+                    }
+                    $scope.smallerThan = function(prop, val){
+                        return function(item){
+                            if (item['discriminator'] === 4){
+                                return true;
+                            }
+                          return item[prop] < val;
+                        }
+                    }
+                            $scope.sortBy = function(select) {
+                                $scope.select = select;
+                            };        
+
+        });
+    });
+
+        $scope.getIsAdmin = function(){
+            try {
+                var x = $cookies.getObject("USERINFO");
+                return x.isAdmin;
+            } catch (error) {
+                console.log("Nobody is logged in");
+                return 2;
+            }
+            
+        }
 
         $scope.addToCart = function(itemId){
             const addToCartUrl = '/post/addToCart';
@@ -36,7 +106,11 @@ angular.module('app')
 
                     $cookies.put(itemId, itemId, {'expires': expireDate})
 
-                    delete $scope.itemsInventory[itemId];
+                    for(var i = 0; i < $scope.itemsInventory.length; i++){
+                        if($scope.itemsInventory[i].id == itemId){
+                            $scope.itemsInventory.splice(i,1);
+                        }
+                    }
                 }
             }).catch((err) => {
                 console.log("ERROR:");
