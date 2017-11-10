@@ -19,9 +19,12 @@ angular.module('app').controller('viewItemsCtrl', function ($scope, $http) {
         $scope.search4 = 100000000;
 
 
-        $scope.listOfOptions = ['Most Expensive', 'Least Expensive', 'Most Recent', 'Least Recent', 'Heaviest', 'Lightest', 'Brand (A-Z)', 'Brand (Z-A)'];
+        $scope.listOfOptions = ['Show All', 'Most Expensive', 'Least Expensive', 'Most Recent', 'Least Recent', 'Heaviest', 'Lightest', 'Brand (A-Z)', 'Brand (Z-A)'];
 
         $scope.rename = function(x){
+                   if (x === 'Show All' ){
+                        $scope.sortBy('id');
+                   }
                    if (x === 'Most Expensive' ){
                        $scope.sortBy('-price');
                    }
