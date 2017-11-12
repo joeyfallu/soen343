@@ -205,10 +205,14 @@ public class DemoApplication {
     /* DELETE USER */
     @RequestMapping(value = "/post/deleteUser", method = RequestMethod.POST)
     @ResponseBody
-    public void deleteUser(@RequestBody String json){
+    public void deleteUser(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         logout(json);
 
-        // delete the user from the identity, DB
+        Gson gson = new Gson();
+        User user = gson.fromJson(json, User.class);
+        store.initiateTransaction(cookieId, Transaction.Type.add);
+        store.deleteUser(cookieId, user);
+        store.endTransaction(cookieId);
     }
 
     /* ADD ITEMS */

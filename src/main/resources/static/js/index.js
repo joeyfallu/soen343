@@ -2,7 +2,7 @@
 
 angular.module('app', ['ngRoute', 'ngCookies'])
 
-    .controller("mainController", function mainController($scope, $cookies, $http, $location) {
+    .controller("mainController", function mainController($scope, $cookies, $http, $location, $rootScope) {
 
         $scope.authenticate = function () {
             return typeof $cookies.get("SESSIONID") !== 'undefined';
@@ -10,17 +10,15 @@ angular.module('app', ['ngRoute', 'ngCookies'])
 
         $scope.getIsAdmin = function(){
             try {
-                var x = $cookies.getObject("USERINFO");
+                let x = $cookies.getObject("USERINFO");
                 return x.isAdmin;
             } catch (error) {
                 console.log("Nobody is logged in");
                 return 2;
             }
-            
-        }
+        };
 
-
-        $scope.logout = function () {
+        $rootScope.logout = function () {
             const url = '/post/logout';
             let data = {
                 id: $cookies.get("SESSIONID")
