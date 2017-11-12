@@ -210,7 +210,7 @@ public class DemoApplication {
 
         Gson gson = new Gson();
         User user = gson.fromJson(json, User.class);
-        store.initiateTransaction(cookieId, Transaction.Type.add);
+        store.initiateTransaction(cookieId, Transaction.Type.delete);
         store.deleteUser(cookieId, user);
         store.endTransaction(cookieId);
     }
