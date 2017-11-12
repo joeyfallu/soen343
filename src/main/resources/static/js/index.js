@@ -61,6 +61,7 @@ angular.module('app', ['ngRoute', 'ngCookies'])
             .when('/modifyItems', {templateUrl: "view/admin/modifyItems.html", controller: "modifyItemsController"})
             .when('/deleteItems', {templateUrl: "view/admin/deleteItems.html", controller: "deleteItemsController"})
             .when('/viewItems/:id', {templateUrl: "view/viewItemsDetail.html", controller: "viewItemsDetailCtrl"})
+            .when('/viewUsers', {templateUrl: "view/admin/viewUsers.html", controller: "viewUsersCtrl"})
 
             .otherwise({redirectTo: '/'});
     })
@@ -74,7 +75,8 @@ angular.module('app', ['ngRoute', 'ngCookies'])
                 next.templateUrl === "view/admin/addItems.html" ||
                 next.templateUrl === "view/admin/viewItems.html" ||
                 next.templateUrl === "view/admin/modifyItems.html" ||
-                next.templateUrl === "view/admin/deleteItems.html") {
+                next.templateUrl === "view/admin/deleteItems.html" ||
+                next.templateUrl === "view/admin/viewUsers.html") {
 
                 if (typeof userInfoObject === 'undefined')
                     $location.path("/");

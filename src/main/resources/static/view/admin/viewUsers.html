@@ -1,0 +1,17 @@
+<br/>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4" ng-repeat="user in users">
+            <div class="panel panel-primary">
+                <div class="panel-heading">{{user.firstName}} {{user.lastName}}</div>
+                <div class="panel-body">
+                    <ul style="...">
+                        <li ng-repeat="(key,value) in user">
+                            <strong>{{key}}:</strong></strong> {{value}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
