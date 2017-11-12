@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('purchaseHistoryController', function ($scope, $http, $route, $cookies, $location) {
+    .controller('userAccountController', function ($scope, $http, $route, $cookies, $location) {
         $scope.purchaseHistory = "";
         $scope.emptyHistory = false;
         $scope.message = "";

@@ -44,7 +44,6 @@ angular.module('app', ['ngRoute', 'ngCookies'])
                 controller: "frontPageController",
                 controllerAs: "frontPageController"
             })
-            .when('/test', {templateUrl: "view/testPage.html", controller: "testPageController"})
             .when('/login', {templateUrl: "view/login.html", controller: "loginController"})
             .when('/register', {templateUrl: "view/register.html", controller: "registerController"})
             .when('/catalog/desktops', {templateUrl: "view/catalog/catalogDesktops.html", controller: "catalogController"})
@@ -52,7 +51,7 @@ angular.module('app', ['ngRoute', 'ngCookies'])
             .when('/catalog/laptops', {templateUrl: "view/catalog/catalogLaptops.html", controller: "catalogController"})
             .when('/catalog/tablets', {templateUrl: "view/catalog/catalogTablets.html", controller: "catalogController"})
             .when('/cart', {templateUrl: "view/cart.html", controller: "cartController"})
-            .when('/history', {templateUrl: "view/PurchaseHistory.html", controller: "purchaseHistoryController"})
+            .when('/account', {templateUrl: "view/account.html", controller: "userAccountController"})
             .when('/admin', {templateUrl: "view/admin/admin.html"}) // TODO controller
             .when('/addItems', {templateUrl: "view/admin/addItems.html", controller: "addItemsCtrl"})
             .when('/viewItems', {templateUrl: "view/admin/viewItems.html", controller: "viewItemsCtrl"})

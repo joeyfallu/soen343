@@ -33,7 +33,6 @@ public class DemoApplication {
     /* Single page application routing */
     @RequestMapping({
             "/",
-            "/test",
             "/login",
             "/register",
             "/catalog/desktops",
@@ -41,7 +40,7 @@ public class DemoApplication {
             "/catalog/laptops",
             "/catalog/tablets",
             "/cart",
-            "/history",
+            "/account",
             "/admin",
             "/addItems",
             "/viewItems",
@@ -408,39 +407,8 @@ public class DemoApplication {
         }
     }
 
-
-
-
-
-
     public static void main(String[] args) {
-        //start the server
         SpringApplication.run(DemoApplication.class, args);
-        //aop test
-
-
         System.out.println("Done initializing");
-    }
-
-    public void testPOS()
-    {
-        // pointOfSale.setStore(store);
-//        System.out.println(store.toString());
-//        System.out.println(pointOfSale.getStore().toString());
-       /* pointOfSale.getStore().initiateTransaction(99,Transaction.Type.purchase);
-        Monitor mn = new Monitor(69,"sony",69,69,"sony",69,2);
-        Purchase p = new Purchase(99,"never",mn);
-        pointOfSale.getPurchaseMapper().purchase(p);
-        pointOfSale.getPurchaseMapper().commit();
-        pointOfSale.getStore().endTransaction(99);*/
-//       pointOfSale.getStore().initiateTransaction(99,Transaction.Type.purchase);
-//        Monitor mn = new Monitor(69,"sony",69,69,"sony",69,2);
-//        Purchase p = new Purchase(99,"never",mn);
-//        pointOfSale.getPurchaseMapper().returnItem(69);
-//        pointOfSale.getPurchaseMapper().commit();
-//        pointOfSale.getStore().endTransaction(99);
-//        pointOfSale.processReturn(99,84);
-
-
     }
 }
