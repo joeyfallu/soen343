@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('purchaseHistoryController', function ($scope, $http, $route) {
+    .controller('purchaseHistoryController', function ($scope, $http, $route, $cookies) {
         $scope.purchaseHistory = "";
         $scope.emptyHistory = false;
         $scope.message = "";
@@ -9,24 +9,28 @@ angular.module('app')
         $http.get("/get/purchaseHistory").then((res) => {
             $scope.purchaseHistory = res.data;
             console.log($scope.purchaseHistory);
-            if(angular.equals($scope.purchaseHistory, {})){
+            if (angular.equals($scope.purchaseHistory, {})) {
                 $scope.emptyHistory = true;
             }
         });
 
-        $scope.returnItem = function (id){
-            console.log("returning item ",id);
-            $http.get("/get/returnItem/"+id).then((res)=> {
+        $scope.returnItem = function (id) {
+            console.log("returning item ", id);
+            $http.get("/get/returnItem/" + id).then((res) => {
                 console.log(res.data);
                 $route.reload();
             });
-        }
+        };
 
-        $scope.deleteAccount = function (id){
-            console.log("returning item ",id);
-            $http.get("/get/returnItem/"+id).then((res)=> {
-                console.log(res.data);
-            $route.reload();
-        });
+        $scope.deleteAccount = function () {
+            let data = {
+                id: $cookies.get("SESSIONID")
+            };
+
+            $http.post('/post/deleteUser', data).then(() => {
+                $cookies.remove("SESSIONID");
+                $cookies.remove("USERINFO");
+                $location.path('/');
+            });
         }
     });

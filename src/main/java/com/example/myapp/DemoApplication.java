@@ -114,7 +114,7 @@ public class DemoApplication {
     /* LOGOUT */
     @RequestMapping(value = "/post/logout", method = RequestMethod.POST)
     @ResponseBody
-    String logout(@RequestBody String json){
+    public String logout(@RequestBody String json){
         JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
         int id = jobj.get("id").getAsInt();
 
@@ -122,10 +122,7 @@ public class DemoApplication {
             pointOfSale.cancelPurchase(id);
         }
 
-
-
         store.getUserMapper().getUserCatalog().removeActiveUserById(id);
-
 
         return "{\"message\":\"Logged Out\"}";
     }
@@ -205,10 +202,19 @@ public class DemoApplication {
 
     }
 
+    /* DELETE USER */
+    @RequestMapping(value = "/post/deleteUser", method = RequestMethod.POST)
+    @ResponseBody
+    public void deleteUser(@RequestBody String json){
+        logout(json);
+
+        // delete the user from the identity, DB
+    }
+
     /* ADD ITEMS */
     @RequestMapping(value = "/post/addMonitor", method = RequestMethod.POST)
     @ResponseBody
-    String addMonitor(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
+    String addMonitor(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
         store.addNewProduct(cookieId,monitor);
