@@ -46,7 +46,8 @@ public class DemoApplication {
             "/viewItems",
             "/modifyItems",
             "/deleteItems",
-            "/viewItems/{id}"
+            "/viewItems/{id}",
+            "/viewUsers"
     })
     public String redirectOnReload() {
         return "forward:/index.html";
@@ -127,8 +128,10 @@ public class DemoApplication {
 
     @RequestMapping(value = "/getItem/{id}", method = RequestMethod.GET)
     @ResponseBody
+
     public String getProductById(
             @PathVariable("id") int id) {
+
         Gson gson = new Gson();
         Map<Integer, Product> items = store.getProductCatalog().getProducts();
         if(items.get(id) != null){
@@ -140,6 +143,17 @@ public class DemoApplication {
             String productJson = gson.toJson(soldItems.get(id).getProduct());
             return productJson;
         }
+    }
+
+    /* VIEW USERS */
+    @RequestMapping(value = "/getUsers/", method = RequestMethod.GET)
+    @ResponseBody
+    public String getUsers(){
+        Gson gson = new Gson();
+
+        String json = gson.toJson(store.getUserMapper().getUserCatalog().getUsers());
+
+        return json;
     }
 
 
