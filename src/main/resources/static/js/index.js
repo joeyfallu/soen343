@@ -54,7 +54,7 @@ angular.module('app', ['ngRoute', 'ngCookies'])
             .when('/catalog/laptops', {templateUrl: "view/catalog/catalogLaptops.html", controller: "catalogController"})
             .when('/catalog/tablets', {templateUrl: "view/catalog/catalogTablets.html", controller: "catalogController"})
             .when('/cart', {templateUrl: "view/cart.html", controller: "cartController"})
-            .when('/history', {templateUrl: "view/PurchaseHistory.html", controller: "purchaseHistoryController"})
+            .when('/history', {templateUrl: "view/purchaseHistory.html", controller: "purchaseHistoryController"})
             .when('/admin', {templateUrl: "view/admin/admin.html"}) // TODO controller
             .when('/addItems', {templateUrl: "view/admin/addItems.html", controller: "addItemsCtrl"})
             .when('/viewItems', {templateUrl: "view/admin/viewItems.html", controller: "viewItemsCtrl"})
