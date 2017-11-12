@@ -30,13 +30,23 @@ public class UnitOfWorkAspect {
 	public void beforeUserCommit(JoinPoint joinPoint) {
 		userMapper = (UserMapper)joinPoint.getThis();
 		int mapCount = userMapper.getMapCount();
-		for (int i = 0; i<mapCount; i++)
+		Transaction.Type transactionType = userMapper.getCommitType();
+		if (transactionType == Transaction.Type.add) {
+			for (int i = 0; i < mapCount; i++) {
+				User user = userMapper.getUserIdentityMap().getUserById(i);
+				registerAdd(user);
+			}
+			commitUsers();
+		}else if (transactionType == Transaction.Type.delete)
 		{
-			User user = userMapper.getUserIdentityMap().getUserById(i);
-			registerAdd(user);
+			for (int i = 0; i < mapCount; i++) {
+				User user = userMapper.getUserIdentityMap().getUserById(i);
+				registerDelete(user);
+			}
+			commitUsers();
 		}
-		commitUsers();
 	}
+
 
 	@Before(value = "execution(* com.example.myapp.purchases.PurchaseMapper.commit(..))")
 	public void beforePurchaseCommit(JoinPoint joinPoint){
@@ -113,31 +123,31 @@ public class UnitOfWorkAspect {
 		delete.add(object);
 	}
 
-	public void commitUsers()
-	{
-		Transaction.Type transactionType= userMapper.getCommitType();
-		if(transactionType==Transaction.Type.add)
-		{
-		for(Object object : add){
-			try{userMapper.getUserTDG().dbInsert((User)object);}catch (Exception e){
+	public void commitUsers() {
+
+
+		for (Object object : add) {
+			try {
+				userMapper.getUserTDG().dbInsert((User) object);
+			} catch (Exception e) {
 				System.out.println("failed to insert user from unit of work");
 			}
-			userMapper.insertUserCatalog((User)object);
+			userMapper.insertUserCatalog((User) object);
 		}
 		add = new ArrayList<Object>();
-		}
-		if(transactionType==Transaction.Type.delete) {
-			for (Object object : delete) {
-				try {
-					userMapper.getUserTDG().dbDelete(((User) object).getId());
-				} catch (Exception e) {
-					System.out.println("failed to delete user from unit of work");
-				}
-				userMapper.deleteUserCatalog(((User) object).getId());
+
+
+		for (Object object : delete) {
+			try {
+				userMapper.getUserTDG().dbDelete(((User) object).getId());
+			} catch (Exception e) {
+				System.out.println("failed to delete user from unit of work");
 			}
-			delete = new ArrayList<Object>();
+			userMapper.deleteUserCatalog(((User) object).getId());
 		}
+		delete = new ArrayList<Object>();
 	}
+
 
 	public void commitPurchase()
 	{
