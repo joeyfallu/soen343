@@ -2,7 +2,7 @@
 
 angular.module('app', ['ngRoute', 'ngCookies'])
 
-    .controller("mainController", function mainController($scope, $cookies, $http, $location) {
+    .controller("mainController", function mainController($scope, $cookies, $http, $location, $rootScope) {
 
         $scope.authenticate = function () {
             return typeof $cookies.get("SESSIONID") !== 'undefined';
@@ -10,17 +10,15 @@ angular.module('app', ['ngRoute', 'ngCookies'])
 
         $scope.getIsAdmin = function(){
             try {
-                var x = $cookies.getObject("USERINFO");
+                let x = $cookies.getObject("USERINFO");
                 return x.isAdmin;
             } catch (error) {
                 console.log("Nobody is logged in");
                 return 2;
             }
-            
-        }
+        };
 
-
-        $scope.logout = function () {
+        $rootScope.logout = function () {
             const url = '/post/logout';
             let data = {
                 id: $cookies.get("SESSIONID")
@@ -46,7 +44,6 @@ angular.module('app', ['ngRoute', 'ngCookies'])
                 controller: "frontPageController",
                 controllerAs: "frontPageController"
             })
-            .when('/test', {templateUrl: "view/testPage.html", controller: "testPageController"})
             .when('/login', {templateUrl: "view/login.html", controller: "loginController"})
             .when('/register', {templateUrl: "view/register.html", controller: "registerController"})
             .when('/catalog/desktops', {templateUrl: "view/catalog/catalogDesktops.html", controller: "catalogController"})
@@ -54,6 +51,7 @@ angular.module('app', ['ngRoute', 'ngCookies'])
             .when('/catalog/laptops', {templateUrl: "view/catalog/catalogLaptops.html", controller: "catalogController"})
             .when('/catalog/tablets', {templateUrl: "view/catalog/catalogTablets.html", controller: "catalogController"})
             .when('/cart', {templateUrl: "view/cart.html", controller: "cartController"})
+            .when('/account', {templateUrl: "view/account.html", controller: "userAccountController"})
             .when('/history', {templateUrl: "view/purchaseHistory.html", controller: "purchaseHistoryController"})
             .when('/admin', {templateUrl: "view/admin/admin.html"}) // TODO controller
             .when('/addItems', {templateUrl: "view/admin/addItems.html", controller: "addItemsCtrl"})

@@ -79,6 +79,12 @@ public class UserTDG {
         return users;
     }
 
+    public void dbDelete(int id) throws Exception {
+        dbConnect();
+        String sql = "DELETE FROM User WHERE id = '" + id + "'";
+        statement.executeUpdate(sql);
+    }
+
 
 
 

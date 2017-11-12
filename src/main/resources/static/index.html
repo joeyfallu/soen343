@@ -34,8 +34,7 @@
                 </ul>
             </li>
             <li ng-if="authenticate()"><a ng-href="cart" ng-show="getIsAdmin() == 0"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-            <li ng-if="authenticate()"><a ng-href="history" ng-show="getIsAdmin() == 0"><span class="glyphicon glyphicon-calendar"></span> Purchase History</a></li>
-            <li><a ng-href="test">TEST</a></li>
+            <li ng-if="authenticate()"><a ng-href="account" ng-show="getIsAdmin() == 0"><span class="glyphicon glyphicon-cog"></span> Account</a></li>
             <li ng-if="authenticate()"><a ng-href="admin" ng-show="getIsAdmin() == 1"><span class="glyphicon glyphicon-wrench"></span> Admin</a></li>
         </ul>
 
@@ -62,7 +61,7 @@
 <script src="js/register.js"></script>
 <script src="js/catalog.js"></script>
 <script src="js/cart.js"></script>
-<script src="js/purchaseHistory.js"></script>
+<script src="js/account.js"></script>
 <script src="js/admin/admin.js"></script>
 <script src="js/admin/addItems.js"></script>
 <script src="js/admin/deleteItems.js"></script>
