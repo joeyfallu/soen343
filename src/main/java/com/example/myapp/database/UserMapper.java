@@ -1,6 +1,7 @@
 package com.example.myapp.database;
 
 
+import com.example.myapp.transactions.Transaction;
 import com.example.myapp.userCatalog.User;
 import com.example.myapp.userCatalog.UserCatalog;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ public class UserMapper {
     private UserIdentityMap userIdentityMap;
     private UserTDG userTDG;
     private UserCatalog userCatalog;
+    private Transaction.Type commitType= Transaction.Type.add;
     private int mapCount=0;
 
 
@@ -37,10 +39,17 @@ public class UserMapper {
 
     public void insert(User user){
 
+        commitType = Transaction.Type.add;
         userIdentityMap.insertUserById(mapCount, user);
         mapCount++;
     }
 
+    public void delete(User user)
+    {
+        commitType = Transaction.Type.delete;
+        userIdentityMap.insertUserById(mapCount,user);
+        mapCount++;
+    }
     public void insertUserCatalog(User user)
     {
         userCatalog.addUser(user);
@@ -65,6 +74,12 @@ public class UserMapper {
         return userCatalog.getUsers();
     }
 
+    public void deleteUserCatalog(int id)
+    {
+        userCatalog.removeActiveUserById(id);
+        userCatalog.removeUser(id);
+    }
+
     public void commit()
     {
         mapCount=0;
@@ -79,6 +94,11 @@ public class UserMapper {
 
     public int getMapCount() {
         return mapCount;
+    }
+
+    public Transaction.Type getCommitType()
+    {
+        return commitType;
     }
 
     public UserIdentityMap getUserIdentityMap() {

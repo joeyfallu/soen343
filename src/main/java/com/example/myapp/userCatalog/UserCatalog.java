@@ -75,6 +75,11 @@ public class UserCatalog {
         loginHistory.remove(id);
     }
 
+    public void removeUser(int id)
+    {
+        users.remove(id);
+    }
+
     public void setUsers(Map<Integer, User> users) {
         this.users = users;
     }

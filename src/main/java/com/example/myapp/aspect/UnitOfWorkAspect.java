@@ -115,6 +115,9 @@ public class UnitOfWorkAspect {
 
 	public void commitUsers()
 	{
+		Transaction.Type transactionType= userMapper.getCommitType();
+		if(transactionType==Transaction.Type.add)
+		{
 		for(Object object : add){
 			try{userMapper.getUserTDG().dbInsert((User)object);}catch (Exception e){
 				System.out.println("failed to insert user from unit of work");
@@ -122,6 +125,18 @@ public class UnitOfWorkAspect {
 			userMapper.insertUserCatalog((User)object);
 		}
 		add = new ArrayList<Object>();
+		}
+		if(transactionType==Transaction.Type.delete) {
+			for (Object object : delete) {
+				try {
+					userMapper.getUserTDG().dbDelete(((User) object).getId());
+				} catch (Exception e) {
+					System.out.println("failed to delete user from unit of work");
+				}
+				userMapper.deleteUserCatalog(((User) object).getId());
+			}
+			delete = new ArrayList<Object>();
+		}
 	}
 
 	public void commitPurchase()
