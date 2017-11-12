@@ -23,7 +23,7 @@ angular.module('app')
         }
 
         $scope.deleteAccount = function (id){
-            console.log("returning item ",id);
+            console.log("delete account ",id);
             $http.get("/get/returnItem/"+id).then((res)=> {
                 console.log(res.data);
             $route.reload();

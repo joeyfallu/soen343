@@ -82,6 +82,15 @@ public class Store {
         this.userMapper.insert(user);
     }
 
+    public void deleteUser(int userId, User user)
+    {
+        if (userId != transaction.getUserId()) {
+            System.out.println("Transaction in progress, please wait and try again");
+            return;
+        }
+        this.userMapper.delete(user);
+    }
+
     public void initiateTransaction(int userId, Transaction.Type t){
 
         if(transaction.isComplete())

@@ -2,7 +2,7 @@
 
 angular.module('app', ['ngRoute', 'ngCookies'])
 
-    .controller("mainController", function mainController($scope, $cookies, $http, $location) {
+    .controller("mainController", function mainController($scope, $cookies, $http, $location, $rootScope) {
 
         $scope.authenticate = function () {
             return typeof $cookies.get("SESSIONID") !== 'undefined';
@@ -20,7 +20,7 @@ angular.module('app', ['ngRoute', 'ngCookies'])
         }
 
 
-        $scope.logout = function () {
+        $rootScope.logout = function () {
             const url = '/post/logout';
             let data = {
                 id: $cookies.get("SESSIONID")
