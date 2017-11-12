@@ -1,7 +1,5 @@
 package com.example.myapp;
 
-import com.example.myapp.database.ProductMapper;
-import com.example.myapp.database.UserMapper;
 import com.example.myapp.productCatalog.*;
 import com.example.myapp.purchases.Purchase;
 import com.example.myapp.transactions.Transaction;
@@ -15,7 +13,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.Cookie;
@@ -33,12 +30,7 @@ public class DemoApplication {
     @Autowired
     private PointOfSale pointOfSale;
 
-
-
-    //private static Store store;
-
     /* Single page application routing */
-    // https://stackoverflow.com/questions/24837715/spring-boot-with-angularjs-html5mode/44850886#44850886
     @RequestMapping({
             "/",
             "/test",
@@ -60,7 +52,6 @@ public class DemoApplication {
     public String redirectOnReload() {
         return "forward:/index.html";
     }
-
 
     /* LOGIN */
     @RequestMapping(value = "/post/login", method = RequestMethod.POST, produces = "application/json")
@@ -132,19 +123,11 @@ public class DemoApplication {
     @ResponseBody
     String getProducts(){
         Gson gson = new Gson();
-
-        //TODO remove this piece of test code \/
-        testPOS();
-        String json = gson.toJson(store.getProductCatalog().getProducts());
-
-        return json;
+        return gson.toJson(store.getProductCatalog().getProducts());
     }
 
     @RequestMapping(value = "/getItem/{id}", method = RequestMethod.GET)
     @ResponseBody
-    /*
-    Returns item info as json
-     */
     public String getProductById(
             @PathVariable("id") int id) {
         Gson gson = new Gson();
@@ -210,7 +193,7 @@ public class DemoApplication {
 
         Gson gson = new Gson();
         User user = gson.fromJson(json, User.class);
-        store.initiateTransaction(cookieId, Transaction.Type.add);
+        store.initiateTransaction(cookieId, Transaction.Type.delete);
         store.deleteUser(cookieId, user);
         store.endTransaction(cookieId);
     }
