@@ -37,14 +37,14 @@ public class ProductMapper {
         mapCount++;
     }
 
-    public void insertProductCatalog(int k, Product p)
+    public void insertProductCatalog(int id, Product product)
     {
-        productCatalog.addProduct(k,p);
+        productCatalog.addProduct(id,product);
     }
 
-    public void modifyProductCatalog(int k, Product p)
+    public void modifyProductCatalog(int id, Product product)
     {
-        productCatalog.modifyProduct(k,p);
+        productCatalog.modifyProduct(id,product);
     }
 
     public void update(Product product){
