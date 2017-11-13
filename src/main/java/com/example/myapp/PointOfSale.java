@@ -3,9 +3,7 @@ package com.example.myapp;
 import com.example.myapp.cartCatalog.Cart;
 import com.example.myapp.cartCatalog.CartCatalog;
 import com.example.myapp.productCatalog.Product;
-import com.example.myapp.productCatalog.ProductCatalog;
 import com.example.myapp.purchases.Purchase;
-import com.example.myapp.purchases.PurchaseHistory;
 import com.example.myapp.purchases.PurchaseMapper;
 import com.example.myapp.transactions.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,73 +33,36 @@ public class PointOfSale {
         this.purchaseMapper = purchaseMapper;
     }
 
-    //TODO: For testing purposes
-    public Store getStore() {
-        return store;
-    }
-
-    public void startPurchase(int userId){
+    public void startPurchase(int userId) {
         cartCatalog.addCart(userId);
     }
 
-    public void cancelPurchase(int userId){
+    public void cancelPurchase(int userId) {
         cartCatalog.emptyCart(userId);
     }
 
-    public void addCartItem(int userId, int itemId){
-        cartCatalog.addToCart(userId,itemId);
+    public void addCartItem(int userId, int itemId) {
+        cartCatalog.addToCart(userId, itemId);
     }
 
-    public void removeCartItem(int userId, int itemId){
+    public void removeCartItem(int userId, int itemId) {
         cartCatalog.removeFromCart(userId, itemId);
     }
 
-    public void endPurchase(int userId){
+    public Map<Integer,Date> endPurchase(int userId) {
         Map<Integer, Product> productCatalog = store.getProductCatalog().getProducts();
         Map<Integer, Date> productsInCart = cartCatalog.purchaseCart(userId);
         Set<Integer> productIdsInCart = productsInCart.keySet();
-
-        for (Integer integer : productIdsInCart) {
-            System.out.println(integer);
-            System.out.println(productCatalog.get(integer).toString());
-            System.out.println(productsInCart.get(integer).toString());
-            System.out.println(purchaseMapper.toString());
-        }
-
-        store.initiateTransaction(userId, Transaction.Type.purchase);
-        for (Integer itemId : productIdsInCart) {
-            purchaseMapper.purchase(new Purchase(userId,productsInCart.get(itemId).toString(),productCatalog.get(itemId)));
-        }
-        store.endTransaction(userId);
-
-        store.initiateTransaction(userId, Transaction.Type.delete);
-        for (Integer itemId : productIdsInCart) {
-            store.deleteProduct(userId,itemId);
-        }
-        store.endTransaction(userId);
-
-        cartCatalog.emptyCart(userId);
+        for (Integer itemId : productIdsInCart)
+            purchaseMapper.purchase(new Purchase(userId, productsInCart.get(itemId).toString(), productCatalog.get(itemId)));
+        return productsInCart;
     }
 
-    public void processReturn(int userId, int itemId){
-        Map<Integer, Purchase> purchases = purchaseMapper.getPurchaseHistory().getPurchases();
-        Collection<Purchase> values = purchases.values();
-        Product productToReturn = null;
-        for (Purchase value : values) {
-            if(value.getProduct().getId() == itemId) {
-                productToReturn = value.getProduct();
-            }
-        }
-        store.initiateTransaction(userId, Transaction.Type.returnItem);
+    public void processReturn(int userId, int itemId) {
         purchaseMapper.returnItem(itemId);
-        store.endTransaction(userId);
-
-        store.initiateTransaction(userId, Transaction.Type.add);
-        store.addNewProduct(userId, productToReturn);
-        store.endTransaction(userId);
     }
 
-    public Cart viewCart(int userId){
+    public Cart viewCart(int userId) {
         return cartCatalog.getCart(userId);
     }
 
