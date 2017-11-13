@@ -30,6 +30,14 @@ html, body {
     border-style: dashed;
 }
 
+.dropdown-menu {
+    display: none;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
 /* Hide website loading */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
