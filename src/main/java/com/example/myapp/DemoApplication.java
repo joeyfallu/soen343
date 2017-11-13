@@ -302,14 +302,12 @@ public class DemoApplication {
     String purchaseCart(@CookieValue("SESSIONID") int cookieId){
 
         store.initiateTransaction(cookieId, Transaction.Type.purchase);
-        Map<Integer, Date> productsToPurchase = pointOfSale.endPurchase(cookieId);
+        List<Integer> productsToPurchase = pointOfSale.endPurchase(cookieId);
         store.endTransaction();
-        Set<Integer> products = productsToPurchase.keySet();
         store.initiateTransaction(cookieId, Transaction.Type.delete);
-        for (Integer product : products)
+        for (Integer product : productsToPurchase)
             store.deleteProduct(product);
         store.endTransaction();
-        pointOfSale.getCartCatalog().emptyCart(cookieId);
         return "{\"message\":\"Purchase Succesful\"}";
     }
 
@@ -394,10 +392,6 @@ public class DemoApplication {
         Gson gson = new Gson();
         Map<Integer, Purchase> userPurchases = new HashMap<>();
         for (Map.Entry<Integer, Purchase> purchase : pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().entrySet()) {
-            //Code is potentially not secure
-            //If the user uses a cookie manager, he could view other people's purchase history
-            //by changing userId stored in the cookie to another user's cookie.
-            //In a real production environment, proper cookie encryption is needed.
             if(purchase.getValue().getUserId() == cookieId) {
                 userPurchases.put(purchase.getKey(), purchase.getValue());
             }

@@ -9,10 +9,7 @@ import com.example.myapp.transactions.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class PointOfSale {
@@ -49,13 +46,17 @@ public class PointOfSale {
         cartCatalog.removeFromCart(userId, itemId);
     }
 
-    public Map<Integer,Date> endPurchase(int userId) {
+    public List<Integer> endPurchase(int userId) {
         Map<Integer, Product> productCatalog = store.getProductCatalog().getProducts();
         Map<Integer, Date> productsInCart = cartCatalog.purchaseCart(userId);
         Set<Integer> productIdsInCart = productsInCart.keySet();
-        for (Integer itemId : productIdsInCart)
+        List<Integer> ids = new ArrayList<>();
+        for (Integer itemId : productIdsInCart) {
+            ids.add(itemId);
             purchaseMapper.purchase(new Purchase(userId, productsInCart.get(itemId).toString(), productCatalog.get(itemId)));
-        return productsInCart;
+        }
+        cartCatalog.emptyCart(userId);
+        return ids;
     }
 
     public void processReturn(int userId, int itemId) {
