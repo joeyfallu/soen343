@@ -136,6 +136,7 @@ angular.module('app')
         $scope.getItemDetails = function(itemId) {
             const urlItem = '/getItem/' + itemId;
             $http.get(urlItem).then((res) => {
+                delete res.data.id;
                 $scope.itemDetails = res.data;
             });
         };
