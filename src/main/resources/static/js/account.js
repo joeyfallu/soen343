@@ -14,6 +14,9 @@ angular.module('app')
         });
 
         $scope.returnItem = function (id) {
+            let answer = confirm("Are you sure you want to return this item?");
+            if (!answer)
+                return;
             console.log("returning item ", id);
             $http.get("/get/returnItem/" + id).then((res) => {
                 console.log(res.data);
@@ -22,6 +25,10 @@ angular.module('app')
         };
 
         $scope.deleteAccount = function () {
+            let answer = confirm("Are you sure you want to delete your account?");
+            if (!answer)
+                return;
+
             let data = {
                 id: $cookies.get("SESSIONID")
             };

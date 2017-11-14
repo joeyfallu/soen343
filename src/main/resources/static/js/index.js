@@ -53,13 +53,13 @@ angular.module('app', ['ngRoute', 'ngCookies'])
             .when('/cart', {templateUrl: "view/cart.html", controller: "cartController"})
             .when('/account', {templateUrl: "view/account.html", controller: "userAccountController"})
             .when('/history', {templateUrl: "view/purchaseHistory.html", controller: "purchaseHistoryController"})
-            .when('/admin', {templateUrl: "view/admin/admin.html"}) // TODO controller
+            .when('/admin', {templateUrl: "view/admin/admin.html"})
             .when('/addItems', {templateUrl: "view/admin/addItems.html", controller: "addItemsCtrl"})
             .when('/viewItems', {templateUrl: "view/admin/viewItems.html", controller: "viewItemsCtrl"})
+            .when('/viewItems/:id', {templateUrl: "view/itemDetails.html", controller: "itemDetailsController"})
+            .when('/viewUsers', {templateUrl: "view/admin/viewUsers.html", controller: "viewUsersCtrl"})
             .when('/modifyItems', {templateUrl: "view/admin/modifyItems.html", controller: "modifyItemsController"})
             .when('/deleteItems', {templateUrl: "view/admin/deleteItems.html", controller: "deleteItemsController"})
-            .when('/viewItems/:id', {templateUrl: "view/viewItemsDetail.html", controller: "viewItemsDetailCtrl"})
-            .when('/viewUsers', {templateUrl: "view/admin/viewUsers.html", controller: "viewUsersCtrl"})
 
             .otherwise({redirectTo: '/'});
     })

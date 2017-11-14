@@ -104,6 +104,10 @@ angular.module('app')
         };
 
         $scope.addToCart = function(itemId){
+            // https://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
+            $('#itemView').modal('hide');
+            $(".modal-backdrop").hide();
+
             const addToCartUrl = '/post/addToCart';
             $http.post(addToCartUrl, itemId).then((res) => {
                 if(res.data.message == "Too many items in the cart"){
@@ -128,4 +132,19 @@ angular.module('app')
             });
         }
 
+        /* Item details */
+        $scope.getItemDetails = function(itemId) {
+            const urlItem = '/getItem/' + itemId;
+            $http.get(urlItem).then((res) => {
+                delete res.data.id;
+                $scope.itemDetails = res.data;
+            });
+        };
+
+    })
+
+    .filter('capitalize', function() {
+        return function (input) {
+            return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+        }
     });

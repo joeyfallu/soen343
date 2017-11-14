@@ -40,7 +40,7 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <li><a ng-href="register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+            <li ng-if="!authenticate()"><a ng-href="register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
             <li ng-if="!authenticate()"><a ng-href="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             <li ng-if="authenticate()"><a ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
@@ -63,12 +63,11 @@
 <script src="js/catalog.js"></script>
 <script src="js/cart.js"></script>
 <script src="js/account.js"></script>
-<script src="js/admin/admin.js"></script>
 <script src="js/admin/addItems.js"></script>
 <script src="js/admin/deleteItems.js"></script>
 <script src="js/admin/modifyItems.js"></script>
 <script src="js/admin/viewItems.js"></script>
-<script src="js/viewItemsDetail.js"></script>
+<script src="js/itemDetails.js"></script>
 <script src="js/admin/viewUsers.js"></script>
 
 
