@@ -1,9 +1,13 @@
 'use strict';
 
-angular.module('app').controller('viewItemsCtrl', function ($scope, $http) {
+angular.module('app').controller('viewItemsCtrl', function ($scope, $http, $location) {
     $scope.items = [];
+    $scope.show = false;
+
+    $scope.currentPage = $location.absUrl().replace("http://localhost:8080/catalog/","");
 
     const urlProduct = '/get/products';
+
 
     $http.get(urlProduct).then((res) => {
         $scope.itemsInventory = res.data;
@@ -14,67 +18,7 @@ angular.module('app').controller('viewItemsCtrl', function ($scope, $http) {
         }
 
         $scope.itemsInventory = randomizer(items);
-        console.log($scope.itemsInventory);
-        $scope.select = null;
-        $scope.search3= 0;
-        $scope.search4 = 100000000;
 
-
-        $scope.listOfOptions = ['Show All', 'Most Expensive', 'Least Expensive', 'Most Recent', 'Least Recent', 'Heaviest', 'Lightest', 'Brand (A-Z)', 'Brand (Z-A)'];
-
-        $scope.rename = function(x){
-                   if (x === 'Show All' ){
-                        $scope.sortBy('id');
-                   }
-                   if (x === 'Most Expensive' ){
-                       $scope.sortBy('-price');
-                   }
-                   if (x === 'Least Expensive' ){
-                       $scope.sortBy('price');
-                   }
-                   if (x === 'Most Recent' ){
-                       $scope.sortBy('-id');
-                   }
-                   if (x === 'Least Recent' ){
-                       $scope.sortBy('id');
-                   }
-                   if (x === 'Heaviest' ){
-                       $scope.sortBy('-weight');
-                   }
-                   if (x === 'Lightest' ){
-                       $scope.sortBy('weight');
-                   }
-                   if (x === 'Brand (A-Z)' ){
-                       $scope.sortBy('brand');
-                   }
-                   if (x === 'Brand (Z-A)' ){
-                       $scope.sortBy('-brand');
-                   }
-                }
-
-        $scope.sortBy = function(select) {
-            $scope.select = select;
-        };
-
-        //https://stackoverflow.com/questions/24081004/angularjs-ng-repeat-filter-when-value-is-greater-than
-        $scope.greaterThan = function(prop, val){
-            return function(item){
-                if (item['discriminator'] === 4){
-                    return true;
-                }
-              return item[prop] > val;
-            }
-        }
-        $scope.smallerThan = function(prop, val){
-            return function(item){
-                if (item['discriminator'] === 4){
-                    return true;
-                }
-              return item[prop] < val;
-            }
-        }
-
-        console.log($scope.itemsInventory);
     }).catch((err) => {
         console.log("ERROR:");
         console.log(err);
@@ -95,4 +39,80 @@ angular.module('app').controller('viewItemsCtrl', function ($scope, $http) {
 
         return array
     }
+
+     $scope.random = function(){
+                $scope.itemsInventory = randomizer($scope.itemsInventory);
+            }
+
+            $scope.filters = {
+                brand: "",
+                model: "",
+                greaterThanValWeight: "",
+                lessThanValWeight: "",
+                numberOfCores: "",
+                greaterThanValPrice: "",
+                lessThanValPrice: ""
+            }
+            $scope.actions = {
+                sort: function(selectedItem){
+                    if (selectedItem === 'Show All' ){
+                        $scope.select = 'id';
+                    }
+                    if (selectedItem === 'Most Expensive' ){
+                        $scope.select = '-price';
+                    }
+                    if (selectedItem === 'Least Expensive' ){
+                        $scope.select = 'price';
+                    }
+                    if (selectedItem === 'Most Recent' ){
+                        $scope.select = '-id';
+                    }
+                    if (selectedItem === 'Least Recent' ){
+                     $scope.select = 'id';
+                    }
+                    if (selectedItem === 'Heaviest' ){
+                        $scope.select = '-weight';
+                    }
+                    if (selectedItem === 'Lightest' ){
+                        $scope.select = 'weight';
+                    }
+                    if (selectedItem === 'Brand (A-Z)' ){
+                        $scope.select = 'brand';
+                    }
+                    if (selectedItem === 'Brand (Z-A)' ){
+                        $scope.select = '-brand';
+                    }
+                },
+                brand: $scope.filters.brand = '',
+                model: $scope.filters.model = '',
+                greaterThanValWeight: $scope.filters.greaterThanValWeight = '',
+                lessThanValWeight: $scope.filters.lessThanValWeight = '',
+                numberOfCores: $scope.filters.numberOfCores = '',
+                greaterThanValPrice: $scope.filters.greaterThanValPrice = '',
+                lessThanValPrice: $scope.filters.lessThanValPrice = ''
+            }
+
+            $scope.greaterThan = function(prop, val){
+                return function(item){
+                   return item[prop] >= val;
+                }
+            }
+
+            $scope.lessThan = function(prop, val){
+                return function(item){
+                    if(val != ""){
+                        return item[prop] <= val;
+                    }
+                    return true;
+                }
+            }
+
+            $scope.showFilters = function(){
+                if($scope.show == false){
+                    $scope.show = true;
+                }
+                else{
+                    $scope.show = false;
+                }
+            }
 });

@@ -29,7 +29,7 @@ angular.module('app')
 
 
             $scope.itemsInventory = res.data;
-            console.log($scope.cartItems)
+
             for(var key in $scope.cartItems){
                 console.log($scope.cartItems[key].cartProducts);
                 for(var cartItemId in $scope.cartItems[key].cartProducts){
@@ -154,7 +154,6 @@ angular.module('app')
 
         $scope.greaterThan = function(prop, val){
             return function(item){
-                console.log(prop)
                return item[prop] >= val;
             }
         }
