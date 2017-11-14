@@ -30,6 +30,14 @@ html, body {
     border-style: dashed;
 }
 
+.dropdown-menu {
+    display: none;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
 /* Hide website loading */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
@@ -40,6 +48,10 @@ html, body {
     overflow: hidden;
     position: absolute;
     z-index: -99;
+}
+
+.carousel-inner img {
+    margin: auto;
 }
 
 .logo {
@@ -98,3 +110,25 @@ button#login-btn {
     cursor: pointer;
 }
 
+/* FILTERS */
+.filters {
+    padding: 20px 0 20px 0;
+    background-color: lightgray;
+    margin-bottom: 20px;
+}
+
+
+/* ITEM DETAILS */
+.item_view .modal-dialog {
+    max-width: 800px;
+    width: 100%;
+}
+
+/* FORM HANDLING */
+.css-form input.ng-invalid.ng-touched {
+    box-shadow: 0 0 5px 1px #FA787E;
+}
+
+.css-form input.ng-valid.ng-touched {
+    box-shadow: 0 0 5px 1px #78FA89;
+}

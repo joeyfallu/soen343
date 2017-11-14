@@ -1,6 +1,5 @@
 'use strict';
 
-
 angular.module('app')
     .controller('catalogController', function ($scope,$http, $cookies,$location) {
 
@@ -25,9 +24,7 @@ angular.module('app')
 
         $scope.cartItems = res.data;
 
-        $http.get('/get/products').then((res) => {
-
-
+            $http.get('/get/products').then((res) => {
             $scope.itemsInventory = res.data;
 
             for(var key in $scope.cartItems){
@@ -52,14 +49,20 @@ angular.module('app')
             try {
                 var selectedItem = $cookies.getObject("USERINFO");
                 return selectedItem.isAdmin;
+                let x = $cookies.getObject("USERINFO");
+                return x.isAdmin;
             } catch (error) {
                 console.log("Nobody is logged in");
                 return 2;
             }
-            
-        }
+
+        };
 
         $scope.addToCart = function(itemId){
+            // https://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
+            $('#itemView').modal('hide');
+            $(".modal-backdrop").hide();
+
             const addToCartUrl = '/post/addToCart';
             $http.post(addToCartUrl, itemId).then((res) => {
                 if(res.data.message == "Too many items in the cart"){
@@ -176,4 +179,19 @@ angular.module('app')
             }
         }
 
+        /* Item details */
+        $scope.getItemDetails = function(itemId) {
+            const urlItem = '/getItem/' + itemId;
+            $http.get(urlItem).then((res) => {
+                delete res.data.id;
+                $scope.itemDetails = res.data;
+            });
+        };
+
+    })
+
+    .filter('capitalize', function() {
+        return function (input) {
+            return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+        }
     });

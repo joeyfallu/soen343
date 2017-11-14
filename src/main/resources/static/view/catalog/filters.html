@@ -16,7 +16,7 @@
             <select
                     ng-options = "option for option in listOfOptions"
                     ng-model="selectedItem"
-                    ng-change="rename(selectedItem)">
+                    ng-change="actions.sort(selectedItem)">
             </select>
         </div>
         <div class="col-md-2">
@@ -29,14 +29,14 @@
             <br>
         </div>
         <div class="col-md-2">
-            <p>Weight Less Than:</p>
-            <input type="text" ng-model="filters.lessThanValWeight"/>
-        </div>
-        <div class="col-md-2">
             <p>Weight Greater Than:</p>
             <input type="text" ng-model="filters.greaterThanValWeight"/>
         </div>
-        <div class="col-md-2" ng-if="currentPage != 'monitors'">
+        <div class="col-md-2">
+            <p>Weight Less Than:</p>
+            <input type="text" ng-model="filters.lessThanValWeight"/>
+        </div>
+        <div class="col-md-2" ng-if="currentPage == 'desktops' || currentPage == 'laptops' || currentPage == 'tablets'">
             <p>Number Of Cores</p>
             <input type="text" ng-model="filters.numberOfCores"/>
         </div>
@@ -44,12 +44,12 @@
     <br/>
     <div class="row">
         <div class="col-md-2">
-            <p>Price Less Than:</p>
-            <input type="text" ng-model="filters.lessThanValPrice"/>
-        </div>
-        <div class="col-md-2">
             <p>Price Greater Than:</p>
             <input type="text" ng-model="filters.greaterThanValPrice"/>
+        </div>
+        <div class="col-md-2">
+            <p>Price Less Than:</p>
+            <input type="text" ng-model="filters.lessThanValPrice"/>
         </div>
         <div class="col-md-1" ng-click="random()">
             <br/>

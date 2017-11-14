@@ -1,7 +1,5 @@
 package com.example.myapp;
 
-import com.example.myapp.database.ProductMapper;
-import com.example.myapp.database.UserMapper;
 import com.example.myapp.productCatalog.*;
 import com.example.myapp.purchases.Purchase;
 import com.example.myapp.transactions.Transaction;
@@ -15,7 +13,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.Cookie;
@@ -33,15 +30,9 @@ public class DemoApplication {
     @Autowired
     private PointOfSale pointOfSale;
 
-
-
-    //private static Store store;
-
     /* Single page application routing */
-    // https://stackoverflow.com/questions/24837715/spring-boot-with-angularjs-html5mode/44850886#44850886
     @RequestMapping({
             "/",
-            "/test",
             "/login",
             "/register",
             "/catalog/desktops",
@@ -49,19 +40,18 @@ public class DemoApplication {
             "/catalog/laptops",
             "/catalog/tablets",
             "/cart",
-            "/history",
+            "/account",
             "/admin",
             "/addItems",
             "/viewItems",
+            "/viewItems/{id}",
+            "/viewUsers",
             "/modifyItems",
             "/deleteItems",
-            "/viewItems/{id}",
-            "/viewUsers"
     })
     public String redirectOnReload() {
         return "forward:/index.html";
     }
-
 
     /* LOGIN */
     @RequestMapping(value = "/post/login", method = RequestMethod.POST, produces = "application/json")
@@ -115,7 +105,7 @@ public class DemoApplication {
     /* LOGOUT */
     @RequestMapping(value = "/post/logout", method = RequestMethod.POST)
     @ResponseBody
-    String logout(@RequestBody String json){
+    public String logout(@RequestBody String json){
         JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
         int id = jobj.get("id").getAsInt();
 
@@ -123,10 +113,7 @@ public class DemoApplication {
             pointOfSale.cancelPurchase(id);
         }
 
-
-
         store.getUserMapper().getUserCatalog().removeActiveUserById(id);
-
 
         return "{\"message\":\"Logged Out\"}";
     }
@@ -136,30 +123,20 @@ public class DemoApplication {
     @ResponseBody
     String getProducts(){
         Gson gson = new Gson();
-
-        //TODO remove this piece of test code \/
-        testPOS();
-        String json = gson.toJson(store.getProductCatalog().getProducts());
-
-        return json;
+        return gson.toJson(store.getProductCatalog().getProducts());
     }
 
     @RequestMapping(value = "/getItem/{id}", method = RequestMethod.GET)
     @ResponseBody
-    /*
-    Returns item info as json
-     */
     public String getProductById(@PathVariable("id") int id) {
         Gson gson = new Gson();
         Map<Integer, Product> items = store.getProductCatalog().getProducts();
-        if(items.get(id) != null){
-            String productJson = gson.toJson(items.get(id));
-            return productJson;
+        if (items.get(id) != null) {
+            return gson.toJson(items.get(id));
         } else {
             //product might be already sold
             Map<Integer, Purchase> soldItems = pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases();
-            String productJson = gson.toJson(soldItems.get(id).getProduct());
-            return productJson;
+            return gson.toJson(soldItems.get(id).getProduct());
         }
     }
 
@@ -216,41 +193,54 @@ public class DemoApplication {
 
     }
 
+    /* DELETE USER */
+    @RequestMapping(value = "/post/deleteUser", method = RequestMethod.POST)
+    @ResponseBody
+    public void deleteUser(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
+        logout(json);
+
+        Gson gson = new Gson();
+        User user = gson.fromJson(json, User.class);
+        store.initiateTransaction(cookieId, Transaction.Type.delete);
+        store.deleteUser(cookieId, user);
+        store.endTransaction(cookieId);
+    }
+
     /* ADD ITEMS */
     @RequestMapping(value = "/post/addMonitor", method = RequestMethod.POST)
     @ResponseBody
-    String addMonitor(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
+    public String addMonitor(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
         store.addNewProduct(cookieId,monitor);
-        return gson.toJson(json);
+        return json;
     }
 
     @RequestMapping(value = "/post/addTablet", method = RequestMethod.POST)
     @ResponseBody
-    String addTablet(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
+    public String addTablet(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product tablet = gson.fromJson(json, Tablet.class);
         store.addNewProduct(cookieId,tablet);
-        return gson.toJson(json);
+        return json;
     }
 
     @RequestMapping(value = "/post/addDesktop", method = RequestMethod.POST)
     @ResponseBody
-    String addDesktop(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
+    public String addDesktop(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product desktop = gson.fromJson(json, Desktop.class);
         store.addNewProduct(cookieId,desktop);
-        return gson.toJson(json);
+        return json;
     }
 
     @RequestMapping(value = "/post/addLaptop", method = RequestMethod.POST)
     @ResponseBody
-    String addLaptop(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
+    public String addLaptop(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product laptop = gson.fromJson(json, Laptop.class);
         store.addNewProduct(cookieId,laptop);
-        return gson.toJson(json);
+        return json;
     }
 
     /* Cart routes */
@@ -288,13 +278,8 @@ public class DemoApplication {
 
     @RequestMapping(value="/get/allCarts", method = RequestMethod.GET)
     @ResponseBody
-    String getAllCarts(){
-
-
+    public String getAllCarts() {
         Gson gson = new Gson();
-
-
-        System.out.println(pointOfSale.getCartCatalog().getCarts());
         return gson.toJson(pointOfSale.getCartCatalog().getCarts());
     }
 
@@ -360,7 +345,6 @@ public class DemoApplication {
 
 
     /* TRANSACTIONS */
-    // TODO move to different controller files
     @RequestMapping(value = "/get/endTransaction", method = RequestMethod.GET)
     @ResponseBody
     public void endTransaction(@CookieValue("SESSIONID") int cookieId) {
@@ -426,39 +410,8 @@ public class DemoApplication {
         }
     }
 
-
-
-
-
-
     public static void main(String[] args) {
-        //start the server
         SpringApplication.run(DemoApplication.class, args);
-        //aop test
-
-
         System.out.println("Done initializing");
-    }
-
-    public void testPOS()
-    {
-        // pointOfSale.setStore(store);
-//        System.out.println(store.toString());
-//        System.out.println(pointOfSale.getStore().toString());
-       /* pointOfSale.getStore().initiateTransaction(99,Transaction.Type.purchase);
-        Monitor mn = new Monitor(69,"sony",69,69,"sony",69,2);
-        Purchase p = new Purchase(99,"never",mn);
-        pointOfSale.getPurchaseMapper().purchase(p);
-        pointOfSale.getPurchaseMapper().commit();
-        pointOfSale.getStore().endTransaction(99);*/
-//       pointOfSale.getStore().initiateTransaction(99,Transaction.Type.purchase);
-//        Monitor mn = new Monitor(69,"sony",69,69,"sony",69,2);
-//        Purchase p = new Purchase(99,"never",mn);
-//        pointOfSale.getPurchaseMapper().returnItem(69);
-//        pointOfSale.getPurchaseMapper().commit();
-//        pointOfSale.getStore().endTransaction(99);
-//        pointOfSale.processReturn(99,84);
-
-
     }
 }

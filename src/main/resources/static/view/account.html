@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="row">
+        <h2>Account Settings</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-3" ng-click="deleteAccount()">
+            <button type="submit" class="btn btn-danger">Delete My Account</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <h2>Purchase History</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-4" ng-repeat="item in purchaseHistory">
+            <div class="thumbnail">
+                <h4 class="text-center">
+                    <span class="label label-info" ng-if="item.product.discriminator == 2">Monitor</span>
+                    <span class="label label-info" ng-if="item.product.discriminator == 3">Tablet</span>
+                    <span class="label label-info" ng-if="item.product.discriminator == 4">Desktop</span>
+                    <span class="label label-info" ng-if="item.product.discriminator == 5">Laptop</span>
+                </h4>
+
+                <img ng-if="item.product.discriminator === 2" src='../images/monitor.jpg' class="img-responsive">
+                <img ng-if="item.product.discriminator === 3" src='../images/tablet.jpg' class="img-responsive">
+                <img ng-if="item.product.discriminator === 4" src='../images/desktop.jpg' class="img-responsive">
+                <img ng-if="item.product.discriminator === 5" src='../images/laptop.jpg' class="img-responsive">
+
+                <div class="caption">
+                    <div class="row" style="padding-left: 20px"><h4>Model: {{item.product.model}}</h4></div>
+                    <div class="row" style="padding-left: 20px"><h4><label>Price: ${{item.product.price}}</label></h4></div>
+
+                    <!--Details would have this info-->
+                    <!--<p style="display:inline;" ng-repeat="(key,value) in item" ng-if="key != 'discriminator' || key != 'brand' || key != 'price'">-->
+                    <!--{{key}}: {{value}},&nbsp-->
+                    <!--</p><br/>-->
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="viewItems/{{item.product.id}}" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-info-sign"></span> Details
+                            </a>
+                        </div>
+                        <div class="col-md-6" ng-click="returnItem(item.product.id)">
+                            <button class="btn btn-danger">
+                                <span class="glyphicon glyphicon-arrow-left"></span> Return Item
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 h4" ng-if="emptyHistory == true">
+            Your Purchase History is empty.
+        </div>
+    </div>
+</div>

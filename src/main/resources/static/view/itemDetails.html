@@ -1,0 +1,12 @@
+<div class="container">
+    <h2>{{item.brand}} {{item.model}}</h2>
+
+    <h3>Product Information</h3>
+    <table class="table table-striped">
+        <tr class="row" ng-repeat="(key,value) in item" ng-if="key != 'discriminator'">
+                <td>{{key | capitalize}}:</td>
+                <td>{{value}}</td>
+        </tr>
+    </table>
+
+</div>
