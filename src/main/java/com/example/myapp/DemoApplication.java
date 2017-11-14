@@ -44,10 +44,10 @@ public class DemoApplication {
             "/admin",
             "/addItems",
             "/viewItems",
+            "/viewItems/{id}",
+            "/viewUsers",
             "/modifyItems",
             "/deleteItems",
-            "/viewItems/{id}",
-            "/viewUsers"
     })
     public String redirectOnReload() {
         return "forward:/index.html";
@@ -129,19 +129,15 @@ public class DemoApplication {
 
     @RequestMapping(value = "/getItem/{id}", method = RequestMethod.GET)
     @ResponseBody
-
     public String getProductById(@PathVariable("id") int id) {
-
         Gson gson = new Gson();
         Map<Integer, Product> items = store.getProductCatalog().getProducts();
-        if(items.get(id) != null){
-            String productJson = gson.toJson(items.get(id));
-            return productJson;
+        if (items.get(id) != null) {
+            return gson.toJson(items.get(id));
         } else {
             //product might be already sold
             Map<Integer, Purchase> soldItems = pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases();
-            String productJson = gson.toJson(soldItems.get(id).getProduct());
-            return productJson;
+            return gson.toJson(soldItems.get(id).getProduct());
         }
     }
 
@@ -215,42 +211,42 @@ public class DemoApplication {
     /* ADD ITEMS */
     @RequestMapping(value = "/post/addMonitor", method = RequestMethod.POST)
     @ResponseBody
-    String addMonitor(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
+    public String addMonitor(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
         if(store.getTransaction().getUserId() == cookieId)
             store.addNewProduct(monitor);
-        return gson.toJson(json);
+        return json;
     }
 
     @RequestMapping(value = "/post/addTablet", method = RequestMethod.POST)
     @ResponseBody
-    String addTablet(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
+    public String addTablet(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product tablet = gson.fromJson(json, Tablet.class);
         if(store.getTransaction().getUserId() == cookieId)
             store.addNewProduct(tablet);
-        return gson.toJson(json);
+        return json;
     }
 
     @RequestMapping(value = "/post/addDesktop", method = RequestMethod.POST)
     @ResponseBody
-    String addDesktop(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
+    public String addDesktop(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product desktop = gson.fromJson(json, Desktop.class);
         if(store.getTransaction().getUserId() == cookieId)
             store.addNewProduct(desktop);
-        return gson.toJson(json);
+        return json;
     }
 
     @RequestMapping(value = "/post/addLaptop", method = RequestMethod.POST)
     @ResponseBody
-    String addLaptop(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
+    public String addLaptop(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product laptop = gson.fromJson(json, Laptop.class);
         if(store.getTransaction().getUserId() == cookieId)
             store.addNewProduct(laptop);
-        return gson.toJson(json);
+        return json;
     }
 
     /* Cart routes */
@@ -284,9 +280,8 @@ public class DemoApplication {
 
     @RequestMapping(value="/get/allCarts", method = RequestMethod.GET)
     @ResponseBody
-    String getAllCarts(){
+    public String getAllCarts() {
         Gson gson = new Gson();
-        System.out.println(pointOfSale.getCartCatalog().getCarts());
         return gson.toJson(pointOfSale.getCartCatalog().getCarts());
     }
 
@@ -354,7 +349,6 @@ public class DemoApplication {
     }
 
     /* TRANSACTIONS */
-    // TODO move to different controller files
     @RequestMapping(value = "/get/endTransaction", method = RequestMethod.GET)
     @ResponseBody
     public void endTransaction(@CookieValue("SESSIONID") int cookieId) {
