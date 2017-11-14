@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('app').controller('viewItemsDetailCtrl', function ($scope, $http, $location) {
+angular.module('app').controller('itemDetailsController', function ($scope, $http, $location) {
 
-    var itemId = $location.path().split("/")[2];
+    let itemId = $location.path().split("/")[2];
 
     const urlItem = '/getItem/' + itemId;
 

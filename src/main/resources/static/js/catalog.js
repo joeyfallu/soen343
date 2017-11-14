@@ -104,6 +104,10 @@ angular.module('app')
         };
 
         $scope.addToCart = function(itemId){
+            // https://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
+            $('#itemView').modal('hide');
+            $(".modal-backdrop").hide();
+
             const addToCartUrl = '/post/addToCart';
             $http.post(addToCartUrl, itemId).then((res) => {
                 if(res.data.message == "Too many items in the cart"){
