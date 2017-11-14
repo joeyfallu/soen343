@@ -40,7 +40,7 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <li><a ng-href="register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+            <li ng-if="!authenticate()"><a ng-href="register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
             <li ng-if="!authenticate()"><a ng-href="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             <li ng-if="authenticate()"><a ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
