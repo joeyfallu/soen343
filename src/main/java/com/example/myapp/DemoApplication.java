@@ -114,8 +114,10 @@ public class DemoApplication {
         }
 
         store.getUserMapper().getUserCatalog().removeActiveUserById(id);
-        if(!store.getTransaction().isComplete() && store.getTransaction().getUserId() == cookieId )
+        if(!store.getTransaction().isComplete() && store.getTransaction().getUserId() == cookieId ) {
             store.endTransaction();
+            System.out.println(cookieId);
+        }
         return "{\"message\":\"Logged Out\"}";
     }
 

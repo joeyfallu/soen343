@@ -54,7 +54,7 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
 
         $http.post("/post/addTablet", data).then((res) => {
             $scope.isTabletMsgAvailable = true;
-            $scope.tabletMessage = "Successfully added monitor with model: " + res.data.model;
+            $scope.tabletMessage = "Successfully added tablet with model: " + res.data.model;
         }).catch((err) => {
             console.log("ERROR:");
             console.log(err);
@@ -79,7 +79,7 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
 
         $http.post("/post/addDesktop", data).then((res) => {
             $scope.isDesktopMsgAvailable = true;
-            $scope.desktopMessage = "Successfully added monitor with model: " + res.data.model;
+            $scope.desktopMessage = "Successfully added desktop with model: " + res.data.model;
         }).catch((err) => {
             console.log("ERROR:");
             console.log(err);
@@ -108,7 +108,7 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
 
         $http.post("/post/addLaptop", data).then((res) => {
             $scope.isLaptopMessageAvailable = true;
-            $scope.laptopMessage = "Successfully added monitor with model: " + res.data.model;
+            $scope.laptopMessage = "Successfully added laptop with model: " + res.data.model;
         }).catch((err) => {
             console.log("ERROR:");
             console.log(err);
