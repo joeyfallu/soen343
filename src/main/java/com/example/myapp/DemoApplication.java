@@ -61,9 +61,10 @@ public class DemoApplication {
         User tempUser = gson.fromJson(body, User.class);
         String email = tempUser.getEmail();
         String password = tempUser.getPassword();
+        int isAdmin = tempUser.getIsAdmin();
 
         try {
-            User loggedInUser = store.getUserMapper().getUserCatalog().login(email, password);
+            User loggedInUser = store.getUserMapper().getUserCatalog().login(email, password, isAdmin);
             System.out.println("Successful login by: " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " "+ loggedInUser.getEmail());
             //Send two cookies which store the user's id and info as json
             Cookie userIdCookie = new Cookie("SESSIONID", ""+loggedInUser.getId());
@@ -179,8 +180,15 @@ public class DemoApplication {
         boolean isDuplicateEmail = false;
 
         for (Map.Entry<Integer, User> entry : store.getUserMapper().getUserCatalog().getUsers().entrySet()) {
-            if(entry.getValue().getEmail().equals(email)) {
+            if(entry.getValue().getEmail().equals(email) && entry.getValue().getIsAdmin() == 0) {
                 isDuplicateEmail = true;
+                break;
+            } else if (entry.getValue().getEmail().equals(email) && entry.getValue().getIsAdmin() == 1){
+                        if(entry.getValue().getEmail().equals(email) && entry.getValue().getIsAdmin() == 0) {
+                            isDuplicateEmail = true;
+                            break;
+                        }
+                isDuplicateEmail = false;
                 break;
             }
         }

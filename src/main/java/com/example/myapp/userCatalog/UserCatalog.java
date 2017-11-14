@@ -25,23 +25,24 @@ public class UserCatalog {
     Login
     Returns the User object after a successful login, or throws an exception
     */
-    public User login(String email, String password) throws Exception {
+    public User login(String email, String password, int isAdmin) throws Exception {
         //Checks if the provided email password pair matches a user entry inside the users HashMap
         for (Map.Entry<Integer, User> entry : users.entrySet()) {
-            if(entry.getValue().getEmail().equals(email)) {
-                if (entry.getValue().getPassword().equals(password)) {
-                    if (activeUsers.get(entry.getValue().getId()) != null)
-                        throw new Exception("User already logged in");
+            if(entry.getValue().getIsAdmin() == isAdmin) { //condition that verify if the user is an admin or client
+                if (entry.getValue().getEmail().equals(email)) {
+                    if (entry.getValue().getPassword().equals(password)) {
+                        if (activeUsers.get(entry.getValue().getId()) != null)
+                            throw new Exception("User already logged in");
 
-                    //Successful login
-                    //Adds the user to the activeUsers hashMap
-                    addActiveUser(entry.getValue());
-                    return activeUsers.get(entry.getKey());
-                } else {
-                    throw new Exception("Wrong password");
+                        //Successful login
+                        //Adds the user to the activeUsers hashMap
+                        addActiveUser(entry.getValue());
+                        return activeUsers.get(entry.getKey());
+                    } else {
+                        throw new Exception("Wrong password");
+                    }
                 }
-            }
-            //Continues to the next map entry
+            }//Continues to the next map entry
         }
         //Do something if the email was not found in the map
         throw new Exception("Email not found");

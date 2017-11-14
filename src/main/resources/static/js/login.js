@@ -10,7 +10,8 @@ angular.module('app')
 
             let data = {
                 email: $scope.email,
-                password: $scope.password
+                password: $scope.password,
+                isAdmin: parseInt($scope.isAdmin),
             };
 
             $scope.errorMsg = "";
