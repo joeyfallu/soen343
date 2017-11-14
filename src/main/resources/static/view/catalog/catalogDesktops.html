@@ -1,22 +1,19 @@
-<div class="container">
-    <p> Sort:  </p>
-    <select
-        ng-options = "option for option in listOfOptions"
-        ng-model="selectedItem"
-        ng-change="rename(selectedItem)">
-    </select>
-
-    <p> Brand filter:  </p>
-    <input type="text" data-ng-model="search.brand">
-    <br>
-    <p> model filter: </p>
-    <input type="text" data-ng-model="search1.model">
-    <br>
-
-   
+<div class="filters">
+    <div class="row">
+        <div class="col-md-offset-2">
+            <label for="sortingOptions">Sort:</label>
+            <select ng-options="option for option in listOfOptions"
+                    ng-model="selectedItem" ng-change="rename(selectedItem)" id="sortingOptions">
+            </select>
+            <label for="brandFilter" style="padding-left: 25px">Brand filter:</label>
+            <input type="text" data-ng-model="search.brand" id="brandFilter">
+            <label for="modelFilter" style="padding-left: 25px">Model filter:</label>
+            <input type="text" data-ng-model="search1.model" id="modelFilter">
+        </div>
+    </div>
 </div>
+
 <div class="container">
-    <br/><br/><br/><!--CSS IS NOT LOADING -->
     <div class="row">
         <div class="col-md-4"  ng-repeat="item in itemsInventory  | orderBy:select | filter:search | filter:search1 | filter:search2" ng-if="item.discriminator == 4">
             <div class="thumbnail">
@@ -28,7 +25,7 @@
                 <div class="caption">
 
                     <div class="row">
-                        <div class="col-md-6"><h4>Brand: {{item.brand}}</h4></div>
+                        <div class="col-md-6"><h4>Model: {{item.model}}</h4></div>
                         <div class="col-md-6"><h4><label>${{item.price}}</label></h4></div>
                     </div>
 
@@ -57,14 +54,3 @@
 
     </div>
 </div>
-
-<!--
-https://bootsnipp.com/tags/ecommerce
-https://bootsnipp.com/snippets/featured/store-product-layout
-https://bootsnipp.com/snippets/RldKA
-https://bootsnipp.com/snippets/QbOK1
-https://bootsnipp.com/snippets/56gp7
-https://bootsnipp.com/snippets/featured/ecommerce-quick-view-popup-amp-product-row
-
-https://bootsnipp.com/tags/shop
--->

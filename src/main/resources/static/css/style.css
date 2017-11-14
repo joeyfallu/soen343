@@ -106,3 +106,10 @@ button#login-btn {
     cursor: pointer;
 }
 
+/* FILTERS */
+.filters {
+    padding: 20px 0 20px 0;
+    background-color: lightgray;
+    margin-bottom: 20px;
+}
+
