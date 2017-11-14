@@ -3,11 +3,14 @@
 angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
 
     /* Form submission */
-    $scope.tvMessage = "";
     $scope.monitorMessage = "";
     $scope.tabletMessage = "";
     $scope.desktopMessage = "";
     $scope.laptopMessage = "";
+    $scope.isMonitorMsgAvailable = false;
+    $scope.isTabletMsgAvailable = false;
+    $scope.isDesktopMsgAvailable = false;
+    $scope.isLaptopMessageAvailable = false;
 
     $scope.addMonitor = function () {
         let data = {
@@ -21,7 +24,8 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
         };
 
         $http.post("/post/addMonitor", data).then((res) => {
-            $scope.monitorMessage = "Success!";
+            $scope.isMonitorMsgAvailable = true;
+            $scope.monitorMessage = "Successfully added monitor with model: " + res.data.model;
         }).catch((err) => {
             console.log("ERROR:");
             console.log(err);
@@ -49,7 +53,8 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
         };
 
         $http.post("/post/addTablet", data).then((res) => {
-            $scope.tabletMessage = "Success!";
+            $scope.isTabletMsgAvailable = true;
+            $scope.tabletMessage = "Successfully added monitor with model: " + res.data.model;
         }).catch((err) => {
             console.log("ERROR:");
             console.log(err);
@@ -73,7 +78,8 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
         };
 
         $http.post("/post/addDesktop", data).then((res) => {
-            $scope.desktopMessage = "Success!";
+            $scope.isDesktopMsgAvailable = true;
+            $scope.desktopMessage = "Successfully added monitor with model: " + res.data.model;
         }).catch((err) => {
             console.log("ERROR:");
             console.log(err);
@@ -101,7 +107,8 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
         };
 
         $http.post("/post/addLaptop", data).then((res) => {
-            $scope.laptopMessage = "Success!";
+            $scope.isLaptopMessageAvailable = true;
+            $scope.laptopMessage = "Successfully added monitor with model: " + res.data.model;
         }).catch((err) => {
             console.log("ERROR:");
             console.log(err);
@@ -109,14 +116,12 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
         });
     };
 
-    /* Routing */
+    /* Transaction */
     $scope.$on('$routeChangeSuccess', function () {
-        console.log("view loaded, starting transaction");
-        $scope.initiateAddTransaction();
+        $http.get("/get/startAddTransaction");
     });
 
     $scope.$on('$routeChangeStart', function() {
-        console.log("exiting view, ending transaction");
         $scope.endTransaction();
     });
 
@@ -124,13 +129,7 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
         $scope.endTransaction();
     };
 
-    $scope.initiateAddTransaction = function () {
-        console.log("Calling backend to start add transaction");
-        $http.get("/get/startAddTransaction");
-    };
-
     $scope.endTransaction = function () {
-        console.log("Calling backend to end transaction");
         $http.get("/get/endTransaction");
     };
 

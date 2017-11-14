@@ -21,7 +21,9 @@
                 <input type="text" class="form-control" ng-model="monitorPrice" required="" id="monitorPriceInput"/>
 
                 <br/><button type="submit" class="btn btn-block">Submit</button>
-                {{monitorMessage}}
+                <div class="panel panel-warning col-md-12" style="margin-top: 10px;" ng-show="isMonitorMsgAvailable">
+                    {{monitorMessage}}
+                </div>
             </form>
 
             <!-- TODO cleanup -->
@@ -54,7 +56,9 @@
                 <label>Price</label>
                 <input type="text" class="form-control" ng-model="tabletPrice" required=""/><br/>
                 <button type="submit" class="btn btn-block">Submit</button>
-                {{tabletMessage}}
+                <div class="panel panel-warning col-md-12" style="margin-top: 10px;" ng-show="isTabletMsgAvailable">
+                    {{tabletMessage}}
+                </div>
             </form>
 
             <form name="desktop" ng-submit="addDesktop()">
@@ -76,7 +80,9 @@
                 <label>Price </label>
                 <input type="text" class="form-control" ng-model="desktopPrice" required=""/><br/>
                 <button type="submit" class="btn btn-block">Submit</button>
-                {{desktopMessage}}
+                <div class="panel panel-warning col-md-12" style="margin-top: 10px;" ng-show="isDesktopMsgAvailable">
+                    {{desktopMessage}}
+                </div>
             </form>
 
             <form name="laptop" ng-submit="addLaptop()">
@@ -110,7 +116,9 @@
                 <label>Price </label>
                 <input type="text" class="form-control" ng-model="laptopPrice" required=""/><br/>
                 <button type="submit" class="btn btn-block">Submit</button>
-                {{laptopMessage}}
+                <div class="panel panel-warning col-md-12" style="margin-top: 10px;" ng-show="isLaptopMessageAvailable">
+                    {{laptopMessage}}
+                </div>
             </form>
 
             <br/><a ng-href="admin"><button class="btn btn-block">Finish</button></a>

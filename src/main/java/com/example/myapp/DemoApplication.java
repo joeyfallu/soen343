@@ -209,38 +209,38 @@ public class DemoApplication {
     /* ADD ITEMS */
     @RequestMapping(value = "/post/addMonitor", method = RequestMethod.POST)
     @ResponseBody
-    String addMonitor(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
+    public String addMonitor(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
         store.addNewProduct(cookieId,monitor);
-        return gson.toJson(json);
+        return json;
     }
 
     @RequestMapping(value = "/post/addTablet", method = RequestMethod.POST)
     @ResponseBody
-    String addTablet(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
+    public String addTablet(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product tablet = gson.fromJson(json, Tablet.class);
         store.addNewProduct(cookieId,tablet);
-        return gson.toJson(json);
+        return json;
     }
 
     @RequestMapping(value = "/post/addDesktop", method = RequestMethod.POST)
     @ResponseBody
-    String addDesktop(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
+    public String addDesktop(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product desktop = gson.fromJson(json, Desktop.class);
         store.addNewProduct(cookieId,desktop);
-        return gson.toJson(json);
+        return json;
     }
 
     @RequestMapping(value = "/post/addLaptop", method = RequestMethod.POST)
     @ResponseBody
-    String addLaptop(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
+    public String addLaptop(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product laptop = gson.fromJson(json, Laptop.class);
         store.addNewProduct(cookieId,laptop);
-        return gson.toJson(json);
+        return json;
     }
 
     /* Cart routes */
@@ -345,7 +345,6 @@ public class DemoApplication {
 
 
     /* TRANSACTIONS */
-    // TODO move to different controller files
     @RequestMapping(value = "/get/endTransaction", method = RequestMethod.GET)
     @ResponseBody
     public void endTransaction(@CookieValue("SESSIONID") int cookieId) {
