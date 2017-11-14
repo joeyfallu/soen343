@@ -160,7 +160,7 @@ public class DemoApplication {
         Gson gson = new Gson();
         Map<Integer, Product> products = store.getProductCatalog().getProducts();
         String product = gson.toJson(products.get(id));
-        if(product != null)
+        if(product != null && store.getTransaction().getUserId() == cookieId)
             store.deleteProduct(id);
         return product;
     }
