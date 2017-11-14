@@ -283,13 +283,8 @@ public class DemoApplication {
 
     @RequestMapping(value="/get/allCarts", method = RequestMethod.GET)
     @ResponseBody
-    String getAllCarts(){
-
-
+    public String getAllCarts() {
         Gson gson = new Gson();
-
-
-        System.out.println(pointOfSale.getCartCatalog().getCarts());
         return gson.toJson(pointOfSale.getCartCatalog().getCarts());
     }
 

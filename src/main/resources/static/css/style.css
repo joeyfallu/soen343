@@ -30,6 +30,14 @@ html, body {
     border-style: dashed;
 }
 
+.dropdown-menu {
+    display: none;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
 /* Hide website loading */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
@@ -96,5 +104,12 @@ button#login-btn {
 /* Angular click */
 [ng-click] {
     cursor: pointer;
+}
+
+/* FILTERS */
+.filters {
+    padding: 20px 0 20px 0;
+    background-color: lightgray;
+    margin-bottom: 20px;
 }
 
