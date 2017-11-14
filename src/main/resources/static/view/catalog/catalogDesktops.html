@@ -1,24 +1,15 @@
+<div ng-include="'view/catalog/filters.html'"></div>
 <div class="container">
-    <p> Sort:  </p>
-    <select
-        ng-options = "option for option in listOfOptions"
-        ng-model="selectedItem"
-        ng-change="rename(selectedItem)">
-    </select>
-
-    <p> Brand filter:  </p>
-    <input type="text" data-ng-model="search.brand">
-    <br>
-    <p> model filter: </p>
-    <input type="text" data-ng-model="search1.model">
-    <br>
-
-   
-</div>
-<div class="container">
-    <br/><br/><br/><!--CSS IS NOT LOADING -->
     <div class="row">
-        <div class="col-md-4"  ng-repeat="item in itemsInventory  | orderBy:select | filter:search | filter:search1 | filter:search2" ng-if="item.discriminator == 4">
+        <div class="col-md-4"  ng-repeat="item in itemsInventory  |
+                                            orderBy:select |
+                                            filter:{brand: filters.brand} |
+                                            filter:{model: filters.model} |
+                                            filter: greaterThan('weight', filters.greaterThanValWeight) |
+                                            filter: lessThan('weight', filters.lessThanValWeight) |
+                                            filter:{cpuCores: filters.numberOfCores} |
+                                            filter: greaterThan('price', filters.greaterThanValPrice) |
+                                            filter: lessThan('price', filters.lessThanValPrice) ">
             <div class="thumbnail">
 
                 <h4 class="text-center"><span class="label label-info">Desktop</span></h4>
@@ -57,14 +48,3 @@
 
     </div>
 </div>
-
-<!--
-https://bootsnipp.com/tags/ecommerce
-https://bootsnipp.com/snippets/featured/store-product-layout
-https://bootsnipp.com/snippets/RldKA
-https://bootsnipp.com/snippets/QbOK1
-https://bootsnipp.com/snippets/56gp7
-https://bootsnipp.com/snippets/featured/ecommerce-quick-view-popup-amp-product-row
-
-https://bootsnipp.com/tags/shop
--->

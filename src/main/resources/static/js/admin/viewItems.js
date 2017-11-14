@@ -13,7 +13,8 @@ angular.module('app').controller('viewItemsCtrl', function ($scope, $http) {
             items.push(res.data[key]);
         }
 
-        $scope.itemsInventory = items;
+        $scope.itemsInventory = randomizer(items);
+        console.log($scope.itemsInventory);
         $scope.select = null;
         $scope.search3= 0;
         $scope.search4 = 100000000;
@@ -78,4 +79,20 @@ angular.module('app').controller('viewItemsCtrl', function ($scope, $http) {
         console.log("ERROR:");
         console.log(err);
     });
+
+    function randomizer(array){
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        while(0 !== currentIndex){
+
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array
+    }
 });
