@@ -63,7 +63,7 @@ public class PointOfSaleTest {
 
 
         cartCatalogMock = new CartCatalog(CartMapMock);
-        cartMock = new Cart(1, 0, 0, DateMapMock);
+        cartMock = new Cart(1, 0, DateMapMock);
         productCatalogMock = new ProductCatalog();
         productCatalogMock.addProduct(1, productMock);
         ProductMapMock.put(1, productMock);
