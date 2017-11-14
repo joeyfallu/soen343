@@ -276,6 +276,14 @@ public class DemoApplication {
         return gson.toJson(pointOfSale.viewCart(cookieId).getCartProducts());
     }
 
+    @RequestMapping(value="/get/cancelPurchase", method = RequestMethod.GET)
+    @ResponseBody
+    public String cancelPurchase(@CookieValue("SESSIONID") int cookieId){
+        pointOfSale.cancelPurchase(cookieId);
+
+        return "{\"message\":\"Purchase Canceled\"}";
+    }
+
     @RequestMapping(value="/get/allCarts", method = RequestMethod.GET)
     @ResponseBody
     public String getAllCarts() {

@@ -58,6 +58,18 @@ angular.module('app')
              }
          }
 
+         $scope.cancelTransaction = function(){
+
+            $http.get("/get/cancelPurchase").then((res) => {
+                console.log("canceled purchase")
+                $scope.cart = [];
+                $scope.subtotal = 0;
+                alert("Your Purchase has been canceled");
+            }).catch((err) => {
+                console.log("ERROR");
+                console.log(err);
+            });
+         }
 
          $scope.finishTransaction = function() {
 
