@@ -113,3 +113,9 @@ button#login-btn {
     margin-bottom: 20px;
 }
 
+
+/* ITEM DETAILS */
+.item_view .modal-dialog {
+    max-width: 800px;
+    width: 100%;
+}

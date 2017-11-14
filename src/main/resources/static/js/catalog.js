@@ -128,4 +128,18 @@ angular.module('app')
             });
         }
 
+        /* Item details */
+        $scope.getItemDetails = function(itemId) {
+            const urlItem = '/getItem/' + itemId;
+            $http.get(urlItem).then((res) => {
+                $scope.itemDetails = res.data;
+            });
+        };
+
+    })
+
+    .filter('capitalize', function() {
+        return function (input) {
+            return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+        }
     });
