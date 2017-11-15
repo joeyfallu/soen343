@@ -1,23 +1,16 @@
-<div class="filters">
-    <div class="row">
-        <div class="col-md-offset-2">
-            <label for="sortingOptions">Sort:</label>
-            <select ng-options="option for option in listOfOptions"
-                    ng-model="selectedItem" ng-change="rename(selectedItem)" id="sortingOptions">
-            </select>
-            <label for="brandFilter" style="padding-left: 25px">Brand filter:</label>
-            <input type="text" data-ng-model="search.brand" id="brandFilter">
-            <label for="modelFilter" style="padding-left: 25px">Model filter:</label>
-            <input type="text" data-ng-model="search1.model" id="modelFilter">
-        </div>
-    </div>
-</div>
-
+<div ng-include="'view/catalog/filters.html'"></div>
 <div class="container">
     <div class="row">
-        <div class="col-md-4"
-             ng-repeat="item in itemsInventory  | orderBy:select | filter:search | filter:search1 | filter:search2"
-             ng-if="item.discriminator == 4">
+        <div class="col-md-4"  ng-repeat="item in itemsInventory  |
+                                            orderBy:select |
+                                            filter:{brand: filters.brand} |
+                                            filter:{model: filters.model} |
+                                            filter: greaterThan('weight', filters.greaterThanValWeight) |
+                                            filter: lessThan('weight', filters.lessThanValWeight) |
+                                            filter:{cpuCores: filters.numberOfCores} |
+                                            filter: greaterThan('price', filters.greaterThanValPrice) |
+                                            filter: lessThan('price', filters.lessThanValPrice)"
+                                            ng-if="item.discriminator == 4">
             <div class="thumbnail">
                 <h4 class="text-center"><span class="label label-info">Desktop</span></h4>
 
