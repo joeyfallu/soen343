@@ -111,11 +111,13 @@ public class UnitOfWorkAspect {
 
 
         for (Object object : add) {
+            int id=0;
             try {
-                userMapper.getUserTDG().dbInsert((User) object);
+                 id= userMapper.getUserTDG().dbInsert((User) object);
             } catch (Exception e) {
                 System.out.println("failed to insert user from unit of work");
             }
+            ((User)object).setId(id);
             userMapper.insertUserCatalog((User) object);
         }
         add = new ArrayList<Object>();
