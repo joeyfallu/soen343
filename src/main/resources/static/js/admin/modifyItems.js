@@ -6,12 +6,13 @@ angular.module('app').controller('modifyItemsController', function ($scope, $htt
     $scope.getProdInfo = function () {
         $scope.message = "";
         let id = $scope.mId;
-        let urlProduct = '/getItem/' + id;
+        let urlProduct = '/getItemModify/' + id;
         $scope.itemData = [];
 
         $http.get(urlProduct)
             .then((res) => {
-                if (res.data == null) {
+                console.log(res.data);
+                if (res.data.message == 'Item Does Not Exist') {
                     $scope.message = "Product with ID: " + $scope.mId + " does not exist.";
                 }
                 $scope.itemData = res.data;
