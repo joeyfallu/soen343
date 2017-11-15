@@ -1,38 +1,17 @@
-<div class="filters">
-    <div class="row">
-        <div class="col-md-offset-2">
-            <label for="sortingOptions">Sort:</label>
-            <select ng-options="option for option in listOfOptions"
-                    ng-model="selectedItem" ng-change="rename(selectedItem)" id="sortingOptions">
-            </select>
-            <label for="brandFilter" style="padding-left: 25px">Brand filter:</label>
-            <input type="text" data-ng-model="search.brand" id="brandFilter">
-            <label for="modelFilter" style="padding-left: 25px">Model filter:</label>
-            <input type="text" data-ng-model="search1.model" id="modelFilter">
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-offset-2">
-            <label for="SizeGreaterThanShowAll">Size greater than:</label>
-            <input type="radio" data-ng-model="search3" value="0" ng-checked="true"
-                   id="SizeGreaterThanShowAll"> Show All
-            <input type="radio" data-ng-model="search3" value="25"> 25
-            <input type="radio" data-ng-model="search3" value="50"> 50
-            <label for="SizeSmallerThanShowAll" style="padding-left: 25px">Size smaller than:</label>
-            <input type="radio" data-ng-model="search4" value="1000000" ng-checked="true"
-                   id="SizeSmallerThanShowAll"> Show All
-            <input type="radio" data-ng-model="search4" value="25"> 25
-            <input type="radio" data-ng-model="search4" value="50"> 50
-        </div>
-    </div>
-</div>
-
+<div ng-include="'view/catalog/filters.html'"></div>
 <div class="container">
+    <br/><br/><br/><!--CSS IS NOT LOADING -->
     <div class="row">
-        <div class="col-md-4"
-             ng-repeat="item in itemsInventory | orderBy:select | filter:search | filter:search1 | filter:search2 | filter: greaterThan('size', search3) | filter: smallerThan('size', search4)"
-             ng-if="item.discriminator == 5">
+        <div class="col-md-4"  ng-repeat="item in itemsInventory  |
+                                            orderBy:select |
+                                            filter:{brand: filters.brand} |
+                                            filter:{model: filters.model} |
+                                            filter: greaterThan('weight', filters.greaterThanValWeight) |
+                                            filter: lessThan('weight', filters.lessThanValWeight) |
+                                            filter:{cpuCores: filters.numberOfCores} |
+                                            filter: greaterThan('price', filters.greaterThanValPrice) |
+                                            filter: lessThan('price', filters.lessThanValPrice)"
+                                            ng-if="item.discriminator == 4">
             <div class="thumbnail">
                 <h4 class="text-center"><span class="label label-info">Laptops</span></h4>
 

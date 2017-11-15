@@ -1,43 +1,16 @@
-<div class="container">
-    <p> Sort:  </p>
-    <select
-        ng-options = "option for option in listOfOptions"
-        ng-model="selectedItem"
-        ng-change="rename(selectedItem)">
-    </select>
-
-    <p> Brand Filter:  </p>
-    <input type="text" data-ng-model="search.brand">
-    <br>
-    <p> Model Filter: </p>
-    <input type="text" data-ng-model="search1.model">
-    <br>
-    <p> Type Filter: </p>
-    <input type="radio" data-ng-model="search2.discriminator" value="" ng-checked="true"> All
-    <input type="radio" data-ng-model="search2.discriminator" value="2"> Monitor 
-    <input type="radio" data-ng-model="search2.discriminator" value="3"> Tablet 
-    <input type="radio" data-ng-model="search2.discriminator" value="4"> Desktop 
-    <input type="radio" data-ng-model="search2.discriminator" value="5"> Laptop 
-    <p> Size Filters</p>
-    <p> Greater Than : </p>
-    <input type="radio" data-ng-model="search3" value="0" ng-checked="true"> Show All
-    <input type="radio" data-ng-model="search3" value="25"> 25 
-    <input type="radio" data-ng-model="search3" value="50"> 50 <br>
-    <p> Smaller Than : </p>
-    <input type="radio" data-ng-model="search4" value="1000000" ng-checked="true"> Show All
-    <input type="radio" data-ng-model="search4" value="25"> 25 
-    <input type="radio" data-ng-model="search4" value="50"> 50
-
-
-
-   <!--  <input type="text" data-ng-model="search3"> <br> -->
-   
-</div>
+<div ng-include="'view/catalog/filters.html'"></div>
 </br>
 </br>
 <div class="container">
     <div class="row">
-            <div class="col-sm-4" ng-repeat="item in itemsInventory  | orderBy:select | filter:search | filter:search1 | filter:search2 | filter: greaterThan('size', search3) | filter: smallerThan('size', search4) ">
+        <div class="col-md-4"  ng-repeat="item in itemsInventory  |
+                                            orderBy:select |
+                                            filter:{brand: filters.brand} |
+                                            filter:{model: filters.model} |
+                                            filter: greaterThan('weight', filters.greaterThanValWeight) |
+                                            filter: lessThan('weight', filters.lessThanValWeight) |
+                                            filter: greaterThan('price', filters.greaterThanValPrice) |
+                                            filter: lessThan('price', filters.lessThanValPrice) ">
                 <!-- | filter: greaterThan('size', search3) -->
             <div class="panel panel-primary">
                 <div ng-if="item.discriminator == 2" class="panel-heading"><a href="viewItems/{{item.id}}">Monitor</a></div>
