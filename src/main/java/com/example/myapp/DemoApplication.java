@@ -140,6 +140,19 @@ public class DemoApplication {
         }
     }
 
+    @RequestMapping(value = "/getItemModify/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public String getModifiedProductById(@PathVariable("id") int id) {
+        Gson gson = new Gson();
+        Map<Integer, Product> items = store.getProductCatalog().getProducts();
+        if (items.get(id) != null) {
+            return gson.toJson(items.get(id));
+        }
+        else{
+            return "{\"message\":\"Item Does Not Exist\"}";
+        }
+    }
+
     /* VIEW USERS */
     @RequestMapping(value = "/getUsers/", method = RequestMethod.GET)
     @ResponseBody
