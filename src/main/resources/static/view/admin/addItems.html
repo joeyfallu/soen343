@@ -1,10 +1,25 @@
 <div class="container">
+    <!-- Menu Idea with buttons.. I didn't like it compared to navs
     <div class="btn-group-lg col-md-8 col-md-offset-2" role="group" aria-label="Basic example">
         <button type="button" class="btn btn-secondary" ng-click="selectedForm = 2;">Monitor</button>
         <button type="button" class="btn btn-secondary" ng-click="selectedForm = 3;">Tablet</button>
         <button type="button" class="btn btn-secondary" ng-click="selectedForm = 4;">Desktop</button>
         <button type="button" class="btn btn-secondary" ng-click="selectedForm = 5;">Laptop</button>
-    </div>
+    </div> -->
+    <ul class="nav nav-tabs col-md-8 col-md-offset-2">
+        <li class="nav-item">
+            <a class="nav-link" ng-click="selectedForm = 2;">Monitor</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" ng-click="selectedForm = 3;">Tablet</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" ng-click="selectedForm = 4;">Desktop</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" ng-click="selectedForm = 5;">Laptop</a>
+        </li>
+    </ul>
     <div class="col-md-8 col-md-offset-2">
         <div class="form-area">
             <form name="monitor" class="css-form" ng-submit="addMonitor()" ng-if="selectedForm == 2">
@@ -131,7 +146,7 @@
                 </div>
             </form>
 
-            <br/><a ng-href="admin"><button class="btn btn-block">Finish</button></a>
+            <br/><a ng-href="admin"><button class="btn btn-block">Save All Changes</button></a>
 
         </div>
     </div>
