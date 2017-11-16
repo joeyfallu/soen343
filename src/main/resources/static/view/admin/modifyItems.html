@@ -117,9 +117,11 @@
                     <label>Operating System</label>
                     <input type="text" class="form-control"  ng-model="itemData.operatingSystem"/>
                     <label>Does it have a camera?</label>
-                    <input type="text" class="form-control"   ng-model="itemData.camera"/>
+                    <label>Yes</label><input type="radio" name="camera"  ng-model="itemData.camera" required="" ng-value="true"/>
+                    <label>No</label><input type="radio" name="camera" ng-model="itemData.camera" required="" ng-value="false"/><br/>
                     <label>Does it have a touch screen?</label>
-                    <input type="text" class="form-control"   ng-model="itemData.touchScreen"/>
+                    <label>Yes<input type="radio" name="touchScreen"  ng-model="itemData.touchScreen" required="" ng-value="true"/></label>
+                    <label>No<input type="radio" name="touchScreen" ng-model="itemData.touchScreen" required="" ng-value="false"/></label><br/>
                     <label>Price </label>
                     <input type="text" class="form-control"   ng-model="itemData.price" pattern="\d+(\.\d+)?"/><br />
                     <button type="submit" class="btn btn-block"  >Submit</button>
