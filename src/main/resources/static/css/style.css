@@ -132,3 +132,11 @@ button#login-btn {
 .css-form input.ng-valid.ng-touched {
     box-shadow: 0 0 5px 1px #78FA89;
 }
+
+/* Add Items Nav Links color*/
+a.nav-link{
+    color: black;
+}
+.nav-tabs {
+    background-color: #FAFAFA;
+}

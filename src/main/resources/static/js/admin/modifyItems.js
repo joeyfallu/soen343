@@ -93,7 +93,7 @@ angular.module('app').controller('modifyItemsController', function ($scope, $htt
             size: $scope.itemData.size,
             batteryInfo: $scope.itemData.batteryInfo,
             operatingSystem: $scope.itemData.operatingSystem,
-            cameraInfo: $scope.itemData.cameraInfo,
+            camera: $scope.itemData.camera,
             touchScreen: $scope.itemData.touchScreen,
         };
         $http.post("/post/modifyLaptop", data).then((res) => {
