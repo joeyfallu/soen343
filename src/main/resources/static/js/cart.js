@@ -48,6 +48,8 @@ angular.module('app')
                             $scope.cart.splice(i,1)
                         }
                     }
+                    if($scope.cart.length == 0)
+                        $scope.emptyCart = true;
                 }).catch((err) => {
                     console.log("ERROR:");
                     console.log(err);
