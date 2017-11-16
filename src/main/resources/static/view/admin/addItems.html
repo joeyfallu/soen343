@@ -1,8 +1,13 @@
 <div class="container">
+    <div class="btn-group-lg col-md-8 col-md-offset-2" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary" ng-click="selectedForm = 2;">Monitor</button>
+        <button type="button" class="btn btn-secondary" ng-click="selectedForm = 3;">Tablet</button>
+        <button type="button" class="btn btn-secondary" ng-click="selectedForm = 4;">Desktop</button>
+        <button type="button" class="btn btn-secondary" ng-click="selectedForm = 5;">Laptop</button>
+    </div>
     <div class="col-md-8 col-md-offset-2">
         <div class="form-area">
-
-            <form name="monitor" class="css-form" ng-submit="addMonitor()">
+            <form name="monitor" class="css-form" ng-submit="addMonitor()" ng-if="selectedForm == 2">
                 <h2>Add a Monitor:</h2>
 
                 <label for="monitorModelNumInput">Model Number</label>
@@ -30,7 +35,7 @@
             </form>
 
             <!-- TODO cleanup -->
-            <form name="tablet" class="css-form" ng-submit="addTablet()">
+            <form name="tablet" class="css-form" ng-submit="addTablet()" ng-if="selectedForm == 3">
                 <h2>Add a Tablet:</h2>
                 <label>Model Number</label>
                 <input type="text" class="form-control" ng-model="tabletModelNumber" required="" autofocus="" pattern="[\d\w]+"/>
@@ -64,7 +69,7 @@
                 </div>
             </form>
 
-            <form name="desktop" class="css-form" ng-submit="addDesktop()">
+            <form name="desktop" class="css-form" ng-submit="addDesktop()" ng-if="selectedForm == 4">
                 <h2>Add a Desktop:</h2>
                 <label>Model Number</label>
                 <input type="text" class="form-control" ng-model="desktopModelNumber" required="" autofocus="" pattern="[\d\w]+"/>
@@ -90,7 +95,7 @@
                 </div>
             </form>
 
-            <form name="laptop" class="css-form" ng-submit="addLaptop()">
+            <form name="laptop" class="css-form" ng-submit="addLaptop()" ng-if="selectedForm == 5">
                 <h2>Add a Laptop:</h2>
                 <label>Model Number</label>
                 <input type="text" class="form-control" ng-model="laptopModelNumber" required="" autofocus="" pattern="[\d\w]+"/>
