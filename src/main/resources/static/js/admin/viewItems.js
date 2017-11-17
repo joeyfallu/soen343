@@ -7,19 +7,16 @@ angular.module('app').controller('viewItemsCtrl', function ($scope, $http, $loca
     $scope.currentPage = $location.absUrl().replace("http://localhost:8080/","");
     $scope.listOfOptions = ['Show All', 'Most Expensive', 'Least Expensive', 'Most Recent', 'Least Recent', 'Heaviest', 'Lightest', 'Brand (A-Z)', 'Brand (Z-A)'];
 
-    const urlProduct = '/get/products';
-
-
-    $http.get(urlProduct).then((res) => {
+    /* Fetch products */
+    $http.get('/get/products').then((res) => {
         $scope.itemsInventory = res.data;
 
-        var items = [];
-        for(var key in res.data){
+        let items = [];
+        for(let key in res.data){
             items.push(res.data[key]);
         }
 
         $scope.itemsInventory = randomizer(items);
-        console.log($scope.itemsInventory);
     }).catch((err) => {
         console.log("ERROR:");
         console.log(err);

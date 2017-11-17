@@ -124,11 +124,12 @@ public class DemoApplication {
     /* VIEW ITEMS */
     @RequestMapping("/get/products")
     @ResponseBody
-    String getProducts(){
+    public String getProducts(){
         Gson gson = new Gson();
         return gson.toJson(store.getProductCatalog().getProducts());
     }
 
+    /* ITEM DETAILS */
     @RequestMapping(value = "/getItem/{serialNumber}", method = RequestMethod.GET)
     @ResponseBody
     public String getProductBySerialNumber(@PathVariable("serialNumber") String serialNumber) {
@@ -161,15 +162,14 @@ public class DemoApplication {
     @ResponseBody
     public String getUsers(){
         Gson gson = new Gson();
-        String json = gson.toJson(store.getUserMapper().getUserCatalog().getUsers());
-        return json;
+        return gson.toJson(store.getUserMapper().getUserCatalog().getUsers());
     }
 
 
     /* DELETE ITEMS */
     @RequestMapping(value = "/deleteItem/{serialNumber}", method = RequestMethod.GET)
     @ResponseBody
-    String deleteItemsForm(@PathVariable("serialNumber") String serialNumber,@CookieValue("SESSIONID") int cookieId){
+    public String deleteItemsForm(@PathVariable("serialNumber") String serialNumber,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Map<String, Product> products = store.getProductCatalog().getProducts();
         String product = gson.toJson(products.get(serialNumber));
