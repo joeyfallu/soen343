@@ -38,9 +38,9 @@ angular.module('app')
          });
          //getting each item
 
-         $scope.removeFromCart = function(itemId){
-            if($cookies.get(itemId)){
-                $http.post("/post/removeFromCart", itemId).then((res) => {
+         $scope.removeFromCart = function(serialNumber){
+            if($cookies.get(serialNumber)){
+                $http.post("/post/removeFromCart", serialNumber).then((res) => {
                     console.log("Item Removed");
                     for(var i =0; i < $scope.cart.length; i++){
                         if($scope.cart[i].id == itemId){
