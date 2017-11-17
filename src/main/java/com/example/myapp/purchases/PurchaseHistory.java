@@ -7,25 +7,25 @@ import java.util.Map;
 @Service
 public class PurchaseHistory {
 
-    private Map<Integer, Purchase> purchases;
+    private Map<String, Purchase> purchases;
 
     public PurchaseHistory() {
         this.purchases = new HashMap<>();
     }
 
-    public Map<Integer, Purchase> getPurchases() {
+    public Map<String, Purchase> getPurchases() {
         return this.purchases;
     }
 
-    public void setPurchases(Map<Integer, Purchase> purchases){
+    public void setPurchases(Map<String, Purchase> purchases){
         this.purchases = purchases;
     }
 
-    public void addPurchase(int id, Purchase purchase){
-        purchases.put(id,purchase);
+    public void addPurchase(String serialNumber, Purchase purchase){
+        purchases.put(serialNumber,purchase);
     }
 
-    public void deletePurchase(int id)  {
-        purchases.remove(id);
+    public void deletePurchase(String serialNumber)  {
+        purchases.remove(serialNumber);
     }
 }

@@ -10,7 +10,7 @@ import java.util.Map;
 @Service
 public class ProductCatalog {
 
-    private Map<Integer, Product> products;
+    private Map<String, Product> products;
 
 
     public ProductCatalog() {
@@ -19,32 +19,31 @@ public class ProductCatalog {
     }
 
 
-    public Map<Integer, Product> getProducts() {
+    public Map<String, Product> getProducts() {
         return this.products;
     }
 
 
-    public void setProducts(Map<Integer, Product> products){
+    public void setProducts(Map<String, Product> products){
                 this.products = products;
     }
 
 
-    public void addProduct(int id, Product product){
-        products.put(id,product);
-        //TODO output to console to be removed after debugging
-        //System.out.println("Item has been added:" + products.get(id).toString());
-    }
-
-    public void deleteProduct(int id)  {
-        products.remove(id);
+    public void addProduct(String serialNumber, Product product){
+        products.put(serialNumber,product);
 
     }
 
-    public void modifyProduct(int id, Product prod){
+    public void deleteProduct(String serialNumber)  {
+        products.remove(serialNumber);
+
+    }
+
+    public void modifyProduct(String serialNumber, Product prod){
         System.out.print(prod.toString());
-        products.remove(id);
-        prod.setId(id); //making sure to modify the good product
-        this.addProduct(prod.getId(),prod);
+        products.remove(serialNumber);
+        prod.setSerialNumber(serialNumber); //making sure to modify the good product
+        this.addProduct(prod.getSerialNumber(),prod);
 
 
     }

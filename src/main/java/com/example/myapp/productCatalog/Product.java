@@ -1,7 +1,8 @@
 package com.example.myapp.productCatalog;
 
 public class Product {
-    private int id;
+
+    private String serialNumber;
     private String model;
     private double weight;
     private double price;
@@ -9,8 +10,8 @@ public class Product {
     private int discriminator;
 
 
-    public Product(int id, String model, double weight, double price, String brand, int discriminator){
-        this.id = id;
+    public Product(String serialNumber, String model, double weight, double price, String brand, int discriminator){
+        this.serialNumber = serialNumber;
         this.model = model;
         this.weight = weight;
         this.price = price;
@@ -21,7 +22,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "id=" + id +
+                "serialNumber=" + serialNumber +
                 ", model='" + model + '\'' +
                 ", weight=" + weight +
                 ", price=" + price +
@@ -30,12 +31,12 @@ public class Product {
                 '}';
     }
 
-    public int getId() {
-        return id;
+    public String getSerialNumber() {
+        return serialNumber;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     public String getModel() {

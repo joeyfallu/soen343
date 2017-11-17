@@ -129,27 +129,27 @@ public class DemoApplication {
         return gson.toJson(store.getProductCatalog().getProducts());
     }
 
-    @RequestMapping(value = "/getItem/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getItem/{serialNumber}", method = RequestMethod.GET)
     @ResponseBody
-    public String getProductById(@PathVariable("id") int id) {
+    public String getProductBySerialNumber(@PathVariable("serialNumber") String serialNumber) {
         Gson gson = new Gson();
-        Map<Integer, Product> items = store.getProductCatalog().getProducts();
-        if (items.get(id) != null) {
-            return gson.toJson(items.get(id));
+        Map<String, Product> items = store.getProductCatalog().getProducts();
+        if (items.get(serialNumber) != null) {
+            return gson.toJson(items.get(serialNumber));
         } else {
             //product might be already sold
-            Map<Integer, Purchase> soldItems = pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases();
-            return gson.toJson(soldItems.get(id).getProduct());
+            Map<String, Purchase> soldItems = pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases();
+            return gson.toJson(soldItems.get(serialNumber).getProduct());
         }
     }
 
-    @RequestMapping(value = "/getItemModify/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getItemModify/{serialNumber}", method = RequestMethod.GET)
     @ResponseBody
-    public String getModifiedProductById(@PathVariable("id") int id) {
+    public String getModifiedProductSerialNumber(@PathVariable("serialNumber") String serialNumber) {
         Gson gson = new Gson();
-        Map<Integer, Product> items = store.getProductCatalog().getProducts();
-        if (items.get(id) != null) {
-            return gson.toJson(items.get(id));
+        Map<String, Product> items = store.getProductCatalog().getProducts();
+        if (items.get(serialNumber) != null) {
+            return gson.toJson(items.get(serialNumber));
         }
         else{
             return "{\"message\":\"Item Does Not Exist\"}";
@@ -167,14 +167,14 @@ public class DemoApplication {
 
 
     /* DELETE ITEMS */
-    @RequestMapping(value = "/deleteItem/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteItem/{serialNumber}", method = RequestMethod.GET)
     @ResponseBody
-    String deleteItemsForm(@PathVariable("id") int id,@CookieValue("SESSIONID") int cookieId){
+    String deleteItemsForm(@PathVariable("serialNumber") String serialNumber,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
-        Map<Integer, Product> products = store.getProductCatalog().getProducts();
-        String product = gson.toJson(products.get(id));
+        Map<String, Product> products = store.getProductCatalog().getProducts();
+        String product = gson.toJson(products.get(serialNumber));
         if(product != null && store.getTransaction().getUserId() == cookieId)
-            store.deleteProduct(id);
+            store.deleteProduct(serialNumber);
         return product;
     }
 
@@ -267,7 +267,7 @@ public class DemoApplication {
     /* Cart routes */
     @RequestMapping(value="/post/addToCart", method = RequestMethod.POST)
     @ResponseBody
-    String addToCart(@RequestBody int itemId,@CookieValue("SESSIONID") int cookieId){
+    String addToCart(@RequestBody String serialNumber,@CookieValue("SESSIONID") int cookieId){
         //for now because on refresh cart wont get recreated until login
         if(pointOfSale.viewCart(cookieId) == null){
             pointOfSale.startPurchase(cookieId);
@@ -276,7 +276,7 @@ public class DemoApplication {
             return "{\"message\":\"Too many items in the cart\"}";
         }
 
-        pointOfSale.addCartItem(cookieId, itemId);
+        pointOfSale.addCartItem(cookieId, serialNumber);
         return "{\"message\":\"Added to cart\"}";
     }
 
@@ -310,8 +310,8 @@ public class DemoApplication {
 
     @RequestMapping(value="/post/removeFromCart", method = RequestMethod.POST)
     @ResponseBody
-    String removeFromCart(@RequestBody int itemId, @CookieValue("SESSIONID") int cookieId){
-        pointOfSale.removeCartItem(cookieId, itemId);
+    String removeFromCart(@RequestBody String serialNumber, @CookieValue("SESSIONID") int cookieId){
+        pointOfSale.removeCartItem(cookieId, serialNumber);
         return "{\"message\":\"Item Removed\"}";
     }
 
@@ -320,10 +320,10 @@ public class DemoApplication {
     String purchaseCart(@CookieValue("SESSIONID") int cookieId){
 
         store.initiateTransaction(cookieId, Transaction.Type.purchase);
-        List<Integer> productsToPurchase = pointOfSale.endPurchase(cookieId);
+        List<String> productsToPurchase = pointOfSale.endPurchase(cookieId);
         store.endTransaction();
         store.initiateTransaction(cookieId, Transaction.Type.delete);
-        for (Integer product : productsToPurchase)
+        for (String product : productsToPurchase)
             store.deleteProduct(product);
         store.endTransaction();
         return "{\"message\":\"Purchase Succesful\"}";
@@ -337,7 +337,7 @@ public class DemoApplication {
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
         if(store.getTransaction().getUserId() == cookieId)
-            store.modifyProduct(monitor.getId(), monitor);
+            store.modifyProduct(monitor.getSerialNumber(), monitor);
         return gson.toJson(json);
     }
 
@@ -347,7 +347,7 @@ public class DemoApplication {
         Gson gson = new Gson();
         Product tablet = gson.fromJson(json, Tablet.class);
         if(store.getTransaction().getUserId() == cookieId)
-            store.modifyProduct(tablet.getId(), tablet);
+            store.modifyProduct(tablet.getSerialNumber(), tablet);
         return gson.toJson(json);
     }
 
@@ -357,7 +357,7 @@ public class DemoApplication {
         Gson gson = new Gson();
         Product desktop = gson.fromJson(json, Desktop.class);
         if(store.getTransaction().getUserId() == cookieId)
-            store.modifyProduct(desktop.getId(), desktop);
+            store.modifyProduct(desktop.getSerialNumber(), desktop);
         return gson.toJson(json);
     }
 
@@ -367,7 +367,7 @@ public class DemoApplication {
         Gson gson = new Gson();
         Product laptop = gson.fromJson(json, Laptop.class);
         if(store.getTransaction().getUserId() == cookieId)
-            store.modifyProduct(laptop.getId(), laptop);
+            store.modifyProduct(laptop.getSerialNumber(), laptop);
         return gson.toJson(json);
     }
 
@@ -407,8 +407,8 @@ public class DemoApplication {
     @ResponseBody
     String getPurchaseHistory(@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
-        Map<Integer, Purchase> userPurchases = new HashMap<>();
-        for (Map.Entry<Integer, Purchase> purchase : pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().entrySet()) {
+        Map<String, Purchase> userPurchases = new HashMap<>();
+        for (Map.Entry<String, Purchase> purchase : pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().entrySet()) {
             if(purchase.getValue().getUserId() == cookieId) {
                 userPurchases.put(purchase.getKey(), purchase.getValue());
             }
@@ -416,10 +416,10 @@ public class DemoApplication {
         return gson.toJson(userPurchases);
     }
 
-    @RequestMapping(value="/get/returnItem/{itemId}", method = RequestMethod.GET)
+    @RequestMapping(value="/get/returnItem/{serialNumber}", method = RequestMethod.GET)
     @ResponseBody
-    String returnItem(@PathVariable(value="itemId") int itemId, @CookieValue("SESSIONID") int cookieId){
-        Purchase purchase = pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().get(itemId);
+    String returnItem(@PathVariable(value="serialNumber") String serialNumber, @CookieValue("SESSIONID") int cookieId){
+        Purchase purchase = pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().get(serialNumber);
         //Check that item exists
         if(purchase == null){
             //Error: Item not in purchase history
@@ -432,12 +432,12 @@ public class DemoApplication {
                 //Item Returned Successfully
                 Product productToReturn = purchase.getProduct();
                 store.initiateTransaction(cookieId, Transaction.Type.returnItem);
-                pointOfSale.processReturn(cookieId, itemId);
+                pointOfSale.processReturn(cookieId, serialNumber);
                 store.endTransaction();
                 store.initiateTransaction(cookieId, Transaction.Type.add);
                 store.addNewProduct(productToReturn);
                 store.endTransaction();
-                return "{\"message\":\"Item "+ itemId +" Returned Successfully\"}";
+                return "{\"message\":\"Item "+ serialNumber +" Returned Successfully\"}";
             }
         }
     }

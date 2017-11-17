@@ -10,21 +10,21 @@ public class PurchaseIdentityMap {
 
     private Map<Integer, Purchase> purchases = new HashMap<>();
 
-    public Purchase getPurchaseById(int id){
+    public Purchase getPurchase(int id){
         return purchases.getOrDefault(id, null);
     }
 
     public Map<Integer, Purchase> getAllPurchases(){ return  purchases;}
 
-    public void insertPurchaseById(int id, Purchase purchase){
+    public void insertPurchase(int id, Purchase purchase){
         purchases.put(id,purchase);
     }
 
-    public void updatePurchaseById(int id, Purchase newPurchase){
+    public void updatePurchase(int id, Purchase newPurchase){
         purchases.put(id, newPurchase);
     }
 
-    public void deletePurchaseById(int id){
+    public void deletePurchase(int id){
         purchases.remove(id);
     }
 

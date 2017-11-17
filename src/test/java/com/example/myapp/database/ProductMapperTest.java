@@ -27,20 +27,20 @@ public class ProductMapperTest {
 
     @Test
     public void insertProductCatalog() throws Exception {
-        productMapper.insertProductCatalog(0, productMock);
-        Mockito.verify(productCatalogMock).addProduct(0, productMock);
+        productMapper.insertProductCatalog("a1", productMock);
+        Mockito.verify(productCatalogMock).addProduct("a1", productMock);
     }
 
     @Test
     public void modifyProductCatalog() throws Exception {
-        productMapper.modifyProductCatalog(0, productMock);
-        Mockito.verify(productCatalogMock).modifyProduct(0, productMock);
+        productMapper.modifyProductCatalog("a1", productMock);
+        Mockito.verify(productCatalogMock).modifyProduct("a1", productMock);
     }
 
     @Test
     public void deleteByIdProductCatalog() throws Exception {
-        productMapper.deleteByIdProductCatalog(0);
-        Mockito.verify(productCatalogMock).deleteProduct(0);
+        productMapper.deleteProductCatalog("a1");
+        Mockito.verify(productCatalogMock).deleteProduct("a1");
     }
 
 }

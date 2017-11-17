@@ -40,13 +40,13 @@ public class StoreTest {
 
     @Test
     public void deleteProduct(){
-        store.deleteProduct(0);
-        Mockito.verify(productMapperMock).delete(0);
+        store.deleteProduct("a1");
+        Mockito.verify(productMapperMock).delete("a1");
     }
 
     @Test
     public void modifyProduct(){
-        store.modifyProduct(0,productMock);
+        store.modifyProduct("a1",productMock);
         Mockito.verify(productMapperMock).update(productMock);
     }
 
