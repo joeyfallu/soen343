@@ -53,8 +53,9 @@
             <h3>Total Price: {{subtotal}}</h3>
         </div>
         <div ng-if="emptyCart == false">
-            <div class="col-md-6" style="margin-top: 20px;" ng-click="finishTransaction()">
-                <button class="btn btn-success">Checkout</button>
+            <div class="col-md-6" style="margin-top: 20px;">
+                <button class="btn btn-danger" style="margin-right:30px;" ng-click="cancelTransaction()">Cancel</button>
+                <button class="btn btn-success" ng-click="finishTransaction()">Checkout</button>
             </div>
         </div>
     </div>
