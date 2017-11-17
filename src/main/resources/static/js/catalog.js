@@ -26,7 +26,7 @@ angular.module('app')
 
             $http.get('/get/products').then((res) => {
             $scope.itemsInventory = res.data;
-
+            console.log($scope.itemsInventory);
             for(var key in $scope.cartItems){
                 console.log($scope.cartItems[key].cartProducts);
                 for(var cartItemId in $scope.cartItems[key].cartProducts){
@@ -58,13 +58,13 @@ angular.module('app')
 
         };
 
-        $scope.addToCart = function(itemId){
+        $scope.addToCart = function(serialNumber){
             // https://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
             $('#itemView').modal('hide');
             $(".modal-backdrop").hide();
 
             const addToCartUrl = '/post/addToCart';
-            $http.post(addToCartUrl, itemId).then((res) => {
+            $http.post(addToCartUrl, serialNumber).then((res) => {
                 if(res.data.message == "Too many items in the cart"){
                     alert("There are too many items in the cart\nMax items is 7 this item was not added");
                 }
@@ -73,10 +73,10 @@ angular.module('app')
                     //300 seconds * 1000 milliseconds
                     expireDate.setTime(expireDate.getTime() + (300*1000));
 
-                    $cookies.put(itemId, itemId, {'expires': expireDate})
+                    $cookies.put(serialNumber, serialNumber, {'expires': expireDate})
 
                     for(var i = 0; i < $scope.itemsInventory.length; i++){
-                        if($scope.itemsInventory[i].id == itemId){
+                        if($scope.itemsInventory[i].serialNumber == serialNumber){
                             $scope.itemsInventory.splice(i,1);
                         }
                     }
@@ -180,8 +180,8 @@ angular.module('app')
         }
 
         /* Item details */
-        $scope.getItemDetails = function(itemId) {
-            const urlItem = '/getItem/' + itemId;
+        $scope.getItemDetails = function(serialNumber) {
+            const urlItem = '/getItem/' + serialNumber;
             $http.get(urlItem).then((res) => {
                 console.log(res.data);
                 delete res.data.id;

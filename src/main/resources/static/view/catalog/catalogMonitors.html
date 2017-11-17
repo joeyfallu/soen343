@@ -27,11 +27,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemView"
-                                    ng-click="getItemDetails(item.id)">
+                                    ng-click="getItemDetails(item.serialNumber)">
                                 <span class="glyphicon glyphicon-info-sign"></span> Details
                             </button>
                         </div>
-                        <div class="col-md-6" ng-click="addToCart(item.id)">
+                        <div class="col-md-6" ng-click="addToCart(item.serialNumber)">
                             <button class="btn btn-success" ng-show="getIsAdmin() == 0">
                                 <span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart
                             </button>
