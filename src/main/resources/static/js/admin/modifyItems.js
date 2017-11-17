@@ -5,15 +5,15 @@ angular.module('app').controller('modifyItemsController', function ($scope, $htt
     /* Form submission */
     $scope.getProdInfo = function () {
         $scope.message = "";
-        let id = $scope.mId;
-        let urlProduct = '/getItemModify/' + id;
+        let modelNumber = $scope.modelNumber;
+        let urlProduct = '/getItemModify/' + modelNumber;
         $scope.itemData = [];
 
         $http.get(urlProduct)
             .then((res) => {
                 console.log(res.data);
                 if (res.data.message == 'Item Does Not Exist') {
-                    $scope.message = "Product with ID: " + $scope.mId + " does not exist.";
+                    $scope.message = "Product with Model Number: " + $scope.modelNumber + " does not exist.";
                 }
                 $scope.itemData = res.data;
                 console.log($scope.itemData);
@@ -22,7 +22,7 @@ angular.module('app').controller('modifyItemsController', function ($scope, $htt
     };
     $scope.modifyMonitor = function () {
         let data = {
-            id: $scope.itemData.id,
+            serialNumber: $scope.itemData.serialNumber,
             discriminator: "2",
             model: $scope.itemData.model,
             weight: $scope.itemData.weight,
@@ -38,7 +38,7 @@ angular.module('app').controller('modifyItemsController', function ($scope, $htt
     };
     $scope.modifyTablet = function () {
         let data = {
-            id: $scope.itemData.id,
+            serialNumber: $scope.itemData.serialNumber,
             discriminator: "3",
             model: $scope.itemData.model,
             weight: $scope.itemData.weight,
@@ -61,7 +61,7 @@ angular.module('app').controller('modifyItemsController', function ($scope, $htt
     };
     $scope.modifyDesktop = function () {
         let data = {
-            id: $scope.itemData.id,
+            serialNumber: $scope.itemData.serialNumber,
             discriminator: "4",
             model: $scope.itemData.model,
             weight: $scope.itemData.weight,
@@ -80,7 +80,7 @@ angular.module('app').controller('modifyItemsController', function ($scope, $htt
     };
     $scope.modifyLaptop = function () {
         let data = {
-            id: $scope.itemData.id,
+            serialNumber: $scope.itemData.serialNumber,
             discriminator: "5",
             model: $scope.itemData.model,
             weight: $scope.itemData.weight,

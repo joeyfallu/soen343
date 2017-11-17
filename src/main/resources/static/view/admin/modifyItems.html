@@ -6,9 +6,9 @@
             <form name="modifyItems" ng-submit="getProdInfo()" role="form">
                 <h3 style="margin-bottom: 25px; text-align: center;">Modify Items</h3>
                 <div class="form-group">
-                    <label>Please enter the ID of the item you wish to modify:</label>
+                    <label>Please enter the Model Number of the item you wish to modify:</label>
                     <!--<input type="number" class="form-control" id="modifyID" placeholder="ID" ng-model="mId" required="" autofocus=""/> -->
-                    <input type="number" class="form-control" ng-model="mId" required="" autofocus=""/>
+                    <input class="form-control" ng-model="modelNumber" required="" autofocus=""/>
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Modify</button>
@@ -21,8 +21,6 @@
             <div ng-switch-when="2">
                 <form name="modifyMonitorForm" class="css-form" ng-submit="modifyMonitor()">
                     <h2>Modify a Monitor:</h2>
-                    <label>Model Number</label>
-                    <input type="text" class="form-control"  ng-model="itemData.model" pattern="[\d\w]+"/>
                     <label>Brand</label>
                     <input type="text" class="form-control"  ng-model="itemData.brand" />
                     <label>Size (in inches)</label>
@@ -38,8 +36,6 @@
             <div ng-switch-when="3">
                 <form name="modifyTabletForm" class="css-form" ng-submit="modifyTablet()">
                     <h2>Modify a Tablet:</h2>
-                    <label>Model Number</label>
-                    <input type="text" class="form-control"  ng-model="itemData.model" pattern="[\d\w]+"/>
                     <label>Brand</label>
                     <input type="text" class="form-control"  ng-model="itemData.brand" />
                     <label>Size (in inches)</label>
@@ -71,8 +67,6 @@
             <div ng-switch-when="4">
                 <form name="modifyDesktopForm" class="css-form" ng-submit="modifyDesktop()">
                     <h2>Modify a Desktop:</h2>
-                    <label>Model Number</label>
-                    <input type="text" class="form-control"  ng-model="itemData.model" pattern="[\d\w]+"/>
                     <label>Brand</label>
                     <input type="text" class="form-control" ng-model="itemData.brand"/>
                     <label>Dimensions (in cm)</label>
@@ -96,8 +90,6 @@
             <div ng-switch-when="5">
                 <form name="modifyLaptopForm" class="css-form" ng-submit="modifyLaptop()">
                     <h2>Modify a Laptop:</h2>
-                    <label>Model Number</label>
-                    <input type="text" class="form-control"  ng-model="itemData.model" pattern="[\d\w]+"/>
                     <label>Brand</label>
                     <input type="text" class="form-control"  ng-model="itemData.brand" />
                     <label>Size (in inches)</label>
