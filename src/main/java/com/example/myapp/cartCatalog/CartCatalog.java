@@ -18,21 +18,19 @@ public class CartCatalog {
     }
 
     public void addCart(int userId){
-        Cart newCart = new Cart(userId,0,0,new HashMap<>());
+        Cart newCart = new Cart(userId,0,new HashMap<>());
         carts.put(newCart.getUserId(),newCart);
     }
 
     public void emptyCart(int userId) {
         Cart cart = carts.get(userId);
         cart.setSize(0);
-        cart.setTotal(0);
         Map<Integer, Date> cartProducts = cart.getCartProducts();
         cartProducts.clear();
     }
 
     public void addToCart(int userId, int itemId){
         Cart cart = carts.get(userId);
-
         Map<Integer, Date> cartProducts = cart.getCartProducts();
         cartProducts.put(itemId, new Date());
         cart.setSize(cart.getSize() + 1);

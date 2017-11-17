@@ -34,25 +34,25 @@ public class StoreTest {
 
     @Test
     public void addNewProduct(){
-        store.addNewProduct(0, productMock);
+        store.addNewProduct(productMock);
         Mockito.verify(productMapperMock).insert(productMock);
     }
 
     @Test
     public void deleteProduct(){
-        store.deleteProduct(0,0);
+        store.deleteProduct(0);
         Mockito.verify(productMapperMock).delete(0);
     }
 
     @Test
     public void modifyProduct(){
-        store.modifyProduct(0,0,productMock);
+        store.modifyProduct(0,productMock);
         Mockito.verify(productMapperMock).update(productMock);
     }
 
     @Test
     public void addNewUser(){
-        store.addNewUser(0, userMock);
+        store.addNewUser(userMock);
         Mockito.verify(userMapperMock).insert(userMock);
     }
 

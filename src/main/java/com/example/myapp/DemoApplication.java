@@ -13,11 +13,11 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
@@ -105,16 +105,19 @@ public class DemoApplication {
     /* LOGOUT */
     @RequestMapping(value = "/post/logout", method = RequestMethod.POST)
     @ResponseBody
-    public String logout(@RequestBody String json){
-        JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
-        int id = jobj.get("id").getAsInt();
+    public String logout(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
+        JsonObject jObject = new Gson().fromJson(json, JsonObject.class);
+        int id = jObject.get("id").getAsInt();
 
         if(store.getUserMapper().getUserCatalog().getUserById(id).getIsAdmin() == 0) {
             pointOfSale.cancelPurchase(id);
         }
 
         store.getUserMapper().getUserCatalog().removeActiveUserById(id);
-
+        if(!store.getTransaction().isComplete() && store.getTransaction().getUserId() == cookieId ) {
+            store.endTransaction();
+            System.out.println(cookieId);
+        }
         return "{\"message\":\"Logged Out\"}";
     }
 
@@ -145,9 +148,7 @@ public class DemoApplication {
     @ResponseBody
     public String getUsers(){
         Gson gson = new Gson();
-
         String json = gson.toJson(store.getUserMapper().getUserCatalog().getUsers());
-
         return json;
     }
 
@@ -159,8 +160,8 @@ public class DemoApplication {
         Gson gson = new Gson();
         Map<Integer, Product> products = store.getProductCatalog().getProducts();
         String product = gson.toJson(products.get(id));
-        if(product != null)
-            store.deleteProduct(cookieId,id);
+        if(product != null && store.getTransaction().getUserId() == cookieId)
+            store.deleteProduct(id);
         return product;
     }
 
@@ -184,8 +185,10 @@ public class DemoApplication {
             System.out.println("Adding user to database.");
             // Use a temporary ID to make a transaction while not logged in
             store.initiateTransaction(1000, Transaction.Type.add);
-            store.addNewUser(1000, user);
-            store.endTransaction(1000);
+            if(store.getTransaction().getUserId() == 1000) {
+                store.addNewUser(user);
+                store.endTransaction();
+            }
             return gson.toJson(json);
         } else {
             return "{\"message\":\"Duplicate\"}";
@@ -197,13 +200,14 @@ public class DemoApplication {
     @RequestMapping(value = "/post/deleteUser", method = RequestMethod.POST)
     @ResponseBody
     public void deleteUser(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
-        logout(json);
-
+        logout(json, cookieId);
         Gson gson = new Gson();
         User user = gson.fromJson(json, User.class);
         store.initiateTransaction(cookieId, Transaction.Type.delete);
-        store.deleteUser(cookieId, user);
-        store.endTransaction(cookieId);
+        if(store.getTransaction().getUserId() == cookieId) {
+            store.deleteUser(user);
+            store.endTransaction();
+        }
     }
 
     /* ADD ITEMS */
@@ -212,7 +216,8 @@ public class DemoApplication {
     public String addMonitor(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
-        store.addNewProduct(cookieId,monitor);
+        if(store.getTransaction().getUserId() == cookieId)
+            store.addNewProduct(monitor);
         return json;
     }
 
@@ -221,7 +226,8 @@ public class DemoApplication {
     public String addTablet(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product tablet = gson.fromJson(json, Tablet.class);
-        store.addNewProduct(cookieId,tablet);
+        if(store.getTransaction().getUserId() == cookieId)
+            store.addNewProduct(tablet);
         return json;
     }
 
@@ -230,7 +236,8 @@ public class DemoApplication {
     public String addDesktop(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product desktop = gson.fromJson(json, Desktop.class);
-        store.addNewProduct(cookieId,desktop);
+        if(store.getTransaction().getUserId() == cookieId)
+            store.addNewProduct(desktop);
         return json;
     }
 
@@ -239,7 +246,8 @@ public class DemoApplication {
     public String addLaptop(@RequestBody String json, @CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product laptop = gson.fromJson(json, Laptop.class);
-        store.addNewProduct(cookieId,laptop);
+        if(store.getTransaction().getUserId() == cookieId)
+            store.addNewProduct(laptop);
         return json;
     }
 
@@ -247,25 +255,21 @@ public class DemoApplication {
     @RequestMapping(value="/post/addToCart", method = RequestMethod.POST)
     @ResponseBody
     String addToCart(@RequestBody int itemId,@CookieValue("SESSIONID") int cookieId){
-
         //for now because on refresh cart wont get recreated until login
         if(pointOfSale.viewCart(cookieId) == null){
             pointOfSale.startPurchase(cookieId);
         }
-
         if(pointOfSale.viewCart(cookieId).getSize() >= 7){
             return "{\"message\":\"Too many items in the cart\"}";
         }
 
         pointOfSale.addCartItem(cookieId, itemId);
-
         return "{\"message\":\"Added to cart\"}";
     }
 
     @RequestMapping(value="/get/cart", method = RequestMethod.GET)
     @ResponseBody
     String getCart(@CookieValue("SESSIONID") int cookieId){
-
         //for now because on refresh cart wont get recreated until login
         if(pointOfSale.viewCart(cookieId) == null){
             pointOfSale.startPurchase(cookieId);
@@ -295,10 +299,6 @@ public class DemoApplication {
     @ResponseBody
     String removeFromCart(@RequestBody int itemId, @CookieValue("SESSIONID") int cookieId){
         pointOfSale.removeCartItem(cookieId, itemId);
-
-        store.getProductCatalog().addProduct(itemId, store.getProductMapper().get(itemId));
-
-        store.addNewProduct(cookieId,store.getProductMapper().get(itemId));
         return "{\"message\":\"Item Removed\"}";
     }
 
@@ -306,20 +306,25 @@ public class DemoApplication {
     @ResponseBody
     String purchaseCart(@CookieValue("SESSIONID") int cookieId){
 
-        pointOfSale.endPurchase(cookieId);
-
+        store.initiateTransaction(cookieId, Transaction.Type.purchase);
+        List<Integer> productsToPurchase = pointOfSale.endPurchase(cookieId);
+        store.endTransaction();
+        store.initiateTransaction(cookieId, Transaction.Type.delete);
+        for (Integer product : productsToPurchase)
+            store.deleteProduct(product);
+        store.endTransaction();
         return "{\"message\":\"Purchase Succesful\"}";
     }
 
 /*--stuff for modify--*/
-
 
     @RequestMapping(value = "/post/modifyMonitor", method = RequestMethod.POST)
     @ResponseBody
     String modifyMonitor(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
-        store.modifyProduct(cookieId,monitor.getId(), monitor);
+        if(store.getTransaction().getUserId() == cookieId)
+            store.modifyProduct(monitor.getId(), monitor);
         return gson.toJson(json);
     }
 
@@ -328,7 +333,8 @@ public class DemoApplication {
     String modifyTablet(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product tablet = gson.fromJson(json, Tablet.class);
-        store.modifyProduct(cookieId,tablet.getId(), tablet);
+        if(store.getTransaction().getUserId() == cookieId)
+            store.modifyProduct(tablet.getId(), tablet);
         return gson.toJson(json);
     }
 
@@ -337,7 +343,8 @@ public class DemoApplication {
     String modifyDesktop(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product desktop = gson.fromJson(json, Desktop.class);
-        store.modifyProduct(cookieId,desktop.getId(), desktop);
+        if(store.getTransaction().getUserId() == cookieId)
+            store.modifyProduct(desktop.getId(), desktop);
         return gson.toJson(json);
     }
 
@@ -346,18 +353,19 @@ public class DemoApplication {
     String modifyLaptop(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product laptop = gson.fromJson(json, Laptop.class);
-        store.modifyProduct(cookieId,laptop.getId(), laptop);
+        if(store.getTransaction().getUserId() == cookieId)
+            store.modifyProduct(laptop.getId(), laptop);
         return gson.toJson(json);
     }
-
-
 
     /* TRANSACTIONS */
     @RequestMapping(value = "/get/endTransaction", method = RequestMethod.GET)
     @ResponseBody
     public void endTransaction(@CookieValue("SESSIONID") int cookieId) {
-        System.out.println("Ending transaction");
-        store.endTransaction(cookieId);
+        if(store.getTransaction().getUserId() == cookieId) {
+            System.out.println("Ending transaction");
+            store.endTransaction();
+        }
     }
 
     @RequestMapping(value = "/get/startAddTransaction", method = RequestMethod.GET)
@@ -388,10 +396,6 @@ public class DemoApplication {
         Gson gson = new Gson();
         Map<Integer, Purchase> userPurchases = new HashMap<>();
         for (Map.Entry<Integer, Purchase> purchase : pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().entrySet()) {
-            //Code is potentially not secure
-            //If the user uses a cookie manager, he could view other people's purchase history
-            //by changing userId stored in the cookie to another user's cookie.
-            //In a real production environment, proper cookie encryption is needed.
             if(purchase.getValue().getUserId() == cookieId) {
                 userPurchases.put(purchase.getKey(), purchase.getValue());
             }
@@ -402,17 +406,24 @@ public class DemoApplication {
     @RequestMapping(value="/get/returnItem/{itemId}", method = RequestMethod.GET)
     @ResponseBody
     String returnItem(@PathVariable(value="itemId") int itemId, @CookieValue("SESSIONID") int cookieId){
+        Purchase purchase = pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().get(itemId);
         //Check that item exists
-        if(pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().get(itemId) == null){
+        if(purchase == null){
             //Error: Item not in purchase history
             return "{\"message\":\" Item not in purchase history\"}";
         } else {
-            if(pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().get(itemId).getUserId() != cookieId){
+            if(purchase.getUserId() != cookieId){
                 //Error: User trying to return is not the buyer
                 return "{\"message\":\"User trying to return is not the buyer\"}";
             } else {
                 //Item Returned Successfully
+                Product productToReturn = purchase.getProduct();
+                store.initiateTransaction(cookieId, Transaction.Type.returnItem);
                 pointOfSale.processReturn(cookieId, itemId);
+                store.endTransaction();
+                store.initiateTransaction(cookieId, Transaction.Type.add);
+                store.addNewProduct(productToReturn);
+                store.endTransaction();
                 return "{\"message\":\"Item "+ itemId +" Returned Successfully\"}";
             }
         }

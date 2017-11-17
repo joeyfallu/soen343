@@ -3,7 +3,6 @@ package com.example.myapp.database;
 import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
 import com.example.myapp.transactions.Transaction;
-
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -14,11 +13,10 @@ public class ProductMapper {
     private ProductIdentityMap productIdentityMap;
     private ProductTDG productTDG;
     private ProductCatalog productCatalog;
-    private Transaction.Type commitType= Transaction.Type.add;
-    private int mapCount=0;
+    private Transaction.Type commitType = Transaction.Type.add;
+    private int mapCount = 0;
 
-    public ProductMapper()
-    {
+    public ProductMapper() {
         this.productTDG = new ProductTDG();
         this.productCatalog = new ProductCatalog();
         this.productIdentityMap = new ProductIdentityMap();
@@ -31,23 +29,21 @@ public class ProductMapper {
         this.productIdentityMap = new ProductIdentityMap();
     }
 
-    public void insert(Product product){
+    public void insert(Product product) {
         commitType = Transaction.Type.add;
         productIdentityMap.insertProductById(mapCount, product);
         mapCount++;
     }
 
-    public void insertProductCatalog(int k, Product p)
-    {
-        productCatalog.addProduct(k,p);
+    public void insertProductCatalog(int id, Product product) {
+        productCatalog.addProduct(id, product);
     }
 
-    public void modifyProductCatalog(int k, Product p)
-    {
-        productCatalog.modifyProduct(k,p);
+    public void modifyProductCatalog(int id, Product product) {
+        productCatalog.modifyProduct(id, product);
     }
 
-    public void update(Product product){
+    public void update(Product product) {
         commitType = Transaction.Type.modify;
         productIdentityMap.insertProductById(mapCount, product);
         mapCount++;
@@ -55,27 +51,25 @@ public class ProductMapper {
 
     public void delete(int id) {
         commitType = Transaction.Type.delete;
-        Product empty = new Product(0,"",0,0,"",0);
+        Product empty = new Product(0, "", 0, 0, "", 0);
         empty.setId(id);
         productIdentityMap.insertProductById(mapCount, empty);
         mapCount++;
     }
 
-    public void deleteByIdProductCatalog(int k)
-    {
-        productCatalog.deleteProduct(k);
+    public void deleteByIdProductCatalog(int id) {
+        productCatalog.deleteProduct(id);
     }
 
-    public Product get(int id){
+    public Product get(int id) {
 
         Product product = productIdentityMap.getProductById(id);
 
-        if(product == null){
+        if (product == null) {
             try {
                 product = productTDG.dbGet(id);
                 productIdentityMap.insertProductById(id, product);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 //do nothing
             }
         }
@@ -83,22 +77,21 @@ public class ProductMapper {
         return product;
     }
 
-    public Map<Integer, Product> getAll(){
+    public Map<Integer, Product> getAll() {
 
 
         Product currentProducts[];
 
-            try{
-                currentProducts = productTDG.dbGetAll();
+        try {
+            currentProducts = productTDG.dbGetAll();
 
-                for(int i = 0; i < currentProducts.length; i++){
-                    productCatalog.addProduct(currentProducts[i].getId(), currentProducts[i]);
-                }
+            for (int i = 0; i < currentProducts.length; i++) {
+                productCatalog.addProduct(currentProducts[i].getId(), currentProducts[i]);
+            }
 
-            }
-            catch (Exception e){
-                //do nothing
-            }
+        } catch (Exception e) {
+            //do nothing
+        }
 
         return productCatalog.getProducts();
     }
@@ -107,9 +100,8 @@ public class ProductMapper {
         return productTDG;
     }
 
-    public void commit()
-    {
-        mapCount=0;
+    public void commit() {
+        mapCount = 0;
     }
 
     public ProductCatalog getProductCatalog() {
