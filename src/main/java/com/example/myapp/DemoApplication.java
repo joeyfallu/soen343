@@ -336,11 +336,12 @@ public class DemoApplication {
     String modifyMonitor(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
+        System.out.println(monitor.toString());
         if(store.getTransaction().getUserId() == cookieId) {
             Map products = store.getProductCatalog().getProducts();
             for(Map.Entry<String, Product> entry : store.getProductCatalog().getProducts().entrySet())
             {
-                if (entry.getValue().getModel()== monitor.getModel())
+                if (entry.getValue().getModel().equals(monitor.getModel()))
                 {
                     store.modifyProduct(entry.getValue().getSerialNumber(),monitor);
                 }
