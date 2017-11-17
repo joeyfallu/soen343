@@ -48,6 +48,8 @@ angular.module('app')
                             $scope.cart.splice(i,1)
                         }
                     }
+                    if($scope.cart.length == 0)
+                        $scope.emptyCart = true;
                 }).catch((err) => {
                     console.log("ERROR:");
                     console.log(err);
@@ -65,6 +67,7 @@ angular.module('app')
                 $scope.cart = [];
                 $scope.subtotal = 0;
                 alert("Your Purchase has been canceled");
+                $scope.emptyCart = true;
             }).catch((err) => {
                 console.log("ERROR");
                 console.log(err);
@@ -88,6 +91,7 @@ angular.module('app')
                     console.log("Purchase Succesful");
                     $scope.cart = [];
                     $scope.subtotal = 0;
+                    $scope.emptyCart = true;
                 }).catch((err) =>{
                     console.log("ERROR");
                     console.log(err);

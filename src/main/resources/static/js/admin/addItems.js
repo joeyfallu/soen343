@@ -12,6 +12,9 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
     $scope.isDesktopMsgAvailable = false;
     $scope.isLaptopMessageAvailable = false;
 
+    //holds the value of the form to be displayed. Default is 2 which is monitor.
+    $scope.selectedForm = 2;
+
     $scope.addMonitor = function () {
         let data = {
             id: "0",

@@ -1,8 +1,28 @@
 <div class="container">
+    <!-- Menu Idea with buttons.. I didn't like it compared to navs
+    <div class="btn-group-lg col-md-8 col-md-offset-2" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary" ng-click="selectedForm = 2;">Monitor</button>
+        <button type="button" class="btn btn-secondary" ng-click="selectedForm = 3;">Tablet</button>
+        <button type="button" class="btn btn-secondary" ng-click="selectedForm = 4;">Desktop</button>
+        <button type="button" class="btn btn-secondary" ng-click="selectedForm = 5;">Laptop</button>
+    </div> -->
+    <ul class="nav nav-tabs col-md-8 col-md-offset-2">
+        <li class="nav-item">
+            <a class="nav-link" ng-click="selectedForm = 2;">Monitor</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" ng-click="selectedForm = 3;">Tablet</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" ng-click="selectedForm = 4;">Desktop</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" ng-click="selectedForm = 5;">Laptop</a>
+        </li>
+    </ul>
     <div class="col-md-8 col-md-offset-2">
         <div class="form-area">
-
-            <form name="monitor" class="css-form" ng-submit="addMonitor()">
+            <form name="monitor" class="css-form" ng-submit="addMonitor()" ng-if="selectedForm == 2">
                 <h2>Add a Monitor:</h2>
 
                 <label for="monitorModelNumInput">Model Number</label>
@@ -30,7 +50,7 @@
             </form>
 
             <!-- TODO cleanup -->
-            <form name="tablet" class="css-form" ng-submit="addTablet()">
+            <form name="tablet" class="css-form" ng-submit="addTablet()" ng-if="selectedForm == 3">
                 <h2>Add a Tablet:</h2>
                 <label>Model Number</label>
                 <input type="text" class="form-control" ng-model="tabletModelNumber" required="" autofocus="" pattern="[\d\w]+"/>
@@ -64,7 +84,7 @@
                 </div>
             </form>
 
-            <form name="desktop" class="css-form" ng-submit="addDesktop()">
+            <form name="desktop" class="css-form" ng-submit="addDesktop()" ng-if="selectedForm == 4">
                 <h2>Add a Desktop:</h2>
                 <label>Model Number</label>
                 <input type="text" class="form-control" ng-model="desktopModelNumber" required="" autofocus="" pattern="[\d\w]+"/>
@@ -78,6 +98,8 @@
                 <input type="text" class="form-control" ng-model="desktopProcessor" required=""/>
                 <label>Number of CPU Cores</label>
                 <input type="text" class="form-control" ng-model="desktopCores" required="" pattern="\d+"/>
+                <label>RAM Size (in Gigabytes)</label>
+                <input type="text" class="form-control" ng-model="desktopRam" required="" pattern="\d+(\.\d+)?"/>
                 <label>Hard Drive Size (in Gigabytes)</label>
                 <input type="text" class="form-control" ng-model="desktopHardDriveSize" required="" pattern="\d+(\.\d+)?"/>
                 <label>Price </label>
@@ -88,7 +110,7 @@
                 </div>
             </form>
 
-            <form name="laptop" class="css-form" ng-submit="addLaptop()">
+            <form name="laptop" class="css-form" ng-submit="addLaptop()" ng-if="selectedForm == 5">
                 <h2>Add a Laptop:</h2>
                 <label>Model Number</label>
                 <input type="text" class="form-control" ng-model="laptopModelNumber" required="" autofocus="" pattern="[\d\w]+"/>
@@ -124,7 +146,7 @@
                 </div>
             </form>
 
-            <br/><a ng-href="admin"><button class="btn btn-block">Finish</button></a>
+            <br/><a ng-href="admin"><button class="btn btn-block">Save All Changes</button></a>
 
         </div>
     </div>

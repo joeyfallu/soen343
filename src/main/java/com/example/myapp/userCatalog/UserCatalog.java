@@ -28,7 +28,7 @@ public class UserCatalog {
     public User login(String email, String password) throws Exception {
         //Checks if the provided email password pair matches a user entry inside the users HashMap
         for (Map.Entry<Integer, User> entry : users.entrySet()) {
-            if(entry.getValue().getEmail().equals(email)) {
+            if(entry.getValue().getEmail().toLowerCase().equals(email.toLowerCase())) {
                 if (entry.getValue().getPassword().equals(password)) {
                     if (activeUsers.get(entry.getValue().getId()) != null)
                         throw new Exception("User already logged in");
