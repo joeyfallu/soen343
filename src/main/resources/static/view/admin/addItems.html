@@ -25,22 +25,26 @@
             <form name="monitor" class="css-form" ng-submit="addMonitor()" ng-if="selectedForm == 2">
                 <h2>Add a Monitor:</h2>
 
+                <label for="serialMonitorInput">Serial Number</label>
+                <input type="text" class="form-control" ng-model="$parent.monitorSerialNumber" required="" autofocus="" id="serialMonitorInput"
+                       pattern="[\d\w]+"/>
+
                 <label for="monitorModelNumInput">Model Number</label>
-                <input type="text" class="form-control" ng-model="monitorModelNumber" required="" autofocus="" id="monitorModelNumInput"
+                <input type="text" class="form-control" ng-model="$parent.monitorModelNumber" required="" autofocus="" id="monitorModelNumInput"
                 pattern="[\d\w]+"/>
 
                 <label for="monitorBrandInput">Brand</label>
-                <input type="text" class="form-control" ng-model="monitorBrand" required="" id="monitorBrandInput"/>
+                <input type="text" class="form-control" ng-model="$parent.monitorBrand" required="" id="monitorBrandInput"/>
 
                 <label for="monitorSizeInput">Size (in inches)</label>
-                <input type="text" class="form-control" ng-model="monitorSize" required="" id="monitorSizeInput" pattern="\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.monitorSize" required="" id="monitorSizeInput" pattern="\d+(\.\d+)?"/>
 
                 <label for="monitorWeightInput">Weight (in kg)</label>
-                <input type="text" class="form-control" ng-model="monitorWeight" required="" id="monitorWeightInput"
+                <input type="text" class="form-control" ng-model="$parent.monitorWeight" required="" id="monitorWeightInput"
                        pattern="\d+(\.\d+)?"/>
 
                 <label for="monitorPriceInput">Price</label>
-                <input type="text" class="form-control" ng-model="monitorPrice" required="" id="monitorPriceInput"
+                <input type="text" class="form-control" ng-model="$parent.monitorPrice" required="" id="monitorPriceInput"
                 pattern="\d+(\.\d+)?"/>
 
                 <br/><button type="submit" class="btn btn-block">Submit</button>
@@ -52,6 +56,9 @@
             <!-- TODO cleanup -->
             <form name="tablet" class="css-form" ng-submit="addTablet()" ng-if="selectedForm == 3">
                 <h2>Add a Tablet:</h2>
+                <label for="serialTabletInput">Serial Number</label>
+                <input type="text" class="form-control" ng-model="$parent.tabletSerialNumber" required="" autofocus="" id="serialTabletInput"
+                       pattern="[\d\w]+"/>
                 <label>Model Number</label>
                 <input type="text" class="form-control" ng-model="tabletModelNumber" required="" autofocus="" pattern="[\d\w]+"/>
                 <label>Brand</label>
@@ -86,6 +93,9 @@
 
             <form name="desktop" class="css-form" ng-submit="addDesktop()" ng-if="selectedForm == 4">
                 <h2>Add a Desktop:</h2>
+                <label for="serialDesktopInput">Serial Number</label>
+                <input type="text" class="form-control" ng-model="$parent.desktopSerialNumber" required="" autofocus="" id="serialDesktopInput"
+                       pattern="[\d\w]+"/>
                 <label>Model Number</label>
                 <input type="text" class="form-control" ng-model="desktopModelNumber" required="" autofocus="" pattern="[\d\w]+"/>
                 <label>Brand</label>
@@ -112,6 +122,9 @@
 
             <form name="laptop" class="css-form" ng-submit="addLaptop()" ng-if="selectedForm == 5">
                 <h2>Add a Laptop:</h2>
+                <label for="serialLaptopInput">Serial Number</label>
+                <input type="text" class="form-control" ng-model="$parent.laptopSerialNumber" required="" autofocus="" id="serialLaptopInput"
+                       pattern="[\d\w]+"/>
                 <label>Model Number</label>
                 <input type="text" class="form-control" ng-model="laptopModelNumber" required="" autofocus="" pattern="[\d\w]+"/>
                 <label>Brand</label>

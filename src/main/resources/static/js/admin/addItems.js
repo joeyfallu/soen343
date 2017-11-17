@@ -17,7 +17,7 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
 
     $scope.addMonitor = function () {
         let data = {
-            id: "0",
+            serialNumber: $scope.monitorSerialNumber,
             model: $scope.monitorModelNumber,
             weight: $scope.monitorWeight,
             price: $scope.monitorPrice,
@@ -38,7 +38,7 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
 
     $scope.addTablet = function () {
         let data = {
-            id: "0",
+            serialNumber: $scope.tabletSerialNumber,
             model: $scope.tabletModelNumber,
             weight: $scope.tabletWeight,
             price: $scope.tabletPrice,
@@ -67,7 +67,7 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
 
     $scope.addDesktop = function () {
         let data = {
-            id: "0",
+            serialNumber: $scope.desktopSerialNumber,
             model: $scope.desktopModelNumber,
             weight: $scope.desktopWeight,
             price: $scope.desktopPrice,
@@ -92,7 +92,7 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
 
     $scope.addLaptop = function () {
         let data = {
-            id: "0",
+            serialNumber: $scope.laptopSerialNumber,
             model: $scope.laptopModelNumber,
             weight: $scope.laptopWeight,
             price: $scope.laptopPrice,
