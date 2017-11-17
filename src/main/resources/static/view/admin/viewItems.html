@@ -12,10 +12,10 @@
                                             filter: lessThan('price', filters.lessThanValPrice) ">
                 <!-- | filter: greaterThan('size', search3) -->
             <div class="panel panel-primary">
-                <div ng-if="item.discriminator == 2" class="panel-heading"><a href="viewItems/{{item.id}}">Monitor</a></div>
-                <div ng-if="item.discriminator == 3" class="panel-heading"><a href="viewItems/{{item.id}}">Tablet</a></div>
-                <div ng-if="item.discriminator == 4" class="panel-heading"><a href="viewItems/{{item.id}}">Desktop</a></div>
-                <div ng-if="item.discriminator == 5" class="panel-heading"><a href="viewItems/{{item.id}}">Laptop</a></div>
+                <div ng-if="item.discriminator == 2" class="panel-heading"><a href="viewItems/{{item.serialNumber}}">Monitor</a></div>
+                <div ng-if="item.discriminator == 3" class="panel-heading"><a href="viewItems/{{item.serialNumber}}">Tablet</a></div>
+                <div ng-if="item.discriminator == 4" class="panel-heading"><a href="viewItems/{{item.serialNumber}}">Desktop</a></div>
+                <div ng-if="item.discriminator == 5" class="panel-heading"><a href="viewItems/{{item.serialNumber}}">Laptop</a></div>
                 <div class="panel-body">
                     <ul style="list-style-type: none;">
                         <li ng-repeat="(key,value) in item" ng-if="key != 'discriminator' && key != 'id'">

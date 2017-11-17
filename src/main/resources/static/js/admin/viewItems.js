@@ -54,7 +54,7 @@ angular.module('app').controller('viewItemsCtrl', function ($scope, $http, $loca
             $scope.actions = {
                 sort: function(selectedItem){
                     if (selectedItem === 'Show All' ){
-                        $scope.select = 'id';
+                        $scope.select = 'serialNumber';
                     }
                     if (selectedItem === 'Most Expensive' ){
                         $scope.select = '-price';
@@ -63,10 +63,10 @@ angular.module('app').controller('viewItemsCtrl', function ($scope, $http, $loca
                         $scope.select = 'price';
                     }
                     if (selectedItem === 'Most Recent' ){
-                        $scope.select = '-id';
+                        $scope.select = '-serialNumber';
                     }
                     if (selectedItem === 'Least Recent' ){
-                     $scope.select = 'id';
+                     $scope.select = 'serialNumber';
                     }
                     if (selectedItem === 'Heaviest' ){
                         $scope.select = '-weight';
