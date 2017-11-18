@@ -40,7 +40,6 @@ public class ProductCatalog {
     }
 
     public void modifyProduct(String serialNumber, Product prod){
-        System.out.print(prod.toString());
         products.remove(serialNumber);
         prod.setSerialNumber(serialNumber); //making sure to modify the good product
         this.addProduct(prod.getSerialNumber(),prod);

@@ -336,14 +336,13 @@ public class DemoApplication {
     String modifyMonitor(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
-        System.out.println(monitor.toString());
         if(store.getTransaction().getUserId() == cookieId) {
             Map products = store.getProductCatalog().getProducts();
             for(Map.Entry<String, Product> entry : store.getProductCatalog().getProducts().entrySet())
             {
                 if (entry.getValue().getModel().equals(monitor.getModel()))
                 {
-                    store.modifyProduct(entry.getValue().getSerialNumber(),monitor);
+                    store.modifyProduct(entry.getValue().getSerialNumber(),gson.fromJson(json, Monitor.class));
                 }
             }
 
@@ -356,8 +355,16 @@ public class DemoApplication {
     String modifyTablet(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product tablet = gson.fromJson(json, Tablet.class);
-        if(store.getTransaction().getUserId() == cookieId)
-            store.modifyProduct(tablet.getSerialNumber(), tablet);
+        if(store.getTransaction().getUserId() == cookieId){
+            Map products = store.getProductCatalog().getProducts();
+            for(Map.Entry<String, Product> entry : store.getProductCatalog().getProducts().entrySet())
+            {
+                if (entry.getValue().getModel().equals(tablet.getModel()))
+                {
+                    store.modifyProduct(entry.getValue().getSerialNumber(),tablet);
+                }
+            }
+        }
         return gson.toJson(json);
     }
 
@@ -366,8 +373,17 @@ public class DemoApplication {
     String modifyDesktop(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product desktop = gson.fromJson(json, Desktop.class);
-        if(store.getTransaction().getUserId() == cookieId)
-            store.modifyProduct(desktop.getSerialNumber(), desktop);
+        if(store.getTransaction().getUserId() == cookieId){
+            Map products = store.getProductCatalog().getProducts();
+            for(Map.Entry<String, Product> entry : store.getProductCatalog().getProducts().entrySet())
+            {
+                if (entry.getValue().getModel().equals(desktop.getModel()))
+                {
+                    store.modifyProduct(entry.getValue().getSerialNumber(),desktop);
+                }
+            }
+        }
+
         return gson.toJson(json);
     }
 
@@ -376,7 +392,16 @@ public class DemoApplication {
     String modifyLaptop(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
         Gson gson = new Gson();
         Product laptop = gson.fromJson(json, Laptop.class);
-        if(store.getTransaction().getUserId() == cookieId)
+        if(store.getTransaction().getUserId() == cookieId){
+            Map products = store.getProductCatalog().getProducts();
+            for(Map.Entry<String, Product> entry : store.getProductCatalog().getProducts().entrySet())
+            {
+                if (entry.getValue().getModel().equals(laptop.getModel()))
+                {
+                    store.modifyProduct(entry.getValue().getSerialNumber(),laptop);
+                }
+            }
+        }
             store.modifyProduct(laptop.getSerialNumber(), laptop);
         return gson.toJson(json);
     }

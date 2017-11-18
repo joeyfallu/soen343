@@ -155,7 +155,7 @@ public class ProductTDG {
                     "`brand` = '"+mn.getBrand()+"',\n" +
                     "`size` = '"+mn.getSize()+"',\n" +
                     "`discriminator` = '2'\n" +
-                    "WHERE `serialNumber` = "+ serialNumber +";\n";
+                    "WHERE `serialNumber` = '"+ serialNumber +"';\n";
         }
         if(pro instanceof Tablet){
             Tablet tb = (Tablet)pro;
@@ -175,7 +175,7 @@ public class ProductTDG {
                     "`operatingSystem` = '"+tb.getOperatingSystem()+"',\n" +
                     "`cameraInfo` = '"+tb.getCameraInfo()+"',\n" +
                     "`discriminator` = '3'\n" +
-                    "WHERE `serialNumber` = "+ serialNumber +";\n";
+                    "WHERE `serialNumber` = '"+ serialNumber +"';\n";
         }
         if(pro instanceof Desktop){
             Desktop dt = (Desktop)pro;
@@ -191,7 +191,7 @@ public class ProductTDG {
                     "`ram` = '"+dt.getRam()+"',\n" +
                     "`hardDriveSize` = '"+dt.getHardDriveSize()+"',\n" +
                     "`discriminator` = '4'\n" +
-                    "WHERE `serialNumber` = "+ serialNumber +";\n";
+                    "WHERE `serialNumber` = '"+ serialNumber +"';\n";
         }
         if(pro instanceof Laptop){
             Laptop lp = (Laptop)pro;
@@ -211,9 +211,8 @@ public class ProductTDG {
                     "`cameraInfo` = '"+lp.getCamera()+"',\n" +
                     "`touchScreen` = '"+lp.getTouchScreen()+"',\n" +
                     "`discriminator` = '5'\n" +
-                    "WHERE `serialNumber` = "+ serialNumber +";\n";
+                    "WHERE `serialNumber` = '"+ serialNumber +"';\n";
         }
-
         statement.executeUpdate(sql);
        // statement.executeQuery(sql);
     }
