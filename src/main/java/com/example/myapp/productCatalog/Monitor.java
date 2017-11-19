@@ -22,4 +22,14 @@ public class Monitor extends Product {
     public void setSize(int size) {
         this.size = size;
     }
+
+    public boolean equals(Monitor monitor)
+    {
+        boolean check = true;
+        if (this.size!=monitor.size){check = false;}
+        if (!this.getBrand().equals(monitor.getBrand())){check=false;}
+        if (this.getPrice()!=monitor.getPrice()){check=false;}
+        if (this.getWeight()!=monitor.getWeight()){check=false;}
+        return check;
+    }
 }

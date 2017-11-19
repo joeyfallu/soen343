@@ -233,7 +233,25 @@ public class DemoApplication {
         Gson gson = new Gson();
         Product monitor = gson.fromJson(json, Monitor.class);
         if(store.getTransaction().getUserId() == cookieId)
+        {
+            Map products = store.getProductCatalog().getProducts();
+            if (products.containsKey(monitor.getSerialNumber()))
+            {
+                return "{\"message\":\"Duplicate serial number, this Serial number is already in use\"}";
+            }
+            for(Map.Entry<String, Product> entry : store.getProductCatalog().getProducts().entrySet())
+            {
+                if (entry.getValue().getModel().equals(monitor.getModel()))
+                {
+                    if(entry.getValue() instanceof Monitor){
+                        if(((Monitor)entry.getValue()).equals((Monitor)monitor)){break;}
+                    }
+                    return "{\"message\":\"The specification does not match the expected values for this model number\"}";
+                }
+            }
             store.addNewProduct(monitor);
+            return "{\"message\":\"Successfuly added new monitor\"}";
+        }
         return json;
     }
 

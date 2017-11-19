@@ -27,8 +27,11 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
         };
 
         $http.post("/post/addMonitor", data).then((res) => {
+
+
             $scope.isMonitorMsgAvailable = true;
             $scope.monitorMessage = "Successfully added monitor with model: " + res.data.model;
+            $scope.monitorMessage = res.data.message;
         }).catch((err) => {
             console.log("ERROR:");
             console.log(err);
