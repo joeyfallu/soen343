@@ -144,17 +144,20 @@ public class DemoApplication {
         }
     }
 
-    @RequestMapping(value = "/getItemModify/{serialNumber}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getItemModify/{modelNumber}", method = RequestMethod.GET)
     @ResponseBody
-    public String getModifiedProductSerialNumber(@PathVariable("serialNumber") String serialNumber) {
+    public String getModifiedProductSerialNumber(@PathVariable("modelNumber") String modelNumber) {
         Gson gson = new Gson();
         Map<String, Product> items = store.getProductCatalog().getProducts();
-        if (items.get(serialNumber) != null) {
-            return gson.toJson(items.get(serialNumber));
+        for(Map.Entry<String, Product> entry : store.getProductCatalog().getProducts().entrySet())
+        {
+            if (entry.getValue().getModel().equals(modelNumber))
+            {
+               return gson.toJson(items.get( entry.getValue().getSerialNumber()));
+            }
         }
-        else{
             return "{\"message\":\"Item Does Not Exist\"}";
-        }
+
     }
 
     /* VIEW USERS */
