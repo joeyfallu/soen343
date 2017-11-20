@@ -547,7 +547,7 @@ public class DemoApplication {
                 //Item Returned Successfully
                 Product productToReturn = purchase.getProduct();
                 store.initiateTransaction(cookieId, Transaction.Type.returnItem);
-                pointOfSale.processReturn(cookieId, serialNumber);
+                pointOfSale.processReturn(serialNumber);
                 store.endTransaction();
                 store.initiateTransaction(cookieId, Transaction.Type.add);
                 store.addNewProduct(productToReturn);

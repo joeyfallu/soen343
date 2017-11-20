@@ -59,7 +59,7 @@ public class PointOfSale {
         return serials;
     }
 
-    public void processReturn(int userId, String serialNumber) {
+    public void processReturn(String serialNumber) {
         purchaseMapper.returnItem(serialNumber);
     }
 
