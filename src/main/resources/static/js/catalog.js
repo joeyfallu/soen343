@@ -44,6 +44,7 @@ angular.module('app')
                     let items = [];
                     for(let key in $scope.itemsInventory){
                         if (!hasModelNumber(items, $scope.itemsInventory[key]))
+
                             items.push($scope.itemsInventory[key]);
                     }
 
