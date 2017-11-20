@@ -2,6 +2,13 @@
 
 angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
 
+  $http.get("/get/TransactionInProgress").then((res) => {
+        if(res.data.message == "In Progress"){
+            alert("Transaction Already in Progress\n You will be redirected");
+            window.location = "/admin";
+        }
+    });
+
     /* Form submission */
     $scope.monitorMessage = "";
     $scope.tabletMessage = "";
@@ -11,6 +18,8 @@ angular.module('app').controller('addItemsCtrl', function ($scope, $http) {
     $scope.isTabletMsgAvailable = false;
     $scope.isDesktopMsgAvailable = false;
     $scope.isLaptopMessageAvailable = false;
+
+
 
     //holds the value of the form to be displayed. Default is 2 which is monitor.
     $scope.selectedForm = 2;

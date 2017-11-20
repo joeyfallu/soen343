@@ -2,6 +2,14 @@
 
 angular.module('app').controller('modifyItemsController', function ($scope, $http) {
 
+    $http.get("/get/TransactionInProgress").then((res) => {
+        if(res.data.message == "In Progress"){
+            alert("Transaction Already in Progress\n You will be redirected");
+            window.location = "/admin";
+        }
+    });
+
+
     /* Form submission */
     $scope.getProdInfo = function () {
         $scope.message = "";

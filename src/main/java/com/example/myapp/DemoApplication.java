@@ -498,6 +498,18 @@ public class DemoApplication {
         }
     }
 
+    @RequestMapping(value="/get/TransactionInProgress", method = RequestMethod.GET)
+    @ResponseBody
+    String TransactionInProgress(@CookieValue("SESSIONID") int cookie){
+        System.out.println(cookie + "       " + store.getTransaction().getUserId());
+        if(cookie != store.getTransaction().getUserId() && store.getTransaction().getUserId() != 0 && store.getTransaction().getUserId() != -1){
+            return "{\"message\":\"In Progress\"}";
+        }
+        else{
+            return "{\"message\":\"Ok\"}";
+        }
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
         System.out.println("Done initializing");
