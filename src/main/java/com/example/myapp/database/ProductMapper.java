@@ -3,6 +3,7 @@ package com.example.myapp.database;
 import com.example.myapp.productCatalog.Product;
 import com.example.myapp.productCatalog.ProductCatalog;
 import com.example.myapp.transactions.Transaction;
+import com.google.java.contract.Requires;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -15,14 +16,14 @@ public class ProductMapper {
     private ProductCatalog productCatalog;
     private Transaction.Type commitType = Transaction.Type.add;
     private int mapCount = 0;
-
+    @Requires("")
     public ProductMapper() {
         this.productTDG = new ProductTDG();
         this.productCatalog = new ProductCatalog();
         this.productIdentityMap = new ProductIdentityMap();
         getProductCatalog().setProducts(this.getAll());
     }
-
+    
     public ProductMapper(ProductCatalog productCatalog) {
         this.productTDG = new ProductTDG();
         this.productCatalog = productCatalog;
