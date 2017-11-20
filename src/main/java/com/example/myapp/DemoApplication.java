@@ -149,15 +149,13 @@ public class DemoApplication {
     public String getModifiedProductSerialNumber(@PathVariable("modelNumber") String modelNumber) {
         Gson gson = new Gson();
         Map<String, Product> items = store.getProductCatalog().getProducts();
-        for(Map.Entry<String, Product> entry : store.getProductCatalog().getProducts().entrySet())
-        {
-            if (entry.getValue().getModel().equals(modelNumber))
-            {
-               return gson.toJson(items.get( entry.getValue().getSerialNumber()));
+        Collection<Product> products = items.values();
+        for (Product product : products) {
+            if(product.getModel().equals(modelNumber)) {
+                return gson.toJson(product);
             }
         }
-            return "{\"message\":\"Item Does Not Exist\"}";
-
+        return "{\"message\":\"Item does not Exist\"}";
     }
 
     /* VIEW USERS */
@@ -234,23 +232,25 @@ public class DemoApplication {
         Product monitor = gson.fromJson(json, Monitor.class);
         if(store.getTransaction().getUserId() == cookieId)
         {
-            Map products = store.getProductCatalog().getProducts();
-            if (products.containsKey(monitor.getSerialNumber()))
+            Map<String,Product> catalog = store.getProductCatalog().getProducts();
+            Collection<Product> products = catalog.values();
+            if (catalog.containsKey(monitor.getSerialNumber()))
             {
-                return "{\"message\":\"Duplicate serial number, this Serial number is already in use\"}";
+                return "{\"message\":\"Duplicate serial number, please enter another one\"}";
             }
-            for(Map.Entry<String, Product> entry : store.getProductCatalog().getProducts().entrySet())
-            {
-                if (entry.getValue().getModel().equals(monitor.getModel()))
-                {
-                    if(entry.getValue() instanceof Monitor){
-                        if(((Monitor)entry.getValue()).equals((Monitor)monitor)){break;}
+            for (Product product : products) {
+                if(product.getModel().equals(monitor.getModel())){
+                    if(product instanceof Monitor){
+                        if(((Monitor) product).equals((Monitor)monitor)){
+                            break;
+                        }
+                        return "{\"message\":\"This model number is already in use. The specification does not match the expected values for this model number\"}";
                     }
-                    return "{\"message\":\"The specification does not match the expected values for this model number\"}";
                 }
             }
             store.addNewProduct(monitor);
-            return "{\"message\":\"Successfuly added new monitor\"}";
+
+            return "{\"message\":\"Successfully added new monitor with model number: " + monitor.getModel() + "\"}";
         }
         return json;
     }
@@ -261,7 +261,27 @@ public class DemoApplication {
         Gson gson = new Gson();
         Product tablet = gson.fromJson(json, Tablet.class);
         if(store.getTransaction().getUserId() == cookieId)
+        {
+            Map<String,Product> catalog = store.getProductCatalog().getProducts();
+            Collection<Product> products = catalog.values();
+
+            if (catalog.containsKey(tablet.getSerialNumber())) {
+                return "{\"message\":\"Duplicate serial number, please enter another one\"}";
+            }
+
+            for (Product product : products) {
+                if(product.getModel().equals(tablet.getModel())){
+                    if(product instanceof Tablet){
+                        if(((Tablet) product).equals((Tablet)tablet)){
+                            break;
+                        }
+                        return "{\"message\":\"This model number is already in use. The specification does not match the expected values for this model number\"}";
+                    }
+                }
+            }
             store.addNewProduct(tablet);
+            return "{\"message\":\"Successfully added new Tablet with model number: " + tablet.getModel() + "\"}";
+        }
         return json;
     }
 
@@ -271,7 +291,27 @@ public class DemoApplication {
         Gson gson = new Gson();
         Product desktop = gson.fromJson(json, Desktop.class);
         if(store.getTransaction().getUserId() == cookieId)
+        {
+            Map<String,Product> catalog = store.getProductCatalog().getProducts();
+            Collection<Product> products = catalog.values();
+            if (catalog.containsKey(desktop.getSerialNumber()))
+            {
+                return "{\"message\":\"Duplicate serial number, please enter another one\"}";
+            }
+            for (Product product : products) {
+                if(product.getModel().equals(desktop.getModel())){
+                    if(product instanceof Desktop){
+                        if(((Desktop) product).equals((Desktop)desktop)){
+                            break;
+                        }
+                        return "{\"message\":\"This model number is already in use. The specification does not match the expected values for this model number\"}";
+                    }
+                }
+            }
             store.addNewProduct(desktop);
+
+            return "{\"message\":\"Successfully added new Desktop with model number: " + desktop.getModel() + "\"}";
+        }
         return json;
     }
 
@@ -281,7 +321,27 @@ public class DemoApplication {
         Gson gson = new Gson();
         Product laptop = gson.fromJson(json, Laptop.class);
         if(store.getTransaction().getUserId() == cookieId)
+        {
+            Map<String,Product> catalog = store.getProductCatalog().getProducts();
+            Collection<Product> products = catalog.values();
+            if (catalog.containsKey(laptop.getSerialNumber()))
+            {
+                return "{\"message\":\"Duplicate serial number, please enter another one\"}";
+            }
+            for (Product product : products) {
+                if(product.getModel().equals(laptop.getModel())){
+                    if(product instanceof Laptop){
+                        if(((Laptop) product).equals((Laptop) laptop)){
+                            break;
+                        }
+                        return "{\"message\":\"This model number is already in use. The specification does not match the expected values for this model number\"}";
+                    }
+                }
+            }
             store.addNewProduct(laptop);
+
+            return "{\"message\":\"Successfully added new Laptop with model number: " + laptop.getModel() + "\"}";
+        }
         return json;
     }
 
@@ -339,7 +399,6 @@ public class DemoApplication {
     @RequestMapping(value="/get/purchaseCart", method = RequestMethod.GET)
     @ResponseBody
     String purchaseCart(@CookieValue("SESSIONID") int cookieId){
-
         store.initiateTransaction(cookieId, Transaction.Type.purchase);
         List<String> productsToPurchase = pointOfSale.endPurchase(cookieId);
         store.endTransaction();
