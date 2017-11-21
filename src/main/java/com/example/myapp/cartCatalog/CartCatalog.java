@@ -1,6 +1,9 @@
 package com.example.myapp.cartCatalog;
 
 
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +25,8 @@ public class CartCatalog {
         carts.put(newCart.getUserId(),newCart);
     }
 
+    @Requires("carts.containsKey(userId) == true")
+    @Ensures("cart.getSize() == 0")
     public void emptyCart(int userId) {
         Cart cart = carts.get(userId);
         cart.setSize(0);
@@ -29,13 +34,16 @@ public class CartCatalog {
         cartProducts.clear();
     }
 
+    @Requires("carts.containsKey(userId) == true")
+    @Ensures("(cart.getSize() == old (cart.getSize() +1)) && (cartProducts.containsKey(serialNumber) == true)")
     public void addToCart(int userId, String serialNumber){
         Cart cart = carts.get(userId);
         Map<String, Date> cartProducts = cart.getCartProducts();
         cartProducts.put(serialNumber, new Date());
         cart.setSize(cart.getSize() + 1);
     }
-
+    @Requires("carts.containsKey(userId) == true")
+    @Ensures("cart.getSize() == old (cart.getSize() -1)  && (cartProducts.containsKey(serialNumber) == false)")
     public void removeFromCart(int userId, String serialNumber){
         Cart cart = getCart(userId);
         Map<String, Date> cartProducts = cart.getCartProducts();
