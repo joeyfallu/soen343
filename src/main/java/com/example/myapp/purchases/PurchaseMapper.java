@@ -32,7 +32,8 @@ public class PurchaseMapper {
         this.purchaseHistory = purchaseHistory;
         this.commitType = commitType;
     }
-
+    @Requires({"purchase != null"})
+    @Ensures({"getMapCount() == old(getMapCount() + 1)"})
     public void purchase(Purchase purchase) {
         commitType = Transaction.Type.purchase;
         purchasesIdentityMap.insertPurchase(mapCount,purchase);

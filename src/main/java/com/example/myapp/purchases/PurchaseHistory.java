@@ -23,7 +23,9 @@ public class PurchaseHistory {
     public void setPurchases(Map<String, Purchase> purchases){
         this.purchases = purchases;
     }
-
+    @Requires({"purchase != null",
+            "serialNumber != null"})
+    @Ensures({"purchase.size() == old(purchase.size() + 1)"})
     public void addPurchase(String serialNumber, Purchase purchase){
         purchases.put(serialNumber,purchase);
     }
