@@ -4,12 +4,12 @@
             <form name="deleteItems" ng-submit="deleteItem()" role="form" class="css-form">
                 <h3 style="margin-bottom: 25px; text-align: center;">Delete Items</h3>
                 <div class="form-group">
-                    <label >Please enter the ID of the item you wish to delete:</label>
-                    <input type="text" class="form-control" ng-model="deleteId"  placeholder="ID" required="" autofocus=""
-                    pattern="\d+"/>
+                    <label >Please enter the serialNumber of the item you wish to delete:</label>
+                    <input type="text" class="form-control" ng-model="deleteSerialNumber"  placeholder="serialNumber" required="" autofocus=""
+                    pattern="[\d\w]+"/>
                 </div>
                 <div class="form-actions">
-                    <button type="submit" id="delete-btn" class="btn btn-primary">Delete</button> {{message}}
+                    <button type="submit" serialNumber="delete-btn" class="btn btn-primary">Delete</button> {{message}}
                 </div>
             </form>
 

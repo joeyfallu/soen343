@@ -50,8 +50,8 @@ public class PurchaseMapperTest
     public void insertPurchaseHistory() throws Exception
     {
 
-        purchaseMapper.insertPurchaseHistory(0, purchaseMock);
-        Mockito.verify(purchaseHistoryMock).addPurchase(0, purchaseMock);
+        purchaseMapper.insertPurchaseHistory("a1", purchaseMock);
+        Mockito.verify(purchaseHistoryMock).addPurchase("a1", purchaseMock);
 
     }
 
@@ -59,8 +59,8 @@ public class PurchaseMapperTest
     public void deletePurchaseHistory() throws Exception
     {
 
-        purchaseMapper.deletePurchaseHistory(0);
-        Mockito.verify(purchaseHistoryMock).deletePurchase(0);
+        purchaseMapper.deletePurchaseHistory("a1");
+        Mockito.verify(purchaseHistoryMock).deletePurchase("a1");
 
     }
 
