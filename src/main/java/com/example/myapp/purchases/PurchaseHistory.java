@@ -25,12 +25,12 @@ public class PurchaseHistory {
     }
     @Requires({"purchase != null",
             "serialNumber != null"})
-    @Ensures({"purchase.size() == old(purchase.size() + 1)"})
+    @Ensures("purchase.size() == old(purchase.size() + 1)")
     public void addPurchase(String serialNumber, Purchase purchase){
         purchases.put(serialNumber,purchase);
     }
 
-    @Requires("true")
+    @Requires("serialNumber != null")
     @Ensures("purchases.size() == old (purchases.size() - 1)")
     public void deletePurchase(String serialNumber)  {
         purchases.remove(serialNumber);

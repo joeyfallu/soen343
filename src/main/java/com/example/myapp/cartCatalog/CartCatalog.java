@@ -35,7 +35,8 @@ public class CartCatalog {
     }
 
     @Requires("carts.containsKey(userId) == true")
-    @Ensures("(cart.getSize() == old (cart.getSize() +1)) && (cartProducts.containsKey(serialNumber) == true)")
+    @Ensures({"(cart.getSize() == old (cart.getSize() +1))",
+            "(cartProducts.containsKey(serialNumber) == true)"})
     public void addToCart(int userId, String serialNumber){
         Cart cart = carts.get(userId);
         Map<String, Date> cartProducts = cart.getCartProducts();
@@ -43,7 +44,8 @@ public class CartCatalog {
         cart.setSize(cart.getSize() + 1);
     }
     @Requires("carts.containsKey(userId) == true")
-    @Ensures("cart.getSize() == old (cart.getSize() -1)  && (cartProducts.containsKey(serialNumber) == false)")
+    @Ensures({"cart.getSize() == old (cart.getSize() -1)",
+            "(cartProducts.containsKey(serialNumber) == false)"})
     public void removeFromCart(int userId, String serialNumber){
         Cart cart = getCart(userId);
         Map<String, Date> cartProducts = cart.getCartProducts();

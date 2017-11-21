@@ -32,8 +32,8 @@ public class PurchaseMapper {
         this.purchaseHistory = purchaseHistory;
         this.commitType = commitType;
     }
-    @Requires({"purchase != null"})
-    @Ensures({"getMapCount() == old(getMapCount() + 1)"})
+    @Requires("purchase != null")
+    @Ensures("getMapCount() == old(getMapCount() + 1)")
     public void purchase(Purchase purchase) {
         commitType = Transaction.Type.purchase;
         purchasesIdentityMap.insertPurchase(mapCount,purchase);
@@ -48,7 +48,7 @@ public class PurchaseMapper {
         purchaseHistory.deletePurchase(serialNumber);
     }
 
-    @Requires("true")
+    @Requires("serialNumber != null")
     @Ensures("getMapCount() == old(getMapCount() + 1)")
     public void returnItem(String serialNumber) {
         commitType = Transaction.Type.returnItem;
