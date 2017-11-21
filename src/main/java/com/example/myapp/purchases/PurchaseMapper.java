@@ -32,35 +32,35 @@ public class PurchaseMapper {
 
     public void purchase(Purchase purchase) {
         commitType = Transaction.Type.purchase;
-        purchasesIdentityMap.insertPurchaseById(mapCount,purchase);
+        purchasesIdentityMap.insertPurchase(mapCount,purchase);
         mapCount++;
     }
 
-    public void insertPurchaseHistory(int id, Purchase purchase) {
-        purchaseHistory.addPurchase(id,purchase);
+    public void insertPurchaseHistory(String serialNumber, Purchase purchase) {
+        purchaseHistory.addPurchase(serialNumber,purchase);
     }
 
-    public void deletePurchaseHistory(int id) {
-        purchaseHistory.deletePurchase(id);
+    public void deletePurchaseHistory(String serialNumber) {
+        purchaseHistory.deletePurchase(serialNumber);
     }
 
-    public void returnItem(int id) {
+    public void returnItem(String serialNumber) {
         commitType = Transaction.Type.returnItem;
-        Product emptyProduct = new Product(0,"",0,0,"",0);
-        emptyProduct.setId(id);
+        Product emptyProduct = new Product("","",0,0,"",0);
+        emptyProduct.setSerialNumber(serialNumber);
         Purchase empty = new Purchase(0,"empty",emptyProduct);
-        purchasesIdentityMap.insertPurchaseById(mapCount,empty);
+        purchasesIdentityMap.insertPurchase(mapCount,empty);
         mapCount++;
     }
 
-    public Purchase get(int id)
+    /*public Purchase get(String serialNumber)
     {
         Purchase purchase = purchasesIdentityMap.getPurchaseById(id);
 
         if(purchase == null)
         {
             try {
-                purchase = purchaseTDG.dbGet(id);
+                purchase = purchaseTDG.dbGet(serialNumber);
                 purchasesIdentityMap.insertPurchaseById(id,purchase);
             }
             catch(Exception e)
@@ -69,16 +69,16 @@ public class PurchaseMapper {
             }
         }
         return purchase;
-    }
+    }*/
 
-    public Map<Integer, Purchase> getAll()
+    public Map<String, Purchase> getAll()
     {
         Purchase currentPurchase[];
         try{
             currentPurchase = purchaseTDG.dbGetAll();
 
             for(int i = 0; i < currentPurchase.length; i++){
-                purchaseHistory.addPurchase(currentPurchase[i].getProduct().getId(), currentPurchase[i]);
+                purchaseHistory.addPurchase(currentPurchase[i].getProduct().getSerialNumber(), currentPurchase[i]);
             }
 
         }

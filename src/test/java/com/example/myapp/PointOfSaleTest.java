@@ -53,7 +53,7 @@ public class PointOfSaleTest {
     @Mock
     private Map<Integer, User> UserMapMock = new HashMap<>();
     @Mock
-    private Map<Integer, Date> DateMapMock = new HashMap<>();
+    private Map<String, Date> DateMapMock = new HashMap<>();
     @Mock
     private Map<Integer, Product> ProductMapMock = new HashMap<>();
 
@@ -65,7 +65,7 @@ public class PointOfSaleTest {
         cartCatalogMock = new CartCatalog(CartMapMock);
         cartMock = new Cart(1, 0, DateMapMock);
         productCatalogMock = new ProductCatalog();
-        productCatalogMock.addProduct(1, productMock);
+        productCatalogMock.addProduct("a1", productMock);
         ProductMapMock.put(1, productMock);
         CartMapMock.put(1, cartMock);
         UserMapMock.put(1, userMock);
@@ -94,7 +94,7 @@ public class PointOfSaleTest {
     public void addCartItem() throws Exception
     {
 
-        pointOfSale.addCartItem(1,1);
+        pointOfSale.addCartItem(1,"a1");
 
 
     }
@@ -103,7 +103,7 @@ public class PointOfSaleTest {
     public void removeCartItem() throws Exception
     {
 
-        pointOfSale.removeCartItem(1, 1);
+        pointOfSale.removeCartItem(1, "a1");
 
 
     }

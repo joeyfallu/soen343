@@ -25,22 +25,26 @@
             <form name="monitor" class="css-form" ng-submit="addMonitor()" ng-if="selectedForm == 2">
                 <h2>Add a Monitor:</h2>
 
+                <label for="serialMonitorInput">Serial Number</label>
+                <input type="text" class="form-control" ng-model="$parent.monitorSerialNumber" required="" autofocus="" id="serialMonitorInput"
+                       pattern="[\d\w]+"/>
+
                 <label for="monitorModelNumInput">Model Number</label>
-                <input type="text" class="form-control" ng-model="monitorModelNumber" required="" autofocus="" id="monitorModelNumInput"
+                <input type="text" class="form-control" ng-model="$parent.monitorModelNumber" required="" autofocus="" id="monitorModelNumInput"
                 pattern="[\d\w]+"/>
 
                 <label for="monitorBrandInput">Brand</label>
-                <input type="text" class="form-control" ng-model="monitorBrand" required="" id="monitorBrandInput"/>
+                <input type="text" class="form-control" ng-model="$parent.monitorBrand" required="" id="monitorBrandInput"/>
 
                 <label for="monitorSizeInput">Size (in inches)</label>
-                <input type="text" class="form-control" ng-model="monitorSize" required="" id="monitorSizeInput" pattern="\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.monitorSize" required="" id="monitorSizeInput" pattern="\d+(\.\d+)?"/>
 
                 <label for="monitorWeightInput">Weight (in kg)</label>
-                <input type="text" class="form-control" ng-model="monitorWeight" required="" id="monitorWeightInput"
+                <input type="text" class="form-control" ng-model="$parent.monitorWeight" required="" id="monitorWeightInput"
                        pattern="\d+(\.\d+)?"/>
 
                 <label for="monitorPriceInput">Price</label>
-                <input type="text" class="form-control" ng-model="monitorPrice" required="" id="monitorPriceInput"
+                <input type="text" class="form-control" ng-model="$parent.monitorPrice" required="" id="monitorPriceInput"
                 pattern="\d+(\.\d+)?"/>
 
                 <br/><button type="submit" class="btn btn-block">Submit</button>
@@ -52,32 +56,35 @@
             <!-- TODO cleanup -->
             <form name="tablet" class="css-form" ng-submit="addTablet()" ng-if="selectedForm == 3">
                 <h2>Add a Tablet:</h2>
+                <label for="serialTabletInput">Serial Number</label>
+                <input type="text" class="form-control" ng-model="$parent.tabletSerialNumber" required="" autofocus="" id="serialTabletInput"
+                       pattern="[\d\w]+"/>
                 <label>Model Number</label>
-                <input type="text" class="form-control" ng-model="tabletModelNumber" required="" autofocus="" pattern="[\d\w]+"/>
+                <input type="text" class="form-control" ng-model="$parent.tabletModelNumber" required="" autofocus="" pattern="[\d\w]+"/>
                 <label>Brand</label>
-                <input type="text" class="form-control" ng-model="tabletBrand" required=""/>
+                <input type="text" class="form-control" ng-model="$parent.tabletBrand" required=""/>
                 <label>Size (in inches)</label>
-                <input type="text" class="form-control" ng-model="tabletSize" required="" pattern="\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.tabletSize" required="" pattern="\d+(\.\d+)?"/>
                 <label>Dimensions (in cm)</label>
-                <input type="text" class="form-control" ng-model="tabletDimensions" required=""/>
+                <input type="text" class="form-control" ng-model="$parent.tabletDimensions" required=""/>
                 <label>Weight (in kg)</label>
-                <input type="text" class="form-control" ng-model="tabletWeight" required="" pattern="\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.tabletWeight" required="" pattern="\d+(\.\d+)?"/>
                 <label>Processor Type</label>
-                <input type="text" class="form-control" ng-model="tabletProcessor" required=""/>
+                <input type="text" class="form-control" ng-model="$parent.tabletProcessor" required=""/>
                 <label>RAM Size (in Gigabytes)</label>
-                <input type="text" class="form-control" ng-model="tabletRam" required="" pattern="\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.tabletRam" required="" pattern="\d+(\.\d+)?"/>
                 <label>Number of CPU Cores</label>
                 <input type="text" class="form-control" ng-model="tabletCores" required="" pattern="\d+"/>
                 <label>Hard Drive Size (in Gigabytes)</label>
-                <input type="text" class="form-control" ng-model="tabletHardDriveSize" required="" pattern="\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.tabletHardDriveSize" required="" pattern="\d+(\.\d+)?"/>
                 <label>Battery Information</label>
-                <input type="text" class="form-control" ng-model="tabletBattery" required=""/>
+                <input type="text" class="form-control" ng-model="$parent.tabletBattery" required=""/>
                 <label>Operating System</label>
-                <input type="text" class="form-control" ng-model="tabletOperatingSystem" required=""/>
+                <input type="text" class="form-control" ng-model="$parent.tabletOperatingSystem" required=""/>
                 <label>Camera Information</label>
-                <input type="text" class="form-control" ng-model="tabletCamera" required=""/>
+                <input type="text" class="form-control" ng-model="$parent.tabletCamera" required=""/>
                 <label>Price</label>
-                <input type="text" class="form-control" ng-model="tabletPrice" required="" pattern="\d+(\.\d+)?"/><br/>
+                <input type="text" class="form-control" ng-model="$parent.tabletPrice" required="" pattern="\d+(\.\d+)?"/><br/>
                 <button type="submit" class="btn btn-block">Submit</button>
                 <div class="panel panel-warning col-md-12" style="margin-top: 10px;" ng-show="isTabletMsgAvailable">
                     {{tabletMessage}}
@@ -86,24 +93,27 @@
 
             <form name="desktop" class="css-form" ng-submit="addDesktop()" ng-if="selectedForm == 4">
                 <h2>Add a Desktop:</h2>
+                <label for="serialDesktopInput">Serial Number</label>
+                <input type="text" class="form-control" ng-model="$parent.desktopSerialNumber" required="" autofocus="" id="serialDesktopInput"
+                       pattern="[\d\w]+"/>
                 <label>Model Number</label>
-                <input type="text" class="form-control" ng-model="desktopModelNumber" required="" autofocus="" pattern="[\d\w]+"/>
+                <input type="text" class="form-control" ng-model="$parent.desktopModelNumber" required="" autofocus="" pattern="[\d\w]+"/>
                 <label>Brand</label>
-                <input type="text" class="form-control" ng-model="desktopBrand" required=""/>
+                <input type="text" class="form-control" ng-model="$parent.desktopBrand" required=""/>
                 <label>Dimensions (in cm)</label>
-                <input type="text" class="form-control" ng-model="desktopDimensions" required=""/>
+                <input type="text" class="form-control" ng-model="$parent.desktopDimensions" required=""/>
                 <label>Weight (in kg)</label>
-                <input type="text" class="form-control" ng-model="desktopWeight" required="" pattern="\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.desktopWeight" required="" pattern="\d+(\.\d+)?"/>
                 <label>Processor Type</label>
-                <input type="text" class="form-control" ng-model="desktopProcessor" required=""/>
+                <input type="text" class="form-control" ng-model="$parent.desktopProcessor" required=""/>
                 <label>Number of CPU Cores</label>
-                <input type="text" class="form-control" ng-model="desktopCores" required="" pattern="\d+"/>
+                <input type="text" class="form-control" ng-model="$parent.desktopCores" required="" pattern="\d+"/>
                 <label>RAM Size (in Gigabytes)</label>
-                <input type="text" class="form-control" ng-model="desktopRam" required="" pattern="\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.desktopRam" required="" pattern="\d+(\.\d+)?"/>
                 <label>Hard Drive Size (in Gigabytes)</label>
-                <input type="text" class="form-control" ng-model="desktopHardDriveSize" required="" pattern="\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.desktopHardDriveSize" required="" pattern="\d+(\.\d+)?"/>
                 <label>Price </label>
-                <input type="text" class="form-control" ng-model="desktopPrice" required="" pattern="\d+(\.\d+)?"/><br/>
+                <input type="text" class="form-control" ng-model="$parent.desktopPrice" required="" pattern="\d+(\.\d+)?"/><br/>
                 <button type="submit" class="btn btn-block">Submit</button>
                 <div class="panel panel-warning col-md-12" style="margin-top: 10px;" ng-show="isDesktopMsgAvailable">
                     {{desktopMessage}}
@@ -112,34 +122,37 @@
 
             <form name="laptop" class="css-form" ng-submit="addLaptop()" ng-if="selectedForm == 5">
                 <h2>Add a Laptop:</h2>
+                <label for="serialLaptopInput">Serial Number</label>
+                <input type="text" class="form-control" ng-model="$parent.laptopSerialNumber" required="" autofocus="" id="serialLaptopInput"
+                       pattern="[\d\w]+"/>
                 <label>Model Number</label>
-                <input type="text" class="form-control" ng-model="laptopModelNumber" required="" autofocus="" pattern="[\d\w]+"/>
+                <input type="text" class="form-control" ng-model="$parent.laptopModelNumber" required="" autofocus="" pattern="[\d\w]+"/>
                 <label>Brand</label>
-                <input type="text" class="form-control" ng-model="laptopBrand" required=""/>
+                <input type="text" class="form-control" ng-model="$parent.laptopBrand" required=""/>
                 <label>Size (in inches)</label>
-                <input type="text" class="form-control" ng-model="laptopSize" required="" pattern="\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.laptopSize" required="" pattern="\d+(\.\d+)?"/>
                 <label>Weight (in kg)</label>
-                <input type="text" class="form-control" ng-model="laptopWeight" required="" pattern="\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.laptopWeight" required="" pattern="\d+(\.\d+)?"/>
                 <label>Processor Type</label>
-                <input type="text" class="form-control" ng-model="laptopProcessor" required=""/>
+                <input type="text" class="form-control" ng-model="$parent.laptopProcessor" required=""/>
                 <label>RAM Size (in Gigabytes)</label>
-                <input type="text" class="form-control" ng-model="laptopRam" required="" pattern="\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.laptopRam" required="" pattern="\d+(\.\d+)?"/>
                 <label>Number of CPU Cores</label>
-                <input type="text" class="form-control" ng-model="laptopCores" required="" pattern="\d+"/>
+                <input type="text" class="form-control" ng-model="$parent.laptopCores" required="" pattern="\d+"/>
                 <label>Hard Drive Size (in Gigabytes)</label>
-                <input type="text" class="form-control" ng-model="laptopHardDriveSize" required="" pattern="\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.laptopHardDriveSize" required="" pattern="\d+(\.\d+)?"/>
                 <label>Battery Information</label>
-                <input type="text" class="form-control" ng-model="laptopBattery" required=""/>
+                <input type="text" class="form-control" ng-model="$parent.laptopBattery" required=""/>
                 <label>Operating System</label>
-                <input type="text" class="form-control" ng-model="laptopOperatingSystem" required=""/>
+                <input type="text" class="form-control" ng-model="$parent.laptopOperatingSystem" required=""/>
                 <label>Does it have a camera?</label>
-                <label>Yes</label><input type="radio" name="camera"  ng-model="laptopCamera" required="" value="true"/>
-                <label>No</label><input type="radio" name="camera" ng-model="laptopCamera" required="" value="false"/><br/>
+                <label>Yes</label><input type="radio" name="camera"  ng-model="$parent.laptopCamera" required="" value="true"/>
+                <label>No</label><input type="radio" name="camera" ng-model="$parent.laptopCamera" required="" value="false"/><br/>
                 <label>Does it have a touch screen?</label>
-                <label>Yes<input type="radio" name="touchScreen"  ng-model="laptopTouchScreen" required="" value="true"/></label>
-                <label>No<input type="radio" name="touchScreen" ng-model="laptopTouchScreen" required="" value="false"/></label><br/>
+                <label>Yes<input type="radio" name="touchScreen"  ng-model="$parent.laptopTouchScreen" required="" value="true"/></label>
+                <label>No<input type="radio" name="touchScreen" ng-model="$parent.laptopTouchScreen" required="" value="false"/></label><br/>
                 <label>Price </label>
-                <input type="text" class="form-control" ng-model="laptopPrice" required="" pattern="\d+(\.\d+)?"/><br/>
+                <input type="text" class="form-control" ng-model="$parent.laptopPrice" required="" pattern="\d+(\.\d+)?"/><br/>
                 <button type="submit" class="btn btn-block">Submit</button>
                 <div class="panel panel-warning col-md-12" style="margin-top: 10px;" ng-show="isLaptopMessageAvailable">
                     {{laptopMessage}}

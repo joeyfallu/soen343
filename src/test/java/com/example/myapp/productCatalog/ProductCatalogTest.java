@@ -33,19 +33,19 @@ public class ProductCatalogTest {
 
     @Test
     public void addProduct(){
-        productCatalog.addProduct(1, productMock);
+        productCatalog.addProduct("a1", productMock);
         Mockito.verify(mapMock).put(1, productMock);
     }
 
     @Test
     public void deleteProduct(){
-        productCatalog.deleteProduct(1);
+        productCatalog.deleteProduct("a1");
         Mockito.verify(mapMock).remove(1);
     }
 
     @Test
     public void modifyProduct(){
-        productCatalog.modifyProduct(1, productMock);
+        productCatalog.modifyProduct("a1", productMock);
         Mockito.verify(mapMock).remove(1);
         Mockito.verify(mapMock).put(1, productMock);
     }

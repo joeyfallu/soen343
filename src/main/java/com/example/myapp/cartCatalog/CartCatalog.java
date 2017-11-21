@@ -25,21 +25,21 @@ public class CartCatalog {
     public void emptyCart(int userId) {
         Cart cart = carts.get(userId);
         cart.setSize(0);
-        Map<Integer, Date> cartProducts = cart.getCartProducts();
+        Map<String, Date> cartProducts = cart.getCartProducts();
         cartProducts.clear();
     }
 
-    public void addToCart(int userId, int itemId){
+    public void addToCart(int userId, String serialNumber){
         Cart cart = carts.get(userId);
-        Map<Integer, Date> cartProducts = cart.getCartProducts();
-        cartProducts.put(itemId, new Date());
+        Map<String, Date> cartProducts = cart.getCartProducts();
+        cartProducts.put(serialNumber, new Date());
         cart.setSize(cart.getSize() + 1);
     }
 
-    public void removeFromCart(int userId, int itemId){
+    public void removeFromCart(int userId, String serialNumber){
         Cart cart = getCart(userId);
-        Map<Integer, Date> cartProducts = cart.getCartProducts();
-        cartProducts.remove(itemId);
+        Map<String, Date> cartProducts = cart.getCartProducts();
+        cartProducts.remove(serialNumber);
         cart.setSize(cart.getSize() - 1);
     }
 
@@ -47,7 +47,7 @@ public class CartCatalog {
         return this.carts;
     }
 
-    public Map<Integer, Date> purchaseCart(int userId){
+    public Map<String, Date> purchaseCart(int userId){
         return carts.get(userId).getCartProducts();
     }
 

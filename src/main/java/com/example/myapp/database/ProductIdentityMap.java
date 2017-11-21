@@ -18,15 +18,17 @@ public class ProductIdentityMap {
 
     public Map<Integer, Product> getAllProducts(){ return  products;}
 
-    public void insertProductById(int id, Product product){
+    public void insertProduct(int id, Product product){
+
         products.put(id,product);
+
     }
 
-    public void updateProductById(int id, Product newProduct){
+    public void updateProduct(int id, Product newProduct){
         products.put(id, newProduct);
     }
 
-    public void deleteProductById(int id){
+    public void deleteProduct(int id){
         products.remove(id);
     }
 }

@@ -8,9 +8,9 @@ public class Cart {
 
     private int userId;
     private int size;
-    private Map<Integer, Date> cartProducts;
+    private Map<String, Date> cartProducts;
 
-    public Cart(int userId, int size, Map<Integer, Date> cartProducts) {
+    public Cart(int userId, int size, Map<String, Date> cartProducts) {
         this.userId = userId;
         this.size = size;
         this.cartProducts = cartProducts;
@@ -32,11 +32,11 @@ public class Cart {
         this.size = size;
     }
 
-    public Map<Integer, Date> getCartProducts() {
+    public Map<String, Date> getCartProducts() {
         return cartProducts;
     }
 
-    public void setCartProducts(Map<Integer, Date> cartProducts) {
+    public void setCartProducts(Map<String, Date> cartProducts) {
         this.cartProducts = cartProducts;
     }
 }

@@ -14,13 +14,13 @@ angular.module('app')
             $scope.items = res.data;
             if(angular.equals($scope.items, {}))
                 $scope.emptyCart = true;
-            for(var id in $scope.items){
-                $http.get('/getItem/' + id).then((res)=> {
-                    if($cookies.get(id)){
+            for(var serialNumber in $scope.items){
+                $http.get('/getItem/' + serialNumber).then((res)=> {
+                    if($cookies.get(serialNumber)){
                         $scope.cart.push(res.data);
                     }
                     else{
-                        $http.post("/post/removeFromCart", id).then((res) => {
+                        $http.post("/post/removeFromCart", serialNumber).then((res) => {
                             console.log("item removed due to timeout");
                         }).catch((err) => {
                             console.log("ERROR");
@@ -38,12 +38,12 @@ angular.module('app')
          });
          //getting each item
 
-         $scope.removeFromCart = function(itemId){
-            if($cookies.get(itemId)){
-                $http.post("/post/removeFromCart", itemId).then((res) => {
+         $scope.removeFromCart = function(serialNumber){
+            if($cookies.get(serialNumber)){
+                $http.post("/post/removeFromCart", serialNumber).then((res) => {
                     console.log("Item Removed");
                     for(var i =0; i < $scope.cart.length; i++){
-                        if($scope.cart[i].id == itemId){
+                        if($scope.cart[i].serialNumber == serialNumber){
                             $scope.subtotal -= $scope.cart[i].price;
                             $scope.cart.splice(i,1)
                         }
@@ -79,7 +79,7 @@ angular.module('app')
             var saleOk = true;
 
             for(var i = 0; i < $scope.cart.length; i++){
-                if(!($cookies.get($scope.cart[i].id))){
+                if(!($cookies.get($scope.cart[i].serialNumber))){
 
                     saleOk = false;
                 }

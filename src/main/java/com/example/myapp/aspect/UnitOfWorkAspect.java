@@ -54,14 +54,14 @@ public class UnitOfWorkAspect {
         Transaction.Type transactionType = purchaseMapper.getCommitType();
         if (transactionType == Transaction.Type.purchase) {
             for (int i = 0; i < mapCount; i++) {
-                Purchase purchase = purchaseMapper.getPurchasesIdentityMap().getPurchaseById(i);
+                Purchase purchase = purchaseMapper.getPurchasesIdentityMap().getPurchase(i);
                 registerAdd(purchase);
             }
             commitPurchase();
         }
         if (transactionType == Transaction.Type.returnItem) {
             for (int i = 0; i < mapCount; i++) {
-                Purchase purchase = purchaseMapper.getPurchasesIdentityMap().getPurchaseById(i);
+                Purchase purchase = purchaseMapper.getPurchasesIdentityMap().getPurchase(i);
                 registerDelete(purchase);
             }
             commitPurchase();
@@ -137,23 +137,23 @@ public class UnitOfWorkAspect {
 
     public void commitPurchase() {
         for (Object object : add) {
-            int id = ((Purchase) object).getProduct().getId();
+            String serialNumber = ((Purchase) object).getProduct().getSerialNumber();
             try {
                 purchaseMapper.getPurchaseTDG().dbInsert((Purchase) object);
             } catch (Exception e) {
                 System.out.println("failed to insert purchase from unit of work");
             }
-            purchaseMapper.insertPurchaseHistory(id, (Purchase) object);
+            purchaseMapper.insertPurchaseHistory(serialNumber, (Purchase) object);
         }
 
         for (Object object : delete) {
-            int id = ((Purchase) object).getProduct().getId();
+            String serialNumber = ((Purchase) object).getProduct().getSerialNumber();
             try {
-                purchaseMapper.getPurchaseTDG().dbDelete(id);
+                purchaseMapper.getPurchaseTDG().dbDelete(serialNumber);
             } catch (Exception e) {
                 System.out.println("failed to return from unit of work");
             }
-            purchaseMapper.deletePurchaseHistory(id);
+            purchaseMapper.deletePurchaseHistory(serialNumber);
         }
 
 
@@ -162,43 +162,33 @@ public class UnitOfWorkAspect {
     }
 
     public void commitProducts() {
+
         for (Object o : add) {
-            int k = 0;
-            if (((Product) o).getId() == 0) {
                 try {
-                    k = productMapper.getProductTDG().dbInsert((Product) o);
+                    productMapper.getProductTDG().dbInsert((Product) o);
                 } catch (Exception e) {
                     System.out.println("failed to insert product from unit of work");
                 }
-                ((Product) o).setId(k);
-            } else {
-                try {
-                    productMapper.getProductTDG().dbInsert((Product) o, ((Product) o).getId());
-                    k = ((Product) o).getId();
-                } catch (Exception e) {
-
-                }
-            }
-            productMapper.insertProductCatalog(k, (Product) o);
+            productMapper.insertProductCatalog(((Product) o).getSerialNumber(), (Product) o);
         }
 
         for (Object o : delete) {
             try {
-                productMapper.getProductTDG().dbDelete(((Product) o).getId());
+                productMapper.getProductTDG().dbDelete(((Product) o).getSerialNumber());
             } catch (Exception e) {
                 System.out.println("failed to delete product from unit of work");
             }
-            productMapper.deleteByIdProductCatalog(((Product) o).getId());
+            productMapper.deleteProductCatalog(((Product) o).getSerialNumber());
         }
 
         for (Object o : modify) {
             try {
-                productMapper.getProductTDG().dbModify(((Product) o).getId(), (Product) o);
+                productMapper.getProductTDG().dbModify(((Product) o).getSerialNumber(), (Product) o);
             } catch (Exception e) {
                 System.out.println("failed to modify product from unit of work");
                 e.printStackTrace();
             }
-            productMapper.modifyProductCatalog(((Product) o).getId(), (Product) o);
+            productMapper.modifyProductCatalog(((Product) o).getSerialNumber(), (Product) o);
         }
         add = new ArrayList<Object>();
         delete = new ArrayList<Object>();

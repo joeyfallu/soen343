@@ -8,9 +8,9 @@ public class Tablet extends Computer {
     private double size;
 
 
-    public Tablet(int id, String model, double weight, double price, String brand,String dimensions, String processorType, int cpuCores, int ram, int hardDriveSize,
+    public Tablet(String serialNumber, String model, double weight, double price, String brand,String dimensions, String processorType, int cpuCores, int ram, int hardDriveSize,
                   double size, String batteryInfo, String operatingSystem, String cameraInfo, int discriminator){
-        super(id, model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize, discriminator);
+        super(serialNumber, model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize, discriminator);
         this.dimensions = dimensions;
         this.batteryInfo = batteryInfo;
         this.operatingSystem = operatingSystem;

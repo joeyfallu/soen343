@@ -31,53 +31,53 @@ public class ProductMapper {
 
     public void insert(Product product) {
         commitType = Transaction.Type.add;
-        productIdentityMap.insertProductById(mapCount, product);
+        productIdentityMap.insertProduct(mapCount, product);
         mapCount++;
     }
 
-    public void insertProductCatalog(int id, Product product) {
-        productCatalog.addProduct(id, product);
+    public void insertProductCatalog(String serialNumber, Product product) {
+        productCatalog.addProduct(serialNumber, product);
     }
 
-    public void modifyProductCatalog(int id, Product product) {
-        productCatalog.modifyProduct(id, product);
+    public void modifyProductCatalog(String serialNumber, Product product) {
+        productCatalog.modifyProduct(serialNumber, product);
     }
 
     public void update(Product product) {
         commitType = Transaction.Type.modify;
-        productIdentityMap.insertProductById(mapCount, product);
+        productIdentityMap.insertProduct(mapCount, product);
         mapCount++;
     }
 
-    public void delete(int id) {
+    public void delete(String serialNumber) {
         commitType = Transaction.Type.delete;
-        Product empty = new Product(0, "", 0, 0, "", 0);
-        empty.setId(id);
-        productIdentityMap.insertProductById(mapCount, empty);
+        Product empty = new Product("", "", 0, 0, "", 0);
+        empty.setSerialNumber(serialNumber);
+        productIdentityMap.insertProduct(mapCount, empty);
         mapCount++;
     }
 
-    public void deleteByIdProductCatalog(int id) {
-        productCatalog.deleteProduct(id);
+    public void deleteProductCatalog(String serialNumber) {
+        productCatalog.deleteProduct(serialNumber);
     }
 
-    public Product get(int id) {
+    /*public Product get(int id) {
 
         Product product = productIdentityMap.getProductById(id);
 
         if (product == null) {
             try {
                 product = productTDG.dbGet(id);
-                productIdentityMap.insertProductById(id, product);
+                productIdentityMap.insertProduct(id, product);
             } catch (Exception e) {
                 //do nothing
             }
         }
 
         return product;
-    }
+    }*/
 
-    public Map<Integer, Product> getAll() {
+    public Map<String, Product> getAll() {
 
 
         Product currentProducts[];
@@ -86,7 +86,7 @@ public class ProductMapper {
             currentProducts = productTDG.dbGetAll();
 
             for (int i = 0; i < currentProducts.length; i++) {
-                productCatalog.addProduct(currentProducts[i].getId(), currentProducts[i]);
+                productCatalog.addProduct(currentProducts[i].getSerialNumber(), currentProducts[i]);
             }
 
         } catch (Exception e) {

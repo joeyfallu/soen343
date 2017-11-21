@@ -38,29 +38,29 @@ public class PointOfSale {
         cartCatalog.emptyCart(userId);
     }
 
-    public void addCartItem(int userId, int itemId) {
-        cartCatalog.addToCart(userId, itemId);
+    public void addCartItem(int userId, String serialNumber) {
+        cartCatalog.addToCart(userId, serialNumber);
     }
 
-    public void removeCartItem(int userId, int itemId) {
-        cartCatalog.removeFromCart(userId, itemId);
+    public void removeCartItem(int userId, String serialNumber) {
+        cartCatalog.removeFromCart(userId, serialNumber);
     }
 
-    public List<Integer> endPurchase(int userId) {
-        Map<Integer, Product> productCatalog = store.getProductCatalog().getProducts();
-        Map<Integer, Date> productsInCart = cartCatalog.purchaseCart(userId);
-        Set<Integer> productIdsInCart = productsInCart.keySet();
-        List<Integer> ids = new ArrayList<>();
-        for (Integer itemId : productIdsInCart) {
-            ids.add(itemId);
-            purchaseMapper.purchase(new Purchase(userId, productsInCart.get(itemId).toString(), productCatalog.get(itemId)));
+    public List<String> endPurchase(int userId) {
+        Map<String, Product> productCatalog = store.getProductCatalog().getProducts();
+        Map<String, Date> productsInCart = cartCatalog.purchaseCart(userId);
+        Set<String> productIdsInCart = productsInCart.keySet();
+        List<String> serials = new ArrayList<>();
+        for (String serialNumber : productIdsInCart) {
+            serials.add(serialNumber);
+            purchaseMapper.purchase(new Purchase(userId, productsInCart.get(serialNumber).toString(), productCatalog.get(serialNumber)));
         }
         cartCatalog.emptyCart(userId);
-        return ids;
+        return serials;
     }
 
-    public void processReturn(int userId, int itemId) {
-        purchaseMapper.returnItem(itemId);
+    public void processReturn(String serialNumber) {
+        purchaseMapper.returnItem(serialNumber);
     }
 
     public Cart viewCart(int userId) {

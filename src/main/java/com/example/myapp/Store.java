@@ -41,12 +41,12 @@ public class Store {
         this.productMapper.insert(product);
     }
 
-    public void deleteProduct(int id) {
-        this.productMapper.delete(id);
+    public void deleteProduct(String serialNumber) {
+        this.productMapper.delete(serialNumber);
     }
 
-    public void modifyProduct(int id, Product product) {
-        product.setId(id);
+    public void modifyProduct(String serialNumber, Product product) {
+        product.setSerialNumber(serialNumber);
         this.productMapper.update(product);
     }
 
