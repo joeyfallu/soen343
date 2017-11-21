@@ -29,7 +29,7 @@ public class PurchaseHistory {
     }
 
     @Requires("true")
-    @Ensures("purchases.size() = old (purchases.size() - 1)")
+    @Ensures("purchases.size() == old (purchases.size() - 1)")
     public void deletePurchase(String serialNumber)  {
         purchases.remove(serialNumber);
     }
