@@ -48,7 +48,7 @@ public class PurchaseMapper {
     }
 
     @Requires("true")
-    @Ensures("getMapCount() = old(getMapCount() + 1)")
+    @Ensures("getMapCount() == old(getMapCount() + 1)")
     public void returnItem(String serialNumber) {
         commitType = Transaction.Type.returnItem;
         Product emptyProduct = new Product("","",0,0,"",0);
