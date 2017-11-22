@@ -2,6 +2,8 @@ package com.example.myapp.database;
 
 
 import com.example.myapp.purchases.Purchase;
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +17,9 @@ public class PurchaseIdentityMap {
     }
 
     public Map<Integer, Purchase> getAllPurchases(){ return  purchases;}
-
+    @Requires({"id > -1",
+            "purchase != null"})
+    @Ensures("purchases.size() == old(purchases.size() + 1)")
     public void insertPurchase(int id, Purchase purchase){
         purchases.put(id,purchase);
     }
