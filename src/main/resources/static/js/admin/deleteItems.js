@@ -1,6 +1,14 @@
 'use strict';
 
 angular.module('app').controller('deleteItemsController', ['$scope', "$http", function loginController($scope, $http) {
+
+    $http.get("/get/TransactionInProgress").then((res) => {
+        if(res.data.message == "In Progress"){
+            alert("Transaction Already in Progress\n You will be redirected");
+            window.location = "/admin";
+        }
+    });
+
     $scope.deleteItem = function () {
         $scope.message = "";
         let serialNumber = $scope.deleteSerialNumber;

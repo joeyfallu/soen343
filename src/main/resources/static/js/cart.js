@@ -45,6 +45,14 @@ angular.module('app')
                     for(var i =0; i < $scope.cart.length; i++){
                         if($scope.cart[i].serialNumber == serialNumber){
                             $scope.subtotal -= $scope.cart[i].price;
+                            if($scope.subtotal.toString().indexOf('.') > -1){
+                                var subtotal = $scope.subtotal.toString()
+                                var subtotal = subtotal.substring(0,subtotal.toString().indexOf('.') + 2)
+                                $scope.subtotal = parseInt(subtotal);
+                            }
+                            if($scope.subtotal < 0){
+                                $scope.subtotal = 0;
+                            }
                             $scope.cart.splice(i,1)
                         }
                     }
