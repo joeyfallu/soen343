@@ -1,6 +1,9 @@
 package com.example.myapp.cartCatalog;
 
 
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +21,7 @@ public class CartCatalog {
     }
 
     public void addCart(int userId){
-        Cart newCart = new Cart(userId,0,new HashMap<>());
+        Cart newCart = new Cart(userId,0,new HashMap<String, Date>());
         carts.put(newCart.getUserId(),newCart);
     }
 

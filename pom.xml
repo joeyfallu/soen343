@@ -11,39 +11,7 @@
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
 
-	<component name="CompilerConfiguration">
-		<option name="DEFAULT_COMPILER" value="Javac" />
-		<resourceExtensions />
-		<wildcardResourcePatterns>
-			<entry name="!?*.java" />
-			<entry name="!?*.form" />
-			<entry name="!?*.class" />
-			<entry name="!?*.groovy" />
-			<entry name="!?*.scala" />
-			<entry name="!?*.flex" />
-			<entry name="!?*.kt" />
-			<entry name="!?*.clj" />
-			<entry name="!?*.aj" />
-		</wildcardResourcePatterns>
-		<annotationProcessing>
-			<profile default="true" name="Default" enabled="false">
-				<processorPath useClasspath="true" />
-			</profile>
-			<profile default="false" name="Maven default annotation processors profile" enabled="true">
-				<sourceOutputDir name="target/generated-sources/annotations" />
-				<sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-				<outputRelativeToContentRoot value="true" />
-				<option name="com.google.java.contract.classoutput" value="$PROJECT_DIR$/target/classes" />
-				<option name="com.google.java.contract.classpath" value="$MAVEN_REPOSITORY$/io/konverge/cofoja/2.0.0/cofoja-2.0.0.jar" />
-				<option name="com.google.java.contract.sourcepath" value="$PROJECT_DIR$/src/main/java" />
-				<processorPath useClasspath="true" />
-				<module name="cofoja-example" />
-			</profile>
-		</annotationProcessing>
-		<bytecodeTargetLevel>
-			<module name="cofoja-example" target="1.7" />
-		</bytecodeTargetLevel>
-	</component>
+
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -56,6 +24,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<javadocExecutable>${java.home}/../bin/</javadocExecutable>
 	</properties>
 
 	<dependencies>
@@ -110,7 +81,33 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<showDeprecation>true</showDeprecation>
+					<showWarnings>true</showWarnings>
+					<compilerArgs>
+						<arg>-Acom.google.java.contract.classoutput=${basedir}/target/classes</arg>
+						<arg>-Acom.google.java.contract.classpath=$MAVEN_REPOSITORY$/io/konverge/cofoja/2.0.0/cofoja-2.0.0.jar</arg>
+						<arg>-Acom.google.java.contract.sourcepath=${basedir}/src/main/java</arg>
+					</compilerArgs>
+					<!--<compilerArgument>-Acom.google.java.contract.classoutput=${basedir}/target/classes" "-Acom.google.java.contract.classpath=${io.konverge:cofoja:jar}" "-Acom.google.java.contract.sourcepath=${basedir}/src/main/java</compilerArgument>-->
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.15</version>
+				<configuration>
+					<argLine>-javaagent:$MAVEN_REPOSITORY$/io/konverge/cofoja/2.0.0/cofoja-2.0.0.jar</argLine>
+				</configuration>
+			</plugin>
 		</plugins>
+
 	</build>
 
 
