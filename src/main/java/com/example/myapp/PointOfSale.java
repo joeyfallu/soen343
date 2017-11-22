@@ -9,6 +9,9 @@ import com.example.myapp.transactions.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
+
 import java.util.*;
 
 @Service
@@ -46,6 +49,8 @@ public class PointOfSale {
         cartCatalog.removeFromCart(userId, serialNumber);
     }
 
+    @Requires("UserCatalog.getUserById(userId) != null")
+    @Ensures("purchaseMapper.getMapCount() == old(purchaseMapper.getMapCount() + 1)")
     public List<String> endPurchase(int userId) {
         Map<String, Product> productCatalog = store.getProductCatalog().getProducts();
         Map<String, Date> productsInCart = cartCatalog.purchaseCart(userId);
@@ -59,6 +64,8 @@ public class PointOfSale {
         return serials;
     }
 
+    @Requires("serialNumber != null")
+    @Ensures("PurchaseMapper.getMapCount() == old(PurchaseMapper.getMapCount() + 1)")
     public void processReturn(String serialNumber) {
         purchaseMapper.returnItem(serialNumber);
     }

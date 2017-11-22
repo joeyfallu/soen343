@@ -6,9 +6,6 @@ import com.example.myapp.productCatalog.Product;
 import com.example.myapp.transactions.Transaction;
 import org.springframework.stereotype.Service;
 
-import com.google.java.contract.Ensures;
-import com.google.java.contract.Requires;
-
 import java.util.Map;
 
 @Service
@@ -32,8 +29,7 @@ public class PurchaseMapper {
         this.purchaseHistory = purchaseHistory;
         this.commitType = commitType;
     }
-    @Requires("purchase != null")
-    @Ensures("getMapCount() == old(getMapCount() + 1)")
+
     public void purchase(Purchase purchase) {
         commitType = Transaction.Type.purchase;
         purchasesIdentityMap.insertPurchase(mapCount,purchase);
@@ -48,8 +44,6 @@ public class PurchaseMapper {
         purchaseHistory.deletePurchase(serialNumber);
     }
 
-    @Requires("serialNumber != null")
-    @Ensures("getMapCount() == old(getMapCount() + 1)")
     public void returnItem(String serialNumber) {
         commitType = Transaction.Type.returnItem;
         Product emptyProduct = new Product("","",0,0,"",0);
