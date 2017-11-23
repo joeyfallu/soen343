@@ -183,7 +183,7 @@ public class DemoApplication {
     public String addUser(@RequestBody String json){
         Gson gson = new Gson();
         User user = gson.fromJson(json, User.class);
-        String email = user.getEmail();
+        String email = user.getEmail().toLowerCase();
         boolean isDuplicateEmail = false;
 
         for (Map.Entry<Integer, User> entry : store.getUserMapper().getUserCatalog().getUsers().entrySet()) {
