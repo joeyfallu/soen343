@@ -37,15 +37,15 @@
                 <input type="text" class="form-control" ng-model="$parent.monitorBrand" required="" id="monitorBrandInput"/>
 
                 <label for="monitorSizeInput">Size (in inches)</label>
-                <input type="text" class="form-control" ng-model="$parent.monitorSize" required="" id="monitorSizeInput" pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.monitorSize" required="" id="monitorSizeInput" pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/>
 
                 <label for="monitorWeightInput">Weight (in kg)</label>
                 <input type="text" class="form-control" ng-model="$parent.monitorWeight" required="" id="monitorWeightInput"
-                       pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/>
+                       pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/>
 
                 <label for="monitorPriceInput">Price</label>
                 <input type="text" class="form-control" ng-model="$parent.monitorPrice" required="" id="monitorPriceInput"
-                pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/>
+                pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/>
 
                 <br/><button type="submit" class="btn btn-block">Submit</button>
                 <div class="panel panel-warning col-md-12" style="margin-top: 10px;" ng-show="isMonitorMsgAvailable">
@@ -64,19 +64,19 @@
                 <label>Brand</label>
                 <input type="text" class="form-control" ng-model="$parent.tabletBrand" required=""/>
                 <label>Size (in inches)</label>
-                <input type="text" class="form-control" ng-model="$parent.tabletSize" required="" pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.tabletSize" required="" pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/>
                 <label>Dimensions (in cm)</label>
                 <input type="text" class="form-control" ng-model="$parent.tabletDimensions" required=""/>
                 <label>Weight (in kg)</label>
-                <input type="text" class="form-control" ng-model="$parent.tabletWeight" required="" pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.tabletWeight" required="" pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/>
                 <label>Processor Type</label>
                 <input type="text" class="form-control" ng-model="$parent.tabletProcessor" required=""/>
                 <label>RAM Size (in Gigabytes)</label>
-                <input type="text" class="form-control" ng-model="$parent.tabletRam" required="" pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.tabletRam" required="" pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/>
                 <label>Number of CPU Cores</label>
                 <input type="text" class="form-control" ng-model="tabletCores" required="" pattern="[1-9]\d*"/>
                 <label>Hard Drive Size (in Gigabytes)</label>
-                <input type="text" class="form-control" ng-model="$parent.tabletHardDriveSize" required="" pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.tabletHardDriveSize" required="" pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/>
                 <label>Battery Information</label>
                 <input type="text" class="form-control" ng-model="$parent.tabletBattery" required=""/>
                 <label>Operating System</label>
@@ -84,7 +84,7 @@
                 <label>Camera Information</label>
                 <input type="text" class="form-control" ng-model="$parent.tabletCamera" required=""/>
                 <label>Price</label>
-                <input type="text" class="form-control" ng-model="$parent.tabletPrice" required="" pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/><br/>
+                <input type="text" class="form-control" ng-model="$parent.tabletPrice" required="" pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/><br/>
                 <button type="submit" class="btn btn-block">Submit</button>
                 <div class="panel panel-warning col-md-12" style="margin-top: 10px;" ng-show="isTabletMsgAvailable">
                     {{tabletMessage}}
@@ -103,17 +103,17 @@
                 <label>Dimensions (in cm)</label>
                 <input type="text" class="form-control" ng-model="$parent.desktopDimensions" required=""/>
                 <label>Weight (in kg)</label>
-                <input type="text" class="form-control" ng-model="$parent.desktopWeight" required="" pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.desktopWeight" required="" pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/>
                 <label>Processor Type</label>
                 <input type="text" class="form-control" ng-model="$parent.desktopProcessor" required=""/>
                 <label>Number of CPU Cores</label>
                 <input type="text" class="form-control" ng-model="$parent.desktopCores" required="" pattern="[1-9]\d*"/>
                 <label>RAM Size (in Gigabytes)</label>
-                <input type="text" class="form-control" ng-model="$parent.desktopRam" required="" pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.desktopRam" required="" pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/>
                 <label>Hard Drive Size (in Gigabytes)</label>
-                <input type="text" class="form-control" ng-model="$parent.desktopHardDriveSize" required="" pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.desktopHardDriveSize" required="" pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/>
                 <label>Price </label>
-                <input type="text" class="form-control" ng-model="$parent.desktopPrice" required="" pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/><br/>
+                <input type="text" class="form-control" ng-model="$parent.desktopPrice" required="" pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/><br/>
                 <button type="submit" class="btn btn-block">Submit</button>
                 <div class="panel panel-warning col-md-12" style="margin-top: 10px;" ng-show="isDesktopMsgAvailable">
                     {{desktopMessage}}
@@ -130,17 +130,17 @@
                 <label>Brand</label>
                 <input type="text" class="form-control" ng-model="$parent.laptopBrand" required=""/>
                 <label>Size (in inches)</label>
-                <input type="text" class="form-control" ng-model="$parent.laptopSize" required="" pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.laptopSize" required="" pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/>
                 <label>Weight (in kg)</label>
-                <input type="text" class="form-control" ng-model="$parent.laptopWeight" required="" pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.laptopWeight" required="" pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/>
                 <label>Processor Type</label>
                 <input type="text" class="form-control" ng-model="$parent.laptopProcessor" required=""/>
                 <label>RAM Size (in Gigabytes)</label>
-                <input type="text" class="form-control" ng-model="$parent.laptopRam" required="" pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.laptopRam" required="" pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/>
                 <label>Number of CPU Cores</label>
                 <input type="text" class="form-control" ng-model="$parent.laptopCores" required="" pattern="[1-9]\d*"/>
                 <label>Hard Drive Size (in Gigabytes)</label>
-                <input type="text" class="form-control" ng-model="$parent.laptopHardDriveSize" required="" pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/>
+                <input type="text" class="form-control" ng-model="$parent.laptopHardDriveSize" required="" pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/>
                 <label>Battery Information</label>
                 <input type="text" class="form-control" ng-model="$parent.laptopBattery" required=""/>
                 <label>Operating System</label>
@@ -152,7 +152,7 @@
                 <label>Yes<input type="radio" name="touchScreen"  ng-model="$parent.laptopTouchScreen" required="" value="true"/></label>
                 <label>No<input type="radio" name="touchScreen" ng-model="$parent.laptopTouchScreen" required="" value="false"/></label><br/>
                 <label>Price </label>
-                <input type="text" class="form-control" ng-model="$parent.laptopPrice" required="" pattern="(\.?)((0*|0*\.?)(?=[1-9]|(0)*[1-9]))\d+(\.\d+)?"/><br/>
+                <input type="text" class="form-control" ng-model="$parent.laptopPrice" required="" pattern="([1-9]\d*(\.\d*)?)|(0(\.\d*[1-9]\d*))|([1-9]\d*(\.\d+[1-9]))"/><br/>
                 <button type="submit" class="btn btn-block">Submit</button>
                 <div class="panel panel-warning col-md-12" style="margin-top: 10px;" ng-show="isLaptopMessageAvailable">
                     {{laptopMessage}}
