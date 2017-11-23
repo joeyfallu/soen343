@@ -10,13 +10,6 @@ public class Desktop extends Computer {
 
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + "Desktop{" +
-                "dimensions='" + dimensions + '\'' +
-                '}';
-    }
-
     public String getDimensions() {
         return dimensions;
     }

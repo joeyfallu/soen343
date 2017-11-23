@@ -20,30 +20,20 @@ public class UserCatalog {
         loginHistory = new HashMap<>();
     }
 
-
-    /*
-    Login
-    Returns the User object after a successful login, or throws an exception
-    */
     public User login(String email, String password) throws Exception {
-        //Checks if the provided email password pair matches a user entry inside the users HashMap
         for (Map.Entry<Integer, User> entry : users.entrySet()) {
             if(entry.getValue().getEmail().toLowerCase().equals(email.toLowerCase())) {
                 if (entry.getValue().getPassword().equals(password)) {
                     if (activeUsers.get(entry.getValue().getId()) != null)
                         throw new Exception("User already logged in");
 
-                    //Successful login
-                    //Adds the user to the activeUsers hashMap
                     addActiveUser(entry.getValue());
                     return activeUsers.get(entry.getKey());
                 } else {
                     throw new Exception("Wrong password");
                 }
             }
-            //Continues to the next map entry
         }
-        //Do something if the email was not found in the map
         throw new Exception("Email not found");
     }
 
@@ -51,18 +41,8 @@ public class UserCatalog {
         return users;
     }
 
-    public Map<Integer, User> getActiveUsers(){
-        return activeUsers;
-    }
-
-    public void test(){}
-
     public User getUserById(int id) {
         return users.get(id);
-    }
-
-    public User getActiveUserById(int id) {
-        return activeUsers.get(id);
     }
 
     public void addActiveUser(User user) {
@@ -86,9 +66,5 @@ public class UserCatalog {
 
     public void addUser(User user) {
         users.put(user.getId(), user);
-    }
-
-    public Map<Integer, LocalDateTime> getLoginHistory() {
-        return loginHistory;
     }
 }

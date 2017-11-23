@@ -8,13 +8,6 @@ public class Monitor extends Product {
         this.size = size;
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + "Monitor{" +
-                "size=" + size +
-                '}';
-    }
-
     public int getSize() {
         return size;
     }

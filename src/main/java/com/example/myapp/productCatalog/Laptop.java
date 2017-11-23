@@ -19,17 +19,6 @@ public class Laptop extends Computer {
 
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + "Laptop{" +
-                "batteryInfo='" + batteryInfo + '\'' +
-                ", operatingSystem='" + operatingSystem + '\'' +
-                ", camera=" + camera +
-                ", size=" + size +
-                ", touchScreen=" + touchScreen +
-                '}';
-    }
-
     public String getBatteryInfo() {
         return batteryInfo;
     }
