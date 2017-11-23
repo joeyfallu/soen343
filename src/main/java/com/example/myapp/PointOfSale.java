@@ -54,10 +54,11 @@ public class PointOfSale {
     public void removeCartItem(int userId, String serialNumber) {
         cartCatalog.removeFromCart(userId, serialNumber);
     }
-    //@Requires({"userID > -1 ",
-    //        "serialNumber != null"})
-    //@Ensures({"cartCatalog.getCart(userId).size() == 0",
-    //        "old(cartCatalog.getCart(userId).size()) == serials.size()"})
+
+    //@Requires("store.getUserMapper().getUserCatalog().getUserById(userId) != null")
+    /*@Ensures({"purchaseMapper.getMapCount() == old(purchaseMapper.getMapCount() + 1)",
+              "cartCatalog.getCart(userId).size() == 0",
+              "old(cartCatalog.getCart(userId).size()) == serials.size()"})*/
     public List<String> endPurchase(int userId) {
         Map<String, Product> productCatalog = store.getProductCatalog().getProducts();
         Map<String, Date> productsInCart = cartCatalog.purchaseCart(userId);
@@ -73,6 +74,8 @@ public class PointOfSale {
         return serials;
     }
 
+    //@Requires("serialNumber != null")
+    //@Ensures("purchaseMapper.getMapCount() == old(purchaseMapper.getMapCount() + 1)")
     public void processReturn(String serialNumber) {
         purchaseMapper.returnItem(serialNumber);
     }
