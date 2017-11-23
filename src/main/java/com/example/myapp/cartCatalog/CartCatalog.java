@@ -1,6 +1,9 @@
 package com.example.myapp.cartCatalog;
 
 
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,12 +31,13 @@ public class CartCatalog {
         Map<String, Date> cartProducts = cart.getCartProducts();
         cartProducts.clear();
     }
-
+    @Requires("carts.get(userId) != null")
+    @Ensures("(carts.get(userId).getSize() == old (carts.get(userId).getSize() +1))")
     public void addToCart(int userId, String serialNumber){
         Cart cart = carts.get(userId);
         Map<String, Date> cartProducts = cart.getCartProducts();
         cartProducts.put(serialNumber, new Date());
-        cart.setSize(cart.getSize() + 1);
+        cart.setSize(cart.getSize() + 3);
     }
 
     public void removeFromCart(int userId, String serialNumber){
