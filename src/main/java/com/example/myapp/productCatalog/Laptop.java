@@ -71,23 +71,14 @@ public class Laptop extends Computer {
         if (!this.getProcessorType().equals(laptop.getProcessorType())){check = false;}
         if (this.getRam()!=laptop.getRam()){check = false;}
         if (this.getHardDriveSize()!=laptop.getHardDriveSize()){check = false;}
-        System.out.println(check);
         if (this.getSize()!=laptop.getSize()){check = false;}
-        System.out.println(check);
         if (!this.getBatteryInfo().equals(laptop.getBatteryInfo())){check = false;}
-        System.out.println(check);
         if (!this.getOperatingSystem().equals(laptop.getOperatingSystem())){check = false;}
-        System.out.println(check);
-        System.out.println(this.isCamera());
-        System.out.println(laptop.isCamera());
         if (this.isCamera()!=laptop.isCamera()){check = false;}
-        System.out.println(check);
         if (this.getTouchScreen()!=laptop.getTouchScreen()){check = false;}
-        System.out.println(check);
         if (!this.getBrand().equals(laptop.getBrand())){check=false;}
         if (this.getPrice()!=laptop.getPrice()){check=false;}
         if (this.getWeight()!=laptop.getWeight()){check=false;}
-
         return check;
     }
 }

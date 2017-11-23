@@ -183,8 +183,7 @@ public class ProductTDG {
                 //1/2/3/4/5/7/8/9/10/11/12/13/15/16
                 Laptop lp = new Laptop(result[1], result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], result[7],
                         Integer.parseInt(result[8]), Integer.parseInt(result[9]), Integer.parseInt(result[10]), Double.parseDouble(result[11]), result[12], result[13],
-                        Boolean.parseBoolean(result[15]), Boolean.parseBoolean(result[16]), Integer.parseInt(result[17]));
-
+                        Integer.parseInt(result[15])>0, Integer.parseInt(result[16])>0, Integer.parseInt(result[17]));
                 products[currentProductNum] = lp;
                 currentProductNum++;
             }
