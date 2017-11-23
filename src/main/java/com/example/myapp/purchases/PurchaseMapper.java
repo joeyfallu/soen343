@@ -53,24 +53,6 @@ public class PurchaseMapper {
         mapCount++;
     }
 
-    /*public Purchase get(String serialNumber)
-    {
-        Purchase purchase = purchasesIdentityMap.getPurchaseById(id);
-
-        if(purchase == null)
-        {
-            try {
-                purchase = purchaseTDG.dbGet(serialNumber);
-                purchasesIdentityMap.insertPurchaseById(id,purchase);
-            }
-            catch(Exception e)
-            {
-                //do nothing
-            }
-        }
-        return purchase;
-    }*/
-
     public Map<String, Purchase> getAll()
     {
         Purchase currentPurchase[];

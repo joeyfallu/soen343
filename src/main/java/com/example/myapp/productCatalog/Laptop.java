@@ -19,17 +19,6 @@ public class Laptop extends Computer {
 
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + "Laptop{" +
-                "batteryInfo='" + batteryInfo + '\'' +
-                ", operatingSystem='" + operatingSystem + '\'' +
-                ", camera=" + camera +
-                ", size=" + size +
-                ", touchScreen=" + touchScreen +
-                '}';
-    }
-
     public String getBatteryInfo() {
         return batteryInfo;
     }
@@ -73,5 +62,23 @@ public class Laptop extends Computer {
     public int getTouchScreen() { return touchScreen ? 1 : 0; }
 
     public int getCamera() { return camera ? 1 : 0; }
+
+    public boolean equals(Laptop laptop)
+    {
+        boolean check = true;
+        if (this.getCpuCores()!=laptop.getCpuCores()){check = false;}
+        if (!this.getProcessorType().equals(laptop.getProcessorType())){check = false;}
+        if (this.getRam()!=laptop.getRam()){check = false;}
+        if (this.getHardDriveSize()!=laptop.getHardDriveSize()){check = false;}
+        if (this.getSize()!=laptop.getSize()){check = false;}
+        if (!this.getBatteryInfo().equals(laptop.getBatteryInfo())){check = false;}
+        if (!this.getOperatingSystem().equals(laptop.getOperatingSystem())){check = false;}
+        if (this.isCamera()!=laptop.isCamera()){check = false;}
+        if (this.getTouchScreen()!=laptop.getTouchScreen()){check = false;}
+        if (!this.getBrand().equals(laptop.getBrand())){check=false;}
+        if (this.getPrice()!=laptop.getPrice()){check=false;}
+        if (this.getWeight()!=laptop.getWeight()){check=false;}
+        return check;
+    }
 }
 

@@ -16,18 +16,8 @@ public class PurchaseIdentityMap {
         return purchases.getOrDefault(id, null);
     }
 
-    public Map<Integer, Purchase> getAllPurchases(){ return  purchases;}
-
     public void insertPurchase(int id, Purchase purchase){
         purchases.put(id,purchase);
-    }
-
-    public void updatePurchase(int id, Purchase newPurchase){
-        purchases.put(id, newPurchase);
-    }
-
-    public void deletePurchase(int id){
-        purchases.remove(id);
     }
 
     public void reset(){purchases = new HashMap<>();}

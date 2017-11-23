@@ -20,7 +20,7 @@ angular.module('app').controller('registerController', function ($scope, $http, 
         console.log("Calling backend to add user");
         $http.post("/post/addUser", data).then((res) => {
             if (res.data.message) {
-                $scope.userMessage = "ERROR: Duplicate Email!";
+                $scope.userMessage = "An account with this email already exists!";
             } else {
                 $scope.userMessage = "Success";
                 $location.path("/");

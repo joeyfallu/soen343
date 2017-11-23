@@ -13,14 +13,6 @@ public class Purchase{
         this.product = product;
     }
 
-    public String toString(){
-        String str = "";
-        str += "User: " + userId + "\n";
-        str += timeStamp;
-        str += product.toString();
-        return str;
-    }
-
     public int getUserId() {
         return userId;
     }

@@ -63,8 +63,10 @@ public class PointOfSale {
         Set<String> productIdsInCart = productsInCart.keySet();
         List<String> serials = new ArrayList<>();
         for (String serialNumber : productIdsInCart) {
-            serials.add(serialNumber);
-            purchaseMapper.purchase(new Purchase(userId, productsInCart.get(serialNumber).toString(), productCatalog.get(serialNumber)));
+            if(productCatalog.containsKey(serialNumber)) {
+                serials.add(serialNumber);
+                purchaseMapper.purchase(new Purchase(userId, productsInCart.get(serialNumber).toString(), productCatalog.get(serialNumber)));
+            }
         }
         cartCatalog.emptyCart(userId);
         return serials;

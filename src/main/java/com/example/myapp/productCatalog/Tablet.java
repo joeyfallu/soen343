@@ -69,4 +69,22 @@ public class Tablet extends Computer {
     public void setSize(double size) {
         this.size = size;
     }
+
+    public boolean equals(Tablet tablet)
+    {
+        boolean check = true;
+        if (this.getCpuCores()!=tablet.getCpuCores()){check = false;}
+        if (!this.getProcessorType().equals(tablet.getProcessorType())){check = false;}
+        if (this.getRam()!=tablet.getRam()){check = false;}
+        if (this.getHardDriveSize()!=tablet.getHardDriveSize()){check = false;}
+        if (!this.getDimensions().equals(tablet.getDimensions())){check = false;}
+        if (!this.getBatteryInfo().equals(tablet.getBatteryInfo())){check = false;}
+        if (!this.getOperatingSystem().equals(tablet.getOperatingSystem())){check = false;}
+        if (!this.getCameraInfo().equals(tablet.getCameraInfo())){check = false;}
+        if (this.getSize()!=tablet.getSize()){check = false;}
+        if (!this.getBrand().equals(tablet.getBrand())){check=false;}
+        if (this.getPrice()!=tablet.getPrice()){check=false;}
+        if (this.getWeight()!=tablet.getWeight()){check=false;}
+        return check;
+    }
 }
