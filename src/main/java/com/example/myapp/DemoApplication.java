@@ -155,7 +155,7 @@ public class DemoApplication {
                 return gson.toJson(product);
             }
         }
-        return "{\"message\":\"Item does not Exist\"}";
+        return "{\"message\":\"Item Does Not Exist\"}";
     }
 
     /* VIEW USERS */
