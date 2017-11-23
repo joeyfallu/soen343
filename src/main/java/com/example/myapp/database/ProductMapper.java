@@ -61,27 +61,8 @@ public class ProductMapper {
         productCatalog.deleteProduct(serialNumber);
     }
 
-    /*public Product get(int id) {
-
-        Product product = productIdentityMap.getProductById(id);
-
-        if (product == null) {
-            try {
-                product = productTDG.dbGet(id);
-                productIdentityMap.insertProduct(id, product);
-            } catch (Exception e) {
-                //do nothing
-            }
-        }
-
-        return product;
-    }*/
-
     public Map<String, Product> getAll() {
-
-
         Product currentProducts[];
-
         try {
             currentProducts = productTDG.dbGetAll();
 
@@ -92,7 +73,6 @@ public class ProductMapper {
         } catch (Exception e) {
             //do nothing
         }
-
         return productCatalog.getProducts();
     }
 
@@ -106,10 +86,6 @@ public class ProductMapper {
 
     public ProductCatalog getProductCatalog() {
         return productCatalog;
-    }
-
-    public void setProductCatalog(ProductCatalog productCatalog) {
-        this.productCatalog = productCatalog;
     }
 
     public ProductIdentityMap getProductIdentityMap() {

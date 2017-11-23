@@ -46,7 +46,6 @@ public class UnitOfWorkAspect {
         }
     }
 
-
     @Before(value = "execution(* com.example.myapp.purchases.PurchaseMapper.commit(..))")
     public void beforePurchaseCommit(JoinPoint joinPoint) {
         purchaseMapper = (PurchaseMapper) joinPoint.getThis();
@@ -108,8 +107,6 @@ public class UnitOfWorkAspect {
     }
 
     public void commitUsers() {
-
-
         for (Object object : add) {
             int id=0;
             try {
@@ -162,7 +159,6 @@ public class UnitOfWorkAspect {
     }
 
     public void commitProducts() {
-
         for (Object o : add) {
                 try {
                     productMapper.getProductTDG().dbInsert((Product) o);
@@ -194,5 +190,4 @@ public class UnitOfWorkAspect {
         delete = new ArrayList<Object>();
         modify = new ArrayList<Object>();
     }
-
 }
