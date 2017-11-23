@@ -159,7 +159,7 @@ public class ProductTDG {
 
             if (Integer.parseInt(result[17]) == 2) {
                 //1/2/3/4/5/11
-                Monitor mn = new Monitor(result[1], result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], Integer.parseInt(result[11]), Integer.parseInt(result[17]));
+                Monitor mn = new Monitor(result[1], result[2], Double.parseDouble(result[3]), Double.parseDouble(result[4]), result[5], Double.parseDouble(result[11]), Integer.parseInt(result[17]));
                 products[currentProductNum] = mn;
                 currentProductNum++;
             }
