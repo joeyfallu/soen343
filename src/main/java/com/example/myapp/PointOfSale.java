@@ -31,24 +31,24 @@ public class PointOfSale {
         this.cartCatalog = cartCatalog;
         this.purchaseMapper = purchaseMapper;
     }
-    //@Requires("userID > -1 ")
+    //@Requires("store.getUserMapper().getUserCatalog().getUserById(userId) != null")
     //@Ensures({"cartCatalog.carts.size() == old(cartCatalog.carts.size() + 1)",
     //          "userID > -1 "})
     public void startPurchase(int userId) {
         //cartCatalog.addCart(userId);
     }
-    //@Requires("userID > -1 ")
+    //@Requires("store.getUserMapper().getUserCatalog().getUserById(userId) != null")
     //@Ensures("cartCatalog.getCart(userId).size() == 0")
     public void cancelPurchase(int userId) {
         cartCatalog.emptyCart(userId);
     }
-    //@Requires({"userID > -1 ",
+    //@Requires({"store.getUserMapper().getUserCatalog().getUserById(userId) != null",
     //            "serialNumber != null"})
     //@Ensures("cartCatalog.getCart(userId).getSize() == old(cartCatalog.getCart(userId).getSize() + 1)")
     public void addCartItem(int userId, String serialNumber) {
         cartCatalog.addToCart(userId, serialNumber);
     }
-    //@Requires({"userID > -1 ",
+    //@Requires({"store.getUserMapper().getUserCatalog().getUserById(userId) != null",
     //        "serialNumber != null"})
     //@Ensures("cartCatalog.getCart(userId).getSize() == old(cartCatalog.getCart(userId).getSize() - 1)")
     public void removeCartItem(int userId, String serialNumber) {
