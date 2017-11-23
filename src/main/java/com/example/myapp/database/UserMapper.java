@@ -19,7 +19,6 @@ public class UserMapper {
     private Transaction.Type commitType= Transaction.Type.add;
     private int mapCount=0;
 
-
     public UserMapper()
     {
         this.userTDG = new UserTDG();
@@ -35,8 +34,6 @@ public class UserMapper {
         this.userIdentityMap = new UserIdentityMap();
     }
 
-
-
     public void insert(User user){
 
         commitType = Transaction.Type.add;
@@ -50,6 +47,7 @@ public class UserMapper {
         userIdentityMap.insertUserById(mapCount,user);
         mapCount++;
     }
+
     public void insertUserCatalog(User user)
     {
         userCatalog.addUser(user);
@@ -59,7 +57,6 @@ public class UserMapper {
         return userCatalog.getUserById(id);
     }
 
-    //Gets all the users from DB, stores them in userCatalog then returns the userCatalog
     public Map<Integer, User> getAll(){
         User currentUsers[];
         try{
@@ -69,7 +66,7 @@ public class UserMapper {
                 userCatalog.addUser(currentUsers[i]);
             }
         } catch (Exception e){
-            //TODO
+            //do nothing
         }
         return userCatalog.getUsers();
     }
@@ -88,6 +85,7 @@ public class UserMapper {
     public UserTDG getUserTDG() {
         return userTDG;
     }
+
     public UserCatalog getUserCatalog(){
         return userCatalog;
     }

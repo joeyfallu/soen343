@@ -46,7 +46,6 @@ public class UnitOfWorkAspect {
         }
     }
 
-
     @Before(value = "execution(* com.example.myapp.purchases.PurchaseMapper.commit(..))")
     public void beforePurchaseCommit(JoinPoint joinPoint) {
         purchaseMapper = (PurchaseMapper) joinPoint.getThis();
