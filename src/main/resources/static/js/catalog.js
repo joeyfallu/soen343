@@ -65,7 +65,6 @@ angular.module('app')
         };
 
         $scope.addToCart = function(serialNumber){
-            // https://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
             $('#itemView').modal('hide');
             $(".modal-backdrop").hide();
 
