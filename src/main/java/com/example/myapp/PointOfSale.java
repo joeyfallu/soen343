@@ -6,6 +6,8 @@ import com.example.myapp.productCatalog.Product;
 import com.example.myapp.purchases.Purchase;
 import com.example.myapp.purchases.PurchaseMapper;
 import com.example.myapp.transactions.Transaction;
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,23 +31,32 @@ public class PointOfSale {
         this.cartCatalog = cartCatalog;
         this.purchaseMapper = purchaseMapper;
     }
-
+    @Requires("userID > -1 ")
+    @Ensures("cartCatalog.carts.size() == old(cartCatalog.carts.size() + 1)")
     public void startPurchase(int userId) {
         cartCatalog.addCart(userId);
     }
-
+    @Requires("userID > -1 ")
+    @Ensures("cartCatalog.getCart(userId).size() == 0")
     public void cancelPurchase(int userId) {
         cartCatalog.emptyCart(userId);
     }
-
+    @Requires({"userID > -1 ",
+                "serialNumber != null"})
+    @Ensures("cartCatalog.getCart(userId).getSize() == old(cartCatalog.getCart(userId).getSize() + 1)")
     public void addCartItem(int userId, String serialNumber) {
         cartCatalog.addToCart(userId, serialNumber);
     }
-
+    @Requires({"userID > -1 ",
+            "serialNumber != null"})
+    @Ensures("cartCatalog.getCart(userId).getSize() == old(cartCatalog.getCart(userId).getSize() - 1)")
     public void removeCartItem(int userId, String serialNumber) {
         cartCatalog.removeFromCart(userId, serialNumber);
     }
-
+    @Requires({"userID > -1 ",
+            "serialNumber != null"})
+    @Ensures({"cartCatalog.getCart(userId).size() == 0",
+            "old(cartCatalog.getCart(userId).size()) == serials.size()"})
     public List<String> endPurchase(int userId) {
         Map<String, Product> productCatalog = store.getProductCatalog().getProducts();
         Map<String, Date> productsInCart = cartCatalog.purchaseCart(userId);

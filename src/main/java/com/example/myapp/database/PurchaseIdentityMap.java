@@ -17,9 +17,7 @@ public class PurchaseIdentityMap {
     }
 
     public Map<Integer, Purchase> getAllPurchases(){ return  purchases;}
-    @Requires({"id > -1",
-            "purchase != null"})
-    @Ensures("purchases.size() == old(purchases.size() + 1)")
+
     public void insertPurchase(int id, Purchase purchase){
         purchases.put(id,purchase);
     }
