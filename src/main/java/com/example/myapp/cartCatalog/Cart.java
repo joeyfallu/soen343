@@ -20,10 +20,6 @@ public class Cart {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public int getSize() {
         return size;
     }
@@ -34,9 +30,5 @@ public class Cart {
 
     public Map<String, Date> getCartProducts() {
         return cartProducts;
-    }
-
-    public void setCartProducts(Map<String, Date> cartProducts) {
-        this.cartProducts = cartProducts;
     }
 }
