@@ -441,7 +441,7 @@ public class DemoApplication {
             {
                 if (entry.getValue().getModel().equals(tablet.getModel()))
                 {
-                    store.modifyProduct(entry.getValue().getSerialNumber(),tablet);
+                    store.modifyProduct(entry.getValue().getSerialNumber(),gson.fromJson(json, Tablet.class));
                 }
             }
         }
@@ -459,7 +459,7 @@ public class DemoApplication {
             {
                 if (entry.getValue().getModel().equals(desktop.getModel()))
                 {
-                    store.modifyProduct(entry.getValue().getSerialNumber(),desktop);
+                    store.modifyProduct(entry.getValue().getSerialNumber(),gson.fromJson(json, Desktop.class));
                 }
             }
         }
@@ -478,11 +478,11 @@ public class DemoApplication {
             {
                 if (entry.getValue().getModel().equals(laptop.getModel()))
                 {
-                    store.modifyProduct(entry.getValue().getSerialNumber(),laptop);
+                    store.modifyProduct(entry.getValue().getSerialNumber(),gson.fromJson(json, Laptop.class));
                 }
             }
         }
-            store.modifyProduct(laptop.getSerialNumber(), laptop);
+
         return gson.toJson(json);
     }
 

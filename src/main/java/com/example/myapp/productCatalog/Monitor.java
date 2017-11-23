@@ -1,18 +1,18 @@
 package com.example.myapp.productCatalog;
 
 public class Monitor extends Product {
-    private int size;
+    private double size;
 
-    public Monitor(String serialNumber, String model, double weight, double price, String brand, int size, int discriminator){
+    public Monitor(String serialNumber, String model, double weight, double price, String brand, double size, int discriminator){
         super(serialNumber, model, weight, price, brand, discriminator);
         this.size = size;
     }
 
-    public int getSize() {
+    public double getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(double size) {
         this.size = size;
     }
 
