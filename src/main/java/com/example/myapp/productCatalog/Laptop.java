@@ -65,7 +65,6 @@ public class Laptop extends Computer {
 
     public boolean equals(Laptop laptop)
     {
-        System.out.println("this got used");
         boolean check = true;
         if (this.getCpuCores()!=laptop.getCpuCores()){check = false;}
         if (!this.getProcessorType().equals(laptop.getProcessorType())){check = false;}

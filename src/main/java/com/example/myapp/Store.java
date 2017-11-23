@@ -91,6 +91,8 @@ public class Store {
         return userMapper;
     }
 
+    public ProductMapper getProductMapper() { return productMapper; }
+
     public Transaction getTransaction() {
         return transaction;
     }

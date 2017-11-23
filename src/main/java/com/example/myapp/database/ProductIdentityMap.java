@@ -19,4 +19,8 @@ public class ProductIdentityMap {
     public void insertProduct(int id, Product product){
         products.put(id,product);
     }
+
+    public Map<Integer, Product> getProducts() {
+        return products;
+    }
 }

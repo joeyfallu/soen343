@@ -179,7 +179,6 @@ public class UnitOfWorkAspect {
 
         for (Object o : modify) {
             try {
-                System.out.println(((Product)o).toString());
                 productMapper.getProductTDG().dbModify(((Product) o).getSerialNumber(), (Product) o);
             } catch (Exception e) {
                 System.out.println("failed to modify product from unit of work");

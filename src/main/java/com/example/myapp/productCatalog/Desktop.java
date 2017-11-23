@@ -19,7 +19,6 @@ public class Desktop extends Computer {
     }
     public boolean equals(Desktop desktop)
     {
-        System.out.println("this ran");
         boolean check = true;
         if (this.getCpuCores()!=desktop.getCpuCores()){check = false;}
         if (!this.getProcessorType().equals(desktop.getProcessorType())){check = false;}

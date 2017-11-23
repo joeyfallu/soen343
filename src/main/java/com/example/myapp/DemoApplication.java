@@ -30,6 +30,11 @@ public class DemoApplication {
     @Autowired
     private PointOfSale pointOfSale;
 
+    //Common error strings
+    private final String ADD_ERROR_A = "{\"message\":\"Duplicate serial number, please enter another one\"}";
+    private final String ADD_ERROR_B = "{\"message\":\"This model number is already in use. " +
+                                        "The specification does not match the expected values for this model number\"}";
+
     /* Single page application routing */
     @RequestMapping({
             "/",
@@ -64,23 +69,18 @@ public class DemoApplication {
 
         try {
             User loggedInUser = store.getUserMapper().getUserCatalog().login(email, password);
-            System.out.println("Successful login by: " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " "+ loggedInUser.getEmail());
-            //Send two cookies which store the user's id and info as json
             Cookie userIdCookie = new Cookie("SESSIONID", ""+loggedInUser.getId());
             userIdCookie.setMaxAge(24*60*60);
             userIdCookie.setPath("/");
             userIdCookie.setHttpOnly(false);
             response.addCookie(userIdCookie);
-            //the json needs to be URL encoded in order to be stored in a cookie.
             String userInfoStr = URLEncoder.encode(gson.toJson(loggedInUser), "UTF-8");
             Cookie userInfoCookie = new Cookie("USERINFO", userInfoStr);
             userInfoCookie.setPath("/");
             userInfoCookie.setHttpOnly(false);
             userInfoCookie.setMaxAge(24*60*60);
             response.addCookie(userInfoCookie);
-            //Could be encrypted for security
             String userJsonResponse = gson.toJson(loggedInUser);
-            //Responds with a User Object in Json format
 
             //Creates the users cart
             if(loggedInUser.getIsAdmin() == 0){
@@ -116,7 +116,6 @@ public class DemoApplication {
         store.getUserMapper().getUserCatalog().removeActiveUserById(id);
         if(!store.getTransaction().isComplete() && store.getTransaction().getUserId() == cookieId ) {
             store.endTransaction();
-            System.out.println(cookieId);
         }
         return "{\"message\":\"Logged Out\"}";
     }
@@ -138,12 +137,12 @@ public class DemoApplication {
         if (items.get(serialNumber) != null) {
             return gson.toJson(items.get(serialNumber));
         } else {
-            //product might be already sold
             Map<String, Purchase> soldItems = pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases();
             return gson.toJson(soldItems.get(serialNumber).getProduct());
         }
     }
 
+    /* GET FOR MODIFICATION */
     @RequestMapping(value = "/getItemModify/{modelNumber}", method = RequestMethod.GET)
     @ResponseBody
     public String getModifiedProductSerialNumber(@PathVariable("modelNumber") String modelNumber) {
@@ -165,7 +164,6 @@ public class DemoApplication {
         Gson gson = new Gson();
         return gson.toJson(store.getUserMapper().getUserCatalog().getUsers());
     }
-
 
     /* DELETE ITEMS */
     @RequestMapping(value = "/deleteItem/{serialNumber}", method = RequestMethod.GET)
@@ -196,8 +194,6 @@ public class DemoApplication {
         }
 
         if (!isDuplicateEmail) {
-            System.out.println("Adding user to database.");
-            // Use a temporary ID to make a transaction while not logged in
             store.initiateTransaction(1000, Transaction.Type.add);
             if(store.getTransaction().getUserId() == 1000) {
                 store.addNewUser(user);
@@ -207,7 +203,6 @@ public class DemoApplication {
         } else {
             return "{\"message\":\"Duplicate\"}";
         }
-
     }
 
     /* DELETE USER */
@@ -236,7 +231,7 @@ public class DemoApplication {
             Collection<Product> products = catalog.values();
             if (catalog.containsKey(monitor.getSerialNumber()))
             {
-                return "{\"message\":\"Duplicate serial number, please enter another one\"}";
+                return ADD_ERROR_A;
             }
             for (Product product : products) {
                 if(product.getModel().equals(monitor.getModel())){
@@ -244,12 +239,25 @@ public class DemoApplication {
                         if(((Monitor) product).equals((Monitor)monitor)){
                             break;
                         }
-                        return "{\"message\":\"This model number is already in use. The specification does not match the expected values for this model number\"}";
+                        return ADD_ERROR_B;
                     }
                 }
             }
+            Collection<Product> inIdentityMap = store.getProductMapper().getProductIdentityMap().getProducts().values();
+            for (Product product : inIdentityMap) {
+                if(product.getSerialNumber().equals(monitor.getSerialNumber())){
+                    return ADD_ERROR_A;
+                }
+                else if(product.getModel().equals(monitor.getModel())){
+                    if(product instanceof Monitor){
+                        if(((Monitor) product).equals((Monitor) monitor)){
+                            break;
+                        }
+                    }
+                    return ADD_ERROR_B;
+                }
+            }
             store.addNewProduct(monitor);
-
             return "{\"message\":\"Successfully added new monitor with model number: " + monitor.getModel() + "\"}";
         }
         return json;
@@ -264,19 +272,31 @@ public class DemoApplication {
         {
             Map<String,Product> catalog = store.getProductCatalog().getProducts();
             Collection<Product> products = catalog.values();
-
             if (catalog.containsKey(tablet.getSerialNumber())) {
-                return "{\"message\":\"Duplicate serial number, please enter another one\"}";
+                return ADD_ERROR_A;
             }
-
             for (Product product : products) {
                 if(product.getModel().equals(tablet.getModel())){
                     if(product instanceof Tablet){
                         if(((Tablet) product).equals((Tablet)tablet)){
                             break;
                         }
-                        return "{\"message\":\"This model number is already in use. The specification does not match the expected values for this model number\"}";
+                        return ADD_ERROR_B;
                     }
+                }
+            }
+            Collection<Product> inIdentityMap = store.getProductMapper().getProductIdentityMap().getProducts().values();
+            for (Product product : inIdentityMap) {
+                if(product.getSerialNumber().equals(tablet.getSerialNumber())){
+                    return ADD_ERROR_A;
+                }
+                else if(product.getModel().equals(tablet.getModel())){
+                    if(product instanceof Tablet){
+                        if(((Tablet) product).equals((Tablet) tablet)){
+                            break;
+                        }
+                    }
+                    return ADD_ERROR_B;
                 }
             }
             store.addNewProduct(tablet);
@@ -296,7 +316,7 @@ public class DemoApplication {
             Collection<Product> products = catalog.values();
             if (catalog.containsKey(desktop.getSerialNumber()))
             {
-                return "{\"message\":\"Duplicate serial number, please enter another one\"}";
+                return ADD_ERROR_A;
             }
             for (Product product : products) {
                 if(product.getModel().equals(desktop.getModel())){
@@ -304,12 +324,25 @@ public class DemoApplication {
                         if(((Desktop) product).equals((Desktop)desktop)){
                             break;
                         }
-                        return "{\"message\":\"This model number is already in use. The specification does not match the expected values for this model number\"}";
+                        return ADD_ERROR_B;
                     }
                 }
             }
+            Collection<Product> inIdentityMap = store.getProductMapper().getProductIdentityMap().getProducts().values();
+            for (Product product : inIdentityMap) {
+                if(product.getSerialNumber().equals(desktop.getSerialNumber())){
+                    return ADD_ERROR_A;
+                }
+                else if(product.getModel().equals(desktop.getModel())){
+                    if(product instanceof Desktop){
+                        if(((Desktop) product).equals((Desktop) desktop)){
+                            break;
+                        }
+                    }
+                    return ADD_ERROR_B;
+                }
+            }
             store.addNewProduct(desktop);
-
             return "{\"message\":\"Successfully added new Desktop with model number: " + desktop.getModel() + "\"}";
         }
         return json;
@@ -326,7 +359,7 @@ public class DemoApplication {
             Collection<Product> products = catalog.values();
             if (catalog.containsKey(laptop.getSerialNumber()))
             {
-                return "{\"message\":\"Duplicate serial number, please enter another one\"}";
+                return ADD_ERROR_A;
             }
             for (Product product : products) {
                 if(product.getModel().equals(laptop.getModel())){
@@ -334,12 +367,25 @@ public class DemoApplication {
                         if(((Laptop) product).equals((Laptop) laptop)){
                             break;
                         }
-                        return "{\"message\":\"This model number is already in use. The specification does not match the expected values for this model number\"}";
                     }
+                    return ADD_ERROR_B;
+                }
+            }
+            Collection<Product> inIdentityMap = store.getProductMapper().getProductIdentityMap().getProducts().values();
+            for (Product product : inIdentityMap) {
+                if(product.getSerialNumber().equals(laptop.getSerialNumber())){
+                    return ADD_ERROR_A;
+                }
+                else if(product.getModel().equals(laptop.getModel())){
+                    if(product instanceof Laptop){
+                        if(((Laptop) product).equals((Laptop) laptop)){
+                                break;
+                        }
+                    }
+                    return ADD_ERROR_B;
                 }
             }
             store.addNewProduct(laptop);
-
             return "{\"message\":\"Successfully added new Laptop with model number: " + laptop.getModel() + "\"}";
         }
         return json;
@@ -349,7 +395,6 @@ public class DemoApplication {
     @RequestMapping(value="/post/addToCart", method = RequestMethod.POST)
     @ResponseBody
     String addToCart(@RequestBody String serialNumber,@CookieValue("SESSIONID") int cookieId){
-        //for now because on refresh cart wont get recreated until login
         if(pointOfSale.viewCart(cookieId) == null){
             pointOfSale.startPurchase(cookieId);
         }
@@ -364,13 +409,11 @@ public class DemoApplication {
     @RequestMapping(value="/get/cart", method = RequestMethod.GET)
     @ResponseBody
     String getCart(@CookieValue("SESSIONID") int cookieId){
-        //for now because on refresh cart wont get recreated until login
         if(pointOfSale.viewCart(cookieId) == null){
             pointOfSale.startPurchase(cookieId);
         }
 
         Gson gson = new Gson();
-
         return gson.toJson(pointOfSale.viewCart(cookieId).getCartProducts());
     }
 
@@ -378,7 +421,6 @@ public class DemoApplication {
     @ResponseBody
     public String cancelPurchase(@CookieValue("SESSIONID") int cookieId){
         pointOfSale.cancelPurchase(cookieId);
-
         return "{\"message\":\"Purchase Canceled\"}";
     }
 
@@ -409,8 +451,7 @@ public class DemoApplication {
         return "{\"message\":\"Purchase Succesful\"}";
     }
 
-/*--stuff for modify--*/
-
+    /*PRODUCT MODIFICATION*/
     @RequestMapping(value = "/post/modifyMonitor", method = RequestMethod.POST)
     @ResponseBody
     String modifyMonitor(@RequestBody String json,@CookieValue("SESSIONID") int cookieId){
@@ -425,7 +466,6 @@ public class DemoApplication {
                     store.modifyProduct(entry.getValue().getSerialNumber(),gson.fromJson(json, Monitor.class));
                 }
             }
-
         }
         return gson.toJson(json);
     }
@@ -491,7 +531,6 @@ public class DemoApplication {
     @ResponseBody
     public void endTransaction(@CookieValue("SESSIONID") int cookieId) {
         if(store.getTransaction().getUserId() == cookieId) {
-            System.out.println("Ending transaction");
             store.endTransaction();
         }
     }
@@ -499,25 +538,23 @@ public class DemoApplication {
     @RequestMapping(value = "/get/startAddTransaction", method = RequestMethod.GET)
     @ResponseBody
     public void startStoreAddTransaction(@CookieValue("SESSIONID") int cookieId) {
-        System.out.println("Starting add transaction");
         store.initiateTransaction(cookieId, Transaction.Type.add);
     }
 
     @RequestMapping(value = "/get/startModifyTransaction", method = RequestMethod.GET)
     @ResponseBody
     public void startStoreModifyTransaction(@CookieValue("SESSIONID") int cookieId) {
-        System.out.println("Starting modify transaction");
         store.initiateTransaction(cookieId, Transaction.Type.modify);
     }
 
     @RequestMapping(value = "/get/startDeleteTransaction", method = RequestMethod.GET)
     @ResponseBody
     public void startStoreDeleteTransaction(@CookieValue("SESSIONID") int cookieId) {
-        System.out.println("Starting delete transaction");
         store.initiateTransaction(cookieId, Transaction.Type.delete);
 
     }
 
+    /* PURCHASE HISTORY */
     @RequestMapping(value="/get/purchaseHistory", method = RequestMethod.GET)
     @ResponseBody
     String getPurchaseHistory(@CookieValue("SESSIONID") int cookieId){
@@ -531,20 +568,17 @@ public class DemoApplication {
         return gson.toJson(userPurchases);
     }
 
+    /* RETURNS */
     @RequestMapping(value="/get/returnItem/{serialNumber}", method = RequestMethod.GET)
     @ResponseBody
     String returnItem(@PathVariable(value="serialNumber") String serialNumber, @CookieValue("SESSIONID") int cookieId){
         Purchase purchase = pointOfSale.getPurchaseMapper().getPurchaseHistory().getPurchases().get(serialNumber);
-        //Check that item exists
         if(purchase == null){
-            //Error: Item not in purchase history
             return "{\"message\":\" Item not in purchase history\"}";
         } else {
             if(purchase.getUserId() != cookieId){
-                //Error: User trying to return is not the buyer
                 return "{\"message\":\"User trying to return is not the buyer\"}";
             } else {
-                //Item Returned Successfully
                 Product productToReturn = purchase.getProduct();
                 store.initiateTransaction(cookieId, Transaction.Type.returnItem);
                 pointOfSale.processReturn(serialNumber);
@@ -560,7 +594,6 @@ public class DemoApplication {
     @RequestMapping(value="/get/TransactionInProgress", method = RequestMethod.GET)
     @ResponseBody
     String TransactionInProgress(@CookieValue("SESSIONID") int cookie){
-        System.out.println(cookie + "       " + store.getTransaction().getUserId());
         if(cookie != store.getTransaction().getUserId() && store.getTransaction().getUserId() != 0 && store.getTransaction().getUserId() != -1){
             return "{\"message\":\"In Progress\"}";
         }
