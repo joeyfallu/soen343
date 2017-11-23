@@ -1,8 +1,11 @@
 package com.example.myapp.database;
 
-import com.example.myapp.userCatalog.*;
+import com.example.myapp.userCatalog.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 
 public class UserTDG {
@@ -84,8 +87,4 @@ public class UserTDG {
         String sql = "DELETE FROM User WHERE id = '" + id + "'";
         statement.executeUpdate(sql);
     }
-
-
-
-
 }

@@ -108,8 +108,6 @@ public class UnitOfWorkAspect {
     }
 
     public void commitUsers() {
-
-
         for (Object object : add) {
             int id=0;
             try {
@@ -162,7 +160,6 @@ public class UnitOfWorkAspect {
     }
 
     public void commitProducts() {
-
         for (Object o : add) {
                 try {
                     productMapper.getProductTDG().dbInsert((Product) o);
@@ -194,5 +191,4 @@ public class UnitOfWorkAspect {
         delete = new ArrayList<Object>();
         modify = new ArrayList<Object>();
     }
-
 }

@@ -2,9 +2,13 @@ package com.example.myapp.database;
 
 
 import com.example.myapp.productCatalog.*;
-//import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+//import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
 
 public class ProductTDG {
@@ -21,7 +25,6 @@ public class ProductTDG {
 
     public void dbInsert(Product pro) throws Exception
     {
-
         dbConnect();
         String sql = "";
         if(pro instanceof Monitor){
@@ -48,48 +51,7 @@ public class ProductTDG {
         }
         statement.executeUpdate(sql);
         resultSet = statement.executeQuery("SELECT LAST_INSERT_ID() FROM Products");
-        /*int id=-1;
-        while(resultSet.next()){
-            id = resultSet.getInt(1);
-        }
-
-        return id;*/
-
     }
-
-    /*public void dbInsert(Product pro, int id) throws Exception
-    {
-
-        dbConnect();
-        String sql = "";
-        if(pro instanceof Monitor){
-            Monitor mn = (Monitor)pro;
-            sql="INSERT INTO Products (id, model, weight, price, brand, size,discriminator) VALUES ('"+id+"','"+mn.getModel()+"','"+mn.getWeight()
-                    +"','"+mn.getPrice()+"','"+mn.getBrand()+"','"+mn.getSize()+"','2')";
-        }
-        else if(pro instanceof Tablet){
-            Tablet tb = (Tablet)pro;
-            sql="INSERT INTO Products (id, model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,dimensions, batteryInfo,operatingSystem,cameraInfo,size,discriminator) VALUES ('"+id+"','"+tb.getModel()+
-                    "','"+tb.getWeight()+"','"+tb.getPrice()+"','"+tb.getBrand()+"','"+tb.getProcessorType()+"','"+tb.getCpuCores()+"','"+tb.getRam()+"','"+tb.getHardDriveSize()+"','"+tb.getDimensions()+"','"+
-                    tb.getBatteryInfo()+"','"+tb.getOperatingSystem()+"','"+tb.getCameraInfo()+"','"+tb.getSize()+"','3')";
-        }
-        else if(pro instanceof Desktop){
-            Desktop dt = (Desktop)pro;
-            sql="INSERT INTO Products (id, model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,dimensions,discriminator) VALUES ('"+id+"','"+dt.getModel()+
-                    "','"+dt.getWeight()+"','"+dt.getPrice()+"','"+dt.getBrand()+"','"+dt.getProcessorType()+"','"+dt.getCpuCores()+"','"+dt.getRam()+"','"+dt.getHardDriveSize()+"','"+dt.getDimensions()+"','4')";
-        }
-        else if(pro instanceof Laptop){
-            Laptop lp = (Laptop)pro;
-            sql="INSERT INTO Products (id, model, weight, price, brand, processorType, cpuCores, ram, hardDriveSize,size, batteryInfo,operatingSystem,camera,touchScreen,discriminator) VALUES ('"+id+"','"+lp.getModel()+
-                    "','"+lp.getWeight()+"','"+lp.getPrice()+"','"+lp.getBrand()+"','"+lp.getProcessorType()+"','"+lp.getCpuCores()+"','"+lp.getRam()+"','"+lp.getHardDriveSize()+"','"+lp.getSize()+"','"+
-                    lp.getBatteryInfo()+"','"+lp.getOperatingSystem()+"','"+lp.getCamera()+"','"+lp.getTouchScreen()+"','5')";
-        }
-        statement.executeUpdate(sql);
-
-
-    }*/
-
-
 
     public Product dbGet(String serialNumber) throws Exception{
         dbConnect();

@@ -2,14 +2,11 @@ package com.example.myapp.database;
 
 import com.example.myapp.productCatalog.*;
 import com.example.myapp.purchases.Purchase;
-import com.example.myapp.purchases.Purchases;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
 
 public class PurchaseTDG {
     private Connection connect = null;
@@ -54,14 +51,6 @@ public class PurchaseTDG {
                     lp.getBatteryInfo()+"','"+lp.getOperatingSystem()+"','"+lp.getCamera()+"','"+lp.getTouchScreen()+"','5','"+timeStamp+"','"+userId+"')";
         }
         statement.executeUpdate(sql);
-        /*resultSet = statement.executeQuery("SELECT LAST_INSERT_ID() FROM Purchases");
-        int id=-1;
-        while(resultSet.next()){
-            id = resultSet.getInt(1);
-        }*/
-
-
-
     }
 
     public Purchase dbGet(String serialNumber) throws Exception {
