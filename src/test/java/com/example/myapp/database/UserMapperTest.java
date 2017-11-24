@@ -23,31 +23,17 @@ public class UserMapperTest {
     UserCatalog userCatalogMock;
     @Mock
     User userMock;
-    @Mock
-    UserIdentityMap userIdentityMapMock;
-    @Mock
-    Map<Integer, User> mapMock = new HashMap<>();
-    @Mock
-    Product productMock;
 
     @Before
-    public void setUp()
-    {
-        mapMock.put(1, userMock);
+    public void setUp() {
         userMapper = new UserMapper(userCatalogMock);
     }
 
     @Test
-    public void insert() throws Exception
-    {
-        userMapper.insert(userMock);
-        Mockito.verify(mapMock).put(1, userMock);
+    public void insertUserCatalog() {
+        userMapper.insertUserCatalog(userMock);
+        Mockito.verify(userCatalogMock).addUser(userMock);
     }
 
-    @Test
-    public void insertUserCatalog()
-    {
-        userCatalogMock.addUser(userMock);
-    }
 
 }
