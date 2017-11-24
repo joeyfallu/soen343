@@ -31,23 +31,26 @@ public class PointOfSale {
         this.cartCatalog = cartCatalog;
         this.purchaseMapper = purchaseMapper;
     }
+
     //@Requires("store.getUserMapper().getUserCatalog().getUserById(userId) != null")
-    //@Ensures({"cartCatalog.carts.size() == old(cartCatalog.carts.size() + 1)",
-    //          "userID > -1 "})
+    //@Ensures("cartCatalog.getCarts().size() == old(cartCatalog.getCarts().size() + 1)")
     public void startPurchase(int userId) {
-        //cartCatalog.addCart(userId);
+        cartCatalog.addCart(userId);
     }
+
     //@Requires("store.getUserMapper().getUserCatalog().getUserById(userId) != null")
-    //@Ensures("cartCatalog.getCart(userId).size() == 0")
+    //@Ensures("cartCatalog.getCart(userId).getSize() == 0")
     public void cancelPurchase(int userId) {
         cartCatalog.emptyCart(userId);
     }
+
     //@Requires({"store.getUserMapper().getUserCatalog().getUserById(userId) != null",
     //            "serialNumber != null"})
     //@Ensures("cartCatalog.getCart(userId).getSize() == old(cartCatalog.getCart(userId).getSize() + 1)")
     public void addCartItem(int userId, String serialNumber) {
         cartCatalog.addToCart(userId, serialNumber);
     }
+
     //@Requires({"store.getUserMapper().getUserCatalog().getUserById(userId) != null",
     //        "serialNumber != null"})
     //@Ensures("cartCatalog.getCart(userId).getSize() == old(cartCatalog.getCart(userId).getSize() - 1)")
@@ -56,9 +59,9 @@ public class PointOfSale {
     }
 
     //@Requires("store.getUserMapper().getUserCatalog().getUserById(userId) != null")
-    /*@Ensures({"purchaseMapper.getMapCount() == old(purchaseMapper.getMapCount() + 1)",
-              "cartCatalog.getCart(userId).size() == 0",
-              "old(cartCatalog.getCart(userId).size()) == serials.size()"})*/
+    //@Ensures({"purchaseMapper.getMapCount() == old(purchaseMapper.getMapCount() + 1)",
+    //          "cartCatalog.getCart(userId).getSize() == 0",
+    //          "old(cartCatalog.getCart(userId).getSize()) == result.size()"})
     public List<String> endPurchase(int userId) {
         Map<String, Product> productCatalog = store.getProductCatalog().getProducts();
         Map<String, Date> productsInCart = cartCatalog.purchaseCart(userId);
