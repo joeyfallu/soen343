@@ -5,7 +5,7 @@ angular.module('app').controller('viewItemsCtrl', function ($scope, $http, $loca
     $scope.show = false;
 
     $scope.currentPage = $location.absUrl().replace("http://localhost:8080/","");
-    $scope.listOfOptions = ['Show All', 'Most Expensive', 'Least Expensive', 'Most Recent', 'Least Recent', 'Heaviest', 'Lightest', 'Brand (A-Z)', 'Brand (Z-A)'];
+    $scope.listOfOptions = ['Show All', 'Most Expensive', 'Least Expensive', 'Heaviest', 'Lightest', 'Brand (A-Z)', 'Brand (Z-A)'];
 
     /* Fetch products */
     $http.get('/get/products').then((res) => {
@@ -61,12 +61,6 @@ angular.module('app').controller('viewItemsCtrl', function ($scope, $http, $loca
                     }
                     if (selectedItem === 'Least Expensive' ){
                         $scope.select = 'price';
-                    }
-                    if (selectedItem === 'Most Recent' ){
-                        $scope.select = '-serialNumber';
-                    }
-                    if (selectedItem === 'Least Recent' ){
-                     $scope.select = 'serialNumber';
                     }
                     if (selectedItem === 'Heaviest' ){
                         $scope.select = '-weight';
