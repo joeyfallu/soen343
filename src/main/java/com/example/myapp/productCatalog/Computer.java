@@ -15,16 +15,6 @@ public class Computer extends Product {
         this.hardDriveSize = hardDriveSize;
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + "Computer{" +
-                "processorType='" + processorType + '\'' +
-                ", cpuCores=" + cpuCores +
-                ", ram=" + ram +
-                ", hardDriveSize=" + hardDriveSize +
-                '}';
-    }
-
     public String getProcessorType() {
         return processorType;
     }

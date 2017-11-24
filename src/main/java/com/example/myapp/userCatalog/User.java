@@ -32,16 +32,6 @@ public class User {
         this.password= pw;
     }
 
-    public String toString(){
-        String x;
-        x = "\n firstName = " + getFirstName() + "\n lastName = " + getLastName() + "\n address = " + getAddress() + "\n phoneNumber = " +getPhoneNumber() + "\n id = " + getId() + "\n isAdmin = " + getIsAdmin() ;
-        return x;
-    }
-
-    public boolean equals(User e){
-        return (this.getFirstName().equals(e.getFirstName()) && this.getLastName().equals(e.getLastName()) && this.getId() == e.getId() && this.getAddress().equals(e.getAddress()) && this.getPhoneNumber().equals(e.getPhoneNumber()) && this.getIsAdmin() == e.getIsAdmin()  );
-    }
-
     public String getFirstName(){
         return firstName;
     }
@@ -68,33 +58,10 @@ public class User {
 
     public String getEmail() { return email; }
 
-    public void setEmail(String email) {this.email = email; }
-
-    public void setFirstName(String fn){
-        this.firstName = fn;
-    }
-
-    public void setLastName(String ln){
-        this.lastName = ln;
-    }
-
-    public void setAddress(String ad){
-        this.address = ad;
-    }
-
-    public void setPhoneNumber(String pn){
-        this.phoneNumber = pn;
-    }
-
     public void setId(int id){
         this.id = id;
     }
 
     public void setPassword(String password){this.password = password;}
-
-    public void setIsAdmin(int isAdmin){
-        this.isAdmin = isAdmin;
-    }
-
 
 }

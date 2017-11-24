@@ -1,8 +1,11 @@
 package com.example.myapp.database;
 
-import com.example.myapp.userCatalog.*;
+import com.example.myapp.userCatalog.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 
 public class UserTDG {
@@ -30,26 +33,6 @@ public class UserTDG {
             id = resultSet.getInt(1);
         }
         return id;
-    }
-
-    public User dbGet(int id) throws Exception
-    {
-        dbConnect();
-        User user = new User();
-        String sql = "SELECT * FROM User WHERE id='" + id + "'";
-        resultSet = statement.executeQuery(sql);
-        String result[]= new String[9];
-        while(resultSet.next())
-        {
-            for(int i=1; i<9; i++) {
-                result[i] = resultSet.getString(i);
-            }
-
-        }
-        user = new User(Integer.parseInt(result[1]),result[2],result[3],result[4],result[5],result[6],result[7],Integer.parseInt(result[8]));
-
-        return user;
-
     }
 
     public User[] dbGetAll() throws Exception{
@@ -84,8 +67,4 @@ public class UserTDG {
         String sql = "DELETE FROM User WHERE id = '" + id + "'";
         statement.executeUpdate(sql);
     }
-
-
-
-
 }

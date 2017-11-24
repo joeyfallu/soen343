@@ -87,13 +87,11 @@ public class Store {
         transaction.setUserId(-1);
     }
 
-    public ProductMapper getProductMapper() {
-        return productMapper;
-    }
-
     public UserMapper getUserMapper() {
         return userMapper;
     }
+
+    public ProductMapper getProductMapper() { return productMapper; }
 
     public Transaction getTransaction() {
         return transaction;
