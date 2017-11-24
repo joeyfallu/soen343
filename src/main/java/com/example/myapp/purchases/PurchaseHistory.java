@@ -4,6 +4,9 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
+
 @Service
 public class PurchaseHistory {
 
@@ -21,10 +24,14 @@ public class PurchaseHistory {
         this.purchases = purchases;
     }
 
+    //@Requires("serialNumber != null")
+    //@Ensures("purchases.size() == old(purchases.size() + 1)")
     public void addPurchase(String serialNumber, Purchase purchase){
         purchases.put(serialNumber,purchase);
     }
 
+    //@Requires("serialNumber != null")
+    //@Ensures("purchases.size() == old(purchases.size() - 1)")
     public void deletePurchase(String serialNumber)  {
         purchases.remove(serialNumber);
     }

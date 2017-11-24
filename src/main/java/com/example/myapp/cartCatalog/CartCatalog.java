@@ -1,6 +1,9 @@
 package com.example.myapp.cartCatalog;
 
 
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +25,8 @@ public class CartCatalog {
         carts.put(newCart.getUserId(),newCart);
     }
 
+     @Requires("carts.get(userId) != null")
+     @Ensures("carts.get(userId).getSize() == 0")
     public void emptyCart(int userId) {
         Cart cart = carts.get(userId);
         cart.setSize(0);
@@ -29,6 +34,9 @@ public class CartCatalog {
         cartProducts.clear();
     }
 
+    @Requires("carts.get(userId) != null")
+    @Ensures({"(carts.get(userId).getSize() == old (carts.get(userId).getSize() +1))",
+            "(carts.get(userId).getCartProducts().containsKey(serialNumber) == true)"})
     public void addToCart(int userId, String serialNumber){
         Cart cart = carts.get(userId);
         Map<String, Date> cartProducts = cart.getCartProducts();
@@ -36,6 +44,9 @@ public class CartCatalog {
         cart.setSize(cart.getSize() + 1);
     }
 
+    @Requires("carts.get(userId) != null")
+    @Ensures({"(carts.get(userId).getSize() == old (carts.get(userId).getSize() -1))",
+            "(carts.get(userId).getCartProducts().containsKey(serialNumber) == false)"})
     public void removeFromCart(int userId, String serialNumber){
         Cart cart = getCart(userId);
         Map<String, Date> cartProducts = cart.getCartProducts();

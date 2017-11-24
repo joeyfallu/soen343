@@ -6,6 +6,8 @@ import com.example.myapp.productCatalog.Product;
 import com.example.myapp.purchases.Purchase;
 import com.example.myapp.purchases.PurchaseMapper;
 import com.example.myapp.transactions.Transaction;
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,22 +32,36 @@ public class PointOfSale {
         this.purchaseMapper = purchaseMapper;
     }
 
+    //@Requires("store.getUserMapper().getUserCatalog().getUserById(userId) != null")
+    //@Ensures("cartCatalog.getCarts().size() == old(cartCatalog.getCarts().size() + 1)")
     public void startPurchase(int userId) {
         cartCatalog.addCart(userId);
     }
 
+    //@Requires("store.getUserMapper().getUserCatalog().getUserById(userId) != null")
+    //@Ensures("cartCatalog.getCart(userId).getSize() == 0")
     public void cancelPurchase(int userId) {
         cartCatalog.emptyCart(userId);
     }
 
+    //@Requires({"store.getUserMapper().getUserCatalog().getUserById(userId) != null",
+    //            "serialNumber != null"})
+    //@Ensures("cartCatalog.getCart(userId).getSize() == old(cartCatalog.getCart(userId).getSize() + 1)")
     public void addCartItem(int userId, String serialNumber) {
         cartCatalog.addToCart(userId, serialNumber);
     }
 
+    //@Requires({"store.getUserMapper().getUserCatalog().getUserById(userId) != null",
+    //        "serialNumber != null"})
+    //@Ensures("cartCatalog.getCart(userId).getSize() == old(cartCatalog.getCart(userId).getSize() - 1)")
     public void removeCartItem(int userId, String serialNumber) {
         cartCatalog.removeFromCart(userId, serialNumber);
     }
 
+    //@Requires("store.getUserMapper().getUserCatalog().getUserById(userId) != null")
+    //@Ensures({"purchaseMapper.getMapCount() == old(purchaseMapper.getMapCount() + 1)",
+    //          "cartCatalog.getCart(userId).getSize() == 0",
+    //          "old(cartCatalog.getCart(userId).getSize()) == result.size()"})
     public List<String> endPurchase(int userId) {
         Map<String, Product> productCatalog = store.getProductCatalog().getProducts();
         Map<String, Date> productsInCart = cartCatalog.purchaseCart(userId);
@@ -61,6 +77,8 @@ public class PointOfSale {
         return serials;
     }
 
+    //@Requires("serialNumber != null")
+    //@Ensures("purchaseMapper.getMapCount() == old(purchaseMapper.getMapCount() + 1)")
     public void processReturn(String serialNumber) {
         purchaseMapper.returnItem(serialNumber);
     }
