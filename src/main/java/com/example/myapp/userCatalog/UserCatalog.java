@@ -20,6 +20,12 @@ public class UserCatalog {
         loginHistory = new HashMap<>();
     }
 
+    public UserCatalog(Map<Integer, User> users, Map<Integer, User> activeUsers,  Map<Integer, LocalDateTime> loginHistory){
+        this.activeUsers = activeUsers;
+        this.users =users;
+        this.loginHistory = loginHistory;
+    }
+
     public User login(String email, String password) throws Exception {
         for (Map.Entry<Integer, User> entry : users.entrySet()) {
             if(entry.getValue().getEmail().toLowerCase().equals(email.toLowerCase())) {

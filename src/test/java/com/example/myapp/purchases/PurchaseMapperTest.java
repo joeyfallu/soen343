@@ -19,21 +19,20 @@ import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PurchaseMapperTest {
-        PurchaseMapper purchaseMapper;
-        @Mock
-        PurchaseTDG purchaseTDGMock;
-        @Mock
-        PurchaseHistory purchaseHistoryMock;
-        @Mock
-        Transaction transactionMock;
-        @Mock
-        Purchase purchaseMock;
+    PurchaseMapper purchaseMapper;
+    @Mock
+    PurchaseTDG purchaseTDGMock;
+    @Mock
+    PurchaseHistory purchaseHistoryMock;
+    @Mock
+    Transaction transactionMock;
+    @Mock
+    Purchase purchaseMock;
 
     @Before
     public void setUp() throws Exception {
         purchaseMapper = new PurchaseMapper(purchaseTDGMock, purchaseHistoryMock, transactionMock.getType());
     }
-
 
     @Test
     public void insertPurchaseHistory() throws Exception {
@@ -46,6 +45,5 @@ public class PurchaseMapperTest {
         purchaseMapper.deletePurchaseHistory("a1");
         Mockito.verify(purchaseHistoryMock).deletePurchase("a1");
     }
-
 
 }
