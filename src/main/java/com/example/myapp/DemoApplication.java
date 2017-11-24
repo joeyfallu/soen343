@@ -239,8 +239,8 @@ public class DemoApplication {
                         if(((Monitor) product).equals((Monitor)monitor)){
                             break;
                         }
-                        return ADD_ERROR_B;
                     }
+                    return ADD_ERROR_B;
                 }
             }
             Collection<Product> inIdentityMap = store.getProductMapper().getProductIdentityMap().getProducts().values();
@@ -281,8 +281,8 @@ public class DemoApplication {
                         if(((Tablet) product).equals((Tablet)tablet)){
                             break;
                         }
-                        return ADD_ERROR_B;
                     }
+                    return ADD_ERROR_B;
                 }
             }
             Collection<Product> inIdentityMap = store.getProductMapper().getProductIdentityMap().getProducts().values();
@@ -321,11 +321,11 @@ public class DemoApplication {
             for (Product product : products) {
                 if(product.getModel().equals(desktop.getModel())){
                     if(product instanceof Desktop){
-                        if(((Desktop) product).equals((Desktop)desktop)){
+                        if(((Desktop) product).equals((Desktop)desktop)) {
                             break;
                         }
-                        return ADD_ERROR_B;
                     }
+                    return ADD_ERROR_B;
                 }
             }
             Collection<Product> inIdentityMap = store.getProductMapper().getProductIdentityMap().getProducts().values();
