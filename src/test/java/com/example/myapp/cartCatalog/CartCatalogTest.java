@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,13 +22,15 @@ public class CartCatalogTest {
 
     @Mock
     Cart cartMock1;
-    @Mock
-    Cart cartMock2;
+
+    Map <String, Date> mapMock = new HashMap<>();
+    Cart cartMock2 = new Cart(1, 1, mapMock);
 
 
 
     @Before
     public void setUp() throws Exception {
+        mapMock.put("s", null);
         cartsMock = new HashMap<>();
         cartCatalog = new CartCatalog(cartsMock);
         cartsMock.put(0, cartMock1);
@@ -51,7 +54,7 @@ public class CartCatalogTest {
     public void removeFromCart() throws Exception {
         int first = cartCatalog.getCart(1).getSize();
         cartCatalog.removeFromCart(1, "s");
-        assertEquals(cartCatalog.getCart(1).getSize(), first);
+        assertEquals(cartCatalog.getCart(1).getSize(), (first -1) );
     }
 
 }

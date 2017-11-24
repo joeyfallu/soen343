@@ -21,7 +21,7 @@ public class CartCatalog {
     }
 
     public void addCart(int userId){
-        Cart newCart = new Cart(userId,0,new HashMap<String, Date>());
+        Cart newCart = new Cart(userId,0,new HashMap<>());
         carts.put(newCart.getUserId(),newCart);
     }
 
