@@ -15,7 +15,7 @@ angular.module('app')
         }
 
         $scope.cartItems = cartItemsArray;
-        $scope.listOfOptions = ['Show All', 'Most Expensive', 'Least Expensive', 'Most Recent', 'Least Recent', 'Heaviest', 'Lightest', 'Brand (A-Z)', 'Brand (Z-A)'];
+        $scope.listOfOptions = ['Show All', 'Most Expensive', 'Least Expensive', 'Heaviest', 'Lightest', 'Brand (A-Z)', 'Brand (Z-A)'];
 
         /* Checks if a product's model is already in a array of items */
         function hasModelNumber(items, product) {
@@ -132,12 +132,6 @@ angular.module('app')
                 }
                 if (selectedItem === 'Least Expensive' ){
                     $scope.select = 'price';
-                }
-                if (selectedItem === 'Most Recent' ){
-                    $scope.select = '-id';
-                }
-                if (selectedItem === 'Least Recent' ){
-                 $scope.select = 'id';
                 }
                 if (selectedItem === 'Heaviest' ){
                     $scope.select = '-weight';

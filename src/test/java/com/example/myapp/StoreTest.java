@@ -55,9 +55,10 @@ public class StoreTest {
         store.addNewUser(userMock);
         Mockito.verify(userMapperMock).insert(userMock);
     }
-
     @Test
-    public void viewProductCatalog() {
+    public void deleteUser(){
+        store.deleteUser(userMock);
+        Mockito.verify(userMapperMock).delete(userMock);
     }
 
 

@@ -18,51 +18,32 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PurchaseMapperTest
-    {
-        PurchaseMapper purchaseMapper;
-
-    @Mock
-    Purchase purchaseMock;
+public class PurchaseMapperTest {
+    PurchaseMapper purchaseMapper;
     @Mock
     PurchaseTDG purchaseTDGMock;
     @Mock
-    PurchaseIdentityMap purchaseIdentityMapMock;
-    @Mock
-    Product productMock;
+    PurchaseHistory purchaseHistoryMock;
     @Mock
     Transaction transactionMock;
     @Mock
-    PurchaseHistory purchaseHistoryMock;
-    @Mock
-    private Map<Integer, Purchase> mapMock = new HashMap<>();
+    Purchase purchaseMock;
 
     @Before
-    public void setUp() throws Exception
-    {
-        mapMock.put(1, purchaseMock);
-        purchaseIdentityMapMock = new PurchaseIdentityMap();
+    public void setUp() throws Exception {
         purchaseMapper = new PurchaseMapper(purchaseTDGMock, purchaseHistoryMock, transactionMock.getType());
     }
 
-
     @Test
-    public void insertPurchaseHistory() throws Exception
-    {
-
+    public void insertPurchaseHistory() throws Exception {
         purchaseMapper.insertPurchaseHistory("a1", purchaseMock);
         Mockito.verify(purchaseHistoryMock).addPurchase("a1", purchaseMock);
-
     }
 
     @Test
-    public void deletePurchaseHistory() throws Exception
-    {
-
+    public void deletePurchaseHistory() throws Exception {
         purchaseMapper.deletePurchaseHistory("a1");
         Mockito.verify(purchaseHistoryMock).deletePurchase("a1");
-
     }
-
 
 }
